@@ -62,7 +62,6 @@ public:
 	typedef HD_MapIterator<const Node> ConstIterator;
 	friend class Iterator;
 	friend class ConstIterator;
-	friend class TestManager;
 
 	HD_Map();
 	HD_Map(const HD_Map& aMap);

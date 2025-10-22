@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "CppUnitTest.h"
 
-// Hack to reach private members
+// Hack to access private members
 #define protected public
 #define private public
 
@@ -18,9 +18,9 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace HD_CommonUtilities
 {
-	bool AreFloatValuesClose(float aFirst, float aSecond)
+	bool AreFloatValuesClose(f32 aFirst, f32 aSecond)
 	{
-		float diff = HD_Abs(aFirst - aSecond);
+		f32 diff = HD_Abs(aFirst - aSecond);
 		return diff < F_SMALL;
 	}
 

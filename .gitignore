@@ -5,7 +5,6 @@
 
 /Output
 
-*.natvis
 *.vcxproj
 *.vcxproj.filters
 *.vcxproj.user
