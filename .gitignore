@@ -1,0 +1,11 @@
+*.vs
+*.sln
+
+/Intermediate
+
+/Output
+
+*.natvis
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
