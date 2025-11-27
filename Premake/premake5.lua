@@ -26,10 +26,34 @@ project("HD_CommonUtilities")
 	fatalwarnings({"All"})
 	vpaths
 	{
-		["Containers"] = { "HD_ArrayIterator.h", "HD_GrowingArray.h", "HD_Map.h", "HD_Pair.h", "HD_StaticArray.h", "HD_StaticStack.h", "HD_String.h" },
-		["Math"] = { "HD_Box.h", "HD_Math.h", "HD_Vector2.h" },
-		["Misc"] = { "HD_Random.h", "HD_Rancom.cpp", "Types.h", "Utilities.h" },
-		["Natvis"] = { "HD_CommonUtilities.natvis" }
+		["Containers"] =
+		{
+			"../HD_CommonUtilities/HD_ArrayIterator.h",
+			"../HD_CommonUtilities/HD_CircularArray.h",
+			"../HD_CommonUtilities/HD_GrowingArray.h",
+			"../HD_CommonUtilities/HD_Map.h",
+			"../HD_CommonUtilities/HD_Pair.h",
+			"../HD_CommonUtilities/HD_StaticArray.h",
+			"../HD_CommonUtilities/HD_StaticStack.h",
+			"../HD_CommonUtilities/HD_String.h"
+		},
+		["Math"] =
+		{
+			"../HD_CommonUtilities/HD_Box.h",
+			"../HD_CommonUtilities/HD_Math.h",
+			"../HD_CommonUtilities/HD_Vector2.h"
+		},
+		["Misc"] =
+		{
+			"../HD_CommonUtilities/HD_Random.h",
+			"../HD_CommonUtilities/HD_Random.cpp",
+			"../HD_CommonUtilities/HD_Types.h",
+			"../HD_CommonUtilities/HD_Utilities.h"
+		},
+		["Natvis"] =
+		{
+			"../HD_CommonUtilities/HD_CommonUtilities.natvis"
+		}
 	}
 	
 project("Tests")
