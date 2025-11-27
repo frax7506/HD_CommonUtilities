@@ -9,6 +9,7 @@ public:
 
 private:
 	HD_Random();
+
 	static HD_Random& GetInstance();
 
 	std::random_device myRndSeed;
