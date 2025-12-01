@@ -9,6 +9,7 @@
 #include "HD_CircularArray.h"
 #include "HD_DataBuffer.h"
 #include "HD_GrowingArray.h"
+#include "HD_IsFundamental.h"
 #include "HD_Map.h"
 #include "HD_Math.h"
 #include "HD_Pair.h"
@@ -1531,6 +1532,30 @@ namespace HD_CommonUtilities
 
 			Assert::IsTrue(areEqual1);
 			Assert::IsTrue(areEqual2);
+		}
+	};
+
+	TEST_CLASS(HD_IsFundamental_Test)
+	{
+	public:
+		TEST_METHOD(IsFundamental)
+		{
+			struct CustomType
+			{
+			};
+
+			Assert::IsFalse(HD_IsFundamental<CustomType>::Result);
+
+			Assert::IsTrue(HD_IsFundamental<char>::Result);
+			Assert::IsTrue(HD_IsFundamental<unsigned char>::Result);
+			Assert::IsTrue(HD_IsFundamental<short>::Result);
+			Assert::IsTrue(HD_IsFundamental<unsigned short>::Result);
+			Assert::IsTrue(HD_IsFundamental<int>::Result);
+			Assert::IsTrue(HD_IsFundamental<unsigned int>::Result);
+			Assert::IsTrue(HD_IsFundamental<long long>::Result);
+			Assert::IsTrue(HD_IsFundamental<unsigned long long>::Result);
+			Assert::IsTrue(HD_IsFundamental<float>::Result);
+			Assert::IsTrue(HD_IsFundamental<double>::Result);
 		}
 	};
 

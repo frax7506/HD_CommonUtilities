@@ -46,10 +46,20 @@ project("HD_CommonUtilities")
 		["Misc"] =
 		{
 			"../HD_CommonUtilities/HD_DataBuffer.h",
+			"../HD_CommonUtilities/HD_IsFundamental.h",
+			"../HD_CommonUtilities/HD_PreprocessorMacros.h",
 			"../HD_CommonUtilities/HD_Random.h",
 			"../HD_CommonUtilities/HD_Random.cpp",
+			"../HD_CommonUtilities/HD_Singleton.h",
+			"../HD_CommonUtilities/HD_Time.h",
+			"../HD_CommonUtilities/HD_Time.cpp",
 			"../HD_CommonUtilities/HD_Types.h",
 			"../HD_CommonUtilities/HD_Utilities.h"
+		},
+		["Profiling"] =
+		{
+			"../HD_CommonUtilities/HD_ScopedTimer.h",
+			"../HD_CommonUtilities/HD_ScopedTimer.cpp"
 		},
 		["Natvis"] =
 		{
