@@ -108,6 +108,7 @@ HD_Map<K, V>::HD_Map()
 
 template<typename K, typename V>
 HD_Map<K, V>::HD_Map(const HD_Map& aMap)
+	: myRoot(nullptr)
 {
 	*this = aMap;
 }
