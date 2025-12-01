@@ -45,6 +45,7 @@ project("HD_CommonUtilities")
 		},
 		["Misc"] =
 		{
+			"../HD_CommonUtilities/HD_DataBuffer.h",
 			"../HD_CommonUtilities/HD_Random.h",
 			"../HD_CommonUtilities/HD_Random.cpp",
 			"../HD_CommonUtilities/HD_Types.h",
