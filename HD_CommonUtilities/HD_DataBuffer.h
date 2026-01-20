@@ -1,6 +1,6 @@
 #pragma once
 
-template<int aSize>
+template<int aCapacity>
 class HD_DataBuffer
 {
 public:
@@ -16,40 +16,40 @@ public:
 	void WriteToBuffer(const T& aDataToReadFrom, int aSizeOfDataToReadFrom);
 
 protected:
-	char myData[aSize];
+	char myData[aCapacity];
 	int myReadWriteIndex;
 };
 
-template<int aSize>
-HD_DataBuffer<aSize>::HD_DataBuffer()
+template<int aCapacity>
+HD_DataBuffer<aCapacity>::HD_DataBuffer()
 	: myReadWriteIndex(0)
 {
-	memset(myData, 0, aSize);
+	memset(myData, 0, aCapacity);
 }
 
-template<int aSize>
-char* HD_DataBuffer<aSize>::GetBuffer()
+template<int aCapacity>
+char* HD_DataBuffer<aCapacity>::GetBuffer()
 {
 	return myData;
 }
 
-template<int aSize>
-int HD_DataBuffer<aSize>::GetSize() const
+template<int aCapacity>
+int HD_DataBuffer<aCapacity>::GetSize() const
 {
 	return myReadWriteIndex;
 }
 
-template<int aSize>
+template<int aCapacity>
 template<typename T>
-void HD_DataBuffer<aSize>::ReadFromBuffer(T& aDataToWriteTo, int aSizeOfDataToWriteTo)
+void HD_DataBuffer<aCapacity>::ReadFromBuffer(T& aDataToWriteTo, int aSizeOfDataToWriteTo)
 {
 	memcpy(&aDataToWriteTo, myData + myReadWriteIndex, aSizeOfDataToWriteTo);
 	myReadWriteIndex += aSizeOfDataToWriteTo;
 }
 
-template<int aSize>
+template<int aCapacity>
 template<typename T>
-void HD_DataBuffer<aSize>::WriteToBuffer(const T& aDataToReadFrom, int aSizeOfDataToReadFrom)
+void HD_DataBuffer<aCapacity>::WriteToBuffer(const T& aDataToReadFrom, int aSizeOfDataToReadFrom)
 {
 	memcpy(myData + myReadWriteIndex, &aDataToReadFrom, aSizeOfDataToReadFrom);
 	myReadWriteIndex += aSizeOfDataToReadFrom;
