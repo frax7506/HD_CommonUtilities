@@ -36,7 +36,8 @@ project("HD_CommonUtilities")
 			"../HD_CommonUtilities/HD_Pair.h",
 			"../HD_CommonUtilities/HD_StaticArray.h",
 			"../HD_CommonUtilities/HD_StaticStack.h",
-			"../HD_CommonUtilities/HD_String.h"
+			"../HD_CommonUtilities/HD_String.h",
+			"../HD_CommonUtilities/HD_String.cpp"
 		},
 		["Math"] =
 		{
@@ -56,14 +57,14 @@ project("HD_CommonUtilities")
 			"../HD_CommonUtilities/HD_Types.h",
 			"../HD_CommonUtilities/HD_Utilities.h"
 		},
+		["Natvis"] =
+		{
+			"../HD_CommonUtilities/HD_CommonUtilities.natvis"
+		},
 		["Profiling"] =
 		{
 			"../HD_CommonUtilities/HD_ScopedTimer.h",
 			"../HD_CommonUtilities/HD_ScopedTimer.cpp"
-		},
-		["Natvis"] =
-		{
-			"../HD_CommonUtilities/HD_CommonUtilities.natvis"
 		}
 	}
 	
@@ -103,14 +104,15 @@ project("Tests")
 			"../Tests/HD_Pair_Tests.cpp",
 			"../Tests/HD_StaticArray_Tests.cpp",
 			"../Tests/HD_StaticStack_Tests.cpp",
-		}
+			"../Tests/HD_String_Tests.cpp"
+		},
 		["Math"] =
 		{
 			"../Tests/HD_Math_Tests.cpp",
-			"../Tests/HD_Vector2_Tests.cpp",
-		}
+			"../Tests/HD_Vector2_Tests.cpp"
+		},
 		["Misc"] =
 		{
-			"../Tests/HD_IsFundamental_Tests.cpp",
+			"../Tests/HD_IsFundamental_Tests.cpp"
 		}
 	}

@@ -4,21 +4,22 @@ class HD_String
 {
 public:
 	HD_String();
-	~HD_String();
 	HD_String(const char* aString);
 	HD_String(const HD_String& aString);
 	HD_String(HD_String&& aString);
+	~HD_String();
 
-	const char* GetBuffer();
+	const char* GetBuffer() const;
+	unsigned int GetLength() const;
 
-	HD_String& operator=(const char* String);
+	HD_String& operator=(const char* aString);
 	HD_String& operator=(const HD_String& aString);
 	HD_String& operator=(HD_String&& aString);
 
 private:
-	char* myData;
-	int mySize;
-	int myCapacity;
-};
+	void CheckSizeAndGrowIfNecessary();
+	void Grow(int aNewCapacity);
 
-// fortsätt här
+	unsigned int myLength;
+	char* myData;
+};

@@ -6,4 +6,4 @@
 #define HD_SafeDelete(a) { delete a; a = 0; }
 #define HD_SafeDeleteArray(a) { delete[] a; a = 0; }
 
-#define HD_Strlen(a) strlen(a)
+#define HD_Strlen(a) static_cast<unsigned int>(strlen(a))
