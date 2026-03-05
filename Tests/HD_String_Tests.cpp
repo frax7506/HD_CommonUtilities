@@ -60,6 +60,14 @@ namespace HD_CommonUtilities
 			Assert::AreEqual(memcmp(string2.myData, buffer, 5), 0);
 		}
 
+		TEST_METHOD(Destructor)
+		{
+			HD_String string("haha");
+			string.~HD_String();
+
+			Assert::IsNull(string.myData);
+		}
+
 		TEST_METHOD(GetBuffer)
 		{
 			HD_String string1("haha");

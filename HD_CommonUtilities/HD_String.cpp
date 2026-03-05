@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "HD_String.h"
 
+#define ACCEPTABLE_BUFFER_OVERSIZE_FACTOR 1.5f
+
 HD_String::HD_String()
 	: myLength(0)
 	, myData(nullptr)
@@ -9,17 +11,21 @@ HD_String::HD_String()
 
 HD_String::HD_String(const char* aString)
 {
-	*this = aString;
+	myLength = HD_Strlen(aString);
+	myData = new char[myLength + 1] { 0 };
+	memcpy(myData, aString, myLength);
 }
 
 HD_String::HD_String(const HD_String& aString)
+	: HD_String(aString.GetBuffer())
 {
-	*this = aString;
 }
 
 HD_String::HD_String(HD_String&& aString)
 {
-	*this = HD_Move(aString);
+	myLength = aString.myLength;
+	myData = aString.myData;
+	aString.myData = nullptr;
 }
 
 HD_String::~HD_String()
@@ -39,10 +45,18 @@ unsigned int HD_String::GetLength() const
 
 HD_String& HD_String::operator=(const char* aString)
 {
-	HD_SafeDeleteArray(myData);
-	myLength = HD_Strlen(aString);
-	myData = new char[myLength + 1];
-	memset(myData, 0, myLength + 1);
+	unsigned int length = HD_Strlen(aString);
+
+	bool isCurrentBufferSmaller = myLength < length;
+	bool isCurrentBufferTooBig = static_cast<float>(myLength) / static_cast<float>(length) > ACCEPTABLE_BUFFER_OVERSIZE_FACTOR;
+
+	if (isCurrentBufferSmaller || isCurrentBufferTooBig)
+	{
+		HD_SafeDeleteArray(myData);
+		myData = new char[length + 1] { 0 };
+	}
+
+	myLength = length;
 	memcpy(myData, aString, myLength);
 
 	return *this;
@@ -56,7 +70,6 @@ HD_String& HD_String::operator=(const HD_String& aString)
 
 HD_String& HD_String::operator=(HD_String&& aString)
 {
-	HD_SafeDeleteArray(myData);
 	myLength = aString.myLength;
 	myData = aString.myData;
 	aString.myData = nullptr;
