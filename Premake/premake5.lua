@@ -30,6 +30,7 @@ project("HD_CommonUtilities")
 		{
 			"../HD_CommonUtilities/HD_ArrayIterator.h",
 			"../HD_CommonUtilities/HD_CircularArray.h",
+			"../HD_CommonUtilities/HD_DataBuffer.h",
 			"../HD_CommonUtilities/HD_GrowingArray.h",
 			"../HD_CommonUtilities/HD_Map.h",
 			"../HD_CommonUtilities/HD_Pair.h",
@@ -45,7 +46,6 @@ project("HD_CommonUtilities")
 		},
 		["Misc"] =
 		{
-			"../HD_CommonUtilities/HD_DataBuffer.h",
 			"../HD_CommonUtilities/HD_IsFundamental.h",
 			"../HD_CommonUtilities/HD_PreprocessorMacros.h",
 			"../HD_CommonUtilities/HD_Random.h",
@@ -91,3 +91,26 @@ project("Tests")
 	
 	warnings("Extra")
 	fatalwarnings({"All"})
+	vpaths
+	{
+		["Containers"] =
+		{
+			"../Tests/HD_Box_Test.cpp",
+			"../Tests/HD_CircularArray_Tests.cpp",
+			"../Tests/HD_DataBuffer_Tests.cpp",
+			"../Tests/HD_GrowingArray_Tests.cpp",
+			"../Tests/HD_Map_Tests.cpp",
+			"../Tests/HD_Pair_Tests.cpp",
+			"../Tests/HD_StaticArray_Tests.cpp",
+			"../Tests/HD_StaticStack_Tests.cpp",
+		}
+		["Math"] =
+		{
+			"../Tests/HD_Math_Tests.cpp",
+			"../Tests/HD_Vector2_Tests.cpp",
+		}
+		["Misc"] =
+		{
+			"../Tests/HD_IsFundamental_Tests.cpp",
+		}
+	}

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cassert>
 #include <cstring>
 
 template<typename T, int N>
