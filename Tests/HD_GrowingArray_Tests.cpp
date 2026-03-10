@@ -208,25 +208,25 @@ namespace HD_CommonUtilities
 		TEST_METHOD(Size)
 		{
 			HD_GrowingArray<s32> growingArray;
-			Assert::AreEqual(growingArray.Size(), 0);
+			Assert::AreEqual(growingArray.GetSize(), 0);
 
 			growingArray.PushBack(0);
-			Assert::AreEqual(growingArray.Size(), 1);
+			Assert::AreEqual(growingArray.GetSize(), 1);
 
 			growingArray.PushBack(1);
-			Assert::AreEqual(growingArray.Size(), 2);
+			Assert::AreEqual(growingArray.GetSize(), 2);
 
 			growingArray.PushBack(2);
-			Assert::AreEqual(growingArray.Size(), 3);
+			Assert::AreEqual(growingArray.GetSize(), 3);
 		}
 
 		TEST_METHOD(IsEmpty)
 		{
 			HD_GrowingArray<s32> growingArray;
-			Assert::IsTrue(growingArray.IsEmpty());
+			Assert::IsTrue(growingArray.GetIsEmpty());
 
 			growingArray.PushBack(0);
-			Assert::IsFalse(growingArray.IsEmpty());
+			Assert::IsFalse(growingArray.GetIsEmpty());
 		}
 
 		TEST_METHOD(Reserve)

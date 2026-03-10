@@ -29,8 +29,9 @@ public:
 	void DeleteCyclic(int aIndex);
 	void DeleteAll();
 
-	int Size() const;
-	bool IsEmpty() const;
+	int GetSize() const;
+	bool GetIsEmpty() const;
+
 	void Reserve(int aCapacity);
 	void Resize(int aSize);
 
@@ -53,6 +54,8 @@ private:
 	void CheckSizeAndGrowIfNecessary();
 	void Grow(int aNewCapacity);
 	void InsertAtIndex(const T& aItem, int aIndex);
+
+	static constexpr float ourGrowFactor = 1.5;
 
 	T* myData;
 	int mySize;
@@ -78,7 +81,10 @@ HD_GrowingArray<T>::HD_GrowingArray(int aCapacity)
 template<typename T>
 HD_GrowingArray<T>::HD_GrowingArray(const HD_GrowingArray& aGrowingArray)
 {
-	*this = aGrowingArray;
+	myData = new T[aGrowingArray.myCapacity];
+	memcpy(myData, aGrowingArray.myData, sizeof(T) * aGrowingArray.mySize);
+	mySize = aGrowingArray.mySize;
+	myCapacity = aGrowingArray.myCapacity;
 }
 
 template<typename T>
@@ -108,7 +114,7 @@ void HD_GrowingArray<T>::PushBack(const T& aItem)
 template<typename T>
 void HD_GrowingArray<T>::PushBackSorted(const T& aItem)
 {
-	if (IsEmpty())
+	if (GetIsEmpty())
 	{
 		PushBack(aItem);
 	}
@@ -125,7 +131,7 @@ void HD_GrowingArray<T>::PushBackSorted(const T& aItem)
 template<typename T>
 void HD_GrowingArray<T>::PushBackSortedReverse(const T& aItem)
 {
-	if (IsEmpty())
+	if (GetIsEmpty())
 	{
 		PushBack(aItem);
 	}
@@ -142,7 +148,7 @@ void HD_GrowingArray<T>::PushBackSortedReverse(const T& aItem)
 template<typename T>
 void HD_GrowingArray<T>::Remove(int aIndex)
 {
-	assert(!IsEmpty() && 0 <= aIndex && aIndex < mySize);
+	assert(!GetIsEmpty() && 0 <= aIndex && aIndex < mySize);
 
 	if (aIndex < mySize - 1)
 		memcpy(myData + aIndex, myData + (aIndex + 1), sizeof(T) * (mySize - 1 - aIndex));
@@ -153,7 +159,7 @@ void HD_GrowingArray<T>::Remove(int aIndex)
 template<typename T>
 void HD_GrowingArray<T>::RemoveCyclic(int aIndex)
 {
-	assert(!IsEmpty() && 0 <= aIndex && aIndex < mySize);
+	assert(!GetIsEmpty() && 0 <= aIndex && aIndex < mySize);
 
 	if (aIndex < mySize - 1)
 		myData[aIndex] = GetLast();
@@ -174,7 +180,7 @@ void HD_GrowingArray<T>::RemoveAll()
 template<typename T>
 void HD_GrowingArray<T>::Delete(int aIndex)
 {
-	assert(!IsEmpty() && 0 <= aIndex && aIndex < mySize);
+	assert(!GetIsEmpty() && 0 <= aIndex && aIndex < mySize);
 
 	HD_SafeDelete(myData[aIndex]);
 	if (aIndex < mySize - 1)
@@ -186,7 +192,7 @@ void HD_GrowingArray<T>::Delete(int aIndex)
 template<typename T>
 void HD_GrowingArray<T>::DeleteCyclic(int aIndex)
 {
-	assert(!IsEmpty() && 0 <= aIndex && aIndex < mySize);
+	assert(!GetIsEmpty() && 0 <= aIndex && aIndex < mySize);
 
 	HD_SafeDelete(myData[aIndex]);
 	if (aIndex < mySize - 1)
@@ -209,13 +215,13 @@ void HD_GrowingArray<T>::DeleteAll()
 }
 
 template<typename T>
-int HD_GrowingArray<T>::Size() const
+int HD_GrowingArray<T>::GetSize() const
 {
 	return mySize;
 }
 
 template<typename T>
-bool HD_GrowingArray<T>::IsEmpty() const
+bool HD_GrowingArray<T>::GetIsEmpty() const
 {
 	return mySize == 0;
 }
@@ -261,8 +267,15 @@ const T& HD_GrowingArray<T>::operator[](int aIndex) const
 template<typename T>
 HD_GrowingArray<T>& HD_GrowingArray<T>::operator=(const HD_GrowingArray& aGrowingArray)
 {
-	HD_SafeDeleteArray(myData);
-	myData = new T[aGrowingArray.myCapacity];
+	bool isCurrentBufferTooSmall = myCapacity < aGrowingArray.mySize;
+	bool isCurrentBufferTooBig = static_cast<float>(myCapacity) / static_cast<float>(aGrowingArray.mySize) >= ourGrowFactor;
+
+	if (isCurrentBufferTooSmall || isCurrentBufferTooBig)
+	{
+		HD_SafeDeleteArray(myData);
+		myData = new T[aGrowingArray.myCapacity];
+	}
+
 	memcpy(myData, aGrowingArray.myData, sizeof(T) * aGrowingArray.mySize);
 	mySize = aGrowingArray.mySize;
 	myCapacity = aGrowingArray.myCapacity;
@@ -273,28 +286,28 @@ HD_GrowingArray<T>& HD_GrowingArray<T>::operator=(const HD_GrowingArray& aGrowin
 template<typename T>
 T& HD_GrowingArray<T>::GetFirst()
 {
-	assert(!IsEmpty());
+	assert(!GetIsEmpty());
 	return myData[0];
 }
 
 template<typename T>
 T& HD_GrowingArray<T>::GetLast()
 {
-	assert(!IsEmpty());
+	assert(!GetIsEmpty());
 	return myData[mySize - 1];
 }
 
 template<typename T>
 const T& HD_GrowingArray<T>::GetFirst() const
 {
-	assert(!IsEmpty());
+	assert(!GetIsEmpty());
 	return myData[0];
 }
 
 template<typename T>
 const T& HD_GrowingArray<T>::GetLast() const
 {
-	assert(!IsEmpty());
+	assert(!GetIsEmpty());
 	return myData[mySize - 1];
 }
 
@@ -327,7 +340,7 @@ void HD_GrowingArray<T>::CheckSizeAndGrowIfNecessary()
 {
 	if (mySize + 1 > myCapacity)
 	{
-		int newCapacity = myCapacity + (myCapacity / 2);
+		int newCapacity = static_cast<int>(myCapacity * ourGrowFactor);
 		assert(newCapacity > myCapacity && "HD_GrowingArray grew larger than int max.");
 		Grow(newCapacity);
 	}

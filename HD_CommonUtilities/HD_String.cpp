@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "HD_String.h"
 
-#define ACCEPTABLE_BUFFER_OVERSIZE_FACTOR 1.5f
+#define UNACCEPTABLE_BUFFER_OVERSIZE_FACTOR 1.5f
 
 HD_String::HD_String()
 	: myLength(0)
@@ -47,10 +47,10 @@ HD_String& HD_String::operator=(const char* aString)
 {
 	int length = HD_Strlen(aString);
 
-	bool isCurrentBufferSmaller = myLength < length;
-	bool isCurrentBufferTooBig = static_cast<float>(myLength) / static_cast<float>(length) > ACCEPTABLE_BUFFER_OVERSIZE_FACTOR;
+	bool isCurrentBufferTooSmall = myLength < length;
+	bool isCurrentBufferTooBig = static_cast<float>(myLength) / static_cast<float>(length) >= UNACCEPTABLE_BUFFER_OVERSIZE_FACTOR;
 
-	if (isCurrentBufferSmaller || isCurrentBufferTooBig)
+	if (isCurrentBufferTooSmall || isCurrentBufferTooBig)
 	{
 		HD_SafeDeleteArray(myData);
 		myData = new char[length + 1] { 0 };
