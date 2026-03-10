@@ -19,7 +19,7 @@ namespace HD_CommonUtilities
 		TEST_METHOD(Constructor)
 		{
 			HD_String string;
-			Assert::AreEqual(string.GetLength(), 0u);
+			Assert::AreEqual(string.GetLength(), 0);
 			Assert::IsNull(string.myData);
 		}
 
@@ -40,7 +40,7 @@ namespace HD_CommonUtilities
 			HD_String string2(string1);
 
 			Assert::IsNotNull(string2.myData);
-			Assert::AreEqual(string2.GetLength(), 4u);
+			Assert::AreEqual(string2.GetLength(), 4);
 
 			char buffer[8]{ 0 };
 			memcpy(buffer, "haha", 4);
@@ -53,7 +53,7 @@ namespace HD_CommonUtilities
 			HD_String string2(HD_Move(string1));
 
 			Assert::IsNull(string1.myData);
-			Assert::AreEqual(string2.GetLength(), 4u);
+			Assert::AreEqual(string2.GetLength(), 4);
 
 			char buffer[8]{ 0 };
 			memcpy(buffer, "haha", 4);
@@ -88,7 +88,7 @@ namespace HD_CommonUtilities
 			string = "haha";
 
 			Assert::IsNotNull(string.myData);
-			Assert::AreEqual(string.GetLength(), 4u);
+			Assert::AreEqual(string.GetLength(), 4);
 
 			char buffer[8]{ 0 };
 			memcpy(buffer, "haha", 4);
@@ -103,7 +103,7 @@ namespace HD_CommonUtilities
 			string2 = string1;
 
 			Assert::IsNotNull(string2.myData);
-			Assert::AreEqual(string2.GetLength(), 4u);
+			Assert::AreEqual(string2.GetLength(), 4);
 
 			char buffer[8]{ 0 };
 			memcpy(buffer, "haha", 4);
@@ -118,7 +118,7 @@ namespace HD_CommonUtilities
 			string2 = HD_Move(string1);
 
 			Assert::IsNull(string1.myData);
-			Assert::AreEqual(string2.GetLength(), 4u);
+			Assert::AreEqual(string2.GetLength(), 4);
 
 			char buffer[8]{ 0 };
 			memcpy(buffer, "haha", 4);

@@ -38,14 +38,14 @@ const char* HD_String::GetBuffer() const
 	return myData;
 }
 
-unsigned int HD_String::GetLength() const
+int HD_String::GetLength() const
 {
 	return myLength;
 }
 
 HD_String& HD_String::operator=(const char* aString)
 {
-	unsigned int length = HD_Strlen(aString);
+	int length = HD_Strlen(aString);
 
 	bool isCurrentBufferSmaller = myLength < length;
 	bool isCurrentBufferTooBig = static_cast<float>(myLength) / static_cast<float>(length) > ACCEPTABLE_BUFFER_OVERSIZE_FACTOR;
