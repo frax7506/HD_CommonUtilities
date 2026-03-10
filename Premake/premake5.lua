@@ -41,7 +41,7 @@ project("HD_CommonUtilities")
 		},
 		["Math"] =
 		{
-			"../HD_CommonUtilities/HD_Box.h",
+			"../HD_CommonUtilities/HD_AABB_2D.h",
 			"../HD_CommonUtilities/HD_Math.h",
 			"../HD_CommonUtilities/HD_Vector2.h"
 		},
@@ -96,7 +96,7 @@ project("Tests")
 	{
 		["Containers"] =
 		{
-			"../Tests/HD_Box_Test.cpp",
+			"../Tests/HD_AABB_2D_Tests.cpp",
 			"../Tests/HD_CircularArray_Tests.cpp",
 			"../Tests/HD_DataBuffer_Tests.cpp",
 			"../Tests/HD_GrowingArray_Tests.cpp",
