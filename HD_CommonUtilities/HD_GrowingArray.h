@@ -102,7 +102,7 @@ void HD_GrowingArray<T>::PushBack(const T& aItem)
 	CheckSizeAndGrowIfNecessary();
 
 	myData[mySize] = aItem;
-	++mySize;
+	mySize++;
 }
 
 template<typename T>
@@ -116,7 +116,7 @@ void HD_GrowingArray<T>::PushBackSorted(const T& aItem)
 	{
 		int index = 0;
 		while (index < mySize && aItem > myData[index])
-			++index;
+			index++;
 
 		InsertAtIndex(aItem, index);
 	}
@@ -133,7 +133,7 @@ void HD_GrowingArray<T>::PushBackSortedReverse(const T& aItem)
 	{
 		int index = 0;
 		while (index < mySize && aItem < myData[index])
-			++index;
+			index++;
 
 		InsertAtIndex(aItem, index);
 	}
@@ -147,7 +147,7 @@ void HD_GrowingArray<T>::Remove(int aIndex)
 	if (aIndex < mySize - 1)
 		memcpy(myData + aIndex, myData + (aIndex + 1), sizeof(T) * (mySize - 1 - aIndex));
 	
-	--mySize;
+	mySize--;
 }
 
 template<typename T>
@@ -158,7 +158,7 @@ void HD_GrowingArray<T>::RemoveCyclic(int aIndex)
 	if (aIndex < mySize - 1)
 		myData[aIndex] = GetLast();
 
-	--mySize;
+	mySize--;
 }
 
 template<typename T>
@@ -180,7 +180,7 @@ void HD_GrowingArray<T>::Delete(int aIndex)
 	if (aIndex < mySize - 1)
 		memcpy(myData + aIndex, myData + (aIndex + 1), sizeof(T) * (mySize - 1 - aIndex));
 
-	--mySize;
+	mySize--;
 }
 
 template<typename T>
@@ -192,13 +192,13 @@ void HD_GrowingArray<T>::DeleteCyclic(int aIndex)
 	if (aIndex < mySize - 1)
 		myData[aIndex] = GetLast();
 
-	--mySize;
+	mySize--;
 }
 
 template<typename T>
 void HD_GrowingArray<T>::DeleteAll()
 {
-	for (int i = 0; i < mySize; ++i)
+	for (int i = 0; i < mySize; i++)
 		HD_SafeDelete(myData[i]);
 
 	mySize = 0;
@@ -240,7 +240,7 @@ void HD_GrowingArray<T>::Resize(int aSize)
 
 	mySize = aSize;
 
-	for (int i = 0; i < mySize; ++i)
+	for (int i = 0; i < mySize; i++)
 		myData[i] = T();
 }
 
@@ -350,5 +350,5 @@ void HD_GrowingArray<T>::InsertAtIndex(const T& aItem, int aIndex)
 
 	memcpy(myData + (aIndex + 1), myData + aIndex, sizeof(T) * (mySize - aIndex));
 	myData[aIndex] = aItem;
-	++mySize;
+	mySize++;
 }
