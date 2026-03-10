@@ -17,9 +17,6 @@ public:
 	HD_String& operator=(HD_String&& aString);
 
 private:
-	void CheckSizeAndGrowIfNecessary();
-	void Grow(int aNewCapacity);
-
 	unsigned int myLength;
 	char* myData;
 };

@@ -1,6 +1,5 @@
 #pragma once
 
-#include "HD_GrowingArray.h"
 #include "HD_Math.h"
 #include "HD_Utilities.h"
 
