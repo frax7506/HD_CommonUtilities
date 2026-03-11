@@ -55,6 +55,7 @@ template<typename K, typename V>
 V& HD_HashMap<K, V>::operator[](const K& aKey)
 {
 	size_t hashCode = HD_Hash(aKey);
+	hashCode;
 }
 
 template<typename K, typename V>
