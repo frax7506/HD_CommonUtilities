@@ -26,8 +26,7 @@ namespace HD_CommonUtilities
 		TEST_METHOD(Constructor_CString)
 		{
 			HD_String string("haha");
-			u32 length = string.GetLength();
-			Assert::AreEqual(length, 4u);
+			Assert::AreEqual(string.GetLength(), 4);
 
 			char buffer[8]{ 0 };
 			memcpy(buffer, "haha", 4);
@@ -78,8 +77,7 @@ namespace HD_CommonUtilities
 		TEST_METHOD(GetLength)
 		{
 			HD_String string("haha");
-			u32 length = string.GetLength();
-			Assert::AreEqual(length, 4u);
+			Assert::AreEqual(string.GetLength(), 4);
 		}
 
 		TEST_METHOD(Operator_Assignment_CString)
