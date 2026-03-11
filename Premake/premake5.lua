@@ -32,6 +32,7 @@ project("HD_CommonUtilities")
 			"../HD_CommonUtilities/HD_CircularArray.h",
 			"../HD_CommonUtilities/HD_DataBuffer.h",
 			"../HD_CommonUtilities/HD_GrowingArray.h",
+			"../HD_CommonUtilities/HD_HashMap.h",
 			"../HD_CommonUtilities/HD_Map.h",
 			"../HD_CommonUtilities/HD_Pair.h",
 			"../HD_CommonUtilities/HD_StaticArray.h",
@@ -47,6 +48,7 @@ project("HD_CommonUtilities")
 		},
 		["Misc"] =
 		{
+			"../HD_CommonUtilities/HD_Hash.h",
 			"../HD_CommonUtilities/HD_IsFundamental.h",
 			"../HD_CommonUtilities/HD_PreprocessorMacros.h",
 			"../HD_CommonUtilities/HD_Random.h",
@@ -100,6 +102,7 @@ project("Tests")
 			"../Tests/HD_CircularArray_Tests.cpp",
 			"../Tests/HD_DataBuffer_Tests.cpp",
 			"../Tests/HD_GrowingArray_Tests.cpp",
+			"../Tests/HD_HashMap_Tests.cpp",
 			"../Tests/HD_Map_Tests.cpp",
 			"../Tests/HD_Pair_Tests.cpp",
 			"../Tests/HD_StaticArray_Tests.cpp",
