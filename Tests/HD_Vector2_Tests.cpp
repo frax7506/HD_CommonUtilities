@@ -7,12 +7,6 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace HD_CommonUtilities
 {
-	bool AreFloatValuesClose(f32 aFirst, f32 aSecond)
-	{
-		f32 diff = HD_Abs(aFirst - aSecond);
-		return diff < F_SMALL;
-	}
-
 	TEST_CLASS(HD_Vector2_Test)
 	{
 	public:
@@ -68,14 +62,14 @@ namespace HD_CommonUtilities
 		{
 			HD_Vector2f floatVector(1.f, 1.f);
 			float length = floatVector.Length();
-			Assert::IsTrue(AreFloatValuesClose(length, HD_Sqrtf(2.f)));
+			Assert::IsTrue(HD_Math::AreFloatValuesClose(length, HD_Sqrtf(2.f)));
 		}
 
 		TEST_METHOD(Length2)
 		{
 			HD_Vector2f floatVector(1.f, 1.f);
 			float floatLength2 = floatVector.Length2();
-			Assert::IsTrue(AreFloatValuesClose(floatLength2, 2.f));
+			Assert::IsTrue(HD_Math::AreFloatValuesClose(floatLength2, 2.f));
 
 			HD_Vector2i intVector(2, 2);
 			int intLength2 = intVector.Length2();
@@ -87,7 +81,7 @@ namespace HD_CommonUtilities
 			HD_Vector2f floatVector(2.f, 2.f);
 			floatVector.Normalize();
 			float length = floatVector.Length();
-			Assert::IsTrue(AreFloatValuesClose(length, 1.f));
+			Assert::IsTrue(HD_Math::AreFloatValuesClose(length, 1.f));
 		}
 
 		TEST_METHOD(GetNormalized)
@@ -96,8 +90,8 @@ namespace HD_CommonUtilities
 			HD_Vector2f normalizedFloatVector = floatVector.GetNormalized();
 			float floatVectorLength = floatVector.Length();
 			float normalizedFloatVectorLength = normalizedFloatVector.Length();
-			Assert::IsTrue(AreFloatValuesClose(floatVectorLength, HD_Sqrtf(8.f)));
-			Assert::IsTrue(AreFloatValuesClose(normalizedFloatVectorLength, 1.f));
+			Assert::IsTrue(HD_Math::AreFloatValuesClose(floatVectorLength, HD_Sqrtf(8.f)));
+			Assert::IsTrue(HD_Math::AreFloatValuesClose(normalizedFloatVectorLength, 1.f));
 		}
 
 		TEST_METHOD(Dot)
@@ -125,14 +119,14 @@ namespace HD_CommonUtilities
 			float upDotLeft = up.Dot(left);
 			float upDotUpLeft = up.Dot(upLeft);
 
-			Assert::IsTrue(AreFloatValuesClose(upDotUp, 1.f));
-			Assert::IsTrue(AreFloatValuesClose(upDotUpRight, F_ONE_OVER_SQRT_TWO));
-			Assert::IsTrue(AreFloatValuesClose(upDotRight, 0.f));
-			Assert::IsTrue(AreFloatValuesClose(upDotDownRight, -1.f * F_ONE_OVER_SQRT_TWO));
-			Assert::IsTrue(AreFloatValuesClose(upDotDown, -1.f));
-			Assert::IsTrue(AreFloatValuesClose(upDotDownLeft, -1.f * F_ONE_OVER_SQRT_TWO));
-			Assert::IsTrue(AreFloatValuesClose(upDotLeft, 0.f));
-			Assert::IsTrue(AreFloatValuesClose(upDotUpLeft, F_ONE_OVER_SQRT_TWO));
+			Assert::IsTrue(HD_Math::AreFloatValuesClose(upDotUp, 1.f));
+			Assert::IsTrue(HD_Math::AreFloatValuesClose(upDotUpRight, F_ONE_OVER_SQRT_TWO));
+			Assert::IsTrue(HD_Math::AreFloatValuesClose(upDotRight, 0.f));
+			Assert::IsTrue(HD_Math::AreFloatValuesClose(upDotDownRight, -1.f * F_ONE_OVER_SQRT_TWO));
+			Assert::IsTrue(HD_Math::AreFloatValuesClose(upDotDown, -1.f));
+			Assert::IsTrue(HD_Math::AreFloatValuesClose(upDotDownLeft, -1.f * F_ONE_OVER_SQRT_TWO));
+			Assert::IsTrue(HD_Math::AreFloatValuesClose(upDotLeft, 0.f));
+			Assert::IsTrue(HD_Math::AreFloatValuesClose(upDotUpLeft, F_ONE_OVER_SQRT_TWO));
 		}
 
 		TEST_METHOD(Operator_Assignment)

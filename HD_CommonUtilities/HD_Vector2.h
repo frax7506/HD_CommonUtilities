@@ -18,7 +18,7 @@ public:
 	void Normalize();
 	HD_Vector2 GetNormalized() const;
 
-	T Dot(const HD_Vector2& aOther) const;
+	float Dot(const HD_Vector2& aOther) const;
 
 	HD_Vector2& operator=(const HD_Vector2& aOther);
 	HD_Vector2 operator+(const HD_Vector2& aOther) const;
@@ -91,8 +91,7 @@ void HD_Vector2<T>::Normalize()
 	// a non-floating point type vector should be unusual anyway.
 
 	float length = Length();
-	myX /= length;
-	myY /= length;
+	(*this) /= length;
 }
 
 template<typename T>
@@ -106,7 +105,7 @@ HD_Vector2<T> HD_Vector2<T>::GetNormalized() const
 }
 
 template<typename T>
-T HD_Vector2<T>::Dot(const HD_Vector2<T>& aOther) const
+float HD_Vector2<T>::Dot(const HD_Vector2<T>& aOther) const
 {
 	return myX * aOther.myX + myY * aOther.myY;
 }

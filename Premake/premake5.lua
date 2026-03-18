@@ -44,7 +44,8 @@ project("HD_CommonUtilities")
 		{
 			"../HD_CommonUtilities/HD_AABB_2D.h",
 			"../HD_CommonUtilities/HD_Math.h",
-			"../HD_CommonUtilities/HD_Vector2.h"
+			"../HD_CommonUtilities/HD_Vector2.h",
+			"../HD_CommonUtilities/HD_Vector3.h"
 		},
 		["Misc"] =
 		{
@@ -112,7 +113,8 @@ project("Tests")
 		["Math"] =
 		{
 			"../Tests/HD_Math_Tests.cpp",
-			"../Tests/HD_Vector2_Tests.cpp"
+			"../Tests/HD_Vector2_Tests.cpp",
+			"../Tests/HD_Vector3_Tests.cpp"
 		},
 		["Misc"] =
 		{
