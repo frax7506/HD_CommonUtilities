@@ -20,10 +20,11 @@
 #define HD_Pow(a, b) static_cast<int>(powf(static_cast<float>(a), static_cast<float>(b)))
 
 #define HD_Sinf(a) sinf(a)
-#define HD_ArcSinf(a) asinf(a)
 #define HD_Cosf(a) cosf(a)
-#define HD_ArcCosf(a) acosf(a)
 #define HD_Tanf(a) tanf(a)
+
+#define HD_ArcSinf(a) asinf(a)
+#define HD_ArcCosf(a) acosf(a)
 #define HD_ArcTanf(a) atanf(a)
 
 namespace HD_Math

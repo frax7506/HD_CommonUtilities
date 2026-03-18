@@ -285,6 +285,25 @@ namespace HD_CommonUtilities
 			Assert::AreEqual(growingArray2.myCapacity, 3);
 		}
 
+		TEST_METHOD(Operator_Assignment_Move)
+		{
+			HD_GrowingArray<s32> growingArray1;
+			growingArray1.PushBack(0);
+			growingArray1.PushBack(1);
+			growingArray1.PushBack(2);
+
+			HD_GrowingArray<s32> growingArray2;
+			growingArray2 = HD_Move(growingArray1);
+
+			Assert::IsNull(growingArray1.myData);
+			Assert::IsNotNull(growingArray2.myData);
+			Assert::AreEqual(growingArray2[0], 0);
+			Assert::AreEqual(growingArray2[1], 1);
+			Assert::AreEqual(growingArray2[2], 2);
+			Assert::AreEqual(growingArray2.mySize, 3);
+			Assert::AreEqual(growingArray2.myCapacity, 3);
+		}
+
 		TEST_METHOD(GetFirst)
 		{
 			HD_GrowingArray<s32> growingArray;

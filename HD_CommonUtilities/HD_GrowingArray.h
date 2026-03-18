@@ -37,7 +37,9 @@ public:
 
 	T& operator[](int aIndex);
 	const T& operator[](int aIndex) const;
+
 	HD_GrowingArray& operator=(const HD_GrowingArray& aGrowingArray);
+	HD_GrowingArray& operator=(HD_GrowingArray&& aGrowingArray);
 
 	T& GetFirst();
 	T& GetLast();
@@ -277,6 +279,17 @@ HD_GrowingArray<T>& HD_GrowingArray<T>::operator=(const HD_GrowingArray& aGrowin
 	}
 
 	memcpy(myData, aGrowingArray.myData, sizeof(T) * aGrowingArray.mySize);
+	mySize = aGrowingArray.mySize;
+	myCapacity = aGrowingArray.myCapacity;
+
+	return *this;
+}
+
+template<typename T>
+HD_GrowingArray<T>& HD_GrowingArray<T>::operator=(HD_GrowingArray&& aGrowingArray)
+{
+	myData = aGrowingArray.myData;
+	aGrowingArray.myData = nullptr;
 	mySize = aGrowingArray.mySize;
 	myCapacity = aGrowingArray.myCapacity;
 

@@ -189,20 +189,7 @@ namespace HD_CommonUtilities
 			float upDotCenterDownForward = up.Dot(centerDownForward);
 			float upDotRightDownForward = up.Dot(rightDownForward);
 
-			float testy1 = HD_Sinf(DEG_TO_RAD(30)); // fortsätt här
-			float testy2 = HD_ArcSinf(1.f);
-			float testy3 = HD_Cosf(DEG_TO_RAD(60));
-			float testy4 = HD_ArcCosf(1.f);
-			float testy5 = HD_Tanf(DEG_TO_RAD(45));
-			float testy6 = HD_ArcTanf(1);
-			testy1;
-			testy2;
-			testy3;
-			testy4;
-			testy5;
-			testy6;
-
-			float cornerDotValue = HD_Sinf(HD_ArcTanf(1.f / F_ONE_OVER_SQRT_TWO));
+			float cornerDotValue = HD_Sinf(HD_ArcTanf(F_ONE_OVER_SQRT_TWO));
 
 			Assert::IsTrue(HD_Math::AreFloatValuesClose(upDotLeftUpBack, cornerDotValue));
 			Assert::IsTrue(HD_Math::AreFloatValuesClose(upDotCenterUpBack, F_ONE_OVER_SQRT_TWO));
@@ -237,7 +224,57 @@ namespace HD_CommonUtilities
 
 		TEST_METHOD(Cross)
 		{
+			HD_Vector3f centerForward(0.f, 0.f, 1.f);
+			HD_Vector3f rightForward(1.f, 0.f, 1.f);
+			HD_Vector3f rightCenter(1.f, 0.f, 0.f);
+			HD_Vector3f rightBack(1.f, 0.f, -1.f);
+			HD_Vector3f centerBack(0.f, 0.f, -1.f);
+			HD_Vector3f leftBack(-1.f, 0.f, -1.f);
+			HD_Vector3f leftCenter(-1.f, 0.f, 0.f);
+			HD_Vector3f leftForward(-1.f, 0.f, 1.f);
 
+			HD_Vector3f forward(0.f, 0.f, 1.f);
+
+			HD_Vector3f forwardCrossCenterForward = forward.Cross(centerForward);
+			HD_Vector3f forwardCrossRightForward = forward.Cross(rightForward);
+			HD_Vector3f forwardCrossRightCenter = forward.Cross(rightCenter);
+			HD_Vector3f forwardCrossRightBack = forward.Cross(rightBack);
+			HD_Vector3f forwardCrossCenterBack = forward.Cross(centerBack);
+			HD_Vector3f forwardCrossLeftBack = forward.Cross(leftBack);
+			HD_Vector3f forwardCrossLeftCenter = forward.Cross(leftCenter);
+			HD_Vector3f forwardCrossLeftForward = forward.Cross(leftForward);
+
+			Assert::IsTrue(HD_Math::AreFloatValuesClose(forwardCrossCenterForward.myX, 0.f));
+			Assert::IsTrue(HD_Math::AreFloatValuesClose(forwardCrossCenterForward.myZ, 0.f));
+			Assert::IsTrue(HD_Math::AreFloatValuesClose(forwardCrossCenterForward.myY, 0.f));
+
+			Assert::IsTrue(HD_Math::AreFloatValuesClose(forwardCrossRightForward.myX, 0.f));
+			Assert::IsTrue(HD_Math::AreFloatValuesClose(forwardCrossRightForward.myZ, 0.f));
+			Assert::IsTrue(HD_Math::AreFloatValuesClose(forwardCrossRightForward.myY, 1.f));
+
+			Assert::IsTrue(HD_Math::AreFloatValuesClose(forwardCrossRightCenter.myX, 0.f));
+			Assert::IsTrue(HD_Math::AreFloatValuesClose(forwardCrossRightCenter.myZ, 0.f));
+			Assert::IsTrue(HD_Math::AreFloatValuesClose(forwardCrossRightCenter.myY, 1.f));
+
+			Assert::IsTrue(HD_Math::AreFloatValuesClose(forwardCrossRightBack.myX, 0.f));
+			Assert::IsTrue(HD_Math::AreFloatValuesClose(forwardCrossRightBack.myZ, 0.f));
+			Assert::IsTrue(HD_Math::AreFloatValuesClose(forwardCrossRightBack.myY, 1.f));
+
+			Assert::IsTrue(HD_Math::AreFloatValuesClose(forwardCrossCenterBack.myX, 0.f));
+			Assert::IsTrue(HD_Math::AreFloatValuesClose(forwardCrossCenterBack.myZ, 0.f));
+			Assert::IsTrue(HD_Math::AreFloatValuesClose(forwardCrossCenterBack.myY, 0.f));
+
+			Assert::IsTrue(HD_Math::AreFloatValuesClose(forwardCrossLeftBack.myX, 0.f));
+			Assert::IsTrue(HD_Math::AreFloatValuesClose(forwardCrossLeftBack.myZ, 0.f));
+			Assert::IsTrue(HD_Math::AreFloatValuesClose(forwardCrossLeftBack.myY, -1.f));
+
+			Assert::IsTrue(HD_Math::AreFloatValuesClose(forwardCrossLeftCenter.myX, 0.f));
+			Assert::IsTrue(HD_Math::AreFloatValuesClose(forwardCrossLeftCenter.myZ, 0.f));
+			Assert::IsTrue(HD_Math::AreFloatValuesClose(forwardCrossLeftCenter.myY, -1.f));
+
+			Assert::IsTrue(HD_Math::AreFloatValuesClose(forwardCrossLeftForward.myX, 0.f));
+			Assert::IsTrue(HD_Math::AreFloatValuesClose(forwardCrossLeftForward.myZ, 0.f));
+			Assert::IsTrue(HD_Math::AreFloatValuesClose(forwardCrossLeftForward.myY, -1.f));
 		}
 
 		TEST_METHOD(Operator_Assignment)

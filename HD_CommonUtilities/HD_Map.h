@@ -68,11 +68,13 @@ public:
 	~HD_Map();
 
 	const V* GetIfExists(const K& aKey) const;
+
 	V& operator[](const K& aKey);
 
 	void Remove(const K& aKey);
 
 	HD_Map& operator=(const HD_Map& aMap);
+	HD_Map& operator=(HD_Map&& aMap);
 
 	Iterator begin();
 	Iterator end();
@@ -427,6 +429,15 @@ HD_Map<K, V>& HD_Map<K, V>::operator=(const HD_Map& aMap)
 
 	for (const auto& entry : aMap)
 		(*this)[entry.myKey] = entry.myValue;
+
+	return *this;
+}
+
+template<typename K, typename V>
+HD_Map<K, V>& HD_Map<K, V>::operator=(HD_Map&& aMap)
+{
+	myRoot = aMap.myRoot;
+	aMap.myRoot = nullptr;
 
 	return *this;
 }

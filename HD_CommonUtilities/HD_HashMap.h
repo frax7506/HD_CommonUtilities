@@ -25,10 +25,16 @@ class HD_HashMap
 {
 public:
 	HD_HashMap();
+	HD_HashMap(const HD_HashMap& aHashMap);
+	HD_HashMap(HD_HashMap&& aHashMap);
 	~HD_HashMap();
 
 	const V* GetIfExists(const K& aKey) const;
+
 	V& operator[](const K& aKey);
+
+	HD_HashMap& operator=(const HD_HashMap& aHashMap);
+	HD_HashMap& operator=(HD_HashMap&& aHashMap) const;
 
 	void Remove(const K& aKey);
 
@@ -39,11 +45,12 @@ private:
 	{
 		ControlByte_Empty = 0b00000000,
 		ControlByte_Deleted = 0b01111111,
-		// ControlByte_Full	= 0b1xxxxxxx
+		// ControlByte_Full = 0b1xxxxxxx
 	};
 
 	void Rehash();
 
+	// Finds the index where an element is, or would be.
 	int FindSlotIndex(const K& aKey) const;
 
 	size_t GetLevel1Hash(size_t aHash) const { return aHash >> 7; }
@@ -53,7 +60,7 @@ private:
 	static constexpr float ourGrowFactor = 2.f;
 
 	char* myData;
-	HD_Pair<size_t, V>* myValues;
+	HD_Pair<size_t, V>* myHashCodeValuePairs;
 	int mySize;
 	int myCapacity;
 };
@@ -64,7 +71,7 @@ HD_HashMap<K, V>::HD_HashMap()
 	, myCapacity(16)
 {
 	myData = new char[myCapacity + sizeof(HD_Pair<size_t, V>) * myCapacity] { 0 };
-	myValues = myData + myCapacity;
+	myHashCodeValuePairs = myData + myCapacity;
 }
 
 template<typename K, typename V>
@@ -82,8 +89,23 @@ const V* HD_HashMap<K, V>::GetIfExists(const K& aKey) const
 template<typename K, typename V>
 V& HD_HashMap<K, V>::operator[](const K& aKey)
 {
-	size_t hashCode = HD_Hash(aKey);
-	hashCode;
+	int index = FindSlotIndex(aKey);
+	bool isPresent = myData[index] & 0b10000000;
+
+	if (isPresent)
+	{
+		return myHashCodeValuePairs[index].mySecond;
+	}
+
+	float newLoadFactor = static_cast<float>(mySize + 1) / myCapacity;
+	if (newLoadFactor > ourMaximumLoadFactor)
+	{
+		Rehash();
+		index = FindSlotIndex(aKey);
+	}
+
+	myHashCodeValuePairs[index].mySecond = V();
+	return myHashCodeValuePairs[index].mySecond;
 }
 
 template<typename K, typename V>
@@ -109,7 +131,7 @@ int HD_HashMap<K, V>::FindSlotIndex(const K& aKey) const
 		bool isSlotEmpty = myData[index] == ControlByte_Empty;
 		bool isLevel2HashSame = myData[index] == GetLevel2Hash(hashCode);
 
-		if (isSlotEmpty || (isLevel2HashSame && myValues[index].myFirst == hashCode)
+		if (isSlotEmpty || (isLevel2HashSame && myHashCodeValuePairs[index].myFirst == hashCode))
 		{
 			return index;
 		}
