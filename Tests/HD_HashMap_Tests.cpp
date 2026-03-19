@@ -18,7 +18,7 @@ namespace HD_CommonUtilities
 	public:
 		TEST_METHOD(Constructor)
 		{
-			
+			HD_HashMap<s32, s32> map;
 		}
 	};
 }
