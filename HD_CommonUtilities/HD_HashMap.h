@@ -154,7 +154,6 @@ HD_HashMap<K, V>::HD_HashMap(HD_HashMap&& aHashMap)
 	myCapacity = aHashMap.myCapacity;
 
 	aHashMap.myControlBytes = nullptr;
-	aHashMap.myHashCodeValuePairs = nullptr;
 }
 
 template<typename K, typename V>
@@ -209,13 +208,38 @@ V& HD_HashMap<K, V>::operator[](const K& aKey)
 template<typename K, typename V>
 HD_HashMap<K, V>& HD_HashMap<K, V>::operator=(const HD_HashMap& aHashMap)
 {
+	bool isCapacitySame = myCapacity == aHashMap.myCapacity;
 
+	if (!isCapacitySame)
+	{
+		HD_SafeDeleteArray(myControlBytes);
+		InitWithCapacity(aHashMap.myCapacity);
+	}
+
+	for (auto it = aHashMap.begin(); it != aHashMap.end(); it++)
+	{
+		size_t hashCode = it->myFirst;
+		const V& value = it->mySecond;
+
+		int index = FindSlotIndexForHashCode(hashCode);
+		InsertValueAtIndex(index, value);
+		mySize++;
+	}
+
+	return *this;
 }
 
 template<typename K, typename V>
 HD_HashMap<K, V>& HD_HashMap<K, V>::operator=(HD_HashMap&& aHashMap)
 {
+	myControlBytes = aHashMap.myControlBytes;
+	myHashCodeValuePairs = aHashMap.myHashCodeValuePairs;
+	mySize = aHashMap.mySize;
+	myCapacity = aHashMap.myCapacity;
 
+	aHashMap.myControlBytes = nullptr;
+
+	return *this;
 }
 
 template<typename K, typename V>
@@ -233,25 +257,25 @@ void HD_HashMap<K, V>::Remove(const K& aKey)
 template<typename K, typename V>
 typename HD_HashMap<K, V>::Iterator HD_HashMap<K, V>::begin()
 {
-	return Iterator(this, );
+	return Iterator(this, 0);
 }
 
 template<typename K, typename V>
 typename HD_HashMap<K, V>::Iterator HD_HashMap<K, V>::end()
 {
-	return Iterator(nullptr);
+	return Iterator(this, myCapacity);
 }
 
 template<typename K, typename V>
 typename HD_HashMap<K, V>::ConstIterator HD_HashMap<K, V>::begin() const
 {
-	return ConstIterator(GetNodeWithSmallestKeyAtRoot(myRoot));
+	return ConstIterator(this, 0);
 }
 
 template<typename K, typename V>
 typename HD_HashMap<K, V>::ConstIterator HD_HashMap<K, V>::end() const
 {
-	return ConstIterator(nullptr);
+	return ConstIterator(this, myCapacity);
 }
 
 template<typename K, typename V>
@@ -333,13 +357,25 @@ HD_HashMapIterator<K, V>::HD_HashMapIterator(const HD_HashMapIterator& aIterator
 template<typename K, typename V>
 HD_HashMapIterator<K, V>& HD_HashMapIterator<K, V>::operator++()
 {
-	// fortsätt här
+	do
+	{
+		myIndex++;
+	}
+	while (myIndex < myHashMap->myCapacity && !myHashMap->GetIsValueAtIndexPresent(myIndex));
+
+	return *this;
 }
 
 template<typename K, typename V>
 HD_HashMapIterator<K, V>& HD_HashMapIterator<K, V>::operator--()
 {
-	// fortsätt här
+	do
+	{
+		myIndex--;
+	}
+	while (myIndex >= 0 && !myHashMap->GetIsValueAtIndexPresent(myIndex));
+
+	return *this;
 }
 
 template<typename K, typename V>
