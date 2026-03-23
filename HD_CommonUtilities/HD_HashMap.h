@@ -20,18 +20,17 @@
 #include "HD_Pair.h"
 #include "HD_Utilities.h"
 
-template<typename V>
-using HashCodeValuePair = HD_Pair<size_t, V>;
-
 template<typename K, typename V>
-class HD_HashMap;
+using KeyValuePair = HD_Pair<K, V>;
 
-template<typename K, typename V>
+typedef char ControlByte_t;
+
+template<typename KeyValuePair_t>
 class HD_HashMapIterator
 {
 public:
 	HD_HashMapIterator();
-	HD_HashMapIterator(HD_HashMap<K, V>* aHashMap, int aIndex);
+	HD_HashMapIterator(const ControlByte_t* aControlBytes, KeyValuePair_t* aKeyValuePairs, int aIndex, int aHashMapCapacity);
 	HD_HashMapIterator(const HD_HashMapIterator& aIterator);
 
 	HD_HashMapIterator& operator++();
@@ -42,20 +41,23 @@ public:
 	HD_HashMapIterator& operator-=(int aDecrement);
 	bool operator==(const HD_HashMapIterator& aIterator) const;
 	bool operator!=(const HD_HashMapIterator& aIterator) const;
-	HashCodeValuePair<V>& operator*() const;
-	HashCodeValuePair<V>* operator->() const;
+	KeyValuePair_t& operator*() const;
+	KeyValuePair_t* operator->() const;
 
 private:
-	HD_HashMap<K, V>* myHashMap;
+	const ControlByte_t* myControlBytes;
+	KeyValuePair_t* myKeyValuePairs;
+
 	int myIndex;
+	int myHashMapCapacity;
 };
 
 template<typename K, typename V>
 class HD_HashMap
 {
 public:
-	typedef HD_HashMapIterator<K, V> Iterator;
-	typedef HD_HashMapIterator<K, const V> ConstIterator;
+	typedef HD_HashMapIterator<KeyValuePair<K, V>> Iterator;
+	typedef HD_HashMapIterator<const KeyValuePair<K, V>> ConstIterator;
 	friend class Iterator;
 	friend class ConstIterator;
 
@@ -73,14 +75,14 @@ public:
 
 	void Remove(const K& aKey);
 
+	void Clear();
+
 	Iterator begin();
 	Iterator end();
 	ConstIterator begin() const;
 	ConstIterator end() const;
 
 private:
-	typedef char ControlByte_t;
-
 	enum ControlByte : ControlByte_t
 	{
 		ControlByte_Empty = 0b00000000,
@@ -88,33 +90,35 @@ private:
 		// ControlByte_Full = 0b1xxxxxxx
 	};
 
+	static constexpr float ourMaximumLoadFactor = 0.5f;
+	static constexpr float ourGrowFactor = 2.f;
+
 	void InitWithCapacity(int aCapacity);
 
-	void InsertValueAtIndex(int aIndex, const V& aValue);
+	void InsertKeyValueAtIndex(int aIndex, const K& aKey, const V& aValue);
 
 	void Rehash();
 
 	// Finds the index where an element is, or would be.
-	int FindSlotIndexForHashCode(size_t aHashCode) const;
+	int FindSlotIndexForKey(const K& aKey) const;
 
-	bool GetIsValueAtIndexPresent(int aIndex) const;
+	bool GetIsSlotFullAtIndex(int aIndex) const;
 
 	size_t GetLevel1Hash(size_t aHash) const { return aHash >> 7; }
 	ControlByte_t GetLevel2Hash(size_t aHash) const { return aHash & 0x7F; }
 
-	static constexpr float ourMaximumLoadFactor = 0.5f;
-	static constexpr float ourGrowFactor = 2.f;
-
-	char* myControlBytes;
-	HashCodeValuePair<V>* myHashCodeValuePairs;
+	char* myData;
+	ControlByte_t* myControlBytes;
+	KeyValuePair<K, V>* myKeyValuePairs;
 	int mySize;
 	int myCapacity;
 };
 
 template<typename K, typename V>
 HD_HashMap<K, V>::HD_HashMap()
-	: myControlBytes(nullptr)
-	, myHashCodeValuePairs(nullptr)
+	: myData(nullptr)
+	, myControlBytes(nullptr)
+	, myKeyValuePairs(nullptr)
 	, mySize(0)
 	, myCapacity(0)
 {
@@ -123,8 +127,9 @@ HD_HashMap<K, V>::HD_HashMap()
 
 template<typename K, typename V>
 HD_HashMap<K, V>::HD_HashMap(const HD_HashMap& aHashMap)
-	: myControlBytes(nullptr)
-	, myHashCodeValuePairs(nullptr)
+	: myData(nullptr)
+	, myControlBytes(nullptr)
+	, myKeyValuePairs(nullptr)
 	, mySize(0)
 	, myCapacity(0)
 {
@@ -132,26 +137,29 @@ HD_HashMap<K, V>::HD_HashMap(const HD_HashMap& aHashMap)
 
 	for (auto it = aHashMap.begin(); it != aHashMap.end(); it++)
 	{
-		size_t hashCode = it->myFirst;
+		const K& key = it->myFirst;
 		const V& value = it->mySecond;
 
-		int index = FindSlotIndexForHashCode(hashCode);
-		InsertValueAtIndex(index, value);
+		int index = FindSlotIndexForKey(key);
+		InsertKeyValueAtIndex(index, key, value);
 		mySize++;
 	}
 }
 
 template<typename K, typename V>
 HD_HashMap<K, V>::HD_HashMap(HD_HashMap&& aHashMap)
-	: myControlBytes(nullptr)
-	, myHashCodeValuePairs(nullptr)
+	: myData(nullptr)
+	, myControlBytes(nullptr)
+	, myKeyValuePairs(nullptr)
 	, mySize(0)
 	, myCapacity(0)
 {
-	myControlBytes = aHashMap.myControlBytes;
-	myHashCodeValuePairs = aHashMap.myHashCodeValuePairs;
 	mySize = aHashMap.mySize;
 	myCapacity = aHashMap.myCapacity;
+
+	myData = aHashMap.myData;
+	myControlBytes = myData;
+	myKeyValuePairs = reinterpret_cast<KeyValuePair<K, V>*>(myControlBytes + myCapacity);
 
 	aHashMap.myControlBytes = nullptr;
 }
@@ -159,19 +167,18 @@ HD_HashMap<K, V>::HD_HashMap(HD_HashMap&& aHashMap)
 template<typename K, typename V>
 HD_HashMap<K, V>::~HD_HashMap()
 {
-	// The pointer to myControlBytes is used to allocate the whole data block.
-	HD_SafeDeleteArray(myControlBytes);
+	HD_SafeDeleteArray(myData);
 }
 
 template<typename K, typename V>
 const V* HD_HashMap<K, V>::GetIfExists(const K& aKey) const
 {
-	int index = FindSlotIndex(aKey);
-	bool isPresent = GetIsValueAtIndexPresent(index);
+	int index = FindSlotIndexForKey(aKey);
+	bool isFull = GetIsSlotFullAtIndex(index);
 
-	if (isPresent)
+	if (isFull)
 	{
-		return &myHashCodeValuePairs[index].mySecond;
+		return &myKeyValuePairs[index].mySecond;
 	}
 
 	return nullptr;
@@ -180,20 +187,19 @@ const V* HD_HashMap<K, V>::GetIfExists(const K& aKey) const
 template<typename K, typename V>
 V& HD_HashMap<K, V>::operator[](const K& aKey)
 {
-	size_t hashCode = HD_Hash(aKey);
-	int index = FindSlotIndexForHashCode(hashCode);
-	bool isPresent = GetIsValueAtIndexPresent(index);
+	int index = FindSlotIndexForKey(aKey);
+	bool isFull = GetIsSlotFullAtIndex(index);
 
-	if (isPresent)
+	if (isFull)
 	{
-		return myHashCodeValuePairs[index].mySecond;
+		return myKeyValuePairs[index].mySecond;
 	}
 
 	float newLoadFactor = static_cast<float>(mySize + 1) / myCapacity;
 	if (newLoadFactor > ourMaximumLoadFactor)
 	{
 		Rehash();
-		index = FindSlotIndexForHashCode(hashCode);
+		index = FindSlotIndexForKey(aKey);
 	}
 
 	if (myControlBytes[index] == ControlByte_Empty)
@@ -201,28 +207,30 @@ V& HD_HashMap<K, V>::operator[](const K& aKey)
 		mySize++;
 	}
 
-	InsertValueAtIndex(index, V());
-	return myHashCodeValuePairs[index].mySecond;
+	InsertKeyValueAtIndex(index, aKey, V());
+	return myKeyValuePairs[index].mySecond;
 }
 
 template<typename K, typename V>
 HD_HashMap<K, V>& HD_HashMap<K, V>::operator=(const HD_HashMap& aHashMap)
 {
-	bool isCapacitySame = myCapacity == aHashMap.myCapacity;
+	Clear();
 
-	if (!isCapacitySame)
+	bool isCapacitySmaller = myCapacity < aHashMap.myCapacity;
+
+	if (isCapacitySmaller)
 	{
-		HD_SafeDeleteArray(myControlBytes);
+		HD_SafeDeleteArray(myData);
 		InitWithCapacity(aHashMap.myCapacity);
 	}
 
 	for (auto it = aHashMap.begin(); it != aHashMap.end(); it++)
 	{
-		size_t hashCode = it->myFirst;
+		const K& key = it->myFirst;
 		const V& value = it->mySecond;
 
-		int index = FindSlotIndexForHashCode(hashCode);
-		InsertValueAtIndex(index, value);
+		int index = FindSlotIndexForKey(key);
+		InsertKeyValueAtIndex(index, key, value);
 		mySize++;
 	}
 
@@ -232,10 +240,12 @@ HD_HashMap<K, V>& HD_HashMap<K, V>::operator=(const HD_HashMap& aHashMap)
 template<typename K, typename V>
 HD_HashMap<K, V>& HD_HashMap<K, V>::operator=(HD_HashMap&& aHashMap)
 {
-	myControlBytes = aHashMap.myControlBytes;
-	myHashCodeValuePairs = aHashMap.myHashCodeValuePairs;
 	mySize = aHashMap.mySize;
 	myCapacity = aHashMap.myCapacity;
+
+	myData = aHashMap.myData;
+	myControlBytes = myData;
+	myKeyValuePairs = reinterpret_cast<KeyValuePair<K, V>*>(myControlBytes + myCapacity);
 
 	aHashMap.myControlBytes = nullptr;
 
@@ -245,37 +255,43 @@ HD_HashMap<K, V>& HD_HashMap<K, V>::operator=(HD_HashMap&& aHashMap)
 template<typename K, typename V>
 void HD_HashMap<K, V>::Remove(const K& aKey)
 {
-	int index = FindSlotIndex(aKey);
-	bool isPresent = GetIsValueAtIndexPresent(index);
+	int index = FindSlotIndexForKey(aKey);
+	bool isFull = GetIsSlotFullAtIndex(index);
 
-	if (isPresent)
+	if (isFull)
 	{
 		myControlBytes[index] = ControlByte_Deleted;
 	}
 }
 
 template<typename K, typename V>
+void HD_HashMap<K, V>::Clear()
+{
+	memset(myControlBytes, 0, sizeof(ControlByte_t) * myCapacity);
+}
+
+template<typename K, typename V>
 typename HD_HashMap<K, V>::Iterator HD_HashMap<K, V>::begin()
 {
-	return Iterator(this, 0);
+	return Iterator(myControlBytes, myKeyValuePairs, 0, myCapacity);
 }
 
 template<typename K, typename V>
 typename HD_HashMap<K, V>::Iterator HD_HashMap<K, V>::end()
 {
-	return Iterator(this, myCapacity);
+	return Iterator(myControlBytes, myKeyValuePairs, myCapacity, myCapacity);
 }
 
 template<typename K, typename V>
 typename HD_HashMap<K, V>::ConstIterator HD_HashMap<K, V>::begin() const
 {
-	return ConstIterator(this, 0);
+	return ConstIterator(myControlBytes, myKeyValuePairs, 0, myCapacity);
 }
 
 template<typename K, typename V>
 typename HD_HashMap<K, V>::ConstIterator HD_HashMap<K, V>::end() const
 {
-	return ConstIterator(this, myCapacity);
+	return ConstIterator(myControlBytes, myKeyValuePairs, myCapacity, myCapacity);
 }
 
 template<typename K, typename V>
@@ -284,41 +300,40 @@ void HD_HashMap<K, V>::InitWithCapacity(int aCapacity)
 	myCapacity = aCapacity;
 	mySize = 0;
 
-	// The pointer to myControlBytes is used to allocate the whole data block.
-	// This is mostly because we need something to point to the whole data
-	// block in order to delete it properly.
-
-	myControlBytes = new char[myCapacity + sizeof(HD_Pair<size_t, V>) * myCapacity] { 0 };
-	myHashCodeValuePairs = reinterpret_cast<HashCodeValuePair<V>*>(myControlBytes + myCapacity);
+	myData = new char[myCapacity + sizeof(HD_Pair<size_t, V>) * myCapacity] { 0 };
+	myControlBytes = myData;
+	myKeyValuePairs = reinterpret_cast<KeyValuePair<K, V>*>(myControlBytes + myCapacity);
 }
 
 template<typename K, typename V>
-void HD_HashMap<K, V>::InsertValueAtIndex(int aIndex, const V& aValue)
+void HD_HashMap<K, V>::InsertKeyValueAtIndex(int aIndex, const K& aKey, const V& aValue)
 {
+	size_t hashCode = HD_Hash(aKey);
 	myControlBytes[aIndex] = GetLevel2Hash(hashCode) | 0b10000000;
-	myHashCodeValuePairs[aIndex].myFirst = hashCode;
-	myHashCodeValuePairs[aIndex].mySecond = aValue;
+	myKeyValuePairs[aIndex].myFirst = aKey;
+	myKeyValuePairs[aIndex].mySecond = aValue;
 }
 
 template<typename K, typename V>
 void HD_HashMap<K, V>::Rehash()
 {
 	HD_HashMap temp = HD_Move(*this);
-	InitWithCapacity(myCapacity * ourGrowFactor);
+	InitWithCapacity(static_cast<int>(myCapacity * ourGrowFactor));
 	(*this) = temp;
 }
 
 template<typename K, typename V>
-int HD_HashMap<K, V>::FindSlotIndexForHashCode(size_t aHashCode) const
+int HD_HashMap<K, V>::FindSlotIndexForKey(const K& aKey) const
 {
-	int index = GetLevel1Hash(aHashCode) % myCapacity;
+	size_t hashCode = HD_Hash(aKey);
+	int index = GetLevel1Hash(hashCode) % myCapacity;
 
 	while (true)
 	{
 		bool isSlotEmpty = myControlBytes[index] == ControlByte_Empty;
-		bool isLevel2HashSame = myControlBytes[index] == GetLevel2Hash(aHashCode);
+		bool isLevel2HashSame = myControlBytes[index] == GetLevel2Hash(hashCode);
 
-		if (isSlotEmpty || (isLevel2HashSame && myHashCodeValuePairs[index].myFirst == aHashCode))
+		if (isSlotEmpty || (isLevel2HashSame && myKeyValuePairs[index].myFirst == aKey))
 		{
 			return index;
 		}
@@ -328,74 +343,80 @@ int HD_HashMap<K, V>::FindSlotIndexForHashCode(size_t aHashCode) const
 }
 
 template<typename K, typename V>
-bool HD_HashMap<K, V>::GetIsValueAtIndexPresent(int aIndex) const
+bool HD_HashMap<K, V>::GetIsSlotFullAtIndex(int aIndex) const
 {
-	return myControlBytes[index] & 0b10000000;
+	return myControlBytes[aIndex] & 0b10000000;
 }
 
-template<typename K, typename V>
-HD_HashMapIterator<K, V>::HD_HashMapIterator()
-	: myHashMap(nullptr)
+template<typename KeyValuePair_t>
+HD_HashMapIterator<KeyValuePair_t>::HD_HashMapIterator()
+	: myControlBytes(nullptr)
+	, myKeyValuePairs(nullptr)
 	, myIndex(0)
+	, myHashMapCapacity(0)
 {
 }
 
-template<typename K, typename V>
-HD_HashMapIterator<K, V>::HD_HashMapIterator(HD_HashMap<K, V>* aHashMap, int aIndex)
-	: myHashMap(aHashMap)
+template<typename KeyValuePair_t>
+HD_HashMapIterator<KeyValuePair_t>::HD_HashMapIterator(const ControlByte_t* aControlBytes, KeyValuePair_t* aKeyValuePairs, int aIndex, int aHashMapCapacity)
+	: myControlBytes(aControlBytes)
+	, myKeyValuePairs(aKeyValuePairs)
 	, myIndex(aIndex)
+	, myHashMapCapacity(aHashMapCapacity)
 {
 }
 
-template<typename K, typename V>
-HD_HashMapIterator<K, V>::HD_HashMapIterator(const HD_HashMapIterator& aIterator)
-	: myHashMap(aIterator.myHashMap)
+template<typename KeyValuePair_t>
+HD_HashMapIterator<KeyValuePair_t>::HD_HashMapIterator(const HD_HashMapIterator& aIterator)
+	: myControlBytes(aIterator.myControlBytes)
+	, myKeyValuePairs(aIterator.myKeyValuePairs)
 	, myIndex(aIterator.myIndex)
+	, myHashMapCapacity(aIterator.myHashMapCapacity)
 {
 }
 
-template<typename K, typename V>
-HD_HashMapIterator<K, V>& HD_HashMapIterator<K, V>::operator++()
+template<typename KeyValuePair_t>
+HD_HashMapIterator<KeyValuePair_t>& HD_HashMapIterator<KeyValuePair_t>::operator++()
 {
 	do
 	{
 		myIndex++;
 	}
-	while (myIndex < myHashMap->myCapacity && !myHashMap->GetIsValueAtIndexPresent(myIndex));
+	while (myIndex < myHashMapCapacity && !(myControlBytes[myIndex] & 0b10000000));
 
 	return *this;
 }
 
-template<typename K, typename V>
-HD_HashMapIterator<K, V>& HD_HashMapIterator<K, V>::operator--()
+template<typename KeyValuePair_t>
+HD_HashMapIterator<KeyValuePair_t>& HD_HashMapIterator<KeyValuePair_t>::operator--()
 {
 	do
 	{
 		myIndex--;
 	}
-	while (myIndex >= 0 && !myHashMap->GetIsValueAtIndexPresent(myIndex));
+	while (myIndex > 0 && !(myControlBytes[myIndex] & 0b10000000));
 
 	return *this;
 }
 
-template<typename K, typename V>
-HD_HashMapIterator<K, V> HD_HashMapIterator<K, V>::operator++(int)
+template<typename KeyValuePair_t>
+HD_HashMapIterator<KeyValuePair_t> HD_HashMapIterator<KeyValuePair_t>::operator++(int)
 {
 	HD_HashMapIterator iterator = *this;
 	++(*this);
 	return iterator;
 }
 
-template<typename K, typename V>
-HD_HashMapIterator<K, V> HD_HashMapIterator<K, V>::operator--(int)
+template<typename KeyValuePair_t>
+HD_HashMapIterator<KeyValuePair_t> HD_HashMapIterator<KeyValuePair_t>::operator--(int)
 {
 	HD_HashMapIterator iterator = *this;
 	--(*this);
 	return iterator;
 }
 
-template<typename K, typename V>
-HD_HashMapIterator<K, V>& HD_HashMapIterator<K, V>::operator+=(int aIncrement)
+template<typename KeyValuePair_t>
+HD_HashMapIterator<KeyValuePair_t>& HD_HashMapIterator<KeyValuePair_t>::operator+=(int aIncrement)
 {
 	for (int i = 0; i < aIncrement; ++i)
 		++(*this);
@@ -403,8 +424,8 @@ HD_HashMapIterator<K, V>& HD_HashMapIterator<K, V>::operator+=(int aIncrement)
 	return *this;
 }
 
-template<typename K, typename V>
-HD_HashMapIterator<K, V>& HD_HashMapIterator<K, V>::operator-=(int aDecrement)
+template<typename KeyValuePair_t>
+HD_HashMapIterator<KeyValuePair_t>& HD_HashMapIterator<KeyValuePair_t>::operator-=(int aDecrement)
 {
 	for (int i = 0; i < aDecrement; ++i)
 		--(*this);
@@ -412,26 +433,26 @@ HD_HashMapIterator<K, V>& HD_HashMapIterator<K, V>::operator-=(int aDecrement)
 	return *this;
 }
 
-template<typename K, typename V>
-bool HD_HashMapIterator<K, V>::operator==(const HD_HashMapIterator& aIterator) const
+template<typename KeyValuePair_t>
+bool HD_HashMapIterator<KeyValuePair_t>::operator==(const HD_HashMapIterator& aIterator) const
 {
-	return myHashMap == aIterator.myHashMap && myIndex == aIterator.myIndex;
+	return myControlBytes == aIterator.myControlBytes && myIndex == aIterator.myIndex;
 }
 
-template<typename K, typename V>
-bool HD_HashMapIterator<K, V>::operator!=(const HD_HashMapIterator& aIterator) const
+template<typename KeyValuePair_t>
+bool HD_HashMapIterator<KeyValuePair_t>::operator!=(const HD_HashMapIterator& aIterator) const
 {
 	return !(*this == aIterator);
 }
 
-template<typename K, typename V>
-HashCodeValuePair<V>& HD_HashMapIterator<K, V>::operator*() const
+template<typename KeyValuePair_t>
+KeyValuePair_t& HD_HashMapIterator<KeyValuePair_t>::operator*() const
 {
-	return myHashMap->myHashCodeValuePairs[myIndex];
+	return myKeyValuePairs[myIndex];
 }
 
-template<typename K, typename V>
-HashCodeValuePair<V>* HD_HashMapIterator<K, V>::operator->() const
+template<typename KeyValuePair_t>
+KeyValuePair_t* HD_HashMapIterator<KeyValuePair_t>::operator->() const
 {
-	return myHashMap->myHashCodeValuePairs + myIndex;
+	return myKeyValuePairs + myIndex;
 }
