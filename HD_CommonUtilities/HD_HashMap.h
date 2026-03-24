@@ -16,6 +16,24 @@
 	//		should be used instead, which is an AVL-tree structure.
 	// * Overall this map favors speed on insert and find, at the cost of memory.
 
+// Future work:
+	// * I don't fully understand how the map in the cppcon talk manages to function
+	//		without storing keys or hash codes together with the values. Finding an
+	//		element with a given key means we can find a probe sequence, but how
+	//		do we find the correct element in that sequence with only a key/hash if
+	//		only values are stored in the array? Only storing values would be more
+	//		optimized, mainly in terms of memory but perhaps also in speed if more
+	//		values fit in one cache line.
+	// * If we want to store something together with the value, then storing the 
+	//		hash code would be nice. That would mean that we wouldn't need to re-
+	//		calculate the hash code when we rehash. However, while iterating the map
+	//		I want to be able to extract the key, and if I store hash codes instead
+	//		then I don't know how to reverse that to a key-value (if that's possible).
+	// * Right now I'm calculating the hash code a bit too often. For example, when
+	//		I insert a value the hash code is computed at least twice, and three
+	//		times if the insert triggers a rehash. It should only have to be
+	//		calculated once per insert.
+
 #include "HD_Hash.h"
 #include "HD_Pair.h"
 #include "HD_Utilities.h"
@@ -100,7 +118,9 @@ private:
 	void Rehash();
 
 	// Finds the index where an element is, or would be.
-	int FindSlotIndexForKey(const K& aKey) const;
+	int GetSlotIndexForKey(const K& aKey) const;
+
+	int GetFirstSlotIndex() const;
 
 	bool GetIsSlotFullAtIndex(int aIndex) const;
 
@@ -140,7 +160,7 @@ HD_HashMap<K, V>::HD_HashMap(const HD_HashMap& aHashMap)
 		const K& key = it->myFirst;
 		const V& value = it->mySecond;
 
-		int index = FindSlotIndexForKey(key);
+		int index = GetSlotIndexForKey(key);
 		InsertKeyValueAtIndex(index, key, value);
 		mySize++;
 	}
@@ -151,17 +171,14 @@ HD_HashMap<K, V>::HD_HashMap(HD_HashMap&& aHashMap)
 	: myData(nullptr)
 	, myControlBytes(nullptr)
 	, myKeyValuePairs(nullptr)
-	, mySize(0)
-	, myCapacity(0)
+	, mySize(aHashMap.mySize)
+	, myCapacity(aHashMap.myCapacity)
 {
-	mySize = aHashMap.mySize;
-	myCapacity = aHashMap.myCapacity;
-
 	myData = aHashMap.myData;
 	myControlBytes = myData;
 	myKeyValuePairs = reinterpret_cast<KeyValuePair<K, V>*>(myControlBytes + myCapacity);
 
-	aHashMap.myControlBytes = nullptr;
+	aHashMap.myData = nullptr;
 }
 
 template<typename K, typename V>
@@ -173,7 +190,7 @@ HD_HashMap<K, V>::~HD_HashMap()
 template<typename K, typename V>
 const V* HD_HashMap<K, V>::GetIfExists(const K& aKey) const
 {
-	int index = FindSlotIndexForKey(aKey);
+	int index = GetSlotIndexForKey(aKey);
 	bool isFull = GetIsSlotFullAtIndex(index);
 
 	if (isFull)
@@ -187,7 +204,7 @@ const V* HD_HashMap<K, V>::GetIfExists(const K& aKey) const
 template<typename K, typename V>
 V& HD_HashMap<K, V>::operator[](const K& aKey)
 {
-	int index = FindSlotIndexForKey(aKey);
+	int index = GetSlotIndexForKey(aKey);
 	bool isFull = GetIsSlotFullAtIndex(index);
 
 	if (isFull)
@@ -199,7 +216,7 @@ V& HD_HashMap<K, V>::operator[](const K& aKey)
 	if (newLoadFactor > ourMaximumLoadFactor)
 	{
 		Rehash();
-		index = FindSlotIndexForKey(aKey);
+		index = GetSlotIndexForKey(aKey);
 	}
 
 	if (myControlBytes[index] == ControlByte_Empty)
@@ -229,7 +246,7 @@ HD_HashMap<K, V>& HD_HashMap<K, V>::operator=(const HD_HashMap& aHashMap)
 		const K& key = it->myFirst;
 		const V& value = it->mySecond;
 
-		int index = FindSlotIndexForKey(key);
+		int index = GetSlotIndexForKey(key);
 		InsertKeyValueAtIndex(index, key, value);
 		mySize++;
 	}
@@ -247,7 +264,7 @@ HD_HashMap<K, V>& HD_HashMap<K, V>::operator=(HD_HashMap&& aHashMap)
 	myControlBytes = myData;
 	myKeyValuePairs = reinterpret_cast<KeyValuePair<K, V>*>(myControlBytes + myCapacity);
 
-	aHashMap.myControlBytes = nullptr;
+	aHashMap.myData = nullptr;
 
 	return *this;
 }
@@ -255,7 +272,7 @@ HD_HashMap<K, V>& HD_HashMap<K, V>::operator=(HD_HashMap&& aHashMap)
 template<typename K, typename V>
 void HD_HashMap<K, V>::Remove(const K& aKey)
 {
-	int index = FindSlotIndexForKey(aKey);
+	int index = GetSlotIndexForKey(aKey);
 	bool isFull = GetIsSlotFullAtIndex(index);
 
 	if (isFull)
@@ -273,7 +290,8 @@ void HD_HashMap<K, V>::Clear()
 template<typename K, typename V>
 typename HD_HashMap<K, V>::Iterator HD_HashMap<K, V>::begin()
 {
-	return Iterator(myControlBytes, myKeyValuePairs, 0, myCapacity);
+	int firstIndex = GetFirstSlotIndex();
+	return Iterator(myControlBytes, myKeyValuePairs, firstIndex, myCapacity);
 }
 
 template<typename K, typename V>
@@ -285,7 +303,8 @@ typename HD_HashMap<K, V>::Iterator HD_HashMap<K, V>::end()
 template<typename K, typename V>
 typename HD_HashMap<K, V>::ConstIterator HD_HashMap<K, V>::begin() const
 {
-	return ConstIterator(myControlBytes, myKeyValuePairs, 0, myCapacity);
+	int firstIndex = GetFirstSlotIndex();
+	return ConstIterator(myControlBytes, myKeyValuePairs, firstIndex, myCapacity);
 }
 
 template<typename K, typename V>
@@ -300,7 +319,7 @@ void HD_HashMap<K, V>::InitWithCapacity(int aCapacity)
 	myCapacity = aCapacity;
 	mySize = 0;
 
-	myData = new char[myCapacity + sizeof(HD_Pair<size_t, V>) * myCapacity] { 0 };
+	myData = new char[myCapacity + sizeof(KeyValuePair<size_t, V>) * myCapacity] { 0 };
 	myControlBytes = myData;
 	myKeyValuePairs = reinterpret_cast<KeyValuePair<K, V>*>(myControlBytes + myCapacity);
 }
@@ -323,7 +342,7 @@ void HD_HashMap<K, V>::Rehash()
 }
 
 template<typename K, typename V>
-int HD_HashMap<K, V>::FindSlotIndexForKey(const K& aKey) const
+int HD_HashMap<K, V>::GetSlotIndexForKey(const K& aKey) const
 {
 	size_t hashCode = HD_Hash(aKey);
 	int index = GetLevel1Hash(hashCode) % myCapacity;
@@ -331,7 +350,7 @@ int HD_HashMap<K, V>::FindSlotIndexForKey(const K& aKey) const
 	while (true)
 	{
 		bool isSlotEmpty = myControlBytes[index] == ControlByte_Empty;
-		bool isLevel2HashSame = myControlBytes[index] == GetLevel2Hash(hashCode);
+		bool isLevel2HashSame = GetLevel2Hash(myControlBytes[index]) == GetLevel2Hash(hashCode);
 
 		if (isSlotEmpty || (isLevel2HashSame && myKeyValuePairs[index].myFirst == aKey))
 		{
@@ -340,6 +359,20 @@ int HD_HashMap<K, V>::FindSlotIndexForKey(const K& aKey) const
 
 		index++;
 	}
+}
+
+template<typename K, typename V>
+int HD_HashMap<K, V>::GetFirstSlotIndex() const
+{
+	for (int i = 0; i < myCapacity; i++)
+	{
+		if (GetIsSlotFullAtIndex(i))
+		{
+			return i;
+		}
+	}
+
+	return -1;
 }
 
 template<typename K, typename V>
