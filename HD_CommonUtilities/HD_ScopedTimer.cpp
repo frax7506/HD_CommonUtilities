@@ -18,9 +18,9 @@ HD_ScopedTimer::~HD_ScopedTimer()
 
 void HD_ScopedTimer::Stop()
 {
-	const long long endTimestampMicroseconds = HD_Time::GetCurrentTimeMicroseconds();
+	const unsigned long long endTimestampMicroseconds = HD_Time::GetCurrentTimeMicroseconds();
 
-	const long long duration = endTimestampMicroseconds - myStartTimestampMicroseconds;
+	const unsigned long long duration = endTimestampMicroseconds - myStartTimestampMicroseconds;
 	const double ms = duration / 1000.0;
 
 	printf("HD_ScopedTimer: %s - %.3f ms\n", myTitle, ms);

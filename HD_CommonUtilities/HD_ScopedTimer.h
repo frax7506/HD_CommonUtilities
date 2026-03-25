@@ -12,5 +12,5 @@ private:
 	void Stop();
 
 	char myTitle[TITLE_BUFFER_SIZE];
-	long long myStartTimestampMicroseconds;
+	unsigned long long myStartTimestampMicroseconds;
 };
