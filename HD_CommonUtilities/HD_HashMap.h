@@ -1,5 +1,3 @@
-// WIP
-
 #pragma once
 
 // Inspired by Google's flat_hash_set: https://www.youtube.com/watch?v=ncHmEUmJZf4
