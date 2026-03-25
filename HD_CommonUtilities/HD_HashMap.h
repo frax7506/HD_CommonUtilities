@@ -113,7 +113,7 @@ private:
 
 	void InitWithCapacity(int aCapacity);
 
-	void InsertKeyValueAtIndex(int aIndex, const K& aKey, const V& aValue);
+	void InsertKeyValueAtIndex(const K& aKey, const V& aValue, int aIndex);
 
 	void Rehash();
 
@@ -161,7 +161,7 @@ HD_HashMap<K, V>::HD_HashMap(const HD_HashMap& aHashMap)
 		const V& value = it->mySecond;
 
 		int index = GetSlotIndexForKey(key);
-		InsertKeyValueAtIndex(index, key, value);
+		InsertKeyValueAtIndex(key, value, index);
 		mySize++;
 	}
 }
@@ -224,7 +224,7 @@ V& HD_HashMap<K, V>::operator[](const K& aKey)
 		mySize++;
 	}
 
-	InsertKeyValueAtIndex(index, aKey, V());
+	InsertKeyValueAtIndex(aKey, V(), index);
 	return myKeyValuePairs[index].mySecond;
 }
 
@@ -247,7 +247,7 @@ HD_HashMap<K, V>& HD_HashMap<K, V>::operator=(const HD_HashMap& aHashMap)
 		const V& value = it->mySecond;
 
 		int index = GetSlotIndexForKey(key);
-		InsertKeyValueAtIndex(index, key, value);
+		InsertKeyValueAtIndex(key, value, index);
 		mySize++;
 	}
 
@@ -285,6 +285,7 @@ template<typename K, typename V>
 void HD_HashMap<K, V>::Clear()
 {
 	memset(myControlBytes, 0, sizeof(ControlByte_t) * myCapacity);
+	mySize = 0;
 }
 
 template<typename K, typename V>
@@ -325,7 +326,7 @@ void HD_HashMap<K, V>::InitWithCapacity(int aCapacity)
 }
 
 template<typename K, typename V>
-void HD_HashMap<K, V>::InsertKeyValueAtIndex(int aIndex, const K& aKey, const V& aValue)
+void HD_HashMap<K, V>::InsertKeyValueAtIndex(const K& aKey, const V& aValue, int aIndex)
 {
 	size_t hashCode = HD_Hash(aKey);
 	myControlBytes[aIndex] = GetLevel2Hash(hashCode) | 0b10000000;
