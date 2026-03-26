@@ -43,6 +43,12 @@ int HD_String::GetLength() const
 	return myLength;
 }
 
+char HD_String::GetCharAt(int aIndex) const
+{
+	assert(0 <= aIndex && aIndex < myLength);
+	return myData[aIndex];
+}
+
 HD_String& HD_String::operator=(const char* aString)
 {
 	int length = HD_Strlen(aString);

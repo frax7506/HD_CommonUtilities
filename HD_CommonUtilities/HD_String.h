@@ -11,6 +11,7 @@ public:
 
 	const char* GetBuffer() const;
 	int GetLength() const;
+	char GetCharAt(int aIndex) const;
 
 	HD_String& operator=(const char* aString);
 	HD_String& operator=(const HD_String& aString);
