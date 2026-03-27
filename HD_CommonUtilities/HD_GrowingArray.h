@@ -53,11 +53,11 @@ public:
 	ConstIterator end() const;
 
 private:
+	static constexpr float ourGrowFactor = 1.5;
+
 	void CheckSizeAndGrowIfNecessary();
 	void Grow(int aNewCapacity);
 	void InsertAtIndex(const T& aItem, int aIndex);
-
-	static constexpr float ourGrowFactor = 1.5;
 
 	T* myData;
 	int mySize;
@@ -270,9 +270,8 @@ template<typename T>
 HD_GrowingArray<T>& HD_GrowingArray<T>::operator=(const HD_GrowingArray& aGrowingArray)
 {
 	bool isCurrentBufferTooSmall = myCapacity < aGrowingArray.mySize;
-	bool isCurrentBufferTooBig = static_cast<float>(myCapacity) / static_cast<float>(aGrowingArray.mySize) >= ourGrowFactor;
 
-	if (isCurrentBufferTooSmall || isCurrentBufferTooBig)
+	if (isCurrentBufferTooSmall)
 	{
 		HD_SafeDeleteArray(myData);
 		myData = new T[aGrowingArray.myCapacity];
