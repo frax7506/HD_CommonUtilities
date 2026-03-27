@@ -13,11 +13,25 @@ public:
 	int GetLength() const;
 	char GetCharAt(int aIndex) const;
 
+	void Append(const char* aString);
+	void Append(const HD_String& aString);
+
 	HD_String& operator=(const char* aString);
 	HD_String& operator=(const HD_String& aString);
 	HD_String& operator=(HD_String&& aString);
 
+	bool operator==(const char* aString) const;
+	bool operator==(const HD_String& aString) const;
+	bool operator!=(const char* aString) const;
+	bool operator!=(const HD_String& aString) const;
+
 private:
-	int myLength;
+	static constexpr float ourGrowFactor = 1.5f;
+
+	void CheckLengthAndGrowIfNecessary(int anAdditionalLength);
+	void Grow(int aNewCapacity);
+
 	char* myData;
+	int myLength;
+	int myCapacity;
 };

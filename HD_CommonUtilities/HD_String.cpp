@@ -1,18 +1,18 @@
 #include "stdafx.h"
 #include "HD_String.h"
 
-#define UNACCEPTABLE_BUFFER_OVERSIZE_FACTOR 1.5f
-
 HD_String::HD_String()
-	: myLength(0)
-	, myData(nullptr)
+	: myData(nullptr)
+	, myLength(0)
+	, myCapacity(0)
 {
 }
 
 HD_String::HD_String(const char* aString)
 {
 	myLength = HD_Strlen(aString);
-	myData = new char[myLength + 1] { 0 };
+	myCapacity = myLength + 1;
+	myData = new char[myCapacity] { 0 };
 	memcpy(myData, aString, myLength);
 }
 
@@ -24,6 +24,7 @@ HD_String::HD_String(const HD_String& aString)
 HD_String::HD_String(HD_String&& aString)
 {
 	myLength = aString.myLength;
+	myCapacity = aString.myCapacity;
 	myData = aString.myData;
 	aString.myData = nullptr;
 }
@@ -49,20 +50,34 @@ char HD_String::GetCharAt(int aIndex) const
 	return myData[aIndex];
 }
 
+void HD_String::Append(const char* aString)
+{
+	int length = HD_Strlen(aString);
+	CheckLengthAndGrowIfNecessary(length);
+
+	memcpy(myData + myLength, aString, length);
+	myLength += length;
+}
+
+void HD_String::Append(const HD_String& aString)
+{
+	Append(aString.GetBuffer());
+}
+
 HD_String& HD_String::operator=(const char* aString)
 {
 	int length = HD_Strlen(aString);
+	bool isCurrentBufferTooSmall = myCapacity < length + 1;
 
-	bool isCurrentBufferTooSmall = myLength < length;
-	bool isCurrentBufferTooBig = static_cast<float>(myLength) / static_cast<float>(length) >= UNACCEPTABLE_BUFFER_OVERSIZE_FACTOR;
-
-	if (isCurrentBufferTooSmall || isCurrentBufferTooBig)
+	if (isCurrentBufferTooSmall)
 	{
 		HD_SafeDeleteArray(myData);
-		myData = new char[length + 1] { 0 };
+		myCapacity = length + 1;
+		myData = new char[myCapacity] { 0 };
 	}
 
 	myLength = length;
+	memset(myData, 0, myCapacity);
 	memcpy(myData, aString, myLength);
 
 	return *this;
@@ -77,8 +92,49 @@ HD_String& HD_String::operator=(const HD_String& aString)
 HD_String& HD_String::operator=(HD_String&& aString)
 {
 	myLength = aString.myLength;
+	myCapacity = aString.myCapacity;
 	myData = aString.myData;
 	aString.myData = nullptr;
 
 	return *this;
+}
+
+bool HD_String::operator==(const char* aString) const
+{
+	return HD_Strcmp(myData, aString) == 0;
+}
+
+bool HD_String::operator==(const HD_String& aString) const
+{
+	return (*this) == aString.GetBuffer();
+}
+
+bool HD_String::operator!=(const char* aString) const
+{
+	return !((*this) == aString);
+}
+
+bool HD_String::operator!=(const HD_String& aString) const
+{
+	return !((*this) == aString.GetBuffer());
+}
+
+void HD_String::CheckLengthAndGrowIfNecessary(int anAdditionalLength)
+{
+	if (myLength + anAdditionalLength > myCapacity - 1)
+	{
+		int newLength = myLength + anAdditionalLength;
+		int newCapacity = static_cast<int>(newLength * ourGrowFactor + 1);
+		assert(newCapacity > myCapacity && "HD_String grew larger than int max.");
+		Grow(newCapacity);
+	}
+}
+
+void HD_String::Grow(int aNewCapacity)
+{
+	char* oldData = myData;
+	myData = new char[aNewCapacity] { 0 };
+	memcpy(myData, oldData, myLength);
+	HD_SafeDeleteArray(oldData);
+	myCapacity = aNewCapacity;
 }

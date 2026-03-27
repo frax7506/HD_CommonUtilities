@@ -7,3 +7,4 @@
 #define HD_SafeDeleteArray(a) { delete[] a; a = 0; }
 
 #define HD_Strlen(a) static_cast<int>(strlen(a))
+#define HD_Strcmp(a, b) strcmp(a, b)
