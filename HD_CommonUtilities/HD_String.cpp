@@ -64,6 +64,13 @@ void HD_String::Append(const HD_String& aString)
 	Append(aString.GetBuffer());
 }
 
+HD_String HD_String::operator+(const HD_String& aString) const
+{
+	HD_String result(*this);
+	result.Append(aString);
+	return result;
+}
+
 HD_String& HD_String::operator=(const char* aString)
 {
 	int length = HD_Strlen(aString);
@@ -137,4 +144,11 @@ void HD_String::Grow(int aNewCapacity)
 	memcpy(myData, oldData, myLength);
 	HD_SafeDeleteArray(oldData);
 	myCapacity = aNewCapacity;
+}
+
+HD_String operator+(const char* aString1, const HD_String& aString2)
+{
+	HD_String result(aString1);
+	result.Append(aString2);
+	return result;
 }

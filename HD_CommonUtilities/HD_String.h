@@ -16,6 +16,8 @@ public:
 	void Append(const char* aString);
 	void Append(const HD_String& aString);
 
+	HD_String operator+(const HD_String& aString) const;
+
 	HD_String& operator=(const char* aString);
 	HD_String& operator=(const HD_String& aString);
 	HD_String& operator=(HD_String&& aString);
@@ -35,3 +37,6 @@ private:
 	int myLength;
 	int myCapacity;
 };
+
+// Global operator for doing <string literal> + aString.
+HD_String operator+(const char* aString1, const HD_String& aString2);
