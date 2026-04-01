@@ -22,8 +22,13 @@ project("HD_CommonUtilities")
 		targetname("HD_CommonUtilities_Release")
 		targetdir("../Output/HD_CommonUtilities")
 		
+	filter({"configurations:*"})
+		
 	warnings("Extra")
 	fatalwarnings({"All"})
+	
+	defines { "_CRT_SECURE_NO_WARNINGS" }
+	
 	vpaths
 	{
 		["Containers"] =
@@ -49,6 +54,8 @@ project("HD_CommonUtilities")
 		},
 		["Misc"] =
 		{
+			"../HD_CommonUtilities/HD_ExeArgs.h",
+			"../HD_CommonUtilities/HD_ExeArgs.cpp",
 			"../HD_CommonUtilities/HD_Hash.h",
 			"../HD_CommonUtilities/HD_IsFundamental.h",
 			"../HD_CommonUtilities/HD_PreprocessorMacros.h",
@@ -93,8 +100,13 @@ project("Tests")
 		targetname("Tests_Release")
 		targetdir("../Output/Tests")
 	
+	filter({"configurations:*"})
+	
 	warnings("Extra")
 	fatalwarnings({"All"})
+	
+	defines { "_CRT_SECURE_NO_WARNINGS" }
+	
 	vpaths
 	{
 		["Containers"] =
@@ -118,6 +130,7 @@ project("Tests")
 		},
 		["Misc"] =
 		{
-			"../Tests/HD_IsFundamental_Tests.cpp"
+			"../Tests/HD_IsFundamental_Tests.cpp",
+			"../Tests/HD_ExeArgs_Tests.cpp"
 		}
 	}

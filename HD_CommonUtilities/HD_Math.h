@@ -29,7 +29,7 @@
 
 namespace HD_Math
 {
-	static bool AreFloatValuesClose(float aFirst, float aSecond)
+	inline bool AreFloatValuesClose(float aFirst, float aSecond)
 	{
 		float diff = HD_Abs(aFirst - aSecond);
 		return diff < F_SMALL;
