@@ -16,6 +16,7 @@ public:
 	void Append(const char* aString);
 	void Append(const HD_String& aString);
 
+	HD_String operator+(const char* aString) const;
 	HD_String operator+(const HD_String& aString) const;
 
 	HD_String& operator=(const char* aString);

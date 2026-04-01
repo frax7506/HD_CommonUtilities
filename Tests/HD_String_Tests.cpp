@@ -141,18 +141,30 @@ namespace HD_CommonUtilities
 			HD_String string1("haha");
 			HD_String string2("hehe");
 
-			HD_String string3 = string1 + string2;
+			{
+				HD_String string3 = string1 + string2;
 
-			char buffer1[16]{ 0 };
-			memcpy(buffer1, "hahahehe", 8);
-			Assert::AreEqual(memcmp(string3.myData, buffer1, 9), 0);
+				char buffer[16]{ 0 };
+				memcpy(buffer, "hahahehe", 8);
+				Assert::AreEqual(memcmp(string3.myData, buffer, 9), 0);
+			}
 
-			// Global operator+ for <string literal> + aString.
-			HD_String string4 = " " + string1;
+			{
+				HD_String string3 = string1 + " ";
 
-			char buffer2[16]{ 0 };
-			memcpy(buffer2, " haha", 5);
-			Assert::AreEqual(memcmp(string4.myData, buffer2, 6), 0);
+				char buffer[16]{ 0 };
+				memcpy(buffer, "haha ", 5);
+				Assert::AreEqual(memcmp(string3.myData, buffer, 6), 0);
+			}
+
+			{
+				// Global operator+ for <string literal> + aString.
+				HD_String string3 = " " + string1;
+
+				char buffer[16]{ 0 };
+				memcpy(buffer, " haha", 5);
+				Assert::AreEqual(memcmp(string3.myData, buffer, 6), 0);
+			}
 		}
 
 		TEST_METHOD(Operator_Assignment_CString)

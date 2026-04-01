@@ -64,11 +64,16 @@ void HD_String::Append(const HD_String& aString)
 	Append(aString.GetBuffer());
 }
 
-HD_String HD_String::operator+(const HD_String& aString) const
+HD_String HD_String::operator+(const char* aString) const
 {
 	HD_String result(*this);
 	result.Append(aString);
 	return result;
+}
+
+HD_String HD_String::operator+(const HD_String& aString) const
+{
+	return (*this) + aString.GetBuffer();
 }
 
 HD_String& HD_String::operator=(const char* aString)
