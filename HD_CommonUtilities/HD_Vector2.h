@@ -32,6 +32,13 @@ public:
 	HD_Vector2& operator/=(T aConstant);
 
 	T myX, myY;
+
+public:
+	static const HD_Vector2 Zero;
+	static const HD_Vector2 Up;
+	static const HD_Vector2 Down;
+	static const HD_Vector2 Left;
+	static const HD_Vector2 Right;
 };
 
 template<typename T>
@@ -188,3 +195,9 @@ HD_Vector2<T> operator*(T aConstant, const HD_Vector2<T>& aVector)
 
 typedef HD_Vector2<float> HD_Vector2f;
 typedef HD_Vector2<int> HD_Vector2i;
+
+template <> const HD_Vector2<float> HD_Vector2<float>::Zero = { 0.f, 0.f };
+template <> const HD_Vector2<float> HD_Vector2<float>::Up = { 0.f, 1.f };
+template <> const HD_Vector2<float> HD_Vector2<float>::Down = { 0.f, -1.f };
+template <> const HD_Vector2<float> HD_Vector2<float>::Left = { -1.f, 0.f };
+template <> const HD_Vector2<float> HD_Vector2<float>::Right = { 1.f, 0.f };
