@@ -19,9 +19,9 @@ namespace HD_CommonUtilities
 		TEST_METHOD(Constructor)
 		{
 			HD_String string;
-			Assert::IsNull(string.myData);
+			Assert::AreEqual(*string.myData, static_cast<char>(0));
 			Assert::AreEqual(string.myLength, 0);
-			Assert::AreEqual(string.myCapacity, 0);
+			Assert::AreEqual(string.myCapacity, 1);
 		}
 
 		TEST_METHOD(Constructor_CString)
