@@ -58,6 +58,8 @@ project("HD_CommonUtilities")
 			"../HD_CommonUtilities/HD_ExeArgs.cpp",
 			"../HD_CommonUtilities/HD_Hash.h",
 			"../HD_CommonUtilities/HD_IsFundamental.h",
+			"../HD_CommonUtilities/HD_Logger.h",
+			"../HD_CommonUtilities/HD_Logger.cpp",
 			"../HD_CommonUtilities/HD_PreprocessorMacros.h",
 			"../HD_CommonUtilities/HD_Random.h",
 			"../HD_CommonUtilities/HD_Random.cpp",
