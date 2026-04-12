@@ -6,6 +6,7 @@
 #define private public
 
 #include "HD_GrowingArray.h"
+#include "HD_String.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -87,6 +88,19 @@ namespace HD_CommonUtilities
 			Assert::AreEqual(growingArray[2], 2);
 			Assert::AreEqual(growingArray.mySize, 3);
 			Assert::AreEqual(growingArray.myCapacity, 3);
+		}
+
+		TEST_METHOD(PushBack_Move)
+		{
+			HD_String stringToMove("haha");
+			HD_GrowingArray<HD_String> growingArray;
+			
+			growingArray.PushBack(HD_Move(stringToMove));
+
+			Assert::IsNull(stringToMove.myData);
+			int testy = HD_Strcmp(growingArray.GetFirst().GetBuffer(), "haha");
+			HD_Unused(testy);
+			Assert::AreEqual(HD_Strcmp(growingArray.GetFirst().GetBuffer(), "haha"), 0);
 		}
 
 		TEST_METHOD(PushBackSorted)

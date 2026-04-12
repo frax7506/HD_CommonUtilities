@@ -20,6 +20,7 @@ public:
 	~HD_GrowingArray();
 
 	void PushBack(const T& aItem);
+	void PushBack(T&& aItem);
 	void PushBackSorted(const T& aItem);
 	void PushBackSortedReverse(const T& aItem);
 	void Remove(int aIndex);
@@ -110,6 +111,15 @@ void HD_GrowingArray<T>::PushBack(const T& aItem)
 	CheckSizeAndGrowIfNecessary();
 
 	myData[mySize] = aItem;
+	mySize++;
+}
+
+template<typename T>
+void HD_GrowingArray<T>::PushBack(T&& aItem)
+{
+	CheckSizeAndGrowIfNecessary();
+
+	myData[mySize] = HD_Move(aItem);
 	mySize++;
 }
 
