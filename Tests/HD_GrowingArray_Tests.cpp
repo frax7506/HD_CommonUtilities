@@ -166,11 +166,16 @@ namespace HD_CommonUtilities
 			HD_GrowingArray<s32> growingArray;
 			growingArray.PushBack(0);
 			growingArray.PushBack(1);
+			growingArray.PushBack(2);
+			growingArray.PushBack(3);
+			growingArray.PushBack(4);
+			growingArray.PushBack(5);
+			growingArray.PushBack(6);
+			growingArray.PushBack(7);
 
 			growingArray.RemoveAll();
 			Assert::IsNotNull(growingArray.myData);
 			Assert::AreEqual(growingArray.mySize, 0);
-			Assert::AreEqual(growingArray.myCapacity, 2);
 		}
 
 		TEST_METHOD(Delete)
@@ -212,11 +217,16 @@ namespace HD_CommonUtilities
 			HD_GrowingArray<s32*> growingArray;
 			growingArray.PushBack(new s32(0));
 			growingArray.PushBack(new s32(1));
+			growingArray.PushBack(new s32(2));
+			growingArray.PushBack(new s32(3));
+			growingArray.PushBack(new s32(4));
+			growingArray.PushBack(new s32(5));
+			growingArray.PushBack(new s32(6));
+			growingArray.PushBack(new s32(7));
 
 			growingArray.DeleteAll();
 			Assert::IsNotNull(growingArray.myData);
 			Assert::AreEqual(growingArray.mySize, 0);
-			Assert::AreEqual(growingArray.myCapacity, 2);
 		}
 
 		TEST_METHOD(Size)

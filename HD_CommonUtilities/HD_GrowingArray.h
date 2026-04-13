@@ -23,6 +23,7 @@ public:
 	void PushBack(T&& aItem);
 	void InsertSorted(const T& aItem);
 	void InsertSortedReverse(const T& aItem);
+
 	void Remove(int aIndex);
 	void RemoveCyclic(int aIndex);
 	void RemoveAll();
@@ -185,10 +186,6 @@ template<typename T>
 void HD_GrowingArray<T>::RemoveAll()
 {
 	mySize = 0;
-	myCapacity = 2;
-
-	HD_SafeDeleteArray(myData);
-	myData = new T[myCapacity];
 }
 
 template<typename T>
@@ -222,10 +219,6 @@ void HD_GrowingArray<T>::DeleteAll()
 		HD_SafeDelete(myData[i]);
 
 	mySize = 0;
-	myCapacity = 2;
-
-	HD_SafeDeleteArray(myData);
-	myData = new T[myCapacity];
 }
 
 template<typename T>
