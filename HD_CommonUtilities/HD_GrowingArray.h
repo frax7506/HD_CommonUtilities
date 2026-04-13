@@ -36,6 +36,8 @@ public:
 	void Reserve(int aCapacity);
 	void Resize(int aSize);
 
+	void Swap(HD_GrowingArray& aOther);
+
 	T& operator[](int aIndex);
 	const T& operator[](int aIndex) const;
 
@@ -263,6 +265,22 @@ void HD_GrowingArray<T>::Resize(int aSize)
 }
 
 template<typename T>
+void HD_GrowingArray<T>::Swap(HD_GrowingArray& aOther)
+{
+	T* tempData = myData;
+	int tempSize = mySize;
+	int tempCapacity = myCapacity;
+
+	myData = aOther.myData;
+	mySize = aOther.mySize;
+	myCapacity = aOther.myCapacity;
+
+	aOther.myData = tempData;
+	aOther.mySize = tempSize;
+	aOther.myCapacity = tempCapacity;
+}
+
+template<typename T>
 T& HD_GrowingArray<T>::operator[](int aIndex)
 {
 	assert(0 <= aIndex && aIndex < mySize);
@@ -386,4 +404,10 @@ void HD_GrowingArray<T>::InsertAtIndex(const T& aItem, int aIndex)
 	memcpy(myData + (aIndex + 1), myData + aIndex, sizeof(T) * (mySize - aIndex));
 	myData[aIndex] = aItem;
 	mySize++;
+}
+
+template<typename T>
+void HD_Swap(HD_GrowingArray<T>& aLhs, HD_GrowingArray<T>& aRhs)
+{
+	aLhs.Swap(aRhs);
 }

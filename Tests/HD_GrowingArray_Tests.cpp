@@ -264,6 +264,53 @@ namespace HD_CommonUtilities
 			Assert::AreEqual(growingArray[3], 0);
 		}
 
+		TEST_METHOD(Swap)
+		{
+			{
+				HD_GrowingArray<s32> growingArray1;
+				growingArray1.PushBack(0);
+				growingArray1.PushBack(1);
+				growingArray1.PushBack(2);
+
+				HD_GrowingArray<s32> growingArray2;
+				growingArray2.PushBack(3);
+				growingArray2.PushBack(4);
+				growingArray2.PushBack(5);
+
+				growingArray1.Swap(growingArray2);
+
+				Assert::AreEqual(growingArray1[0], 3);
+				Assert::AreEqual(growingArray1[1], 4);
+				Assert::AreEqual(growingArray1[2], 5);
+
+				Assert::AreEqual(growingArray2[0], 0);
+				Assert::AreEqual(growingArray2[1], 1);
+				Assert::AreEqual(growingArray2[2], 2);
+			}
+
+			{
+				HD_GrowingArray<s32> growingArray1;
+				growingArray1.PushBack(0);
+				growingArray1.PushBack(1);
+				growingArray1.PushBack(2);
+
+				HD_GrowingArray<s32> growingArray2;
+				growingArray2.PushBack(3);
+				growingArray2.PushBack(4);
+				growingArray2.PushBack(5);
+
+				HD_Swap(growingArray1, growingArray2);
+
+				Assert::AreEqual(growingArray1[0], 3);
+				Assert::AreEqual(growingArray1[1], 4);
+				Assert::AreEqual(growingArray1[2], 5);
+
+				Assert::AreEqual(growingArray2[0], 0);
+				Assert::AreEqual(growingArray2[1], 1);
+				Assert::AreEqual(growingArray2[2], 2);
+			}
+		}
+
 		TEST_METHOD(Operator_Subscript)
 		{
 			HD_GrowingArray<s32> growingArray;
