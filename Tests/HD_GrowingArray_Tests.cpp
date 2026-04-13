@@ -103,12 +103,12 @@ namespace HD_CommonUtilities
 			Assert::AreEqual(HD_Strcmp(growingArray.GetFirst().GetBuffer(), "haha"), 0);
 		}
 
-		TEST_METHOD(PushBackSorted)
+		TEST_METHOD(InsertSorted)
 		{
 			HD_GrowingArray<s32> growingArray;
-			growingArray.PushBackSorted(2);
-			growingArray.PushBackSorted(1);
-			growingArray.PushBackSorted(0);
+			growingArray.InsertSorted(2);
+			growingArray.InsertSorted(1);
+			growingArray.InsertSorted(0);
 
 			Assert::AreEqual(growingArray[0], 0);
 			Assert::AreEqual(growingArray[1], 1);
@@ -117,12 +117,12 @@ namespace HD_CommonUtilities
 			Assert::AreEqual(growingArray.myCapacity, 3);
 		}
 
-		TEST_METHOD(PushBackSortedReverse)
+		TEST_METHOD(InsertSortedReverse)
 		{
 			HD_GrowingArray<s32> growingArray;
-			growingArray.PushBackSortedReverse(0);
-			growingArray.PushBackSortedReverse(1);
-			growingArray.PushBackSortedReverse(2);
+			growingArray.InsertSortedReverse(0);
+			growingArray.InsertSortedReverse(1);
+			growingArray.InsertSortedReverse(2);
 
 			Assert::AreEqual(growingArray[0], 2);
 			Assert::AreEqual(growingArray[1], 1);

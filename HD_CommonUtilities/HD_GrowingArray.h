@@ -21,8 +21,8 @@ public:
 
 	void PushBack(const T& aItem);
 	void PushBack(T&& aItem);
-	void PushBackSorted(const T& aItem);
-	void PushBackSortedReverse(const T& aItem);
+	void InsertSorted(const T& aItem);
+	void InsertSortedReverse(const T& aItem);
 	void Remove(int aIndex);
 	void RemoveCyclic(int aIndex);
 	void RemoveAll();
@@ -124,7 +124,7 @@ void HD_GrowingArray<T>::PushBack(T&& aItem)
 }
 
 template<typename T>
-void HD_GrowingArray<T>::PushBackSorted(const T& aItem)
+void HD_GrowingArray<T>::InsertSorted(const T& aItem)
 {
 	if (GetIsEmpty())
 	{
@@ -141,7 +141,7 @@ void HD_GrowingArray<T>::PushBackSorted(const T& aItem)
 }
 
 template<typename T>
-void HD_GrowingArray<T>::PushBackSortedReverse(const T& aItem)
+void HD_GrowingArray<T>::InsertSortedReverse(const T& aItem)
 {
 	if (GetIsEmpty())
 	{
