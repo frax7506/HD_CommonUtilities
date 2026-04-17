@@ -68,7 +68,8 @@ project("HD_CommonUtilities")
 			"../HD_CommonUtilities/HD_Time.h",
 			"../HD_CommonUtilities/HD_Time.cpp",
 			"../HD_CommonUtilities/HD_Types.h",
-			"../HD_CommonUtilities/HD_Utilities.h"
+			"../HD_CommonUtilities/HD_Utilities.h",
+			"../HD_CommonUtilities/OptimizedWindowsInclude.h"
 		},
 		["Natvis"] =
 		{
