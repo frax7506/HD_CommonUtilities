@@ -73,7 +73,7 @@ void HD_Logger::PrintLogEntry(const LogEntry& aLogEntry) const
 	case LogLevel_Log:
 	{
 		SetConsoleTextAttribute(myStdErrHandle, BACKGROUND_RED | BACKGROUND_GREEN | BACKGROUND_BLUE);
-		std::cerr << "[  ERROR  ]";
+		std::cerr << "[   LOG   ]";
 		SetConsoleTextAttribute(myStdErrHandle, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_INTENSITY);
 		break;
 	}
@@ -87,7 +87,7 @@ void HD_Logger::PrintLogEntry(const LogEntry& aLogEntry) const
 	case LogLevel_Error:
 	{
 		SetConsoleTextAttribute(myStdErrHandle, BACKGROUND_RED);
-		std::cerr << "[   LOG   ]";
+		std::cerr << "[  ERROR  ]";
 		SetConsoleTextAttribute(myStdErrHandle, FOREGROUND_RED | FOREGROUND_INTENSITY);
 		break;
 	}
@@ -95,7 +95,7 @@ void HD_Logger::PrintLogEntry(const LogEntry& aLogEntry) const
 		break;
 	}
 
-	std::cerr << aLogEntry.myLogMessage.GetBuffer() << '\n';
+	std::cerr << " " << aLogEntry.myLogMessage.GetBuffer() << '\n';
 	std::cerr.flush();
 
 	SetConsoleTextAttribute(myStdErrHandle, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
