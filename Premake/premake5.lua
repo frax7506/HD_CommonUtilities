@@ -38,8 +38,7 @@ project("HD_CommonUtilities")
 			"../HD_CommonUtilities/HD_Pair.h",
 			"../HD_CommonUtilities/HD_StaticArray.h",
 			"../HD_CommonUtilities/HD_StaticStack.h",
-			"../HD_CommonUtilities/HD_String.h",
-			"../HD_CommonUtilities/HD_String.cpp"
+			"../HD_CommonUtilities/HD_String.h"
 		},
 		["Math"] =
 		{
