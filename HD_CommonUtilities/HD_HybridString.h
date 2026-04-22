@@ -23,6 +23,13 @@ public:
 	bool GetIsWide() const;
 
 private:
+	enum StringMode : char
+	{
+		StringMode_Invalid,
+		StringMode_NonWide,
+		StringMode_Wide,
+	};
+
 	char* myData;
-	bool myIsWide;
+	StringMode myMode;
 };

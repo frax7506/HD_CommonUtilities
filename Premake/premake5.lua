@@ -115,6 +115,7 @@ project("Tests")
 			"../Tests/HD_DataBuffer_Tests.cpp",
 			"../Tests/HD_GrowingArray_Tests.cpp",
 			"../Tests/HD_HashMap_Tests.cpp",
+			"../Tests/HD_HybridString_Tests.cpp",
 			"../Tests/HD_Map_Tests.cpp",
 			"../Tests/HD_Pair_Tests.cpp",
 			"../Tests/HD_StaticArray_Tests.cpp",
