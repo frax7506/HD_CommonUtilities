@@ -53,6 +53,8 @@ project("HD_CommonUtilities")
 		{
 			"../HD_CommonUtilities/HD_ExeArgs.h",
 			"../HD_CommonUtilities/HD_ExeArgs.cpp",
+			"../HD_CommonUtilities/HD_Format.h",
+			"../HD_CommonUtilities/HD_Format.cpp",
 			"../HD_CommonUtilities/HD_Hash.h",
 			"../HD_CommonUtilities/HD_IsFundamental.h",
 			"../HD_CommonUtilities/HD_Logger.h",
