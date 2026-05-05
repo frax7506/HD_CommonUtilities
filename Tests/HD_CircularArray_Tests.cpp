@@ -21,7 +21,7 @@ namespace HD_CommonUtilities
 			Assert::AreEqual(circularArray.myFirstIndex, 0);
 			Assert::AreEqual(circularArray.myWriteIndex, 0);
 			Assert::AreEqual(circularArray.mySize, 0);
-			Assert::AreEqual(static_cast<int>(circularArray.myOverflowBehaviour), static_cast<int>(OverflowBehaviour::Enable));
+			Assert::AreEqual(static_cast<char>(circularArray.myOverflowBehaviour), static_cast<char>(HD_CircularArray<s32, 8>::eOverflowBehaviour_Enable));
 
 			for (s32 i = 0; i < 8; i++)
 			{
@@ -102,7 +102,7 @@ namespace HD_CommonUtilities
 		TEST_METHOD(PushBack_Overflow_Disabled)
 		{
 			HD_CircularArray<s32, 8> circularArray;
-			circularArray.SetOverflowBehaviour(OverflowBehaviour::Disable);
+			circularArray.DisableOverflow();
 
 			circularArray.PushBack(0);
 			circularArray.PushBack(1);
@@ -240,13 +240,18 @@ namespace HD_CommonUtilities
 			Assert::IsTrue(circularArray.IsEmpty());
 		}
 
-		TEST_METHOD(SetOverflowBehaviour)
+		TEST_METHOD(EnableOverflow)
 		{
 			HD_CircularArray<s32, 8> circularArray;
-			Assert::AreEqual(static_cast<int>(circularArray.myOverflowBehaviour), static_cast<int>(OverflowBehaviour::Enable));
+			circularArray.EnableOverflow();
+			Assert::AreEqual(static_cast<char>(circularArray.myOverflowBehaviour), static_cast<char>(HD_CircularArray<s32, 8>::eOverflowBehaviour_Enable));
+		}
 
-			circularArray.SetOverflowBehaviour(OverflowBehaviour::Disable);
-			Assert::AreEqual(static_cast<int>(circularArray.myOverflowBehaviour), static_cast<int>(OverflowBehaviour::Disable));
+		TEST_METHOD(DisableOverflow)
+		{
+			HD_CircularArray<s32, 8> circularArray;
+			circularArray.DisableOverflow();
+			Assert::AreEqual(static_cast<char>(circularArray.myOverflowBehaviour), static_cast<char>(HD_CircularArray<s32, 8>::eOverflowBehaviour_Disable));
 		}
 	};
 }
