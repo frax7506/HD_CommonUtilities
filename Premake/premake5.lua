@@ -49,6 +49,7 @@ project("HD_CommonUtilities")
 		},
 		["Misc"] =
 		{
+			"../HD_CommonUtilities/HD_Bitset.h",
 			"../HD_CommonUtilities/HD_ExeArgs.h",
 			"../HD_CommonUtilities/HD_ExeArgs.cpp",
 			"../HD_CommonUtilities/HD_Format.h",
@@ -129,7 +130,9 @@ project("Tests")
 		},
 		["Misc"] =
 		{
-			"../Tests/HD_IsFundamental_Tests.cpp",
-			"../Tests/HD_ExeArgs_Tests.cpp"
+			"../Tests/HD_Bitset_Tests.cpp",
+			"../Tests/HD_ExeArgs_Tests.cpp",
+			"../Tests/HD_Format_Tests.cpp",
+			"../Tests/HD_IsFundamental_Tests.cpp"
 		}
 	}
