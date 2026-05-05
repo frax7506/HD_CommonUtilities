@@ -7,8 +7,6 @@
 
 #include "HD_Logger.h"
 
-#include <cstring>
-
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace HD_CommonUtilities
@@ -132,41 +130,43 @@ namespace HD_CommonUtilities
 	public:
 		TEST_METHOD(Contstructor)
 		{
-			Assert::IsTrue(false);
+			HD_LogEntry logEntry;
+			Assert::AreEqual(static_cast<char>(logEntry.myLogLevel), static_cast<char>(HD_LogLevel_Invalid));
 		}
 
 		TEST_METHOD(Constructor_NonWide)
 		{
-			Assert::IsTrue(false);
+			HD_LogEntry logEntry("haha", HD_LogLevel_Log);
+			Assert::AreEqual(static_cast<char>(logEntry.myLogLevel), static_cast<char>(HD_LogLevel_Log));
 		}
 
 		TEST_METHOD(Constructor_Wide)
 		{
-			Assert::IsTrue(false);
+			HD_LogEntry logEntry(L"haha", HD_LogLevel_Log);
+			Assert::AreEqual(static_cast<char>(logEntry.myLogLevel), static_cast<char>(HD_LogLevel_Log));
 		}
 
 		TEST_METHOD(Operator_Assignment_Move)
 		{
-			Assert::IsTrue(false);
-		}
-	};
+			{
+				HD_LogEntry logEntry1("haha", HD_LogLevel_Log);
 
-	TEST_CLASS(HD_Logger_Test)
-	{
-	public:
-		TEST_METHOD(Contstructor)
-		{
-			Assert::IsTrue(false);
-		}
+				HD_LogEntry logEntry2;
+				logEntry2 = HD_Move(logEntry1);
 
-		TEST_METHOD(Log)
-		{
-			Assert::IsTrue(false);
-		}
+				// Successful move of myLogMessage is tested in that class's tests.
+				Assert::AreEqual(static_cast<char>(logEntry2.myLogLevel), static_cast<char>(HD_LogLevel_Log));
+			}
 
-		TEST_METHOD(Log_Formatted)
-		{
-			Assert::IsTrue(false);
+			{
+				HD_LogEntry logEntry1(L"haha", HD_LogLevel_Log);
+
+				HD_LogEntry logEntry2;
+				logEntry2 = HD_Move(logEntry1);
+
+				// Successful move of myLogMessage is tested in that class's tests.
+				Assert::AreEqual(static_cast<char>(logEntry2.myLogLevel), static_cast<char>(HD_LogLevel_Log));
+			}
 		}
 	};
 }
