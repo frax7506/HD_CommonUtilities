@@ -3,10 +3,10 @@
 
 #if !IS_RETAIL_BUILD
 
-// C/blabla -arg1 intValue -arg2 floatValue -arg3 boolValue
-// -arg4 0.1 0.2 -arg5 0.1 0.2 0.3 -arg6 stringValue
+// Exe args example:
+// C/exePath -arg1 intValue -arg2 floatValue -arg3 boolValue -arg4 0.1 0.2 -arg5 0.1 0.2 0.3 -arg6 stringValue
 
-void HD_ExeArgs::Init(int argc, char* argv[])
+void HD_ExeArgs::Init(int argc, const char* argv[])
 {
 	HD_String lastExeArgName;
 	for (int i = 1; i < argc; i++)

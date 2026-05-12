@@ -11,7 +11,7 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 #define DEBUG_ARGC 16
 
-static char* debugExeCommandLine[DEBUG_ARGC] = { "C/testy",
+static const char* debugExeCommandLine[DEBUG_ARGC] = { "C/testy",
 	"-aIntName", "4",
 	"-aFloatName", "2.5",
 	"-aBoolName", "1",

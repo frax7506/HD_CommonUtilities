@@ -13,7 +13,7 @@
 class HD_ExeArgs : public HD_Singleton<HD_ExeArgs>
 {
 public:
-	void Init(int argc, char* argv[]);
+	void Init(int argc, const char* argv[]);
 
 	bool IsPresent(const char* aExeArgName) const;
 
