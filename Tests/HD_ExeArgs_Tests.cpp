@@ -71,12 +71,12 @@ namespace HD_CommonUtilities
 			HD_ExeArgs exeArgs;
 			exeArgs.Init(DEBUG_ARGC, debugExeCommandLine);
 
-			s32 intValue = exeArgs.GetValue<s32>("aIntName");
-			f32 floatValue = exeArgs.GetValue<f32>("aFloatName");
-			bool boolValue = exeArgs.GetValue<bool>("aBoolName");
-			HD_Vector2f vector2Value = exeArgs.GetValue<HD_Vector2f>("aVector2Name");
-			HD_Vector3f vector3Value = exeArgs.GetValue<HD_Vector3f>("aVector3Name");
-			HD_String stringValue = exeArgs.GetValue<HD_String>("aStringName");
+			s32 intValue = exeArgs.GetValueInt("aIntName");
+			f32 floatValue = exeArgs.GetValueFloat("aFloatName");
+			bool boolValue = exeArgs.GetValueBool("aBoolName");
+			HD_Vector2f vector2Value = exeArgs.GetValueVector2f("aVector2Name");
+			HD_Vector3f vector3Value = exeArgs.GetValueVector3f("aVector3Name");
+			HD_String stringValue = exeArgs.GetValueString("aStringName");
 
 			Assert::AreEqual(intValue, 4);
 			Assert::AreEqual(floatValue, 2.5f);
