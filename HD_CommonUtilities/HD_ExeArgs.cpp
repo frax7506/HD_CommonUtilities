@@ -33,7 +33,7 @@ void HD_ExeArgs::Init(int argc, const char* argv[])
 
 bool HD_ExeArgs::IsPresent(const char* aExeArgName) const
 {
-	return myExeArgToValueMap.GetIfExists(aExeArgName);
+	return myExeArgToValueMap.GetIfExists(aExeArgName) != nullptr;
 }
 
 #endif // !IS_RETAIL_BUILD
