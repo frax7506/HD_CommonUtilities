@@ -19,6 +19,9 @@ public:
 	HD_GrowingArray(HD_GrowingArray&& aGrowingArray);
 	~HD_GrowingArray();
 
+	T* GetData();
+	const T* GetData() const;
+
 	void PushBack(const T& aItem);
 	void PushBack(T&& aItem);
 	void InsertSorted(const T& aItem);
@@ -106,6 +109,18 @@ template<typename T>
 HD_GrowingArray<T>::~HD_GrowingArray()
 {
 	HD_SafeDeleteArray(myData);
+}
+
+template<typename T>
+T* HD_GrowingArray<T>::GetData()
+{
+	return myData;
+}
+
+template<typename T>
+const T* HD_GrowingArray<T>::GetData() const
+{
+	return myData;
 }
 
 template<typename T>

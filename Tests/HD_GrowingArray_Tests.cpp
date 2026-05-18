@@ -76,6 +76,23 @@ namespace HD_CommonUtilities
 			Assert::IsNull(growingArray.myData);
 		}
 
+		TEST_METHOD(GetData)
+		{
+			HD_GrowingArray<s32> growingArray;
+			growingArray.PushBack(0);
+			growingArray.PushBack(1);
+			growingArray.PushBack(2);
+
+			s32* data = growingArray.GetData();
+			Assert::IsNotNull(data);
+			Assert::AreEqual(*data, 0);
+
+			const HD_GrowingArray<s32> growingArrayConst = growingArray;
+			const s32* dataConst = growingArrayConst.GetData();
+			Assert::IsNotNull(dataConst);
+			Assert::AreEqual(*dataConst, 0);
+		}
+
 		TEST_METHOD(PushBack)
 		{
 			HD_GrowingArray<s32> growingArray;
