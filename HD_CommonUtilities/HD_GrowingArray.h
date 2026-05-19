@@ -5,6 +5,7 @@
 
 #include <cassert>
 #include <cstring>
+#include <initializer_list>
 
 template<typename T>
 class HD_GrowingArray
@@ -17,6 +18,7 @@ public:
 	HD_GrowingArray(int aCapacity);
 	HD_GrowingArray(const HD_GrowingArray& aGrowingArray);
 	HD_GrowingArray(HD_GrowingArray&& aGrowingArray);
+	HD_GrowingArray(std::initializer_list<T> aInitializerList);
 	~HD_GrowingArray();
 
 	T* GetData();
@@ -47,6 +49,7 @@ public:
 
 	HD_GrowingArray& operator=(const HD_GrowingArray& aGrowingArray);
 	HD_GrowingArray& operator=(HD_GrowingArray&& aGrowingArray);
+	HD_GrowingArray& operator=(std::initializer_list<T> aInitializerList);
 
 	T& GetFirst();
 	T& GetLast();
@@ -103,6 +106,16 @@ HD_GrowingArray<T>::HD_GrowingArray(HD_GrowingArray&& aGrowingArray)
 	aGrowingArray.myData = nullptr;
 	mySize = aGrowingArray.mySize;
 	myCapacity = aGrowingArray.myCapacity;
+}
+
+template<typename T>
+HD_GrowingArray<T>::HD_GrowingArray(std::initializer_list<T> aInitializerList)
+{
+	int initializerListSize = static_cast<int>(aInitializerList.size());
+	myData = new T[initializerListSize];
+	memcpy(myData, aInitializerList.begin(), sizeof(T) * initializerListSize);
+	mySize = initializerListSize;
+	myCapacity = initializerListSize;
 }
 
 template<typename T>
@@ -311,11 +324,11 @@ HD_GrowingArray<T>& HD_GrowingArray<T>::operator=(const HD_GrowingArray& aGrowin
 	{
 		HD_SafeDeleteArray(myData);
 		myData = new T[aGrowingArray.myCapacity];
+		myCapacity = aGrowingArray.myCapacity;
 	}
 
 	memcpy(myData, aGrowingArray.myData, sizeof(T) * aGrowingArray.mySize);
 	mySize = aGrowingArray.mySize;
-	myCapacity = aGrowingArray.myCapacity;
 
 	return *this;
 }
@@ -329,6 +342,25 @@ HD_GrowingArray<T>& HD_GrowingArray<T>::operator=(HD_GrowingArray&& aGrowingArra
 	aGrowingArray.myData = nullptr;
 	mySize = aGrowingArray.mySize;
 	myCapacity = aGrowingArray.myCapacity;
+
+	return *this;
+}
+
+template<typename T>
+HD_GrowingArray<T>& HD_GrowingArray<T>::operator=(std::initializer_list<T> aInitializerList)
+{
+	int initializerListSize = static_cast<int>(aInitializerList.size());
+	bool isCurrentBufferTooSmall = myCapacity < initializerListSize;
+
+	if (isCurrentBufferTooSmall)
+	{
+		HD_SafeDeleteArray(myData);
+		myData = new T[initializerListSize];
+		myCapacity = initializerListSize;
+	}
+
+	memcpy(myData, aInitializerList.begin(), sizeof(T) * initializerListSize);
+	mySize = initializerListSize;
 
 	return *this;
 }
