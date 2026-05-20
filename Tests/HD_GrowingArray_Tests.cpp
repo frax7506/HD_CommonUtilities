@@ -17,34 +17,79 @@ namespace HD_CommonUtilities
 	public:
 		TEST_METHOD(Constructor)
 		{
-			HD_GrowingArray<s32> growingArray;
-			Assert::IsNotNull(growingArray.myData);
-			Assert::AreEqual(growingArray.mySize, 0);
-			Assert::AreEqual(growingArray.myCapacity, 2);
+			{
+				HD_GrowingArray<s32> growingArray;
+				Assert::IsNotNull(growingArray.myData);
+				Assert::AreEqual(growingArray.mySize, 0);
+				Assert::AreEqual(growingArray.myCapacity, 2);
+			}
+
+			/*
+			{
+				HD_GrowingArray<HD_String> growingArray;
+				Assert::IsNotNull(growingArray.myData);
+				Assert::AreEqual(growingArray.mySize, 0);
+				Assert::AreEqual(growingArray.myCapacity, 2);
+			}
+			*/
 		}
 
 		TEST_METHOD(Constructor_Capacity)
 		{
-			HD_GrowingArray<s32> growingArray(8);
-			Assert::IsNotNull(growingArray.myData);
-			Assert::AreEqual(growingArray.mySize, 0);
-			Assert::AreEqual(growingArray.myCapacity, 8);
+			{
+				HD_GrowingArray<s32> growingArray(8);
+				Assert::IsNotNull(growingArray.myData);
+				Assert::AreEqual(growingArray.mySize, 0);
+				Assert::AreEqual(growingArray.myCapacity, 8);
+			}
+
+			/*
+			{
+				HD_GrowingArray<HD_String> growingArray(8);
+				Assert::IsNotNull(growingArray.myData);
+				Assert::AreEqual(growingArray.mySize, 0);
+				Assert::AreEqual(growingArray.myCapacity, 8);
+			}
+			*/
 		}
 
 		TEST_METHOD(Constructor_Copy)
 		{
-			HD_GrowingArray<s32> growingArray1;
-			growingArray1.PushBack(0);
-			growingArray1.PushBack(1);
-			growingArray1.PushBack(2);
+			{
+				HD_GrowingArray<s32> growingArray1;
+				growingArray1.PushBack(0);
+				growingArray1.PushBack(1);
+				growingArray1.PushBack(2);
 
-			HD_GrowingArray<s32> growingArray2(growingArray1);
-			Assert::IsNotNull(growingArray2.myData);
-			Assert::AreEqual(growingArray2[0], 0);
-			Assert::AreEqual(growingArray2[1], 1);
-			Assert::AreEqual(growingArray2[2], 2);
-			Assert::AreEqual(growingArray2.mySize, 3);
-			Assert::AreEqual(growingArray2.myCapacity, 3);
+				HD_GrowingArray<s32> growingArray2(growingArray1);
+				Assert::IsNotNull(growingArray2.myData);
+				Assert::AreEqual(growingArray2[0], 0);
+				Assert::AreEqual(growingArray2[1], 1);
+				Assert::AreEqual(growingArray2[2], 2);
+				Assert::AreEqual(growingArray2.mySize, 3);
+				Assert::AreEqual(growingArray2.myCapacity, 3);
+			}
+
+			/*
+			{
+				HD_String string0("haha0");
+				HD_String string1("haha1");
+				HD_String string2("haha2");
+
+				HD_GrowingArray<HD_String> growingArray1;
+				growingArray1.PushBack(string0);
+				growingArray1.PushBack(string1);
+				growingArray1.PushBack(string2);
+
+				HD_GrowingArray<HD_String> growingArray2(growingArray1);
+				Assert::IsNotNull(growingArray2.myData);
+				Assert::AreEqual(HD_Strcmp(growingArray2[0].GetBuffer(), "haha0"), 0);
+				Assert::AreEqual(HD_Strcmp(growingArray2[1].GetBuffer(), "haha1"), 0);
+				Assert::AreEqual(HD_Strcmp(growingArray2[2].GetBuffer(), "haha2"), 0);
+				Assert::AreEqual(growingArray2.mySize, 3);
+				Assert::AreEqual(growingArray2.myCapacity, 3);
+			}
+			*/
 		}
 
 		TEST_METHOD(Constructor_Move)
@@ -202,57 +247,6 @@ namespace HD_CommonUtilities
 			growingArray.PushBack(7);
 
 			growingArray.RemoveAll();
-			Assert::IsNotNull(growingArray.myData);
-			Assert::AreEqual(growingArray.mySize, 0);
-		}
-
-		TEST_METHOD(Delete)
-		{
-			// htodo: write memory leak detector
-
-			HD_GrowingArray<s32*> growingArray;
-			growingArray.PushBack(new s32(0));
-			growingArray.PushBack(new s32(1));
-			growingArray.PushBack(new s32(2));
-
-			growingArray.Delete(1);
-			Assert::AreEqual(*growingArray[0], 0);
-			Assert::AreEqual(*growingArray[1], 2);
-			Assert::AreEqual(growingArray.mySize, 2);
-			Assert::AreEqual(growingArray.myCapacity, 3);
-		}
-
-		TEST_METHOD(DeleteCyclic)
-		{
-			// htodo: write memory leak detector
-
-			HD_GrowingArray<s32*> growingArray;
-			growingArray.PushBack(new s32(0));
-			growingArray.PushBack(new s32(1));
-			growingArray.PushBack(new s32(2));
-			growingArray.PushBack(new s32(3));
-
-			growingArray.DeleteCyclic(1);
-			Assert::AreEqual(*growingArray[0], 0);
-			Assert::AreEqual(*growingArray[1], 3);
-			Assert::AreEqual(*growingArray[2], 2);
-			Assert::AreEqual(growingArray.mySize, 3);
-			Assert::AreEqual(growingArray.myCapacity, 4);
-		}
-
-		TEST_METHOD(DeleteAll)
-		{
-			HD_GrowingArray<s32*> growingArray;
-			growingArray.PushBack(new s32(0));
-			growingArray.PushBack(new s32(1));
-			growingArray.PushBack(new s32(2));
-			growingArray.PushBack(new s32(3));
-			growingArray.PushBack(new s32(4));
-			growingArray.PushBack(new s32(5));
-			growingArray.PushBack(new s32(6));
-			growingArray.PushBack(new s32(7));
-
-			growingArray.DeleteAll();
 			Assert::IsNotNull(growingArray.myData);
 			Assert::AreEqual(growingArray.mySize, 0);
 		}

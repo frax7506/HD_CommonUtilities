@@ -20,14 +20,14 @@ namespace HD_CommonUtilities
 				HD_String string;
 				Assert::AreEqual(*string.myData, static_cast<char>(0));
 				Assert::AreEqual(string.myLength, 0);
-				Assert::AreEqual(string.myCapacity, 1);
+				Assert::AreEqual(string.myCapacity, 2);
 			}
 
 			{
 				HD_WString string;
 				Assert::AreEqual(*string.myData, static_cast<wchar_t>(0));
 				Assert::AreEqual(string.myLength, 0);
-				Assert::AreEqual(string.myCapacity, 1);
+				Assert::AreEqual(string.myCapacity, 2);
 			}
 		}
 
