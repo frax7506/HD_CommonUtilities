@@ -1,7 +1,16 @@
+projectRootFolder = ".."
+projectRootPath = projectRootFolder .. "/"
+
+sourceHDCommonUtilitiesFolder = projectRootPath .. "HD_CommonUtilities"
+sourceHDCommonUtilitiesPath = sourceHDCommonUtilitiesFolder .. "/"
+
+sourceTestsFolder = projectRootPath .. "Tests"
+sourceTestsPath = sourceTestsFolder .. "/"
+
 workspace("HD_CommonUtilities")
 	configurations({ "Debug", "Release", "Retail" })
 	platforms("x64")
-	location("..")
+	location(projectRootFolder)
 	
 project("HD_CommonUtilities")
 	kind("StaticLib")
@@ -9,15 +18,15 @@ project("HD_CommonUtilities")
 	cppdialect("C++17")
 	
 	targetname("HD_CommonUtilities_$(Configuration)")
-	targetdir("../Output/HD_CommonUtilities")
-	objdir("../Intermediate/HD_CommonUtilities")
-	location("../HD_CommonUtilities")
-	files({ "../HD_CommonUtilities/*.h", "../HD_CommonUtilities/*.cpp", "../HD_CommonUtilities/HD_CommonUtilities.natvis" })
+	targetdir("$(SolutionDir)Output/HD_CommonUtilities")
+	objdir("$(Solutiondir)Intermediate/HD_CommonUtilities")
+	location(sourceHDCommonUtilitiesFolder)
+	files({ sourceHDCommonUtilitiesPath.. "*.h", sourceHDCommonUtilitiesPath .. "*.cpp", sourceHDCommonUtilitiesPath .. "HD_CommonUtilities.natvis" })
 	pchheader("stdafx.h")
-	pchsource("../HD_CommonUtilities/stdafx.cpp")
+	pchsource(sourceHDCommonUtilitiesPath .. "stdafx.cpp")
 		
 	warnings("Extra")
-	fatalwarnings({"All"})
+	fatalwarnings("All")
 	defines("_CRT_SECURE_NO_WARNINGS")
 
 	filter("configurations:Retail")
@@ -29,54 +38,54 @@ project("HD_CommonUtilities")
 	{
 		["Containers"] =
 		{
-			"../HD_CommonUtilities/HD_ArrayIterator.h",
-			"../HD_CommonUtilities/HD_CircularArray.h",
-			"../HD_CommonUtilities/HD_DataBuffer.h",
-			"../HD_CommonUtilities/HD_GrowingArray.h",
-			"../HD_CommonUtilities/HD_HashMap.h",
-			"../HD_CommonUtilities/HD_Map.h",
-			"../HD_CommonUtilities/HD_Pair.h",
-			"../HD_CommonUtilities/HD_StaticArray.h",
-			"../HD_CommonUtilities/HD_StaticStack.h",
-			"../HD_CommonUtilities/HD_String.h"
+			sourceHDCommonUtilitiesPath .. "HD_ArrayIterator.h",
+			sourceHDCommonUtilitiesPath .. "HD_CircularArray.h",
+			sourceHDCommonUtilitiesPath .. "HD_DataBuffer.h",
+			sourceHDCommonUtilitiesPath .. "HD_GrowingArray.h",
+			sourceHDCommonUtilitiesPath .. "HD_HashMap.h",
+			sourceHDCommonUtilitiesPath .. "HD_Map.h",
+			sourceHDCommonUtilitiesPath .. "HD_Pair.h",
+			sourceHDCommonUtilitiesPath .. "HD_StaticArray.h",
+			sourceHDCommonUtilitiesPath .. "HD_StaticStack.h",
+			sourceHDCommonUtilitiesPath .. "HD_String.h"
 		},
 		["Math"] =
 		{
-			"../HD_CommonUtilities/HD_AABB_2D.h",
-			"../HD_CommonUtilities/HD_Math.h",
-			"../HD_CommonUtilities/HD_Vector2.h",
-			"../HD_CommonUtilities/HD_Vector3.h",
-			"../HD_CommonUtilities/HD_Vector4.h"
+			sourceHDCommonUtilitiesPath .. "HD_AABB_2D.h",
+			sourceHDCommonUtilitiesPath .. "HD_Math.h",
+			sourceHDCommonUtilitiesPath .. "HD_Vector2.h",
+			sourceHDCommonUtilitiesPath .. "HD_Vector3.h",
+			sourceHDCommonUtilitiesPath .. "HD_Vector4.h"
 		},
 		["Misc"] =
 		{
-			"../HD_CommonUtilities/HD_Bitset.h",
-			"../HD_CommonUtilities/HD_ExeArgs.h",
-			"../HD_CommonUtilities/HD_ExeArgs.cpp",
-			"../HD_CommonUtilities/HD_Format.h",
-			"../HD_CommonUtilities/HD_Hash.h",
-			"../HD_CommonUtilities/HD_IsFundamental.h",
-			"../HD_CommonUtilities/HD_Logger.h",
-			"../HD_CommonUtilities/HD_Logger.cpp",
-			"../HD_CommonUtilities/HD_PreprocessorMacros.h",
-			"../HD_CommonUtilities/HD_Random.h",
-			"../HD_CommonUtilities/HD_Random.cpp",
-			"../HD_CommonUtilities/HD_Singleton.h",
-			"../HD_CommonUtilities/HD_StringUtils.h",
-			"../HD_CommonUtilities/HD_Time.h",
-			"../HD_CommonUtilities/HD_Time.cpp",
-			"../HD_CommonUtilities/HD_Types.h",
-			"../HD_CommonUtilities/HD_Utilities.h",
-			"../HD_CommonUtilities/OptimizedWindowsInclude.h"
+			sourceHDCommonUtilitiesPath .. "HD_Bitset.h",
+			sourceHDCommonUtilitiesPath .. "HD_ExeArgs.h",
+			sourceHDCommonUtilitiesPath .. "HD_ExeArgs.cpp",
+			sourceHDCommonUtilitiesPath .. "HD_Format.h",
+			sourceHDCommonUtilitiesPath .. "HD_Hash.h",
+			sourceHDCommonUtilitiesPath .. "HD_IsFundamental.h",
+			sourceHDCommonUtilitiesPath .. "HD_Logger.h",
+			sourceHDCommonUtilitiesPath .. "HD_Logger.cpp",
+			sourceHDCommonUtilitiesPath .. "HD_PreprocessorMacros.h",
+			sourceHDCommonUtilitiesPath .. "HD_Random.h",
+			sourceHDCommonUtilitiesPath .. "HD_Random.cpp",
+			sourceHDCommonUtilitiesPath .. "HD_Singleton.h",
+			sourceHDCommonUtilitiesPath .. "HD_StringUtils.h",
+			sourceHDCommonUtilitiesPath .. "HD_Time.h",
+			sourceHDCommonUtilitiesPath .. "HD_Time.cpp",
+			sourceHDCommonUtilitiesPath .. "HD_Types.h",
+			sourceHDCommonUtilitiesPath .. "HD_Utilities.h",
+			sourceHDCommonUtilitiesPath .. "OptimizedWindowsInclude.h"
 		},
 		["Natvis"] =
 		{
-			"../HD_CommonUtilities/HD_CommonUtilities.natvis"
+			sourceHDCommonUtilitiesPath .. "HD_CommonUtilities.natvis"
 		},
 		["Profiling"] =
 		{
-			"../HD_CommonUtilities/HD_ScopedTimer.h",
-			"../HD_CommonUtilities/HD_ScopedTimer.cpp"
+			sourceHDCommonUtilitiesPath .. "HD_ScopedTimer.h",
+			sourceHDCommonUtilitiesPath .. "HD_ScopedTimer.cpp"
 		}
 	}
 	
@@ -87,19 +96,19 @@ project("Tests")
 	cppdialect("C++17")
 	
 	targetname("Tests_$(Configuration)")
-	targetdir("../Output/Tests")
-	objdir("../Intermediate/Tests")
-	location("../Tests")
-	files({ "../Tests/*.h", "../Tests/*.cpp" })
+	targetdir("$(SolutionDir)Output/Tests")
+	objdir("$(SolutionDir)Intermediate/Tests")
+	location(sourceTestsFolder)
+	files({ sourceTestsPath .. "*.h", sourceTestsPath .. "*.cpp" })
 	pchheader("stdafx.h")
-	pchsource("../Tests/stdafx.cpp")
+	pchsource(sourceTestsPath .. "stdafx.cpp")
 	
-	libdirs("../Output/HD_CommonUtilities")
+	libdirs("$(SolutionDir)Output/HD_CommonUtilities")
 	links("HD_CommonUtilities_$(Configuration)")
-	includedirs("../HD_CommonUtilities")
+	includedirs(sourceHDCommonUtilitiesFolder)
 	
 	warnings("Extra")
-	fatalwarnings({"All"})
+	fatalwarnings("All")
 	defines("_CRT_SECURE_NO_WARNINGS")
 
 	filter("configurations:Retail")
@@ -111,30 +120,30 @@ project("Tests")
 	{
 		["Containers"] =
 		{
-			"../Tests/HD_AABB_2D_Tests.cpp",
-			"../Tests/HD_CircularArray_Tests.cpp",
-			"../Tests/HD_DataBuffer_Tests.cpp",
-			"../Tests/HD_GrowingArray_Tests.cpp",
-			"../Tests/HD_HashMap_Tests.cpp",
-			"../Tests/HD_Logger_Tests.cpp",
-			"../Tests/HD_Map_Tests.cpp",
-			"../Tests/HD_Pair_Tests.cpp",
-			"../Tests/HD_StaticArray_Tests.cpp",
-			"../Tests/HD_StaticStack_Tests.cpp",
-			"../Tests/HD_String_Tests.cpp"
+			sourceTestsPath .. "HD_AABB_2D_Tests.cpp",
+			sourceTestsPath .. "HD_CircularArray_Tests.cpp",
+			sourceTestsPath .. "HD_DataBuffer_Tests.cpp",
+			sourceTestsPath .. "HD_GrowingArray_Tests.cpp",
+			sourceTestsPath .. "HD_HashMap_Tests.cpp",
+			sourceTestsPath .. "HD_Logger_Tests.cpp",
+			sourceTestsPath .. "HD_Map_Tests.cpp",
+			sourceTestsPath .. "HD_Pair_Tests.cpp",
+			sourceTestsPath .. "HD_StaticArray_Tests.cpp",
+			sourceTestsPath .. "HD_StaticStack_Tests.cpp",
+			sourceTestsPath .. "HD_String_Tests.cpp"
 		},
 		["Math"] =
 		{
-			"../Tests/HD_Math_Tests.cpp",
-			"../Tests/HD_Vector2_Tests.cpp",
-			"../Tests/HD_Vector3_Tests.cpp",
-			"../Tests/HD_Vector4_Tests.cpp"
+			sourceTestsPath .. "HD_Math_Tests.cpp",
+			sourceTestsPath .. "HD_Vector2_Tests.cpp",
+			sourceTestsPath .. "HD_Vector3_Tests.cpp",
+			sourceTestsPath .. "HD_Vector4_Tests.cpp"
 		},
 		["Misc"] =
 		{
-			"../Tests/HD_Bitset_Tests.cpp",
-			"../Tests/HD_ExeArgs_Tests.cpp",
-			"../Tests/HD_Format_Tests.cpp",
-			"../Tests/HD_IsFundamental_Tests.cpp"
+			sourceTestsPath .. "HD_Bitset_Tests.cpp",
+			sourceTestsPath .. "HD_ExeArgs_Tests.cpp",
+			sourceTestsPath .. "HD_Format_Tests.cpp",
+			sourceTestsPath .. "HD_IsFundamental_Tests.cpp"
 		}
 	}
