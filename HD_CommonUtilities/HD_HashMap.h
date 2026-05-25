@@ -99,10 +99,10 @@ public:
 	ConstIterator end() const;
 
 private:
-	enum ControlByte : ControlByte_t
+	enum eControlByte : ControlByte_t
 	{
-		ControlByte_Empty = 0b00000000,
-		ControlByte_Deleted = 0b01111111,
+		eControlByte_Empty = 0b00000000,
+		eControlByte_Deleted = 0b01111111,
 		// ControlByte_Full = 0b1xxxxxxx
 	};
 
@@ -217,7 +217,7 @@ V& HD_HashMap<K, V>::operator[](const K& aKey)
 		index = GetSlotIndexForKey(aKey);
 	}
 
-	if (myControlBytes[index] == ControlByte_Empty)
+	if (myControlBytes[index] == eControlByte_Empty)
 	{
 		mySize++;
 	}
@@ -275,7 +275,7 @@ void HD_HashMap<K, V>::Remove(const K& aKey)
 
 	if (isFull)
 	{
-		myControlBytes[index] = ControlByte_Deleted;
+		myControlBytes[index] = eControlByte_Deleted;
 	}
 }
 
@@ -348,7 +348,7 @@ int HD_HashMap<K, V>::GetSlotIndexForKey(const K& aKey) const
 
 	while (true)
 	{
-		bool isSlotEmpty = myControlBytes[index] == ControlByte_Empty;
+		bool isSlotEmpty = myControlBytes[index] == eControlByte_Empty;
 		bool isLevel2HashSame = GetLevel2Hash(myControlBytes[index]) == GetLevel2Hash(hashCode);
 
 		if (isSlotEmpty || (isLevel2HashSame && myKeyValuePairs[index].myFirst == aKey))

@@ -8,7 +8,7 @@
 
 HD_LogMessage::HD_LogMessage()
 	: myData(nullptr)
-	, myMode(StringMode_Invalid)
+	, myMode(eStringMode_Invalid)
 {
 }
 
@@ -18,7 +18,7 @@ HD_LogMessage::HD_LogMessage(const char* aString)
 	myData = new char[length + 1] { 0 };
 	memcpy(myData, aString, length);
 
-	myMode = StringMode_NonWide;
+	myMode = eStringMode_NonWide;
 }
 
 HD_LogMessage::HD_LogMessage(const wchar_t* aString)
@@ -27,7 +27,7 @@ HD_LogMessage::HD_LogMessage(const wchar_t* aString)
 	myData = new char[(sizeof(wchar_t) * length) + sizeof(wchar_t)] { 0 };
 	memcpy(myData, aString, sizeof(wchar_t) * length);
 
-	myMode = StringMode_Wide;
+	myMode = eStringMode_Wide;
 }
 
 HD_LogMessage::~HD_LogMessage()
@@ -37,10 +37,10 @@ HD_LogMessage::~HD_LogMessage()
 
 HD_LogMessage& HD_LogMessage::operator=(const HD_LogMessage& aLogMessage)
 {
-	assert(aLogMessage.myMode != StringMode_Invalid);
+	assert(aLogMessage.myMode != eStringMode_Invalid);
 
 	int length = HD_Strlen(aLogMessage.myData);
-	int sizeInBytes = aLogMessage.myMode == StringMode_NonWide ? (length * sizeof(char)) : (length * sizeof(wchar_t));
+	int sizeInBytes = aLogMessage.myMode == eStringMode_NonWide ? (length * sizeof(char)) : (length * sizeof(wchar_t));
 	memcpy(myData, aLogMessage.myData, length * sizeInBytes);
 	myMode = aLogMessage.myMode;
 
@@ -72,21 +72,21 @@ const wchar_t* HD_LogMessage::GetWBuffer() const
 
 bool HD_LogMessage::GetIsWide() const
 {
-	return myMode == StringMode_Wide;
+	return myMode == eStringMode_Wide;
 }
 
 HD_LogEntry::HD_LogEntry()
-	: myLogLevel(HD_LogLevel_Invalid)
+	: myLogLevel(eLogLevel_Invalid)
 {
 }
 
-HD_LogEntry::HD_LogEntry(const char* aLogMessage, HD_LogLevel aLogLevel)
+HD_LogEntry::HD_LogEntry(const char* aLogMessage, eLogLevel aLogLevel)
 	: myLogMessage(aLogMessage)
 	, myLogLevel(aLogLevel)
 {
 }
 
-HD_LogEntry::HD_LogEntry(const wchar_t* aLogMessage, HD_LogLevel aLogLevel)
+HD_LogEntry::HD_LogEntry(const wchar_t* aLogMessage, eLogLevel aLogLevel)
 	: myLogMessage(aLogMessage)
 	, myLogLevel(aLogLevel)
 {
@@ -122,7 +122,7 @@ HD_Logger::~HD_Logger()
 	myLogThread.join();
 }
 
-void HD_Logger::Log(const char* aLogMessage, HD_LogLevel aLogLevel)
+void HD_Logger::Log(const char* aLogMessage, eLogLevel aLogLevel)
 {
 	HD_LogEntry logEntry(aLogMessage, aLogLevel);
 
@@ -134,7 +134,7 @@ void HD_Logger::Log(const char* aLogMessage, HD_LogLevel aLogLevel)
 	myLogEntriesConditionVariable.notify_one();
 }
 
-void HD_Logger::Log(const wchar_t* aLogMessage, HD_LogLevel aLogLevel)
+void HD_Logger::Log(const wchar_t* aLogMessage, eLogLevel aLogLevel)
 {
 	HD_LogEntry logEntry(aLogMessage, aLogLevel);
 
@@ -183,28 +183,28 @@ void HD_Logger::PrintLogEntry(const HD_LogEntry& aLogEntry) const
 
 	switch (aLogEntry.myLogLevel)
 	{
-	case HD_LogLevel_Log:
+	case eLogLevel_Log:
 	{
 		SetConsoleTextAttribute(myStdErrHandle, BACKGROUND_RED | BACKGROUND_GREEN | BACKGROUND_BLUE);
 		std::cerr << "[   LOG   ]";
 		SetConsoleTextAttribute(myStdErrHandle, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_INTENSITY);
 		break;
 	}
-	case HD_LogLevel_Warning:
+	case eLogLevel_Warning:
 	{
 		SetConsoleTextAttribute(myStdErrHandle, BACKGROUND_RED | BACKGROUND_GREEN);
 		std::cerr << "[ WARNING ]";
 		SetConsoleTextAttribute(myStdErrHandle, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
 		break;
 	}
-	case HD_LogLevel_Error:
+	case eLogLevel_Error:
 	{
 		SetConsoleTextAttribute(myStdErrHandle, BACKGROUND_RED);
 		std::cerr << "[  ERROR  ]";
 		SetConsoleTextAttribute(myStdErrHandle, FOREGROUND_RED | FOREGROUND_INTENSITY);
 		break;
 	}
-	case HD_LogLevel_Invalid:
+	case eLogLevel_Invalid:
 		break;
 	}
 

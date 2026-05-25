@@ -18,7 +18,7 @@ namespace HD_CommonUtilities
 		{
 			HD_LogMessage message;
 			Assert::IsNull(message.myData);
-			Assert::AreEqual(static_cast<char>(message.myMode), static_cast<char>(HD_LogMessage::StringMode_Invalid));
+			Assert::AreEqual(static_cast<char>(message.myMode), static_cast<char>(HD_LogMessage::eStringMode_Invalid));
 		}
 
 		TEST_METHOD(Constructor_NonWide)
@@ -29,7 +29,7 @@ namespace HD_CommonUtilities
 			memcpy(buffer, "haha", 4);
 			Assert::AreEqual(memcmp(message.myData, buffer, 5), 0);
 
-			Assert::AreEqual(static_cast<char>(message.myMode), static_cast<char>(HD_LogMessage::StringMode_NonWide));
+			Assert::AreEqual(static_cast<char>(message.myMode), static_cast<char>(HD_LogMessage::eStringMode_NonWide));
 		}
 
 		TEST_METHOD(Constructor_Wide)
@@ -40,7 +40,7 @@ namespace HD_CommonUtilities
 			memcpy(buffer, L"haha", sizeof(wchar_t) * 4);
 			Assert::AreEqual(memcmp(message.myData, buffer, sizeof(wchar_t) * 5), 0);
 
-			Assert::AreEqual(static_cast<char>(message.myMode), static_cast<char>(HD_LogMessage::StringMode_Wide));
+			Assert::AreEqual(static_cast<char>(message.myMode), static_cast<char>(HD_LogMessage::eStringMode_Wide));
 		}
 
 		TEST_METHOD(Destructor)
@@ -70,7 +70,7 @@ namespace HD_CommonUtilities
 
 				Assert::IsNull(message1.myData);
 				Assert::IsNotNull(message2.myData);
-				Assert::AreEqual(static_cast<char>(message2.myMode), static_cast<char>(HD_LogMessage::StringMode_NonWide));
+				Assert::AreEqual(static_cast<char>(message2.myMode), static_cast<char>(HD_LogMessage::eStringMode_NonWide));
 
 				char buffer[8]{ 0 };
 				memcpy(buffer, "haha", 4);
@@ -85,7 +85,7 @@ namespace HD_CommonUtilities
 
 				Assert::IsNull(message1.myData);
 				Assert::IsNotNull(message2.myData);
-				Assert::AreEqual(static_cast<char>(message2.myMode), static_cast<char>(HD_LogMessage::StringMode_Wide));
+				Assert::AreEqual(static_cast<char>(message2.myMode), static_cast<char>(HD_LogMessage::eStringMode_Wide));
 
 				wchar_t buffer[8]{ 0 };
 				memcpy(buffer, L"haha", sizeof(wchar_t) * 4);
@@ -131,41 +131,41 @@ namespace HD_CommonUtilities
 		TEST_METHOD(Contstructor)
 		{
 			HD_LogEntry logEntry;
-			Assert::AreEqual(static_cast<char>(logEntry.myLogLevel), static_cast<char>(HD_LogLevel_Invalid));
+			Assert::AreEqual(static_cast<char>(logEntry.myLogLevel), static_cast<char>(eLogLevel_Invalid));
 		}
 
 		TEST_METHOD(Constructor_NonWide)
 		{
-			HD_LogEntry logEntry("haha", HD_LogLevel_Log);
-			Assert::AreEqual(static_cast<char>(logEntry.myLogLevel), static_cast<char>(HD_LogLevel_Log));
+			HD_LogEntry logEntry("haha", eLogLevel_Log);
+			Assert::AreEqual(static_cast<char>(logEntry.myLogLevel), static_cast<char>(eLogLevel_Log));
 		}
 
 		TEST_METHOD(Constructor_Wide)
 		{
-			HD_LogEntry logEntry(L"haha", HD_LogLevel_Log);
-			Assert::AreEqual(static_cast<char>(logEntry.myLogLevel), static_cast<char>(HD_LogLevel_Log));
+			HD_LogEntry logEntry(L"haha", eLogLevel_Log);
+			Assert::AreEqual(static_cast<char>(logEntry.myLogLevel), static_cast<char>(eLogLevel_Log));
 		}
 
 		TEST_METHOD(Operator_Assignment_Move)
 		{
 			{
-				HD_LogEntry logEntry1("haha", HD_LogLevel_Log);
+				HD_LogEntry logEntry1("haha", eLogLevel_Log);
 
 				HD_LogEntry logEntry2;
 				logEntry2 = HD_Move(logEntry1);
 
 				// Successful move of myLogMessage is tested in that class's tests.
-				Assert::AreEqual(static_cast<char>(logEntry2.myLogLevel), static_cast<char>(HD_LogLevel_Log));
+				Assert::AreEqual(static_cast<char>(logEntry2.myLogLevel), static_cast<char>(eLogLevel_Log));
 			}
 
 			{
-				HD_LogEntry logEntry1(L"haha", HD_LogLevel_Log);
+				HD_LogEntry logEntry1(L"haha", eLogLevel_Log);
 
 				HD_LogEntry logEntry2;
 				logEntry2 = HD_Move(logEntry1);
 
 				// Successful move of myLogMessage is tested in that class's tests.
-				Assert::AreEqual(static_cast<char>(logEntry2.myLogLevel), static_cast<char>(HD_LogLevel_Log));
+				Assert::AreEqual(static_cast<char>(logEntry2.myLogLevel), static_cast<char>(eLogLevel_Log));
 			}
 		}
 	};
