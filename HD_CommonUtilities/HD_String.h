@@ -20,6 +20,8 @@ public:
 	T* GetBufferWritable();
 
 	int GetLength() const;
+	int GetCapacity() const;
+
 	T GetCharAt(int aIndex) const;
 
 	void Append(const T* aString);
@@ -109,6 +111,12 @@ template<typename T>
 int HD_Str<T>::GetLength() const
 {
 	return myLength;
+}
+
+template<typename T>
+int HD_Str<T>::GetCapacity() const
+{
+	return myCapacity;
 }
 
 template<typename T>
