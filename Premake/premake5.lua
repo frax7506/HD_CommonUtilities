@@ -39,6 +39,7 @@ project("HD_CommonUtilities")
 		["Containers"] =
 		{
 			sourceHDCommonUtilitiesPath .. "HD_ArrayIterator.h",
+			sourceHDCommonUtilitiesPath .. "HD_Bitset.h",
 			sourceHDCommonUtilitiesPath .. "HD_CircularArray.h",
 			sourceHDCommonUtilitiesPath .. "HD_DataBuffer.h",
 			sourceHDCommonUtilitiesPath .. "HD_GrowingArray.h",
@@ -59,7 +60,6 @@ project("HD_CommonUtilities")
 		},
 		["Misc"] =
 		{
-			sourceHDCommonUtilitiesPath .. "HD_Bitset.h",
 			sourceHDCommonUtilitiesPath .. "HD_ExeArgs.h",
 			sourceHDCommonUtilitiesPath .. "HD_ExeArgs.cpp",
 			sourceHDCommonUtilitiesPath .. "HD_Format.h",
@@ -67,6 +67,7 @@ project("HD_CommonUtilities")
 			sourceHDCommonUtilitiesPath .. "HD_IsFundamental.h",
 			sourceHDCommonUtilitiesPath .. "HD_Logger.h",
 			sourceHDCommonUtilitiesPath .. "HD_Logger.cpp",
+			sourceHDCommonUtilitiesPath .. "HD_Move.h",
 			sourceHDCommonUtilitiesPath .. "HD_PreprocessorMacros.h",
 			sourceHDCommonUtilitiesPath .. "HD_Random.h",
 			sourceHDCommonUtilitiesPath .. "HD_Random.cpp",
@@ -75,6 +76,7 @@ project("HD_CommonUtilities")
 			sourceHDCommonUtilitiesPath .. "HD_Time.h",
 			sourceHDCommonUtilitiesPath .. "HD_Time.cpp",
 			sourceHDCommonUtilitiesPath .. "HD_Types.h",
+			sourceHDCommonUtilitiesPath .. "HD_TypeTraits.h",
 			sourceHDCommonUtilitiesPath .. "HD_Utilities.h",
 			sourceHDCommonUtilitiesPath .. "OptimizedWindowsInclude.h"
 		},
@@ -121,6 +123,7 @@ project("Tests")
 		["Containers"] =
 		{
 			sourceTestsPath .. "HD_AABB_2D_Tests.cpp",
+			sourceTestsPath .. "HD_Bitset_Tests.cpp",
 			sourceTestsPath .. "HD_CircularArray_Tests.cpp",
 			sourceTestsPath .. "HD_DataBuffer_Tests.cpp",
 			sourceTestsPath .. "HD_GrowingArray_Tests.cpp",
@@ -141,7 +144,6 @@ project("Tests")
 		},
 		["Misc"] =
 		{
-			sourceTestsPath .. "HD_Bitset_Tests.cpp",
 			sourceTestsPath .. "HD_ExeArgs_Tests.cpp",
 			sourceTestsPath .. "HD_Format_Tests.cpp",
 			sourceTestsPath .. "HD_IsFundamental_Tests.cpp"

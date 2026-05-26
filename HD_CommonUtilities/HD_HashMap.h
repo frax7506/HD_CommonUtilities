@@ -33,6 +33,7 @@
 	//		calculated once per insert.
 
 #include "HD_Hash.h"
+#include "HD_Move.h"
 #include "HD_Pair.h"
 #include "HD_Utilities.h"
 
