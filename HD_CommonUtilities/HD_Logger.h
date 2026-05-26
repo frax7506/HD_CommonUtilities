@@ -28,6 +28,8 @@ class HD_LogMessage
 {
 public:
 	HD_LogMessage();
+	HD_LogMessage(const HD_LogMessage& aLogMessage);
+	HD_LogMessage(HD_LogMessage&& aLogMessage);
 	HD_LogMessage(const char* aString);
 	HD_LogMessage(const wchar_t* aString);
 	~HD_LogMessage();
@@ -56,6 +58,8 @@ class HD_LogEntry
 {
 public:
 	HD_LogEntry();
+	HD_LogEntry(const HD_LogEntry& aLogEntry);
+	HD_LogEntry(HD_LogEntry&& aLogEntry);
 	HD_LogEntry(const char* aLogMessage, eLogLevel aLogLevel);
 	HD_LogEntry(const wchar_t* aLogMessage, eLogLevel aLogLevel);
 

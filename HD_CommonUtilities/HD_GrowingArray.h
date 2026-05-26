@@ -1,6 +1,7 @@
 #pragma once
 
 #include "HD_ArrayIterator.h"
+#include "HD_Move.h"
 #include "HD_Utilities.h"
 
 #include <cassert>
@@ -26,6 +27,10 @@ public:
 
 	void PushBack(const T& aItem);
 	void PushBack(T&& aItem);
+
+	template<typename... Args>
+	void EmplaceBack(Args&&... args);
+
 	void InsertSorted(const T& aItem);
 	void InsertSortedReverse(const T& aItem);
 
@@ -156,18 +161,22 @@ const T* HD_GrowingArray<T>::GetData() const
 template<typename T>
 void HD_GrowingArray<T>::PushBack(const T& aItem)
 {
-	CheckSizeAndGrowIfNecessary();
-
-	myData[mySize] = aItem;
-	mySize++;
+	EmplaceBack(aItem);
 }
 
 template<typename T>
 void HD_GrowingArray<T>::PushBack(T&& aItem)
 {
+	EmplaceBack(HD_Move(aItem));
+}
+
+template<typename T>
+template<typename... Args>
+void HD_GrowingArray<T>::EmplaceBack(Args&&... args)
+{
 	CheckSizeAndGrowIfNecessary();
 
-	myData[mySize] = HD_Move(aItem);
+	new (myData + mySize) T(HD_Forward<Args>(args)...);
 	mySize++;
 }
 
