@@ -145,5 +145,9 @@ project("Tests")
 			sourceTestsPath .. "HD_ExeArgs_Tests.cpp",
 			sourceTestsPath .. "HD_Format_Tests.cpp",
 			sourceTestsPath .. "HD_IsFundamental_Tests.cpp"
+		},
+		["Utils"] =
+		{
+			sourceTestsPath .. "TestUtils.h"
 		}
 	}

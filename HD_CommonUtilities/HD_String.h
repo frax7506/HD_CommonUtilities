@@ -17,7 +17,7 @@ public:
 	~HD_Str();
 
 	const T* GetBuffer() const;
-	T* GetWritableBuffer();
+	T* GetBufferWritable();
 
 	int GetLength() const;
 	T GetCharAt(int aIndex) const;
@@ -54,10 +54,10 @@ HD_Str<T> operator+(const T* aString1, const HD_Str<T>& aString2);
 
 template<typename T>
 HD_Str<T>::HD_Str()
-	: myLength(0)
-	, myCapacity(2)
+	: myData(nullptr)
+	, myLength(0)
+	, myCapacity(0)
 {
-	myData = new T[myCapacity]{ 0 };
 }
 
 template<typename T>
@@ -100,7 +100,7 @@ const T* HD_Str<T>::GetBuffer() const
 }
 
 template<typename T>
-T* HD_Str<T>::GetWritableBuffer()
+T* HD_Str<T>::GetBufferWritable()
 {
 	return myData;
 }
@@ -152,13 +152,11 @@ template<typename T>
 HD_Str<T>& HD_Str<T>::operator=(const T* aString)
 {
 	int length = HD_Strlen(aString);
-	bool isCurrentBufferTooSmall = myCapacity < length + 1;
+	bool isCurrentBufferTooSmall = length + 1 > myCapacity;
 
 	if (isCurrentBufferTooSmall)
 	{
-		HD_SafeDeleteArray(myData);
-		myCapacity = length + 1;
-		myData = new T[myCapacity] { 0 };
+		Grow(length + 1);
 	}
 
 	myLength = length;
@@ -222,7 +220,6 @@ void HD_Str<T>::CheckLengthAndGrowIfNecessary(int anAdditionalLength)
 	{
 		int newLength = myLength + anAdditionalLength;
 		int newCapacity = static_cast<int>(newLength * ourGrowFactor + 1);
-		assert(newCapacity > myCapacity && "HD_Str grew larger than int max.");
 		Grow(newCapacity);
 	}
 }
@@ -230,11 +227,19 @@ void HD_Str<T>::CheckLengthAndGrowIfNecessary(int anAdditionalLength)
 template<typename T>
 void HD_Str<T>::Grow(int aNewCapacity)
 {
-	T* oldData = myData;
-	myData = new T[aNewCapacity] { 0 };
-	memcpy(myData, oldData, sizeof(T) * myLength);
-	HD_SafeDeleteArray(oldData);
-	myCapacity = aNewCapacity;
+	if (myData)
+	{
+		T* oldData = myData;
+		myData = new T[aNewCapacity]{ 0 };
+		memcpy(myData, oldData, sizeof(T) * myLength);
+		HD_SafeDeleteArray(oldData);
+		myCapacity = aNewCapacity;
+	}
+	else
+	{
+		myData = new T[aNewCapacity]{ 0 };
+		myCapacity = aNewCapacity;
+	}
 }
 
 template<typename T>
