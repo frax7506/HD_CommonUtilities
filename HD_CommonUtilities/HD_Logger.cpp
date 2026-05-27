@@ -14,51 +14,31 @@ HD_LogMessage::HD_LogMessage()
 
 HD_LogMessage::HD_LogMessage(const HD_LogMessage& aLogMessage)
 {
-	myMode = aLogMessage.myMode;
-
-	int length = HD_Strlen(aLogMessage.myData);
-
-	if (myMode == eStringMode_Invalid)
-	{
-		myData = nullptr;
-	}
-	else if (myMode == eStringMode_NonWide)
-	{
-		myData = new char[length + 1] { 0 };
-		memcpy(myData, aLogMessage.myData, length);
-	}
-	else // myMode == eStringMode_Wide
-	{
-		myData = new char[(sizeof(wchar_t) * length) + sizeof(wchar_t)] { 0 };
-		memcpy(myData, aLogMessage.myData, sizeof(wchar_t) * length);
-	}
+	InitFromLogMessage(aLogMessage);
 }
 
 HD_LogMessage::HD_LogMessage(HD_LogMessage&& aLogMessage)
+	: myData(aLogMessage.myData)
+	, myMode(aLogMessage.myMode)
 {
-	myData = aLogMessage.myData;
-	myMode = aLogMessage.myMode;
-
 	aLogMessage.myData = nullptr;
 	aLogMessage.myMode = eStringMode_Invalid;
 }
 
 HD_LogMessage::HD_LogMessage(const char* aString)
+	: myMode(eStringMode_NonWide)
 {
 	int length = HD_Strlen(aString);
 	myData = new char[length + 1] { 0 };
 	memcpy(myData, aString, length);
-
-	myMode = eStringMode_NonWide;
 }
 
 HD_LogMessage::HD_LogMessage(const wchar_t* aString)
+	: myMode(eStringMode_Wide)
 {
 	int length = HD_Strlen(aString);
 	myData = new char[(sizeof(wchar_t) * length) + sizeof(wchar_t)] { 0 };
 	memcpy(myData, aString, sizeof(wchar_t) * length);
-
-	myMode = eStringMode_Wide;
 }
 
 HD_LogMessage::~HD_LogMessage()
@@ -68,12 +48,8 @@ HD_LogMessage::~HD_LogMessage()
 
 HD_LogMessage& HD_LogMessage::operator=(const HD_LogMessage& aLogMessage)
 {
-	assert(aLogMessage.myMode != eStringMode_Invalid);
-
-	int length = HD_Strlen(aLogMessage.myData);
-	int sizeInBytes = aLogMessage.myMode == eStringMode_NonWide ? (length * sizeof(char)) : (length * sizeof(wchar_t));
-	memcpy(myData, aLogMessage.myData, length * sizeInBytes);
-	myMode = aLogMessage.myMode;
+	HD_SafeDeleteArray(myData);
+	InitFromLogMessage(aLogMessage);
 
 	return *this;
 }
@@ -84,7 +60,9 @@ HD_LogMessage& HD_LogMessage::operator=(HD_LogMessage&& aLogMessage)
 
 	myData = aLogMessage.myData;
 	myMode = aLogMessage.myMode;
+
 	aLogMessage.myData = nullptr;
+	aLogMessage.myMode = eStringMode_Invalid;
 
 	return *this;
 }
@@ -106,6 +84,28 @@ bool HD_LogMessage::GetIsWide() const
 	return myMode == eStringMode_Wide;
 }
 
+void HD_LogMessage::InitFromLogMessage(const HD_LogMessage& aLogMessage)
+{
+	myMode = aLogMessage.myMode;
+
+	if (myMode == eStringMode_Invalid)
+	{
+		myData = nullptr;
+	}
+	else if (myMode == eStringMode_NonWide)
+	{
+		int length = HD_Strlen<char>(aLogMessage.myData);
+		myData = new char[length + 1] { 0 };
+		memcpy(myData, aLogMessage.myData, length);
+	}
+	else // myMode == eStringMode_Wide
+	{
+		int length = HD_Strlen<wchar_t>(reinterpret_cast<wchar_t*>(aLogMessage.myData));
+		myData = new char[(sizeof(wchar_t) * length) + sizeof(wchar_t)] { 0 };
+		memcpy(myData, aLogMessage.myData, sizeof(wchar_t) * length);
+	}
+}
+
 HD_LogEntry::HD_LogEntry()
 	: myLogLevel(eLogLevel_Invalid)
 {
@@ -121,6 +121,7 @@ HD_LogEntry::HD_LogEntry(HD_LogEntry&& aLogEntry)
 	: myLogMessage(HD_Move(aLogEntry.myLogMessage))
 	, myLogLevel(aLogEntry.myLogLevel)
 {
+	aLogEntry.myLogLevel = eLogLevel_Invalid;
 }
 
 HD_LogEntry::HD_LogEntry(const char* aLogMessage, eLogLevel aLogLevel)
@@ -147,6 +148,8 @@ HD_LogEntry& HD_LogEntry::operator=(HD_LogEntry&& aLogEntry)
 {
 	myLogMessage = HD_Move(aLogEntry.myLogMessage);
 	myLogLevel = aLogEntry.myLogLevel;
+
+	aLogEntry.myLogLevel = eLogLevel_Invalid;
 
 	return *this;
 }

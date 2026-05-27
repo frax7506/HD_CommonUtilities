@@ -50,6 +50,8 @@ private:
 		eStringMode_Wide,
 	};
 
+	void InitFromLogMessage(const HD_LogMessage& aLogMessage);
+
 	char* myData;
 	eStringMode myMode;
 };
