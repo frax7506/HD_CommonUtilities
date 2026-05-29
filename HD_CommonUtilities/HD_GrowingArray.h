@@ -5,7 +5,6 @@
 #include "HD_SafeDelete.h"
 
 #include <cassert>
-#include <cstring>
 #include <initializer_list>
 
 template<typename T>
@@ -78,10 +77,10 @@ private:
 
 template<typename T>
 HD_GrowingArray<T>::HD_GrowingArray()
-	: mySize(0)
-	, myCapacity(2)
+	: myData(nullptr)
+	, mySize(0)
+	, myCapacity(0)
 {
-	myData = new T[myCapacity];
 }
 
 template<typename T>
@@ -94,11 +93,10 @@ HD_GrowingArray<T>::HD_GrowingArray(int aCapacity)
 
 template<typename T>
 HD_GrowingArray<T>::HD_GrowingArray(const HD_GrowingArray& aGrowingArray)
-	: mySize(0)
-	, myCapacity(2)
+	: myData(nullptr)
+	, mySize(0)
+	, myCapacity(0)
 {
-	myData = new T[myCapacity];
-
 	Reserve(aGrowingArray.mySize);
 
 	for (int i = 0; i < aGrowingArray.GetSize(); i++)
@@ -121,11 +119,10 @@ HD_GrowingArray<T>::HD_GrowingArray(HD_GrowingArray&& aGrowingArray)
 
 template<typename T>
 HD_GrowingArray<T>::HD_GrowingArray(std::initializer_list<T> aInitializerList)
-	: mySize(0)
-	, myCapacity(2)
+	: myData(nullptr)
+	, mySize(0)
+	, myCapacity(0)
 {
-	myData = new T[myCapacity];
-
 	int initializerListSize = static_cast<int>(aInitializerList.size());
 	Reserve(initializerListSize);
 
@@ -138,11 +135,6 @@ HD_GrowingArray<T>::HD_GrowingArray(std::initializer_list<T> aInitializerList)
 template<typename T>
 HD_GrowingArray<T>::~HD_GrowingArray()
 {
-	for (int i = 0; i < mySize; i++)
-	{
-		myData[i].~T();
-	}
-
 	HD_SafeDeleteArray(myData);
 }
 
@@ -414,8 +406,7 @@ void HD_GrowingArray<T>::CheckSizeAndGrowIfNecessary()
 {
 	if (mySize + 1 > myCapacity)
 	{
-		int newCapacity = static_cast<int>(myCapacity * ourGrowFactor);
-		assert(newCapacity > myCapacity && "HD_GrowingArray grew larger than int max.");
+		int newCapacity = myCapacity == 0 ? 2 : static_cast<int>(myCapacity * ourGrowFactor);
 		Grow(newCapacity);
 	}
 }

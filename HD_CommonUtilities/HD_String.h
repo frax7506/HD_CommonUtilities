@@ -39,6 +39,11 @@ public:
 	bool operator!=(const T* aString) const;
 	bool operator!=(const HD_Str& aString) const;
 
+	bool operator<(const T* aString) const;
+	bool operator<(const HD_Str& aString) const;
+	bool operator>(const T* aString) const;
+	bool operator>(const HD_Str& aString) const;
+
 private:
 	static constexpr float ourGrowFactor = 1.5f;
 
@@ -219,6 +224,30 @@ template<typename T>
 bool HD_Str<T>::operator!=(const HD_Str& aString) const
 {
 	return !((*this) == aString.GetBuffer());
+}
+
+template<typename T>
+bool HD_Str<T>::operator<(const T* aString) const
+{
+	return HD_Strcmp(myData, aString) < 0;
+}
+
+template<typename T>
+bool HD_Str<T>::operator<(const HD_Str& aString) const
+{
+	return (*this) < aString.myData;
+}
+
+template<typename T>
+bool HD_Str<T>::operator>(const T* aString) const
+{
+	return HD_Strcmp(myData, aString) > 0;
+}
+
+template<typename T>
+bool HD_Str<T>::operator>(const HD_Str& aString) const
+{
+	return (*this) > aString.myData;
 }
 
 template<typename T>
