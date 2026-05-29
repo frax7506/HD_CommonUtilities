@@ -73,7 +73,7 @@ HD_Str<T>::HD_Str(const T* aString)
 	myLength = HD_Strlen(aString);
 	myCapacity = myLength + 1;
 	myData = new T[myCapacity] { 0 };
-	memcpy(myData, aString, sizeof(T) * myLength);
+	memcpy(myData, aString, myLength * sizeof(T));
 }
 
 template<typename T>
@@ -137,7 +137,7 @@ void HD_Str<T>::Append(const T* aString)
 	int length = HD_Strlen(aString);
 	CheckLengthAndGrowIfNecessary(length);
 
-	memcpy(myData + myLength, aString, sizeof(T) * length);
+	memcpy(myData + myLength, aString, length * sizeof(T));
 	myLength += length;
 }
 
@@ -173,8 +173,8 @@ HD_Str<T>& HD_Str<T>::operator=(const T* aString)
 	}
 
 	myLength = length;
-	memset(myData, 0, sizeof(T) * myCapacity);
-	memcpy(myData, aString, sizeof(T) * myLength);
+	memset(myData, 0, myCapacity * sizeof(T));
+	memcpy(myData, aString, myLength * sizeof(T));
 
 	return *this;
 }
@@ -268,7 +268,7 @@ void HD_Str<T>::Grow(int aNewCapacity)
 	{
 		T* oldData = myData;
 		myData = new T[aNewCapacity]{ 0 };
-		memcpy(myData, oldData, sizeof(T) * myLength);
+		memcpy(myData, oldData, myLength * sizeof(T));
 		HD_SafeDeleteArray(oldData);
 		myCapacity = aNewCapacity;
 	}

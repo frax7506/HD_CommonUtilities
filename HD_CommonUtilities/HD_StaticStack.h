@@ -64,7 +64,7 @@ template<typename T, int N>
 void HD_StaticStack<T, N>::MoveN(HD_StaticStack& aMoveFrom, int aN)
 {
 	assert(mySize + aN <= N && aMoveFrom.Size() >= aN);
-	memcpy(myData + mySize, aMoveFrom.myData + aMoveFrom.mySize - aN, sizeof(T) * aN);
+	memcpy(myData + mySize, aMoveFrom.myData + aMoveFrom.mySize - aN, aN * sizeof(T));
 	mySize += aN;
 	aMoveFrom.PopN(aN);
 }

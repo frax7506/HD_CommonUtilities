@@ -40,7 +40,7 @@ HD_StaticArray<T, N>::HD_StaticArray()
 template<typename T, int N>
 HD_StaticArray<T, N>::HD_StaticArray(const HD_StaticArray& aStaticArray)
 {
-	memcpy(myData, aStaticArray.myData, sizeof(T) * N);
+	memcpy(myData, aStaticArray.myData, N * sizeof(T));
 }
 
 template<typename T, int N>
@@ -66,7 +66,7 @@ const T& HD_StaticArray<T, N>::operator[](int aIndex) const
 template<typename T, int N>
 HD_StaticArray<T, N>& HD_StaticArray<T, N>::operator=(const HD_StaticArray& aStaticArray)
 {
-	memcpy(myData, aStaticArray.myData, sizeof(T) * N);
+	memcpy(myData, aStaticArray.myData, N * sizeof(T));
 	return *this;
 }
 

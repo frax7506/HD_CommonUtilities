@@ -37,8 +37,8 @@ HD_LogMessage::HD_LogMessage(const wchar_t* aString)
 	: myMode(eStringMode_Wide)
 {
 	int length = HD_Strlen(aString);
-	myData = new char[(sizeof(wchar_t) * length) + sizeof(wchar_t)] { 0 };
-	memcpy(myData, aString, sizeof(wchar_t) * length);
+	myData = new char[length * (sizeof(wchar_t)) + sizeof(wchar_t)] { 0 };
+	memcpy(myData, aString, length * sizeof(wchar_t));
 }
 
 HD_LogMessage::~HD_LogMessage()
@@ -101,8 +101,8 @@ void HD_LogMessage::InitFromLogMessage(const HD_LogMessage& aLogMessage)
 	else // myMode == eStringMode_Wide
 	{
 		int length = HD_Strlen<wchar_t>(reinterpret_cast<wchar_t*>(aLogMessage.myData));
-		myData = new char[(sizeof(wchar_t) * length) + sizeof(wchar_t)] { 0 };
-		memcpy(myData, aLogMessage.myData, sizeof(wchar_t) * length);
+		myData = new char[length * (sizeof(wchar_t)) + sizeof(wchar_t)] { 0 };
+		memcpy(myData, aLogMessage.myData, length * sizeof(wchar_t));
 	}
 }
 

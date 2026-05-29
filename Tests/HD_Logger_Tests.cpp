@@ -167,7 +167,7 @@ namespace HD_CommonUtilities
 		{
 			HD_LogMessage message1(L"haha");
 			const wchar_t* message2 = message1.GetWBuffer();
-			Assert::AreEqual(memcmp(message2, L"haha", sizeof(wchar_t) * 4), 0);
+			Assert::AreEqual(memcmp(message2, L"haha", 4 * sizeof(wchar_t)), 0);
 
 			// Should trigger assert
 			//const char* assertTest = message1.GetBuffer();

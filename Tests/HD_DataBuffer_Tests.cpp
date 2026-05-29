@@ -21,7 +21,7 @@ namespace HD_CommonUtilities
 			Assert::AreEqual(dataBuffer.myReadWriteIndex, 0);
 
 			const int dataToCompareTo = 0;
-			const bool areEqual = memcmp(dataBuffer.myData, &dataToCompareTo, sizeof(char) * 4) == 0;
+			const bool areEqual = memcmp(dataBuffer.myData, &dataToCompareTo, 4 * sizeof(char)) == 0;
 			Assert::IsTrue(areEqual);
 		}
 
@@ -32,7 +32,7 @@ namespace HD_CommonUtilities
 			char* buffer = dataBuffer.GetBuffer();
 
 			const int dataToCompareTo = 0;
-			const bool areEqual = memcmp(buffer, &dataToCompareTo, sizeof(char) * 4) == 0;
+			const bool areEqual = memcmp(buffer, &dataToCompareTo, 4 * sizeof(char)) == 0;
 			Assert::IsTrue(areEqual);
 		}
 

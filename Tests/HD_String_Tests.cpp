@@ -123,7 +123,7 @@ namespace HD_CommonUtilities
 		{
 			HD_WString string1(L"haha");
 			const wchar_t* buffer = string1.GetBuffer();
-			Assert::AreEqual(memcmp(buffer, L"haha", sizeof(wchar_t) * 4), 0);
+			Assert::AreEqual(memcmp(buffer, L"haha", 4 * sizeof(wchar_t)), 0);
 		}
 
 		TEST_METHOD(GetBufferWritable_NonWide)
@@ -137,7 +137,7 @@ namespace HD_CommonUtilities
 		{
 			HD_WString string1(L"haha");
 			wchar_t* buffer = string1.GetBufferWritable();
-			Assert::AreEqual(memcmp(buffer, L"haha", sizeof(wchar_t) * 4), 0);
+			Assert::AreEqual(memcmp(buffer, L"haha", 4 * sizeof(wchar_t)), 0);
 		}
 
 		TEST_METHOD(GetLength_NonWide)
