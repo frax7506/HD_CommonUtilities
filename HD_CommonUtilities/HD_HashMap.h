@@ -35,7 +35,7 @@
 #include "HD_Hash.h"
 #include "HD_Move.h"
 #include "HD_Pair.h"
-#include "HD_Utilities.h"
+#include "HD_SafeDelete.h"
 
 template<typename K, typename V>
 using KeyValuePair = HD_Pair<K, V>;

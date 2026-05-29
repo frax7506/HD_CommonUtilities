@@ -71,13 +71,14 @@ project("HD_CommonUtilities")
 			sourceHDCommonUtilitiesPath .. "HD_PreprocessorMacros.h",
 			sourceHDCommonUtilitiesPath .. "HD_Random.h",
 			sourceHDCommonUtilitiesPath .. "HD_Random.cpp",
+			sourceHDCommonUtilitiesPath .. "HD_SafeDelete.h",
 			sourceHDCommonUtilitiesPath .. "HD_Singleton.h",
 			sourceHDCommonUtilitiesPath .. "HD_StringUtils.h",
 			sourceHDCommonUtilitiesPath .. "HD_Time.h",
 			sourceHDCommonUtilitiesPath .. "HD_Time.cpp",
 			sourceHDCommonUtilitiesPath .. "HD_Types.h",
 			sourceHDCommonUtilitiesPath .. "HD_TypeTraits.h",
-			sourceHDCommonUtilitiesPath .. "HD_Utilities.h",
+			sourceHDCommonUtilitiesPath .. "HD_Unused.h",
 			sourceHDCommonUtilitiesPath .. "OptimizedWindowsInclude.h"
 		},
 		["Natvis"] =

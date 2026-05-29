@@ -2,7 +2,7 @@
 
 #include "HD_ArrayIterator.h"
 #include "HD_Move.h"
-#include "HD_Utilities.h"
+#include "HD_SafeDelete.h"
 
 #include <cassert>
 #include <cstring>

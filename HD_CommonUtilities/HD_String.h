@@ -1,7 +1,7 @@
 #pragma once
 
+#include "HD_SafeDelete.h"
 #include "HD_StringUtils.h"
-#include "HD_Utilities.h"
 
 #include <cassert>
 #include <cstring>
