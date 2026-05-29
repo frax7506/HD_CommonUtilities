@@ -4,7 +4,7 @@
 	// * Uses open addressing to handle collissions. Key-values are stored directly
 	//		in the data array, minimizing the amount of indirections. This table
 	//		uses linear probing.
-	// * Metadata is stored at the beginning of the array(1b for each element),
+	// * Metadata is stored at the beginning of the array (1b for each element),
 	//		containing information about the slots' states. This means that even
 	//		though 8b keys are stored in the array, the whole array can be scanned
 	//		quickly and cache-friendly using this metadata.
@@ -79,6 +79,7 @@ public:
 	friend class ConstIterator;
 
 	HD_HashMap();
+	HD_HashMap(int aCapacity);
 	HD_HashMap(const HD_HashMap& aHashMap);
 	HD_HashMap(HD_HashMap&& aHashMap);
 	~HD_HashMap();
@@ -141,7 +142,17 @@ HD_HashMap<K, V>::HD_HashMap()
 	, mySize(0)
 	, myCapacity(0)
 {
-	InitWithCapacity(16);
+}
+
+template<typename K, typename V>
+HD_HashMap<K, V>::HD_HashMap(int aCapacity)
+	: myData(nullptr)
+	, myControlBytes(nullptr)
+	, myKeyValuePairs(nullptr)
+	, mySize(0)
+	, myCapacity(0)
+{
+	InitWithCapacity(aCapacity);
 }
 
 template<typename K, typename V>
@@ -178,6 +189,10 @@ HD_HashMap<K, V>::HD_HashMap(HD_HashMap&& aHashMap)
 	myKeyValuePairs = reinterpret_cast<KeyValuePair<K, V>*>(myControlBytes + myCapacity);
 
 	aHashMap.myData = nullptr;
+	aHashMap.myControlBytes = nullptr;
+	aHashMap.myKeyValuePairs = nullptr;
+	aHashMap.mySize = 0;
+	aHashMap.myCapacity = 0;
 }
 
 template<typename K, typename V>
@@ -189,6 +204,11 @@ HD_HashMap<K, V>::~HD_HashMap()
 template<typename K, typename V>
 const V* HD_HashMap<K, V>::GetIfExists(const K& aKey) const
 {
+	if (myCapacity == 0)
+	{
+		return nullptr;
+	}
+
 	int index = GetSlotIndexForKey(aKey);
 	bool isFull = GetIsSlotFullAtIndex(index);
 
@@ -203,6 +223,11 @@ const V* HD_HashMap<K, V>::GetIfExists(const K& aKey) const
 template<typename K, typename V>
 V& HD_HashMap<K, V>::operator[](const K& aKey)
 {
+	if (myCapacity == 0)
+	{
+		InitWithCapacity(16);
+	}
+
 	int index = GetSlotIndexForKey(aKey);
 	bool isFull = GetIsSlotFullAtIndex(index);
 
@@ -230,7 +255,10 @@ V& HD_HashMap<K, V>::operator[](const K& aKey)
 template<typename K, typename V>
 HD_HashMap<K, V>& HD_HashMap<K, V>::operator=(const HD_HashMap& aHashMap)
 {
-	Clear();
+	if (myCapacity > 0)
+	{
+		Clear();
+	}
 
 	bool isCapacitySmaller = myCapacity < aHashMap.myCapacity;
 
@@ -256,14 +284,17 @@ HD_HashMap<K, V>& HD_HashMap<K, V>::operator=(const HD_HashMap& aHashMap)
 template<typename K, typename V>
 HD_HashMap<K, V>& HD_HashMap<K, V>::operator=(HD_HashMap&& aHashMap)
 {
+	myData = aHashMap.myData;
+	myControlBytes = aHashMap.myData;
+	myKeyValuePairs = reinterpret_cast<KeyValuePair<K, V>*>(aHashMap.myControlBytes + aHashMap.myCapacity);
 	mySize = aHashMap.mySize;
 	myCapacity = aHashMap.myCapacity;
 
-	myData = aHashMap.myData;
-	myControlBytes = myData;
-	myKeyValuePairs = reinterpret_cast<KeyValuePair<K, V>*>(myControlBytes + myCapacity);
-
 	aHashMap.myData = nullptr;
+	aHashMap.myControlBytes = nullptr;
+	aHashMap.myKeyValuePairs = nullptr;
+	aHashMap.mySize = 0;
+	aHashMap.myCapacity = 0;
 
 	return *this;
 }
@@ -271,6 +302,11 @@ HD_HashMap<K, V>& HD_HashMap<K, V>::operator=(HD_HashMap&& aHashMap)
 template<typename K, typename V>
 void HD_HashMap<K, V>::Remove(const K& aKey)
 {
+	if (myCapacity == 0)
+	{
+		return;
+	}
+
 	int index = GetSlotIndexForKey(aKey);
 	bool isFull = GetIsSlotFullAtIndex(index);
 
@@ -283,7 +319,7 @@ void HD_HashMap<K, V>::Remove(const K& aKey)
 template<typename K, typename V>
 void HD_HashMap<K, V>::Clear()
 {
-	memset(myControlBytes, 0, sizeof(ControlByte_t) * myCapacity);
+	memset(myControlBytes, 0, myCapacity * sizeof(ControlByte_t));
 	mySize = 0;
 }
 
@@ -319,7 +355,7 @@ void HD_HashMap<K, V>::InitWithCapacity(int aCapacity)
 	myCapacity = aCapacity;
 	mySize = 0;
 
-	myData = new char[myCapacity + sizeof(KeyValuePair<size_t, V>) * myCapacity] { 0 };
+	myData = new char[myCapacity + myCapacity * sizeof(KeyValuePair<K, V>)] { 0 };
 	myControlBytes = myData;
 	myKeyValuePairs = reinterpret_cast<KeyValuePair<K, V>*>(myControlBytes + myCapacity);
 }
