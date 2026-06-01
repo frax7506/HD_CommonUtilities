@@ -596,19 +596,22 @@ namespace HD_CommonUtilities
 		TEST_METHOD(Operator_Assignment_NonPOD)
 		{
 			HD_GrowingArray<HD_String> growingArray1;
-			growingArray1.EmplaceBack("haha0");
-			growingArray1.EmplaceBack("haha1");
-			growingArray1.EmplaceBack("haha2");
 
-			HD_GrowingArray<HD_String> growingArray2;
-			growingArray2 = growingArray1;
+			{
+				HD_GrowingArray<HD_String> growingArray2;
+				growingArray2.EmplaceBack("haha0");
+				growingArray2.EmplaceBack("haha1");
+				growingArray2.EmplaceBack("haha2");
 
-			Assert::IsNotNull(growingArray2.myData);
-			Assert::IsTrue(growingArray2[0] == "haha0");
-			Assert::IsTrue(growingArray2[1] == "haha1");
-			Assert::IsTrue(growingArray2[2] == "haha2");
-			Assert::AreEqual(growingArray2.mySize, 3);
-			Assert::AreEqual(growingArray2.myCapacity, 3);
+				growingArray1 = growingArray2;
+			}
+
+			Assert::IsNotNull(growingArray1.myData);
+			Assert::IsTrue(growingArray1[0] == "haha0");
+			Assert::IsTrue(growingArray1[1] == "haha1");
+			Assert::IsTrue(growingArray1[2] == "haha2");
+			Assert::AreEqual(growingArray1.mySize, 3);
+			Assert::AreEqual(growingArray1.myCapacity, 3);
 		}
 
 		TEST_METHOD(Operator_Assignment_Move)
