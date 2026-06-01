@@ -7,8 +7,6 @@
 
 #include "HD_String.h"
 
-#include "TestUtils.h"
-
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace HD_CommonUtilities
