@@ -130,7 +130,7 @@ private:
 	char* myData;
 	ControlByte_t* myControlBytes;
 	KeyValuePair<K, V>* myKeyValuePairs;
-	int mySize;
+	int mySizeIncludingTombstones;
 	int myCapacity;
 };
 
@@ -139,7 +139,7 @@ HD_HashMap<K, V>::HD_HashMap()
 	: myData(nullptr)
 	, myControlBytes(nullptr)
 	, myKeyValuePairs(nullptr)
-	, mySize(0)
+	, mySizeIncludingTombstones(0)
 	, myCapacity(0)
 {
 }
@@ -149,7 +149,7 @@ HD_HashMap<K, V>::HD_HashMap(int aCapacity)
 	: myData(nullptr)
 	, myControlBytes(nullptr)
 	, myKeyValuePairs(nullptr)
-	, mySize(0)
+	, mySizeIncludingTombstones(0)
 	, myCapacity(0)
 {
 	InitWithCapacity(aCapacity);
@@ -160,7 +160,7 @@ HD_HashMap<K, V>::HD_HashMap(const HD_HashMap& aHashMap)
 	: myData(nullptr)
 	, myControlBytes(nullptr)
 	, myKeyValuePairs(nullptr)
-	, mySize(0)
+	, mySizeIncludingTombstones(0)
 	, myCapacity(0)
 {
 	InitWithCapacity(aHashMap.myCapacity);
@@ -172,7 +172,7 @@ HD_HashMap<K, V>::HD_HashMap(const HD_HashMap& aHashMap)
 
 		int index = GetSlotIndexForKey(key);
 		InsertKeyValueAtIndex(key, value, index);
-		mySize++;
+		mySizeIncludingTombstones++;
 	}
 }
 
@@ -181,7 +181,7 @@ HD_HashMap<K, V>::HD_HashMap(HD_HashMap&& aHashMap)
 	: myData(nullptr)
 	, myControlBytes(nullptr)
 	, myKeyValuePairs(nullptr)
-	, mySize(aHashMap.mySize)
+	, mySizeIncludingTombstones(aHashMap.mySizeIncludingTombstones)
 	, myCapacity(aHashMap.myCapacity)
 {
 	myData = aHashMap.myData;
@@ -191,7 +191,7 @@ HD_HashMap<K, V>::HD_HashMap(HD_HashMap&& aHashMap)
 	aHashMap.myData = nullptr;
 	aHashMap.myControlBytes = nullptr;
 	aHashMap.myKeyValuePairs = nullptr;
-	aHashMap.mySize = 0;
+	aHashMap.mySizeIncludingTombstones = 0;
 	aHashMap.myCapacity = 0;
 }
 
@@ -236,7 +236,7 @@ V& HD_HashMap<K, V>::operator[](const K& aKey)
 		return myKeyValuePairs[index].mySecond;
 	}
 
-	float newLoadFactor = static_cast<float>(mySize + 1) / myCapacity;
+	float newLoadFactor = static_cast<float>(mySizeIncludingTombstones + 1) / myCapacity;
 	if (newLoadFactor > ourMaximumLoadFactor)
 	{
 		Rehash();
@@ -245,7 +245,7 @@ V& HD_HashMap<K, V>::operator[](const K& aKey)
 
 	if (myControlBytes[index] == eControlByte_Empty)
 	{
-		mySize++;
+		mySizeIncludingTombstones++;
 	}
 
 	InsertKeyValueAtIndex(aKey, V(), index);
@@ -275,7 +275,7 @@ HD_HashMap<K, V>& HD_HashMap<K, V>::operator=(const HD_HashMap& aHashMap)
 
 		int index = GetSlotIndexForKey(key);
 		InsertKeyValueAtIndex(key, value, index);
-		mySize++;
+		mySizeIncludingTombstones++;
 	}
 
 	return *this;
@@ -287,13 +287,13 @@ HD_HashMap<K, V>& HD_HashMap<K, V>::operator=(HD_HashMap&& aHashMap)
 	myData = aHashMap.myData;
 	myControlBytes = aHashMap.myData;
 	myKeyValuePairs = reinterpret_cast<KeyValuePair<K, V>*>(aHashMap.myControlBytes + aHashMap.myCapacity);
-	mySize = aHashMap.mySize;
+	mySizeIncludingTombstones = aHashMap.mySizeIncludingTombstones;
 	myCapacity = aHashMap.myCapacity;
 
 	aHashMap.myData = nullptr;
 	aHashMap.myControlBytes = nullptr;
 	aHashMap.myKeyValuePairs = nullptr;
-	aHashMap.mySize = 0;
+	aHashMap.mySizeIncludingTombstones = 0;
 	aHashMap.myCapacity = 0;
 
 	return *this;
@@ -320,7 +320,7 @@ template<typename K, typename V>
 void HD_HashMap<K, V>::Clear()
 {
 	memset(myControlBytes, 0, myCapacity * sizeof(ControlByte_t));
-	mySize = 0;
+	mySizeIncludingTombstones = 0;
 }
 
 template<typename K, typename V>
@@ -353,7 +353,7 @@ template<typename K, typename V>
 void HD_HashMap<K, V>::InitWithCapacity(int aCapacity)
 {
 	myCapacity = aCapacity;
-	mySize = 0;
+	mySizeIncludingTombstones = 0;
 
 	myData = new char[myCapacity + myCapacity * sizeof(KeyValuePair<K, V>)] { 0 };
 	myControlBytes = myData;
@@ -372,8 +372,10 @@ void HD_HashMap<K, V>::InsertKeyValueAtIndex(const K& aKey, const V& aValue, int
 template<typename K, typename V>
 void HD_HashMap<K, V>::Rehash()
 {
+	int newCapacity = static_cast<int>(myCapacity * ourGrowFactor);
+
 	HD_HashMap temp = HD_Move(*this);
-	InitWithCapacity(static_cast<int>(myCapacity * ourGrowFactor));
+	InitWithCapacity(newCapacity);
 	(*this) = temp;
 }
 
