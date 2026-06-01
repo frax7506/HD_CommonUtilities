@@ -27,6 +27,8 @@ public:
 	void Append(const T* aString);
 	void Append(const HD_Str& aString);
 
+	void Clear();
+
 	HD_Str operator+(const T* aString) const;
 	HD_Str operator+(const HD_Str& aString) const;
 
@@ -69,11 +71,17 @@ HD_Str<T>::HD_Str()
 
 template<typename T>
 HD_Str<T>::HD_Str(const T* aString)
+	: myData(nullptr)
+	, myLength(0)
+	, myCapacity(0)
 {
-	myLength = HD_Strlen(aString);
-	myCapacity = myLength + 1;
-	myData = new T[myCapacity] { 0 };
-	memcpy(myData, aString, myLength * sizeof(T));
+	if (aString)
+	{
+		myLength = HD_Strlen(aString);
+		myCapacity = myLength + 1;
+		myData = new T[myCapacity] { 0 };
+		memcpy(myData, aString, myLength * sizeof(T));
+	}
 }
 
 template<typename T>
@@ -148,6 +156,13 @@ void HD_Str<T>::Append(const HD_Str& aString)
 }
 
 template<typename T>
+void HD_Str<T>::Clear()
+{
+	myLength = 0;
+	memset(myData, 0, myCapacity * sizeof(T));
+}
+
+template<typename T>
 HD_Str<T> HD_Str<T>::operator+(const T* aString) const
 {
 	HD_Str result(*this);
@@ -164,17 +179,24 @@ HD_Str<T> HD_Str<T>::operator+(const HD_Str& aString) const
 template<typename T>
 HD_Str<T>& HD_Str<T>::operator=(const T* aString)
 {
-	int length = HD_Strlen(aString);
-	bool isCurrentBufferTooSmall = length + 1 > myCapacity;
-
-	if (isCurrentBufferTooSmall)
+	if (!aString || (*aString) == 0)
 	{
-		Grow(length + 1);
+		Clear();
 	}
+	else
+	{
+		int length = HD_Strlen(aString);
+		bool isCurrentBufferTooSmall = length + 1 > myCapacity;
 
-	myLength = length;
-	memset(myData, 0, myCapacity * sizeof(T));
-	memcpy(myData, aString, myLength * sizeof(T));
+		if (isCurrentBufferTooSmall)
+		{
+			Grow(length + 1);
+		}
+
+		myLength = length;
+		memset(myData, 0, myCapacity * sizeof(T));
+		memcpy(myData, aString, myLength * sizeof(T));
+	}
 
 	return *this;
 }
@@ -205,7 +227,18 @@ HD_Str<T>& HD_Str<T>::operator=(HD_Str&& aString)
 template<typename T>
 bool HD_Str<T>::operator==(const T* aString) const
 {
-	return HD_Strcmp(myData, aString) == 0;
+	if (myData && aString)
+	{
+		return HD_Strcmp(myData, aString) == 0;
+	}
+	else if (!myData)
+	{
+		return (*aString) == 0;
+	}
+	else
+	{
+		return false;
+	}
 }
 
 template<typename T>

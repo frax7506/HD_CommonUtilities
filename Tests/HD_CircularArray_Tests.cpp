@@ -131,10 +131,10 @@ namespace HD_CommonUtilities
 			Assert::AreEqual(circularArray.myWriteIndex, 4);
 			Assert::AreEqual(circularArray.mySize, 4);
 
-			TestUtils::StringDataCheck(circularArray.myData[0], "0");
-			TestUtils::StringDataCheck(circularArray.myData[1], "1");
-			TestUtils::StringDataCheck(circularArray.myData[2], "2");
-			TestUtils::StringDataCheck(circularArray.myData[3], "3");
+			Assert::IsTrue(circularArray.myData[0] == "0");
+			Assert::IsTrue(circularArray.myData[1] == "1");
+			Assert::IsTrue(circularArray.myData[2] == "2");
+			Assert::IsTrue(circularArray.myData[3] == "3");
 			TestUtils::StringDataCheckIsUninitialized(circularArray.myData[4]);
 			TestUtils::StringDataCheckIsUninitialized(circularArray.myData[5]);
 			TestUtils::StringDataCheckIsUninitialized(circularArray.myData[6]);
@@ -149,14 +149,14 @@ namespace HD_CommonUtilities
 			Assert::AreEqual(circularArray.myWriteIndex, 0);
 			Assert::AreEqual(circularArray.mySize, 8);
 
-			TestUtils::StringDataCheck(circularArray.myData[0], "0");
-			TestUtils::StringDataCheck(circularArray.myData[1], "1");
-			TestUtils::StringDataCheck(circularArray.myData[2], "2");
-			TestUtils::StringDataCheck(circularArray.myData[3], "3");
-			TestUtils::StringDataCheck(circularArray.myData[4], "4");
-			TestUtils::StringDataCheck(circularArray.myData[5], "5");
-			TestUtils::StringDataCheck(circularArray.myData[6], "6");
-			TestUtils::StringDataCheck(circularArray.myData[7], "7");
+			Assert::IsTrue(circularArray.myData[0] == "0");
+			Assert::IsTrue(circularArray.myData[1] == "1");
+			Assert::IsTrue(circularArray.myData[2] == "2");
+			Assert::IsTrue(circularArray.myData[3] == "3");
+			Assert::IsTrue(circularArray.myData[4] == "4");
+			Assert::IsTrue(circularArray.myData[5] == "5");
+			Assert::IsTrue(circularArray.myData[6] == "6");
+			Assert::IsTrue(circularArray.myData[7] == "7");
 
 			circularArray.PushBack("8");
 
@@ -164,14 +164,14 @@ namespace HD_CommonUtilities
 			Assert::AreEqual(circularArray.myWriteIndex, 1);
 			Assert::AreEqual(circularArray.mySize, 8);
 
-			TestUtils::StringDataCheck(circularArray.myData[0], "8");
-			TestUtils::StringDataCheck(circularArray.myData[1], "1");
-			TestUtils::StringDataCheck(circularArray.myData[2], "2");
-			TestUtils::StringDataCheck(circularArray.myData[3], "3");
-			TestUtils::StringDataCheck(circularArray.myData[4], "4");
-			TestUtils::StringDataCheck(circularArray.myData[5], "5");
-			TestUtils::StringDataCheck(circularArray.myData[6], "6");
-			TestUtils::StringDataCheck(circularArray.myData[7], "7");
+			Assert::IsTrue(circularArray.myData[0] == "8");
+			Assert::IsTrue(circularArray.myData[1] == "1");
+			Assert::IsTrue(circularArray.myData[2] == "2");
+			Assert::IsTrue(circularArray.myData[3] == "3");
+			Assert::IsTrue(circularArray.myData[4] == "4");
+			Assert::IsTrue(circularArray.myData[5] == "5");
+			Assert::IsTrue(circularArray.myData[6] == "6");
+			Assert::IsTrue(circularArray.myData[7] == "7");
 
 			circularArray.PushBack("9");
 
@@ -179,14 +179,14 @@ namespace HD_CommonUtilities
 			Assert::AreEqual(circularArray.myWriteIndex, 2);
 			Assert::AreEqual(circularArray.mySize, 8);
 
-			TestUtils::StringDataCheck(circularArray.myData[0], "8");
-			TestUtils::StringDataCheck(circularArray.myData[1], "9");
-			TestUtils::StringDataCheck(circularArray.myData[2], "2");
-			TestUtils::StringDataCheck(circularArray.myData[3], "3");
-			TestUtils::StringDataCheck(circularArray.myData[4], "4");
-			TestUtils::StringDataCheck(circularArray.myData[5], "5");
-			TestUtils::StringDataCheck(circularArray.myData[6], "6");
-			TestUtils::StringDataCheck(circularArray.myData[7], "7");
+			Assert::IsTrue(circularArray.myData[0] == "8");
+			Assert::IsTrue(circularArray.myData[1] == "9");
+			Assert::IsTrue(circularArray.myData[2] == "2");
+			Assert::IsTrue(circularArray.myData[3] == "3");
+			Assert::IsTrue(circularArray.myData[4] == "4");
+			Assert::IsTrue(circularArray.myData[5] == "5");
+			Assert::IsTrue(circularArray.myData[6] == "6");
+			Assert::IsTrue(circularArray.myData[7] == "7");
 		}
 
 		TEST_METHOD(PushBack_Overflow_Disabled_POD)
@@ -239,14 +239,14 @@ namespace HD_CommonUtilities
 			Assert::AreEqual(circularArray.myWriteIndex, 0);
 			Assert::AreEqual(circularArray.mySize, 8);
 
-			TestUtils::StringDataCheck(circularArray.myData[0], "0");
-			TestUtils::StringDataCheck(circularArray.myData[1], "1");
-			TestUtils::StringDataCheck(circularArray.myData[2], "2");
-			TestUtils::StringDataCheck(circularArray.myData[3], "3");
-			TestUtils::StringDataCheck(circularArray.myData[4], "4");
-			TestUtils::StringDataCheck(circularArray.myData[5], "5");
-			TestUtils::StringDataCheck(circularArray.myData[6], "6");
-			TestUtils::StringDataCheck(circularArray.myData[7], "7");
+			Assert::IsTrue(circularArray.myData[0] == "0");
+			Assert::IsTrue(circularArray.myData[1] == "1");
+			Assert::IsTrue(circularArray.myData[2] == "2");
+			Assert::IsTrue(circularArray.myData[3] == "3");
+			Assert::IsTrue(circularArray.myData[4] == "4");
+			Assert::IsTrue(circularArray.myData[5] == "5");
+			Assert::IsTrue(circularArray.myData[6] == "6");
+			Assert::IsTrue(circularArray.myData[7] == "7");
 
 			// htodo: automate this
 			// Comment out to validate assertion
@@ -280,10 +280,10 @@ namespace HD_CommonUtilities
 			TestUtils::StringDataCheckIsUninitialized(string1);
 			TestUtils::StringDataCheckIsUninitialized(string2);
 			TestUtils::StringDataCheckIsUninitialized(string3);
-			TestUtils::StringDataCheck(circularArray.myData[0], "0");
-			TestUtils::StringDataCheck(circularArray.myData[1], "1");
-			TestUtils::StringDataCheck(circularArray.myData[2], "2");
-			TestUtils::StringDataCheck(circularArray.myData[3], "3");
+			Assert::IsTrue(circularArray.myData[0] == "0");
+			Assert::IsTrue(circularArray.myData[1] == "1");
+			Assert::IsTrue(circularArray.myData[2] == "2");
+			Assert::IsTrue(circularArray.myData[3] == "3");
 			TestUtils::StringDataCheckIsUninitialized(circularArray.myData[4]);
 			TestUtils::StringDataCheckIsUninitialized(circularArray.myData[5]);
 			TestUtils::StringDataCheckIsUninitialized(circularArray.myData[6]);
@@ -302,14 +302,14 @@ namespace HD_CommonUtilities
 			TestUtils::StringDataCheckIsUninitialized(string5);
 			TestUtils::StringDataCheckIsUninitialized(string6);
 			TestUtils::StringDataCheckIsUninitialized(string7);
-			TestUtils::StringDataCheck(circularArray.myData[0], "0");
-			TestUtils::StringDataCheck(circularArray.myData[1], "1");
-			TestUtils::StringDataCheck(circularArray.myData[2], "2");
-			TestUtils::StringDataCheck(circularArray.myData[3], "3");
-			TestUtils::StringDataCheck(circularArray.myData[4], "4");
-			TestUtils::StringDataCheck(circularArray.myData[5], "5");
-			TestUtils::StringDataCheck(circularArray.myData[6], "6");
-			TestUtils::StringDataCheck(circularArray.myData[7], "7");
+			Assert::IsTrue(circularArray.myData[0] == "0");
+			Assert::IsTrue(circularArray.myData[1] == "1");
+			Assert::IsTrue(circularArray.myData[2] == "2");
+			Assert::IsTrue(circularArray.myData[3] == "3");
+			Assert::IsTrue(circularArray.myData[4] == "4");
+			Assert::IsTrue(circularArray.myData[5] == "5");
+			Assert::IsTrue(circularArray.myData[6] == "6");
+			Assert::IsTrue(circularArray.myData[7] == "7");
 
 			circularArray.PushBack(HD_Move(string8));
 
@@ -318,14 +318,14 @@ namespace HD_CommonUtilities
 			Assert::AreEqual(circularArray.mySize, 8);
 
 			TestUtils::StringDataCheckIsUninitialized(string8);
-			TestUtils::StringDataCheck(circularArray.myData[0], "8");
-			TestUtils::StringDataCheck(circularArray.myData[1], "1");
-			TestUtils::StringDataCheck(circularArray.myData[2], "2");
-			TestUtils::StringDataCheck(circularArray.myData[3], "3");
-			TestUtils::StringDataCheck(circularArray.myData[4], "4");
-			TestUtils::StringDataCheck(circularArray.myData[5], "5");
-			TestUtils::StringDataCheck(circularArray.myData[6], "6");
-			TestUtils::StringDataCheck(circularArray.myData[7], "7");
+			Assert::IsTrue(circularArray.myData[0] == "8");
+			Assert::IsTrue(circularArray.myData[1] == "1");
+			Assert::IsTrue(circularArray.myData[2] == "2");
+			Assert::IsTrue(circularArray.myData[3] == "3");
+			Assert::IsTrue(circularArray.myData[4] == "4");
+			Assert::IsTrue(circularArray.myData[5] == "5");
+			Assert::IsTrue(circularArray.myData[6] == "6");
+			Assert::IsTrue(circularArray.myData[7] == "7");
 
 			circularArray.PushBack(HD_Move(string9));
 
@@ -334,14 +334,14 @@ namespace HD_CommonUtilities
 			Assert::AreEqual(circularArray.mySize, 8);
 
 			TestUtils::StringDataCheckIsUninitialized(string9);
-			TestUtils::StringDataCheck(circularArray.myData[0], "8");
-			TestUtils::StringDataCheck(circularArray.myData[1], "9");
-			TestUtils::StringDataCheck(circularArray.myData[2], "2");
-			TestUtils::StringDataCheck(circularArray.myData[3], "3");
-			TestUtils::StringDataCheck(circularArray.myData[4], "4");
-			TestUtils::StringDataCheck(circularArray.myData[5], "5");
-			TestUtils::StringDataCheck(circularArray.myData[6], "6");
-			TestUtils::StringDataCheck(circularArray.myData[7], "7");
+			Assert::IsTrue(circularArray.myData[0] == "8");
+			Assert::IsTrue(circularArray.myData[1] == "9");
+			Assert::IsTrue(circularArray.myData[2] == "2");
+			Assert::IsTrue(circularArray.myData[3] == "3");
+			Assert::IsTrue(circularArray.myData[4] == "4");
+			Assert::IsTrue(circularArray.myData[5] == "5");
+			Assert::IsTrue(circularArray.myData[6] == "6");
+			Assert::IsTrue(circularArray.myData[7] == "7");
 		}
 
 		TEST_METHOD(PushBack_Move_Overflow_Disabled)
@@ -381,14 +381,14 @@ namespace HD_CommonUtilities
 			TestUtils::StringDataCheckIsUninitialized(string5);
 			TestUtils::StringDataCheckIsUninitialized(string6);
 			TestUtils::StringDataCheckIsUninitialized(string7);
-			TestUtils::StringDataCheck(circularArray.myData[0], "0");
-			TestUtils::StringDataCheck(circularArray.myData[1], "1");
-			TestUtils::StringDataCheck(circularArray.myData[2], "2");
-			TestUtils::StringDataCheck(circularArray.myData[3], "3");
-			TestUtils::StringDataCheck(circularArray.myData[4], "4");
-			TestUtils::StringDataCheck(circularArray.myData[5], "5");
-			TestUtils::StringDataCheck(circularArray.myData[6], "6");
-			TestUtils::StringDataCheck(circularArray.myData[7], "7");
+			Assert::IsTrue(circularArray.myData[0] == "0");
+			Assert::IsTrue(circularArray.myData[1] == "1");
+			Assert::IsTrue(circularArray.myData[2] == "2");
+			Assert::IsTrue(circularArray.myData[3] == "3");
+			Assert::IsTrue(circularArray.myData[4] == "4");
+			Assert::IsTrue(circularArray.myData[5] == "5");
+			Assert::IsTrue(circularArray.myData[6] == "6");
+			Assert::IsTrue(circularArray.myData[7] == "7");
 
 			// htodo: automate this
 			// Comment out to validate assertion
@@ -407,10 +407,10 @@ namespace HD_CommonUtilities
 			Assert::AreEqual(circularArray.myWriteIndex, 4);
 			Assert::AreEqual(circularArray.mySize, 4);
 
-			TestUtils::StringDataCheck(circularArray.myData[0], "0");
-			TestUtils::StringDataCheck(circularArray.myData[1], "1");
-			TestUtils::StringDataCheck(circularArray.myData[2], "2");
-			TestUtils::StringDataCheck(circularArray.myData[3], "3");
+			Assert::IsTrue(circularArray.myData[0] == "0");
+			Assert::IsTrue(circularArray.myData[1] == "1");
+			Assert::IsTrue(circularArray.myData[2] == "2");
+			Assert::IsTrue(circularArray.myData[3] == "3");
 			TestUtils::StringDataCheckIsUninitialized(circularArray.myData[4]);
 			TestUtils::StringDataCheckIsUninitialized(circularArray.myData[5]);
 			TestUtils::StringDataCheckIsUninitialized(circularArray.myData[6]);
@@ -425,14 +425,14 @@ namespace HD_CommonUtilities
 			Assert::AreEqual(circularArray.myWriteIndex, 0);
 			Assert::AreEqual(circularArray.mySize, 8);
 
-			TestUtils::StringDataCheck(circularArray.myData[0], "0");
-			TestUtils::StringDataCheck(circularArray.myData[1], "1");
-			TestUtils::StringDataCheck(circularArray.myData[2], "2");
-			TestUtils::StringDataCheck(circularArray.myData[3], "3");
-			TestUtils::StringDataCheck(circularArray.myData[4], "4");
-			TestUtils::StringDataCheck(circularArray.myData[5], "5");
-			TestUtils::StringDataCheck(circularArray.myData[6], "6");
-			TestUtils::StringDataCheck(circularArray.myData[7], "7");
+			Assert::IsTrue(circularArray.myData[0] == "0");
+			Assert::IsTrue(circularArray.myData[1] == "1");
+			Assert::IsTrue(circularArray.myData[2] == "2");
+			Assert::IsTrue(circularArray.myData[3] == "3");
+			Assert::IsTrue(circularArray.myData[4] == "4");
+			Assert::IsTrue(circularArray.myData[5] == "5");
+			Assert::IsTrue(circularArray.myData[6] == "6");
+			Assert::IsTrue(circularArray.myData[7] == "7");
 
 			circularArray.EmplaceBack("8");
 
@@ -440,14 +440,14 @@ namespace HD_CommonUtilities
 			Assert::AreEqual(circularArray.myWriteIndex, 1);
 			Assert::AreEqual(circularArray.mySize, 8);
 
-			TestUtils::StringDataCheck(circularArray.myData[0], "8");
-			TestUtils::StringDataCheck(circularArray.myData[1], "1");
-			TestUtils::StringDataCheck(circularArray.myData[2], "2");
-			TestUtils::StringDataCheck(circularArray.myData[3], "3");
-			TestUtils::StringDataCheck(circularArray.myData[4], "4");
-			TestUtils::StringDataCheck(circularArray.myData[5], "5");
-			TestUtils::StringDataCheck(circularArray.myData[6], "6");
-			TestUtils::StringDataCheck(circularArray.myData[7], "7");
+			Assert::IsTrue(circularArray.myData[0] == "8");
+			Assert::IsTrue(circularArray.myData[1] == "1");
+			Assert::IsTrue(circularArray.myData[2] == "2");
+			Assert::IsTrue(circularArray.myData[3] == "3");
+			Assert::IsTrue(circularArray.myData[4] == "4");
+			Assert::IsTrue(circularArray.myData[5] == "5");
+			Assert::IsTrue(circularArray.myData[6] == "6");
+			Assert::IsTrue(circularArray.myData[7] == "7");
 
 			circularArray.EmplaceBack("9");
 
@@ -455,14 +455,14 @@ namespace HD_CommonUtilities
 			Assert::AreEqual(circularArray.myWriteIndex, 2);
 			Assert::AreEqual(circularArray.mySize, 8);
 
-			TestUtils::StringDataCheck(circularArray.myData[0], "8");
-			TestUtils::StringDataCheck(circularArray.myData[1], "9");
-			TestUtils::StringDataCheck(circularArray.myData[2], "2");
-			TestUtils::StringDataCheck(circularArray.myData[3], "3");
-			TestUtils::StringDataCheck(circularArray.myData[4], "4");
-			TestUtils::StringDataCheck(circularArray.myData[5], "5");
-			TestUtils::StringDataCheck(circularArray.myData[6], "6");
-			TestUtils::StringDataCheck(circularArray.myData[7], "7");
+			Assert::IsTrue(circularArray.myData[0] == "8");
+			Assert::IsTrue(circularArray.myData[1] == "9");
+			Assert::IsTrue(circularArray.myData[2] == "2");
+			Assert::IsTrue(circularArray.myData[3] == "3");
+			Assert::IsTrue(circularArray.myData[4] == "4");
+			Assert::IsTrue(circularArray.myData[5] == "5");
+			Assert::IsTrue(circularArray.myData[6] == "6");
+			Assert::IsTrue(circularArray.myData[7] == "7");
 		}
 
 		TEST_METHOD(EmplaceBack_Overflow_Disabled)
@@ -483,14 +483,14 @@ namespace HD_CommonUtilities
 			Assert::AreEqual(circularArray.myWriteIndex, 0);
 			Assert::AreEqual(circularArray.mySize, 8);
 
-			TestUtils::StringDataCheck(circularArray.myData[0], "0");
-			TestUtils::StringDataCheck(circularArray.myData[1], "1");
-			TestUtils::StringDataCheck(circularArray.myData[2], "2");
-			TestUtils::StringDataCheck(circularArray.myData[3], "3");
-			TestUtils::StringDataCheck(circularArray.myData[4], "4");
-			TestUtils::StringDataCheck(circularArray.myData[5], "5");
-			TestUtils::StringDataCheck(circularArray.myData[6], "6");
-			TestUtils::StringDataCheck(circularArray.myData[7], "7");
+			Assert::IsTrue(circularArray.myData[0] == "0");
+			Assert::IsTrue(circularArray.myData[1] == "1");
+			Assert::IsTrue(circularArray.myData[2] == "2");
+			Assert::IsTrue(circularArray.myData[3] == "3");
+			Assert::IsTrue(circularArray.myData[4] == "4");
+			Assert::IsTrue(circularArray.myData[5] == "5");
+			Assert::IsTrue(circularArray.myData[6] == "6");
+			Assert::IsTrue(circularArray.myData[7] == "7");
 
 			// htodo: automate this
 			// Comment out to validate assertion
@@ -534,15 +534,15 @@ namespace HD_CommonUtilities
 			HD_String string;
 			circularArray.GetFirstAndRemove(string);
 
-			TestUtils::StringDataCheck(string, "4");
+			Assert::IsTrue(string == "4");
 			Assert::AreEqual(circularArray.myFirstIndex, 1);
 			Assert::AreEqual(circularArray.myWriteIndex, 4);
 			Assert::AreEqual(circularArray.mySize, 3);
 
-			TestUtils::StringDataCheck(circularArray.myData[0], "4");
-			TestUtils::StringDataCheck(circularArray.myData[1], "4");
-			TestUtils::StringDataCheck(circularArray.myData[2], "4");
-			TestUtils::StringDataCheck(circularArray.myData[3], "4");
+			Assert::IsTrue(circularArray.myData[0] == "4");
+			Assert::IsTrue(circularArray.myData[1] == "4");
+			Assert::IsTrue(circularArray.myData[2] == "4");
+			Assert::IsTrue(circularArray.myData[3] == "4");
 			TestUtils::StringDataCheckIsUninitialized(circularArray.myData[4]);
 			TestUtils::StringDataCheckIsUninitialized(circularArray.myData[5]);
 			TestUtils::StringDataCheckIsUninitialized(circularArray.myData[6]);
@@ -606,14 +606,14 @@ namespace HD_CommonUtilities
 			Assert::AreEqual(circularArray.myWriteIndex, 0);
 			Assert::AreEqual(circularArray.mySize, 8);
 
-			TestUtils::StringDataCheck(circularArray.myData[0], "0");
-			TestUtils::StringDataCheck(circularArray.myData[1], "1");
-			TestUtils::StringDataCheck(circularArray.myData[2], "2");
-			TestUtils::StringDataCheck(circularArray.myData[3], "3");
-			TestUtils::StringDataCheck(circularArray.myData[4], "4");
-			TestUtils::StringDataCheck(circularArray.myData[5], "5");
-			TestUtils::StringDataCheck(circularArray.myData[6], "6");
-			TestUtils::StringDataCheck(circularArray.myData[7], "7");
+			Assert::IsTrue(circularArray.myData[0] == "0");
+			Assert::IsTrue(circularArray.myData[1] == "1");
+			Assert::IsTrue(circularArray.myData[2] == "2");
+			Assert::IsTrue(circularArray.myData[3] == "3");
+			Assert::IsTrue(circularArray.myData[4] == "4");
+			Assert::IsTrue(circularArray.myData[5] == "5");
+			Assert::IsTrue(circularArray.myData[6] == "6");
+			Assert::IsTrue(circularArray.myData[7] == "7");
 
 			circularArray.Clear();
 
@@ -621,14 +621,14 @@ namespace HD_CommonUtilities
 			Assert::AreEqual(circularArray.myWriteIndex, 0);
 			Assert::AreEqual(circularArray.mySize, 0);
 
-			TestUtils::StringDataCheck(circularArray.myData[0], "0");
-			TestUtils::StringDataCheck(circularArray.myData[1], "1");
-			TestUtils::StringDataCheck(circularArray.myData[2], "2");
-			TestUtils::StringDataCheck(circularArray.myData[3], "3");
-			TestUtils::StringDataCheck(circularArray.myData[4], "4");
-			TestUtils::StringDataCheck(circularArray.myData[5], "5");
-			TestUtils::StringDataCheck(circularArray.myData[6], "6");
-			TestUtils::StringDataCheck(circularArray.myData[7], "7");
+			Assert::IsTrue(circularArray.myData[0] == "0");
+			Assert::IsTrue(circularArray.myData[1] == "1");
+			Assert::IsTrue(circularArray.myData[2] == "2");
+			Assert::IsTrue(circularArray.myData[3] == "3");
+			Assert::IsTrue(circularArray.myData[4] == "4");
+			Assert::IsTrue(circularArray.myData[5] == "5");
+			Assert::IsTrue(circularArray.myData[6] == "6");
+			Assert::IsTrue(circularArray.myData[7] == "7");
 		}
 
 		TEST_METHOD(GetSize_POD)
