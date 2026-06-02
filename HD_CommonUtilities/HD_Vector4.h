@@ -10,11 +10,6 @@ public:
 
 	void Set(T aX, T aY, T aZ, T aW);
 
-	HD_Vector4 operator+(const HD_Vector4& aOther) const;
-	HD_Vector4 operator-(const HD_Vector4& aOther) const;
-	HD_Vector4 operator*(T aConstant) const;
-	HD_Vector4 operator/(T aConstant) const;
-
 	HD_Vector4& operator=(const HD_Vector4& aOther);
 	HD_Vector4& operator+=(const HD_Vector4& aOther);
 	HD_Vector4& operator-=(const HD_Vector4& aOther);
@@ -23,6 +18,12 @@ public:
 
 	T myX, myY, myZ, myW;
 };
+
+template<typename T> HD_Vector4<T> operator+(const HD_Vector4<T>& aVector0, const HD_Vector4<T>& aVector1);
+template<typename T> HD_Vector4<T> operator-(const HD_Vector4<T>& aVector0, const HD_Vector4<T>& aVector1);
+template<typename T> HD_Vector4<T> operator*(const HD_Vector4<T>& aVector, T aScalar);
+template<typename T> HD_Vector4<T> operator*(T aScalar, const HD_Vector4<T>& aVector);
+template<typename T> HD_Vector4<T> operator/(const HD_Vector4<T>& aVector, T aScalar);
 
 template<typename T>
 HD_Vector4<T>::HD_Vector4()
@@ -58,30 +59,6 @@ void HD_Vector4<T>::Set(T aX, T aY, T aZ, T aW)
 	myY = aY;
 	myZ = aZ;
 	myW = aW;
-}
-
-template<typename T>
-HD_Vector4<T> HD_Vector4<T>::operator+(const HD_Vector4<T>& aOther) const
-{
-	return HD_Vector4(myX + aOther.myX, myY + aOther.myY, myZ + aOther.myZ, myW + aOther.myW);
-}
-
-template<typename T>
-HD_Vector4<T> HD_Vector4<T>::operator-(const HD_Vector4<T>& aOther) const
-{
-	return HD_Vector4(myX - aOther.myX, myY - aOther.myY, myZ - aOther.myZ, myW - aOther.myW);
-}
-
-template<typename T>
-HD_Vector4<T> HD_Vector4<T>::operator*(T aConstant) const
-{
-	return HD_Vector4(myX * aConstant, myY * aConstant, myZ * aConstant, myW * aConstant);
-}
-
-template<typename T>
-HD_Vector4<T> HD_Vector4<T>::operator/(T aConstant) const
-{
-	return HD_Vector4(myX / aConstant, myY / aConstant, myZ / aConstant, myW / aConstant);
 }
 
 template<typename T>
@@ -139,11 +116,34 @@ HD_Vector4<T>& HD_Vector4<T>::operator/=(T aConstant)
 	return *this;
 }
 
-// Global operator for doing aConstant * aVector.
 template<typename T>
-HD_Vector4<T> operator*(T aConstant, const HD_Vector4<T>& aVector)
+HD_Vector4<T> operator+(const HD_Vector4<T>& aVector0, const HD_Vector4<T>& aVector1)
 {
-	return aVector * aConstant;
+	return { aVector0.myX + aVector1.myX, aVector0.myY + aVector1.myY, aVector0.myZ + aVector1.myZ, aVector0.myW + aVector1.myW };
+}
+
+template<typename T>
+HD_Vector4<T> operator-(const HD_Vector4<T>& aVector0, const HD_Vector4<T>& aVector1)
+{
+	return { aVector0.myX - aVector1.myX, aVector0.myY - aVector1.myY, aVector0.myZ - aVector1.myZ, aVector0.myW - aVector1.myW };
+}
+
+template<typename T>
+HD_Vector4<T> operator*(const HD_Vector4<T>& aVector, T aScalar)
+{
+	return { aVector.myX * aScalar, aVector.myY * aScalar, aVector.myZ * aScalar, aVector.myW * aScalar };
+}
+
+template<typename T>
+HD_Vector4<T> operator*(T aScalar, const HD_Vector4<T>& aVector)
+{
+	return aVector * aScalar;
+}
+
+template<typename T>
+HD_Vector4<T> operator/(const HD_Vector4<T>& aVector, T aScalar)
+{
+	return { aVector.myX / aScalar, aVector.myY / aScalar, aVector.myZ / aScalar, aVector.myW / aScalar };
 }
 
 typedef HD_Vector4<float> HD_Vector4f;

@@ -1,7 +1,5 @@
 #pragma once
 
-#include "HD_Math.h"
-
 template<typename T>
 class HD_Vector3
 {
@@ -21,16 +19,11 @@ public:
 	float Dot(const HD_Vector3& aOther) const;
 	HD_Vector3 Cross(const HD_Vector3& aOther) const;
 
-	HD_Vector3 operator+(const HD_Vector3& aOther) const;
-	HD_Vector3 operator-(const HD_Vector3& aOther) const;
-	HD_Vector3 operator*(T aConstant) const;
-	HD_Vector3 operator/(T aConstant) const;
-
 	HD_Vector3& operator=(const HD_Vector3& aOther);
 	HD_Vector3& operator+=(const HD_Vector3& aOther);
 	HD_Vector3& operator-=(const HD_Vector3& aOther);
-	HD_Vector3& operator*=(T aConstant);
-	HD_Vector3& operator/=(T aConstant);
+	HD_Vector3& operator*=(T aScalar);
+	HD_Vector3& operator/=(T aScalar);
 
 	T myX, myY, myZ;
 
@@ -43,6 +36,12 @@ public:
 	static const HD_Vector3 Forward;
 	static const HD_Vector3 Back;
 };
+
+template<typename T> HD_Vector3<T> operator+(const HD_Vector3<T>& aVector0, const HD_Vector3<T>& aVector1);
+template<typename T> HD_Vector3<T> operator-(const HD_Vector3<T>& aVector0, const HD_Vector3<T>& aVector1);
+template<typename T> HD_Vector3<T> operator*(const HD_Vector3<T>& aVector, T aScalar);
+template<typename T> HD_Vector3<T> operator*(T aScalar, const HD_Vector3<T>& aVector);
+template<typename T> HD_Vector3<T> operator/(const HD_Vector3<T>& aVector, T aScalar);
 
 template<typename T>
 HD_Vector3<T>::HD_Vector3()
@@ -138,30 +137,6 @@ HD_Vector3<T> HD_Vector3<T>::Cross(const HD_Vector3<T>& aOther) const
 }
 
 template<typename T>
-HD_Vector3<T> HD_Vector3<T>::operator+(const HD_Vector3<T>& aOther) const
-{
-	return HD_Vector3(myX + aOther.myX, myY + aOther.myY, myZ + aOther.myZ);
-}
-
-template<typename T>
-HD_Vector3<T> HD_Vector3<T>::operator-(const HD_Vector3<T>& aOther) const
-{
-	return HD_Vector3(myX - aOther.myX, myY - aOther.myY, myZ - aOther.myZ);
-}
-
-template<typename T>
-HD_Vector3<T> HD_Vector3<T>::operator*(T aConstant) const
-{
-	return HD_Vector3(myX * aConstant, myY * aConstant, myZ * aConstant);
-}
-
-template<typename T>
-HD_Vector3<T> HD_Vector3<T>::operator/(T aConstant) const
-{
-	return HD_Vector3(myX / aConstant, myY / aConstant, myZ / aConstant);
-}
-
-template<typename T>
 HD_Vector3<T>& HD_Vector3<T>::operator=(const HD_Vector3<T>& aOther)
 {
 	myX = aOther.myX;
@@ -192,30 +167,53 @@ HD_Vector3<T>& HD_Vector3<T>::operator-=(const HD_Vector3<T>& aOther)
 }
 
 template<typename T>
-HD_Vector3<T>& HD_Vector3<T>::operator*=(T aConstant)
+HD_Vector3<T>& HD_Vector3<T>::operator*=(T aScalar)
 {
-	myX *= aConstant;
-	myY *= aConstant;
-	myZ *= aConstant;
+	myX *= aScalar;
+	myY *= aScalar;
+	myZ *= aScalar;
 
 	return *this;
 }
 
 template<typename T>
-HD_Vector3<T>& HD_Vector3<T>::operator/=(T aConstant)
+HD_Vector3<T>& HD_Vector3<T>::operator/=(T aScalar)
 {
-	myX /= aConstant;
-	myY /= aConstant;
-	myZ /= aConstant;
+	myX /= aScalar;
+	myY /= aScalar;
+	myZ /= aScalar;
 
 	return *this;
 }
 
-// Global operator for doing aConstant * aVector.
 template<typename T>
-HD_Vector3<T> operator*(T aConstant, const HD_Vector3<T>& aVector)
+HD_Vector3<T> operator+(const HD_Vector3<T>& aVector0, const HD_Vector3<T>& aVector1)
 {
-	return aVector * aConstant;
+	return { aVector0.myX + aVector1.myX, aVector0.myY + aVector1.myY, aVector0.myZ + aVector1.myZ };
+}
+
+template<typename T>
+HD_Vector3<T> operator-(const HD_Vector3<T>& aVector0, const HD_Vector3<T>& aVector1)
+{
+	return { aVector0.myX - aVector1.myX, aVector0.myY - aVector1.myY, aVector0.myZ - aVector1.myZ };
+}
+
+template<typename T>
+HD_Vector3<T> operator*(const HD_Vector3<T>& aVector, T aScalar)
+{
+	return { aVector.myX * aScalar, aVector.myY * aScalar, aVector.myZ * aScalar };
+}
+
+template<typename T>
+HD_Vector3<T> operator*(T aScalar, const HD_Vector3<T>& aVector)
+{
+	return aVector * aScalar;
+}
+
+template<typename T>
+HD_Vector3<T> operator/(const HD_Vector3<T>& aVector, T aScalar)
+{
+	return { aVector.myX / aScalar, aVector.myY / aScalar, aVector.myZ / aScalar };
 }
 
 typedef HD_Vector3<float> HD_Vector3f;

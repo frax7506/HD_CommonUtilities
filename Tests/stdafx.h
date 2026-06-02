@@ -1,5 +1,6 @@
 #pragma once
 
+#include "HD_Math.h"
 #include "HD_Move.h"
 #include "HD_StringUtils.h"
 #include "HD_SafeDelete.h"

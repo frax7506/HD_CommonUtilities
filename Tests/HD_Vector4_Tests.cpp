@@ -76,95 +76,6 @@ namespace HD_CommonUtilities
 			Assert::AreEqual(intVector.myW, 8);
 		}
 
-		TEST_METHOD(Operator_Plus)
-		{
-			HD_Vector4f floatVector1(1.f, 2.f, 3.f, 4.f);
-			HD_Vector4f floatVector2(5.f, 6.f, 7.f, 8.f);
-			HD_Vector4f floatVectorResult = floatVector1 + floatVector2;
-			Assert::AreEqual(floatVectorResult.myX, 6.f);
-			Assert::AreEqual(floatVectorResult.myY, 8.f);
-			Assert::AreEqual(floatVectorResult.myZ, 10.f);
-			Assert::AreEqual(floatVectorResult.myW, 12.f);
-
-			HD_Vector4i intVector1(1, 2, 3, 4);
-			HD_Vector4i intVector2(5, 6, 7, 8);
-			HD_Vector4i intVectorResult = intVector1 + intVector2;
-			Assert::AreEqual(intVectorResult.myX, 6);
-			Assert::AreEqual(intVectorResult.myY, 8);
-			Assert::AreEqual(intVectorResult.myZ, 10);
-			Assert::AreEqual(intVectorResult.myW, 12);
-		}
-
-		TEST_METHOD(Operator_Minus)
-		{
-			HD_Vector4f floatVector1(1.f, 2.f, 3.f, 4.f);
-			HD_Vector4f floatVector2(5.f, 6.f, 7.f, 8.f);
-			HD_Vector4f floatVectorResult = floatVector1 - floatVector2;
-			Assert::AreEqual(floatVectorResult.myX, -4.f);
-			Assert::AreEqual(floatVectorResult.myY, -4.f);
-			Assert::AreEqual(floatVectorResult.myZ, -4.f);
-			Assert::AreEqual(floatVectorResult.myW, -4.f);
-
-			HD_Vector4i intVector1(1, 2, 3, 4);
-			HD_Vector4i intVector2(5, 6, 7, 8);
-			HD_Vector4i intVectorResult = intVector1 - intVector2;
-			Assert::AreEqual(intVectorResult.myX, -4);
-			Assert::AreEqual(intVectorResult.myY, -4);
-			Assert::AreEqual(intVectorResult.myZ, -4);
-			Assert::AreEqual(intVectorResult.myW, -4);
-		}
-
-		TEST_METHOD(Operator_Multiplication_Vector_With_Constant)
-		{
-			HD_Vector4f floatVector(1.f, 2.f, 3.f, 4.f);
-			HD_Vector4f floatVectorResult = floatVector * 2.f;
-			Assert::AreEqual(floatVectorResult.myX, 2.f);
-			Assert::AreEqual(floatVectorResult.myY, 4.f);
-			Assert::AreEqual(floatVectorResult.myZ, 6.f);
-			Assert::AreEqual(floatVectorResult.myW, 8.f);
-
-			HD_Vector4i intVector(1, 2, 3, 4);
-			HD_Vector4i intVectorResult = intVector * 2;
-			Assert::AreEqual(intVectorResult.myX, 2);
-			Assert::AreEqual(intVectorResult.myY, 4);
-			Assert::AreEqual(intVectorResult.myZ, 6);
-			Assert::AreEqual(intVectorResult.myW, 8);
-		}
-
-		TEST_METHOD(Operator_Multiplication_Constant_With_Vector)
-		{
-			HD_Vector4f floatVector(1.f, 2.f, 3.f, 4.f);
-			HD_Vector4f floatVectorResult = 2.f * floatVector;
-			Assert::AreEqual(floatVectorResult.myX, 2.f);
-			Assert::AreEqual(floatVectorResult.myY, 4.f);
-			Assert::AreEqual(floatVectorResult.myZ, 6.f);
-			Assert::AreEqual(floatVectorResult.myW, 8.f);
-
-			HD_Vector4i intVector(1, 2, 3, 4);
-			HD_Vector4i intVectorResult = 2 * intVector;
-			Assert::AreEqual(intVectorResult.myX, 2);
-			Assert::AreEqual(intVectorResult.myY, 4);
-			Assert::AreEqual(intVectorResult.myZ, 6);
-			Assert::AreEqual(intVectorResult.myW, 8);
-		}
-
-		TEST_METHOD(Operator_Division_Vector_With_Constant)
-		{
-			HD_Vector4f floatVector(1.f, 2.f, 3.f, 4.f);
-			HD_Vector4f floatVectorResult = floatVector / 2.f;
-			Assert::AreEqual(floatVectorResult.myX, 0.5f);
-			Assert::AreEqual(floatVectorResult.myY, 1.f);
-			Assert::AreEqual(floatVectorResult.myZ, 1.5f);
-			Assert::AreEqual(floatVectorResult.myW, 2.f);
-
-			HD_Vector4i intVector(1, 2, 3, 4);
-			HD_Vector4i intVectorResult = intVector / 2;
-			Assert::AreEqual(intVectorResult.myX, 0);
-			Assert::AreEqual(intVectorResult.myY, 1);
-			Assert::AreEqual(intVectorResult.myZ, 1);
-			Assert::AreEqual(intVectorResult.myW, 2);
-		}
-
 		TEST_METHOD(Operator_Assignment)
 		{
 			HD_Vector4f floatVector1(1.f, 2.f, 3.f, 4.f);
@@ -254,6 +165,95 @@ namespace HD_CommonUtilities
 			Assert::AreEqual(intVector.myY, 1);
 			Assert::AreEqual(intVector.myZ, 1);
 			Assert::AreEqual(intVector.myW, 2);
+		}
+
+		TEST_METHOD(Operator_Plus)
+		{
+			HD_Vector4f floatVector1(1.f, 2.f, 3.f, 4.f);
+			HD_Vector4f floatVector2(5.f, 6.f, 7.f, 8.f);
+			HD_Vector4f floatVectorResult = floatVector1 + floatVector2;
+			Assert::AreEqual(floatVectorResult.myX, 6.f);
+			Assert::AreEqual(floatVectorResult.myY, 8.f);
+			Assert::AreEqual(floatVectorResult.myZ, 10.f);
+			Assert::AreEqual(floatVectorResult.myW, 12.f);
+
+			HD_Vector4i intVector1(1, 2, 3, 4);
+			HD_Vector4i intVector2(5, 6, 7, 8);
+			HD_Vector4i intVectorResult = intVector1 + intVector2;
+			Assert::AreEqual(intVectorResult.myX, 6);
+			Assert::AreEqual(intVectorResult.myY, 8);
+			Assert::AreEqual(intVectorResult.myZ, 10);
+			Assert::AreEqual(intVectorResult.myW, 12);
+		}
+
+		TEST_METHOD(Operator_Minus)
+		{
+			HD_Vector4f floatVector1(1.f, 2.f, 3.f, 4.f);
+			HD_Vector4f floatVector2(5.f, 6.f, 7.f, 8.f);
+			HD_Vector4f floatVectorResult = floatVector1 - floatVector2;
+			Assert::AreEqual(floatVectorResult.myX, -4.f);
+			Assert::AreEqual(floatVectorResult.myY, -4.f);
+			Assert::AreEqual(floatVectorResult.myZ, -4.f);
+			Assert::AreEqual(floatVectorResult.myW, -4.f);
+
+			HD_Vector4i intVector1(1, 2, 3, 4);
+			HD_Vector4i intVector2(5, 6, 7, 8);
+			HD_Vector4i intVectorResult = intVector1 - intVector2;
+			Assert::AreEqual(intVectorResult.myX, -4);
+			Assert::AreEqual(intVectorResult.myY, -4);
+			Assert::AreEqual(intVectorResult.myZ, -4);
+			Assert::AreEqual(intVectorResult.myW, -4);
+		}
+
+		TEST_METHOD(Operator_Multiplication_Vector_With_Constant)
+		{
+			HD_Vector4f floatVector(1.f, 2.f, 3.f, 4.f);
+			HD_Vector4f floatVectorResult = floatVector * 2.f;
+			Assert::AreEqual(floatVectorResult.myX, 2.f);
+			Assert::AreEqual(floatVectorResult.myY, 4.f);
+			Assert::AreEqual(floatVectorResult.myZ, 6.f);
+			Assert::AreEqual(floatVectorResult.myW, 8.f);
+
+			HD_Vector4i intVector(1, 2, 3, 4);
+			HD_Vector4i intVectorResult = intVector * 2;
+			Assert::AreEqual(intVectorResult.myX, 2);
+			Assert::AreEqual(intVectorResult.myY, 4);
+			Assert::AreEqual(intVectorResult.myZ, 6);
+			Assert::AreEqual(intVectorResult.myW, 8);
+		}
+
+		TEST_METHOD(Operator_Multiplication_Constant_With_Vector)
+		{
+			HD_Vector4f floatVector(1.f, 2.f, 3.f, 4.f);
+			HD_Vector4f floatVectorResult = 2.f * floatVector;
+			Assert::AreEqual(floatVectorResult.myX, 2.f);
+			Assert::AreEqual(floatVectorResult.myY, 4.f);
+			Assert::AreEqual(floatVectorResult.myZ, 6.f);
+			Assert::AreEqual(floatVectorResult.myW, 8.f);
+
+			HD_Vector4i intVector(1, 2, 3, 4);
+			HD_Vector4i intVectorResult = 2 * intVector;
+			Assert::AreEqual(intVectorResult.myX, 2);
+			Assert::AreEqual(intVectorResult.myY, 4);
+			Assert::AreEqual(intVectorResult.myZ, 6);
+			Assert::AreEqual(intVectorResult.myW, 8);
+		}
+
+		TEST_METHOD(Operator_Division_Vector_With_Constant)
+		{
+			HD_Vector4f floatVector(1.f, 2.f, 3.f, 4.f);
+			HD_Vector4f floatVectorResult = floatVector / 2.f;
+			Assert::AreEqual(floatVectorResult.myX, 0.5f);
+			Assert::AreEqual(floatVectorResult.myY, 1.f);
+			Assert::AreEqual(floatVectorResult.myZ, 1.5f);
+			Assert::AreEqual(floatVectorResult.myW, 2.f);
+
+			HD_Vector4i intVector(1, 2, 3, 4);
+			HD_Vector4i intVectorResult = intVector / 2;
+			Assert::AreEqual(intVectorResult.myX, 0);
+			Assert::AreEqual(intVectorResult.myY, 1);
+			Assert::AreEqual(intVectorResult.myZ, 1);
+			Assert::AreEqual(intVectorResult.myW, 2);
 		}
 	};
 }

@@ -279,85 +279,6 @@ namespace HD_CommonUtilities
 			Assert::IsTrue(HD_Math::AreFloatValuesClose(forwardCrossLeftForward.myY, -1.f));
 		}
 
-		TEST_METHOD(Operator_Plus)
-		{
-			HD_Vector3f floatVector1(1.f, 2.f, 3.f);
-			HD_Vector3f floatVector2(4.f, 5.f, 6.f);
-			HD_Vector3f floatVectorResult = floatVector1 + floatVector2;
-			Assert::AreEqual(floatVectorResult.myX, 5.f);
-			Assert::AreEqual(floatVectorResult.myY, 7.f);
-			Assert::AreEqual(floatVectorResult.myZ, 9.f);
-
-			HD_Vector3i intVector1(1, 2, 3);
-			HD_Vector3i intVector2(4, 5, 6);
-			HD_Vector3i intVectorResult = intVector1 + intVector2;
-			Assert::AreEqual(intVectorResult.myX, 5);
-			Assert::AreEqual(intVectorResult.myY, 7);
-			Assert::AreEqual(intVectorResult.myZ, 9);
-		}
-
-		TEST_METHOD(Operator_Minus)
-		{
-			HD_Vector3f floatVector1(1.f, 2.f, 3.f);
-			HD_Vector3f floatVector2(4.f, 5.f, 6.f);
-			HD_Vector3f floatVectorResult = floatVector1 - floatVector2;
-			Assert::AreEqual(floatVectorResult.myX, -3.f);
-			Assert::AreEqual(floatVectorResult.myY, -3.f);
-			Assert::AreEqual(floatVectorResult.myZ, -3.f);
-
-			HD_Vector3i intVector1(1, 2, 3);
-			HD_Vector3i intVector2(4, 5, 6);
-			HD_Vector3i intVectorResult = intVector1 - intVector2;
-			Assert::AreEqual(intVectorResult.myX, -3);
-			Assert::AreEqual(intVectorResult.myY, -3);
-			Assert::AreEqual(intVectorResult.myZ, -3);
-		}
-
-		TEST_METHOD(Operator_Multiplication_Vector_With_Constant)
-		{
-			HD_Vector3f floatVector(1.f, 2.f, 3.f);
-			HD_Vector3f floatVectorResult = floatVector * 2.f;
-			Assert::AreEqual(floatVectorResult.myX, 2.f);
-			Assert::AreEqual(floatVectorResult.myY, 4.f);
-			Assert::AreEqual(floatVectorResult.myZ, 6.f);
-
-			HD_Vector3i intVector(1, 2, 3);
-			HD_Vector3i intVectorResult = intVector * 2;
-			Assert::AreEqual(intVectorResult.myX, 2);
-			Assert::AreEqual(intVectorResult.myY, 4);
-			Assert::AreEqual(intVectorResult.myZ, 6);
-		}
-
-		TEST_METHOD(Operator_Multiplication_Constant_With_Vector)
-		{
-			HD_Vector3f floatVector(1.f, 2.f, 3.f);
-			HD_Vector3f floatVectorResult = 2.f * floatVector;
-			Assert::AreEqual(floatVectorResult.myX, 2.f);
-			Assert::AreEqual(floatVectorResult.myY, 4.f);
-			Assert::AreEqual(floatVectorResult.myZ, 6.f);
-
-			HD_Vector3i intVector(1, 2, 3);
-			HD_Vector3i intVectorResult = 2 * intVector;
-			Assert::AreEqual(intVectorResult.myX, 2);
-			Assert::AreEqual(intVectorResult.myY, 4);
-			Assert::AreEqual(intVectorResult.myZ, 6);
-		}
-
-		TEST_METHOD(Operator_Division_Vector_With_Constant)
-		{
-			HD_Vector3f floatVector(1.f, 2.f, 3.f);
-			HD_Vector3f floatVectorResult = floatVector / 2.f;
-			Assert::AreEqual(floatVectorResult.myX, 0.5f);
-			Assert::AreEqual(floatVectorResult.myY, 1.f);
-			Assert::AreEqual(floatVectorResult.myZ, 1.5f);
-
-			HD_Vector3i intVector(1, 2, 3);
-			HD_Vector3i intVectorResult = intVector / 2;
-			Assert::AreEqual(intVectorResult.myX, 0);
-			Assert::AreEqual(intVectorResult.myY, 1);
-			Assert::AreEqual(intVectorResult.myZ, 1);
-		}
-
 		TEST_METHOD(Operator_Assignment)
 		{
 			HD_Vector3f floatVector1(1.f, 2.f, 3.f);
@@ -437,6 +358,85 @@ namespace HD_CommonUtilities
 			Assert::AreEqual(intVector.myX, 0);
 			Assert::AreEqual(intVector.myY, 1);
 			Assert::AreEqual(intVector.myZ, 1);
+		}
+
+		TEST_METHOD(Operator_Plus)
+		{
+			HD_Vector3f floatVector1(1.f, 2.f, 3.f);
+			HD_Vector3f floatVector2(4.f, 5.f, 6.f);
+			HD_Vector3f floatVectorResult = floatVector1 + floatVector2;
+			Assert::AreEqual(floatVectorResult.myX, 5.f);
+			Assert::AreEqual(floatVectorResult.myY, 7.f);
+			Assert::AreEqual(floatVectorResult.myZ, 9.f);
+
+			HD_Vector3i intVector1(1, 2, 3);
+			HD_Vector3i intVector2(4, 5, 6);
+			HD_Vector3i intVectorResult = intVector1 + intVector2;
+			Assert::AreEqual(intVectorResult.myX, 5);
+			Assert::AreEqual(intVectorResult.myY, 7);
+			Assert::AreEqual(intVectorResult.myZ, 9);
+		}
+
+		TEST_METHOD(Operator_Minus)
+		{
+			HD_Vector3f floatVector1(1.f, 2.f, 3.f);
+			HD_Vector3f floatVector2(4.f, 5.f, 6.f);
+			HD_Vector3f floatVectorResult = floatVector1 - floatVector2;
+			Assert::AreEqual(floatVectorResult.myX, -3.f);
+			Assert::AreEqual(floatVectorResult.myY, -3.f);
+			Assert::AreEqual(floatVectorResult.myZ, -3.f);
+
+			HD_Vector3i intVector1(1, 2, 3);
+			HD_Vector3i intVector2(4, 5, 6);
+			HD_Vector3i intVectorResult = intVector1 - intVector2;
+			Assert::AreEqual(intVectorResult.myX, -3);
+			Assert::AreEqual(intVectorResult.myY, -3);
+			Assert::AreEqual(intVectorResult.myZ, -3);
+		}
+
+		TEST_METHOD(Operator_Multiplication_Vector_With_Constant)
+		{
+			HD_Vector3f floatVector(1.f, 2.f, 3.f);
+			HD_Vector3f floatVectorResult = floatVector * 2.f;
+			Assert::AreEqual(floatVectorResult.myX, 2.f);
+			Assert::AreEqual(floatVectorResult.myY, 4.f);
+			Assert::AreEqual(floatVectorResult.myZ, 6.f);
+
+			HD_Vector3i intVector(1, 2, 3);
+			HD_Vector3i intVectorResult = intVector * 2;
+			Assert::AreEqual(intVectorResult.myX, 2);
+			Assert::AreEqual(intVectorResult.myY, 4);
+			Assert::AreEqual(intVectorResult.myZ, 6);
+		}
+
+		TEST_METHOD(Operator_Multiplication_Constant_With_Vector)
+		{
+			HD_Vector3f floatVector(1.f, 2.f, 3.f);
+			HD_Vector3f floatVectorResult = 2.f * floatVector;
+			Assert::AreEqual(floatVectorResult.myX, 2.f);
+			Assert::AreEqual(floatVectorResult.myY, 4.f);
+			Assert::AreEqual(floatVectorResult.myZ, 6.f);
+
+			HD_Vector3i intVector(1, 2, 3);
+			HD_Vector3i intVectorResult = 2 * intVector;
+			Assert::AreEqual(intVectorResult.myX, 2);
+			Assert::AreEqual(intVectorResult.myY, 4);
+			Assert::AreEqual(intVectorResult.myZ, 6);
+		}
+
+		TEST_METHOD(Operator_Division_Vector_With_Constant)
+		{
+			HD_Vector3f floatVector(1.f, 2.f, 3.f);
+			HD_Vector3f floatVectorResult = floatVector / 2.f;
+			Assert::AreEqual(floatVectorResult.myX, 0.5f);
+			Assert::AreEqual(floatVectorResult.myY, 1.f);
+			Assert::AreEqual(floatVectorResult.myZ, 1.5f);
+
+			HD_Vector3i intVector(1, 2, 3);
+			HD_Vector3i intVectorResult = intVector / 2;
+			Assert::AreEqual(intVectorResult.myX, 0);
+			Assert::AreEqual(intVectorResult.myY, 1);
+			Assert::AreEqual(intVectorResult.myZ, 1);
 		}
 	};
 }
