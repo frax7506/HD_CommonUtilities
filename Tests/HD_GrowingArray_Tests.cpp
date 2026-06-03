@@ -231,6 +231,16 @@ namespace HD_CommonUtilities
 			Assert::IsTrue(growingArray[0] == "haha");
 		}
 
+		TEST_METHOD(EmplaceBack)
+		{
+			HD_GrowingArray<HD_String> growingArray;
+			growingArray.EmplaceBack("haha");
+
+			Assert::IsTrue(growingArray[0] == "haha");
+			Assert::AreEqual(growingArray.mySize, 1);
+			Assert::AreEqual(growingArray.myCapacity, 2);
+		}
+
 		TEST_METHOD(InsertSorted_POD)
 		{
 			HD_GrowingArray<s32> growingArray;
