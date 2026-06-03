@@ -19,19 +19,26 @@
 #define HD_Powf(a, b) powf(a, b)
 #define HD_Pow(a, b) static_cast<int>(powf(static_cast<float>(a), static_cast<float>(b)))
 
-#define HD_Sinf(a) sinf(a)
-#define HD_Cosf(a) cosf(a)
-#define HD_Tanf(a) tanf(a)
+template<typename T> inline T HD_Sin(T aAngleInRadians);
+template<typename T> inline T HD_Cos(T aAngleInRadians);
+template<typename T> inline T HD_Tan(T aAngleInRadians);
 
-#define HD_ArcSinf(a) asinf(a)
-#define HD_ArcCosf(a) acosf(a)
-#define HD_ArcTanf(a) atanf(a)
+template<typename T> inline T HD_ArcSin(T aAngleInRadians);
+template<typename T> inline T HD_ArcCos(T aAngleInRadians);
+template<typename T> inline T HD_ArcTan(T aAngleInRadians);
 
-namespace HD_Math
-{
-	inline bool AreFloatValuesClose(float aFirst, float aSecond)
-	{
-		float diff = HD_Abs(aFirst - aSecond);
-		return diff < F_SMALL;
-	}
-}
+template<> inline float HD_Sin(float aAngleInRadians) { return sinf(aAngleInRadians); }
+template<> inline float HD_Cos(float aAngleInRadians) { return cosf(aAngleInRadians); }
+template<> inline float HD_Tan(float aAngleInRadians) { return tanf(aAngleInRadians); }
+
+template<> inline double HD_Sin(double aAngleInRadians) { return sin(aAngleInRadians); }
+template<> inline double HD_Cos(double aAngleInRadians) { return cos(aAngleInRadians); }
+template<> inline double HD_Tan(double aAngleInRadians) { return tan(aAngleInRadians); }
+
+template<> inline float HD_ArcSin(float aAngleInRadians) { return asinf(aAngleInRadians); }
+template<> inline float HD_ArcCos(float aAngleInRadians) { return acosf(aAngleInRadians); }
+template<> inline float HD_ArcTan(float aAngleInRadians) { return atanf(aAngleInRadians); }
+
+template<> inline double HD_ArcSin(double aAngleInRadians) { return asin(aAngleInRadians); }
+template<> inline double HD_ArcCos(double aAngleInRadians) { return acos(aAngleInRadians); }
+template<> inline double HD_ArcTan(double aAngleInRadians) { return atan(aAngleInRadians); }

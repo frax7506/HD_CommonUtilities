@@ -54,6 +54,9 @@ project("HD_CommonUtilities")
 		{
 			sourceHDCommonUtilitiesPath .. "HD_AABB_2D.h",
 			sourceHDCommonUtilitiesPath .. "HD_Math.h",
+			sourceHDCommonUtilitiesPath .. "HD_Matrix.h",
+			sourceHDCommonUtilitiesPath .. "HD_Matrix3x3.h",
+			sourceHDCommonUtilitiesPath .. "HD_Matrix4x4.h",
 			sourceHDCommonUtilitiesPath .. "HD_Vector2.h",
 			sourceHDCommonUtilitiesPath .. "HD_Vector3.h",
 			sourceHDCommonUtilitiesPath .. "HD_Vector4.h"
@@ -74,6 +77,7 @@ project("HD_CommonUtilities")
 			sourceHDCommonUtilitiesPath .. "HD_SafeDelete.h",
 			sourceHDCommonUtilitiesPath .. "HD_Singleton.h",
 			sourceHDCommonUtilitiesPath .. "HD_StringUtils.h",
+			sourceHDCommonUtilitiesPath .. "HD_Swap.h",
 			sourceHDCommonUtilitiesPath .. "HD_Time.h",
 			sourceHDCommonUtilitiesPath .. "HD_Time.cpp",
 			sourceHDCommonUtilitiesPath .. "HD_Types.h",
@@ -139,6 +143,8 @@ project("Tests")
 		["Math"] =
 		{
 			sourceTestsPath .. "HD_Math_Tests.cpp",
+			sourceTestsPath .. "HD_Matrix3x3_Tests.cpp",
+			sourceTestsPath .. "HD_Matrix4x4_Tests.cpp",
 			sourceTestsPath .. "HD_Vector2_Tests.cpp",
 			sourceTestsPath .. "HD_Vector3_Tests.cpp",
 			sourceTestsPath .. "HD_Vector4_Tests.cpp"
