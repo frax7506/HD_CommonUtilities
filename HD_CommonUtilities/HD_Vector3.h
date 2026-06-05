@@ -1,6 +1,9 @@
 #pragma once
 
 template<typename T>
+class HD_Matrix3x3;
+
+template<typename T>
 class HD_Vector3
 {
 public:
@@ -22,6 +25,7 @@ public:
 	HD_Vector3& operator=(const HD_Vector3& aOther);
 	HD_Vector3& operator+=(const HD_Vector3& aOther);
 	HD_Vector3& operator-=(const HD_Vector3& aOther);
+	HD_Vector3& operator*=(const HD_Matrix3x3<T>& aMatrix);
 	HD_Vector3& operator*=(T aScalar);
 	HD_Vector3& operator/=(T aScalar);
 
@@ -163,6 +167,13 @@ HD_Vector3<T>& HD_Vector3<T>::operator-=(const HD_Vector3<T>& aOther)
 	myY -= aOther.myY;
 	myZ -= aOther.myZ;
 
+	return *this;
+}
+
+template<typename T>
+HD_Vector3<T>& HD_Vector3<T>::operator*=(const HD_Matrix3x3<T>& aMatrix)
+{
+	(*this) = (*this) * aMatrix;
 	return *this;
 }
 

@@ -74,14 +74,14 @@ namespace HD_CommonUtilities
 		{
 			HD_Vector3f floatVector(1.f, 1.f, 1.f);
 			f32 length = floatVector.Length();
-			Assert::IsTrue(TestUtils::AreFloatValuesClose(length, HD_Sqrtf(3.f)));
+			Assert::AreEqual(length, HD_Sqrtf(3.f), FLOAT_EQUAL_TOLERANCE);
 		}
 
 		TEST_METHOD(Length2)
 		{
 			HD_Vector3f floatVector(1.f, 1.f, 1.f);
 			f32 floatLength2 = floatVector.Length2();
-			Assert::IsTrue(TestUtils::AreFloatValuesClose(floatLength2, 3.f));
+			Assert::AreEqual(floatLength2, 3.f, FLOAT_EQUAL_TOLERANCE);
 
 			HD_Vector3i intVector(2, 2, 2);
 			s32 intLength2 = intVector.Length2();
@@ -93,7 +93,7 @@ namespace HD_CommonUtilities
 			HD_Vector3f floatVector(2.f, 2.f, 2.f);
 			floatVector.Normalize();
 			f32 length = floatVector.Length();
-			Assert::IsTrue(TestUtils::AreFloatValuesClose(length, 1.f));
+			Assert::AreEqual(length, 1.f, FLOAT_EQUAL_TOLERANCE);
 		}
 
 		TEST_METHOD(GetNormalized)
@@ -102,8 +102,8 @@ namespace HD_CommonUtilities
 			HD_Vector3f normalizedFloatVector = floatVector.GetNormalized();
 			f32 floatVectorLength = floatVector.Length();
 			f32 normalizedFloatVectorLength = normalizedFloatVector.Length();
-			Assert::IsTrue(TestUtils::AreFloatValuesClose(floatVectorLength, HD_Sqrtf(12.f)));
-			Assert::IsTrue(TestUtils::AreFloatValuesClose(normalizedFloatVectorLength, 1.f));
+			Assert::AreEqual(floatVectorLength, HD_Sqrtf(12.f), FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(normalizedFloatVectorLength, 1.f, FLOAT_EQUAL_TOLERANCE);
 		}
 
 		TEST_METHOD(Dot)
@@ -195,35 +195,35 @@ namespace HD_CommonUtilities
 
 			f32 cornerDotValue = HD_Sin(HD_ArcTan(F_ONE_OVER_SQRT_TWO));
 
-			Assert::IsTrue(TestUtils::AreFloatValuesClose(upDotLeftUpBack, cornerDotValue));
-			Assert::IsTrue(TestUtils::AreFloatValuesClose(upDotCenterUpBack, F_ONE_OVER_SQRT_TWO));
-			Assert::IsTrue(TestUtils::AreFloatValuesClose(upDotRightUpBack, cornerDotValue));
-			Assert::IsTrue(TestUtils::AreFloatValuesClose(upDotLeftCenterBack, 0.f));
-			Assert::IsTrue(TestUtils::AreFloatValuesClose(upDotCenterCenterBack, 0.f));
-			Assert::IsTrue(TestUtils::AreFloatValuesClose(upDotRightCenterBack, 0.f));
-			Assert::IsTrue(TestUtils::AreFloatValuesClose(upDotLeftDownBack, -1.f * cornerDotValue));
-			Assert::IsTrue(TestUtils::AreFloatValuesClose(upDotCenterDownBack, -1.f * F_ONE_OVER_SQRT_TWO));
-			Assert::IsTrue(TestUtils::AreFloatValuesClose(upDotRightDownBack, -1.f * cornerDotValue));
+			Assert::AreEqual(upDotLeftUpBack, cornerDotValue, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(upDotCenterUpBack, F_ONE_OVER_SQRT_TWO, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(upDotRightUpBack, cornerDotValue, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(upDotLeftCenterBack, 0.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(upDotCenterCenterBack, 0.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(upDotRightCenterBack, 0.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(upDotLeftDownBack, -1.f * cornerDotValue, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(upDotCenterDownBack, -1.f * F_ONE_OVER_SQRT_TWO, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(upDotRightDownBack, -1.f * cornerDotValue, FLOAT_EQUAL_TOLERANCE);
 
-			Assert::IsTrue(TestUtils::AreFloatValuesClose(upDotLeftUpCenter, F_ONE_OVER_SQRT_TWO));
-			Assert::IsTrue(TestUtils::AreFloatValuesClose(upDotCenterUpCenter, 1.f));
-			Assert::IsTrue(TestUtils::AreFloatValuesClose(upDotRightUpCenter, F_ONE_OVER_SQRT_TWO));
-			Assert::IsTrue(TestUtils::AreFloatValuesClose(upDotLeftCenterCenter, 0.f));
-			Assert::IsTrue(TestUtils::AreFloatValuesClose(upDotCenterCenterCenter, 0.f));
-			Assert::IsTrue(TestUtils::AreFloatValuesClose(upDotRightCenterCenter, 0.f));
-			Assert::IsTrue(TestUtils::AreFloatValuesClose(upDotLeftDownCenter, -1.f * F_ONE_OVER_SQRT_TWO));
-			Assert::IsTrue(TestUtils::AreFloatValuesClose(upDotCenterDownCenter, -1.f));
-			Assert::IsTrue(TestUtils::AreFloatValuesClose(upDotRightDownCenter, -1.f * F_ONE_OVER_SQRT_TWO));
+			Assert::AreEqual(upDotLeftUpCenter, F_ONE_OVER_SQRT_TWO, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(upDotCenterUpCenter, 1.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(upDotRightUpCenter, F_ONE_OVER_SQRT_TWO, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(upDotLeftCenterCenter, 0.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(upDotCenterCenterCenter, 0.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(upDotRightCenterCenter, 0.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(upDotLeftDownCenter, -1.f * F_ONE_OVER_SQRT_TWO, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(upDotCenterDownCenter, -1.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(upDotRightDownCenter, -1.f * F_ONE_OVER_SQRT_TWO, FLOAT_EQUAL_TOLERANCE);
 
-			Assert::IsTrue(TestUtils::AreFloatValuesClose(upDotLeftUpForward, cornerDotValue));
-			Assert::IsTrue(TestUtils::AreFloatValuesClose(upDotCenterUpForward, F_ONE_OVER_SQRT_TWO));
-			Assert::IsTrue(TestUtils::AreFloatValuesClose(upDotRightUpForward, cornerDotValue));
-			Assert::IsTrue(TestUtils::AreFloatValuesClose(upDotLeftCenterForward, 0.f));
-			Assert::IsTrue(TestUtils::AreFloatValuesClose(upDotCenterCenterForward, 0.f));
-			Assert::IsTrue(TestUtils::AreFloatValuesClose(upDotRightCenterForward, 0.f));
-			Assert::IsTrue(TestUtils::AreFloatValuesClose(upDotLeftDownForward, -1.f * cornerDotValue));
-			Assert::IsTrue(TestUtils::AreFloatValuesClose(upDotCenterDownForward, -1.f * F_ONE_OVER_SQRT_TWO));
-			Assert::IsTrue(TestUtils::AreFloatValuesClose(upDotRightDownForward, -1.f * cornerDotValue));
+			Assert::AreEqual(upDotLeftUpForward, cornerDotValue, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(upDotCenterUpForward, F_ONE_OVER_SQRT_TWO, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(upDotRightUpForward, cornerDotValue, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(upDotLeftCenterForward, 0.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(upDotCenterCenterForward, 0.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(upDotRightCenterForward, 0.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(upDotLeftDownForward, -1.f * cornerDotValue, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(upDotCenterDownForward, -1.f * F_ONE_OVER_SQRT_TWO, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(upDotRightDownForward, -1.f * cornerDotValue, FLOAT_EQUAL_TOLERANCE);
 		}
 
 		TEST_METHOD(Cross)
@@ -248,37 +248,37 @@ namespace HD_CommonUtilities
 			HD_Vector3f forwardCrossLeftCenter = forward.Cross(leftCenter);
 			HD_Vector3f forwardCrossLeftForward = forward.Cross(leftForward);
 
-			Assert::IsTrue(TestUtils::AreFloatValuesClose(forwardCrossCenterForward.myX, 0.f));
-			Assert::IsTrue(TestUtils::AreFloatValuesClose(forwardCrossCenterForward.myZ, 0.f));
-			Assert::IsTrue(TestUtils::AreFloatValuesClose(forwardCrossCenterForward.myY, 0.f));
+			Assert::AreEqual(forwardCrossCenterForward.myX, 0.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(forwardCrossCenterForward.myZ, 0.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(forwardCrossCenterForward.myY, 0.f, FLOAT_EQUAL_TOLERANCE);
 
-			Assert::IsTrue(TestUtils::AreFloatValuesClose(forwardCrossRightForward.myX, 0.f));
-			Assert::IsTrue(TestUtils::AreFloatValuesClose(forwardCrossRightForward.myZ, 0.f));
-			Assert::IsTrue(TestUtils::AreFloatValuesClose(forwardCrossRightForward.myY, 1.f));
+			Assert::AreEqual(forwardCrossRightForward.myX, 0.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(forwardCrossRightForward.myZ, 0.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(forwardCrossRightForward.myY, 1.f, FLOAT_EQUAL_TOLERANCE);
 
-			Assert::IsTrue(TestUtils::AreFloatValuesClose(forwardCrossRightCenter.myX, 0.f));
-			Assert::IsTrue(TestUtils::AreFloatValuesClose(forwardCrossRightCenter.myZ, 0.f));
-			Assert::IsTrue(TestUtils::AreFloatValuesClose(forwardCrossRightCenter.myY, 1.f));
+			Assert::AreEqual(forwardCrossRightCenter.myX, 0.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(forwardCrossRightCenter.myZ, 0.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(forwardCrossRightCenter.myY, 1.f, FLOAT_EQUAL_TOLERANCE);
 
-			Assert::IsTrue(TestUtils::AreFloatValuesClose(forwardCrossRightBack.myX, 0.f));
-			Assert::IsTrue(TestUtils::AreFloatValuesClose(forwardCrossRightBack.myZ, 0.f));
-			Assert::IsTrue(TestUtils::AreFloatValuesClose(forwardCrossRightBack.myY, 1.f));
+			Assert::AreEqual(forwardCrossRightBack.myX, 0.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(forwardCrossRightBack.myZ, 0.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(forwardCrossRightBack.myY, 1.f, FLOAT_EQUAL_TOLERANCE);
 
-			Assert::IsTrue(TestUtils::AreFloatValuesClose(forwardCrossCenterBack.myX, 0.f));
-			Assert::IsTrue(TestUtils::AreFloatValuesClose(forwardCrossCenterBack.myZ, 0.f));
-			Assert::IsTrue(TestUtils::AreFloatValuesClose(forwardCrossCenterBack.myY, 0.f));
+			Assert::AreEqual(forwardCrossCenterBack.myX, 0.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(forwardCrossCenterBack.myZ, 0.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(forwardCrossCenterBack.myY, 0.f, FLOAT_EQUAL_TOLERANCE);
 
-			Assert::IsTrue(TestUtils::AreFloatValuesClose(forwardCrossLeftBack.myX, 0.f));
-			Assert::IsTrue(TestUtils::AreFloatValuesClose(forwardCrossLeftBack.myZ, 0.f));
-			Assert::IsTrue(TestUtils::AreFloatValuesClose(forwardCrossLeftBack.myY, -1.f));
+			Assert::AreEqual(forwardCrossLeftBack.myX, 0.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(forwardCrossLeftBack.myZ, 0.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(forwardCrossLeftBack.myY, -1.f, FLOAT_EQUAL_TOLERANCE);
 
-			Assert::IsTrue(TestUtils::AreFloatValuesClose(forwardCrossLeftCenter.myX, 0.f));
-			Assert::IsTrue(TestUtils::AreFloatValuesClose(forwardCrossLeftCenter.myZ, 0.f));
-			Assert::IsTrue(TestUtils::AreFloatValuesClose(forwardCrossLeftCenter.myY, -1.f));
+			Assert::AreEqual(forwardCrossLeftCenter.myX, 0.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(forwardCrossLeftCenter.myZ, 0.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(forwardCrossLeftCenter.myY, -1.f, FLOAT_EQUAL_TOLERANCE);
 
-			Assert::IsTrue(TestUtils::AreFloatValuesClose(forwardCrossLeftForward.myX, 0.f));
-			Assert::IsTrue(TestUtils::AreFloatValuesClose(forwardCrossLeftForward.myZ, 0.f));
-			Assert::IsTrue(TestUtils::AreFloatValuesClose(forwardCrossLeftForward.myY, -1.f));
+			Assert::AreEqual(forwardCrossLeftForward.myX, 0.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(forwardCrossLeftForward.myZ, 0.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(forwardCrossLeftForward.myY, -1.f, FLOAT_EQUAL_TOLERANCE);
 		}
 
 		TEST_METHOD(Operator_Assignment)

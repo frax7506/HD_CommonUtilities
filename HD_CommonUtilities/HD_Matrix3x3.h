@@ -44,6 +44,9 @@ public:
 	static HD_Matrix3x3 CreateRotationAroundY(T aAngleInRadians);
 	static HD_Matrix3x3 CreateRotationAroundZ(T aAngleInRadians);
 
+	static HD_Matrix3x3 Create2DRotation(T aAngleInRadians);
+	static HD_Matrix3x3 Create2DTranslation(T aX, T aY);
+
 	static const HD_Matrix3x3 Identity;
 };
 
@@ -56,8 +59,8 @@ template<typename T> HD_Vector3<T> operator*(const HD_Vector3<T>& aVector, const
 
 template<typename T>
 HD_Matrix3x3<T>::HD_Matrix3x3()
+	: m11(), m12(), m13(), m21(), m22(), m23(), m31(), m32(), m33()
 {
-	memset(&m11, T(), 3 * 3 * sizeof(T));
 }
 
 template<typename T>
@@ -150,17 +153,21 @@ HD_Matrix3x3<T>& HD_Matrix3x3<T>::operator-=(const HD_Matrix3x3& aMatrix)
 template<typename T>
 HD_Matrix3x3<T>& HD_Matrix3x3<T>::operator*=(const HD_Matrix3x3& aMatrix)
 {
-	m11 = m11 * aMatrix.m11 + m12 * aMatrix.m21 + m13 * aMatrix.m31;
-	m12 = m11 * aMatrix.m12 + m12 * aMatrix.m22 + m13 * aMatrix.m32;
-	m13 = m11 * aMatrix.m13 + m12 * aMatrix.m23 + m13 * aMatrix.m33;
+	HD_Matrix3x3 result;
 
-	m21 = m21 * aMatrix.m11 + m22 * aMatrix.m21 + m23 * aMatrix.m31;
-	m22 = m21 * aMatrix.m12 + m22 * aMatrix.m22 + m23 * aMatrix.m32;
-	m23 = m21 * aMatrix.m13 + m22 * aMatrix.m23 + m23 * aMatrix.m33;
+	result.m11 = m11 * aMatrix.m11 + m12 * aMatrix.m21 + m13 * aMatrix.m31;
+	result.m12 = m11 * aMatrix.m12 + m12 * aMatrix.m22 + m13 * aMatrix.m32;
+	result.m13 = m11 * aMatrix.m13 + m12 * aMatrix.m23 + m13 * aMatrix.m33;
 
-	m31 = m31 * aMatrix.m11 + m32 * aMatrix.m21 + m33 * aMatrix.m31;
-	m32 = m31 * aMatrix.m12 + m32 * aMatrix.m22 + m33 * aMatrix.m32;
-	m33 = m31 * aMatrix.m13 + m32 * aMatrix.m23 + m33 * aMatrix.m33;
+	result.m21 = m21 * aMatrix.m11 + m22 * aMatrix.m21 + m23 * aMatrix.m31;
+	result.m22 = m21 * aMatrix.m12 + m22 * aMatrix.m22 + m23 * aMatrix.m32;
+	result.m23 = m21 * aMatrix.m13 + m22 * aMatrix.m23 + m23 * aMatrix.m33;
+
+	result.m31 = m31 * aMatrix.m11 + m32 * aMatrix.m21 + m33 * aMatrix.m31;
+	result.m32 = m31 * aMatrix.m12 + m32 * aMatrix.m22 + m33 * aMatrix.m32;
+	result.m33 = m31 * aMatrix.m13 + m32 * aMatrix.m23 + m33 * aMatrix.m33;
+
+	(*this) = result;
 
 	return *this;
 }
@@ -252,6 +259,22 @@ HD_Matrix3x3<T> HD_Matrix3x3<T>::CreateRotationAroundZ(T aAngleInRadians)
 }
 
 template<typename T>
+HD_Matrix3x3<T> HD_Matrix3x3<T>::Create2DRotation(T aAngleInRadians)
+{
+	return CreateRotationAroundZ(aAngleInRadians);
+}
+
+template<typename T>
+HD_Matrix3x3<T> HD_Matrix3x3<T>::Create2DTranslation(T aX, T aY)
+{
+	HD_Matrix3x3 result = Identity;
+	result.m31 = aX;
+	result.m32 = aY;
+
+	return result;
+}
+
+template<typename T>
 HD_Matrix3x3<T> operator+(const HD_Matrix3x3<T>& aMatrix0, const HD_Matrix3x3<T>& aMatrix1)
 {
 	HD_Matrix3x3 result =
@@ -323,8 +346,8 @@ HD_Vector3<T> operator*(const HD_Vector3<T>& aVector, const HD_Matrix3x3<T>& aMa
 	HD_Vector3 result =
 	{
 		aVector.myX * aMatrix.m11 + aVector.myY * aMatrix.m21 + aVector.myZ * aMatrix.m31,
-		aVector.myX * aMatrix.m21 + aVector.myY * aMatrix.m22 + aVector.myZ * aMatrix.m32,
-		aVector.myX * aMatrix.m31 + aVector.myY * aMatrix.m23 + aVector.myZ * aMatrix.m33
+		aVector.myX * aMatrix.m12 + aVector.myY * aMatrix.m22 + aVector.myZ * aMatrix.m32,
+		aVector.myX * aMatrix.m13 + aVector.myY * aMatrix.m23 + aVector.myZ * aMatrix.m33
 	};
 
 	return result;

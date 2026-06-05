@@ -1,6 +1,9 @@
 #pragma once
 
 template<typename T>
+class HD_Matrix4x4;
+
+template<typename T>
 class HD_Vector4
 {
 public:
@@ -13,8 +16,9 @@ public:
 	HD_Vector4& operator=(const HD_Vector4& aOther);
 	HD_Vector4& operator+=(const HD_Vector4& aOther);
 	HD_Vector4& operator-=(const HD_Vector4& aOther);
-	HD_Vector4& operator*=(T aConstant);
-	HD_Vector4& operator/=(T aConstant);
+	HD_Vector4& operator*=(const HD_Matrix4x4<T>& aMatrix);
+	HD_Vector4& operator*=(T aScalar);
+	HD_Vector4& operator/=(T aScalar);
 
 	T myX, myY, myZ, myW;
 };
@@ -95,23 +99,30 @@ HD_Vector4<T>& HD_Vector4<T>::operator-=(const HD_Vector4<T>& aOther)
 }
 
 template<typename T>
-HD_Vector4<T>& HD_Vector4<T>::operator*=(T aConstant)
+HD_Vector4<T>& HD_Vector4<T>::operator*=(const HD_Matrix4x4<T>& aMatrix)
 {
-	myX *= aConstant;
-	myY *= aConstant;
-	myZ *= aConstant;
-	myW *= aConstant;
+	(*this) = (*this) * aMatrix;
+	return *this;
+}
+
+template<typename T>
+HD_Vector4<T>& HD_Vector4<T>::operator*=(T aScalar)
+{
+	myX *= aScalar;
+	myY *= aScalar;
+	myZ *= aScalar;
+	myW *= aScalar;
 
 	return *this;
 }
 
 template<typename T>
-HD_Vector4<T>& HD_Vector4<T>::operator/=(T aConstant)
+HD_Vector4<T>& HD_Vector4<T>::operator/=(T aScalar)
 {
-	myX /= aConstant;
-	myY /= aConstant;
-	myZ /= aConstant;
-	myW /= aConstant;
+	myX /= aScalar;
+	myY /= aScalar;
+	myZ /= aScalar;
+	myW /= aScalar;
 
 	return *this;
 }

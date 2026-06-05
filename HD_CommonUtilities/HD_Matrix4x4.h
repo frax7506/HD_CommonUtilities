@@ -43,6 +43,7 @@ public:
 	static HD_Matrix4x4 CreateRotationAroundX(T aAngleInRadians);
 	static HD_Matrix4x4 CreateRotationAroundY(T aAngleInRadians);
 	static HD_Matrix4x4 CreateRotationAroundZ(T aAngleInRadians);
+	static HD_Matrix4x4 CreateTranslation(T aX, T aY, T aZ);
 
 	static const HD_Matrix4x4 Identity;
 };
@@ -56,8 +57,8 @@ template<typename T> HD_Vector4<T> operator*(const HD_Vector4<T>& aVector, const
 
 template<typename T>
 HD_Matrix4x4<T>::HD_Matrix4x4()
+	: m11(), m12(), m13(), m14(), m21(), m22(), m23(), m24(), m31(), m32(), m33(), m34()
 {
-	memset(&m11, T(), 4 * 4 * sizeof(T));
 }
 
 template<typename T>
@@ -170,25 +171,29 @@ HD_Matrix4x4<T>& HD_Matrix4x4<T>::operator-=(const HD_Matrix4x4& aMatrix)
 template<typename T>
 HD_Matrix4x4<T>& HD_Matrix4x4<T>::operator*=(const HD_Matrix4x4& aMatrix)
 {
-	m11 = m11 * aMatrix.m11 + m12 * aMatrix.m21 + m13 * aMatrix.m31 + m14 * aMatrix.m41;
-	m12 = m11 * aMatrix.m12 + m12 * aMatrix.m22 + m13 * aMatrix.m32 + m14 * aMatrix.m42;
-	m13 = m11 * aMatrix.m13 + m12 * aMatrix.m23 + m13 * aMatrix.m33 + m14 * aMatrix.m43;
-	m14 = m11 * aMatrix.m14 + m12 * aMatrix.m24 + m13 * aMatrix.m34 + m14 * aMatrix.m44;
+	HD_Matrix4x4 result;
 
-	m21 = m21 * aMatrix.m11 + m22 * aMatrix.m21 + m23 * aMatrix.m31 + m24 * aMatrix.m41;
-	m22 = m21 * aMatrix.m12 + m22 * aMatrix.m22 + m23 * aMatrix.m32 + m24 * aMatrix.m42;
-	m23 = m21 * aMatrix.m13 + m22 * aMatrix.m23 + m23 * aMatrix.m33 + m24 * aMatrix.m43;
-	m24 = m21 * aMatrix.m14 + m22 * aMatrix.m24 + m23 * aMatrix.m34 + m24 * aMatrix.m44;
+	result.m11 = m11 * aMatrix.m11 + m12 * aMatrix.m21 + m13 * aMatrix.m31 + m14 * aMatrix.m41;
+	result.m12 = m11 * aMatrix.m12 + m12 * aMatrix.m22 + m13 * aMatrix.m32 + m14 * aMatrix.m42;
+	result.m13 = m11 * aMatrix.m13 + m12 * aMatrix.m23 + m13 * aMatrix.m33 + m14 * aMatrix.m43;
+	result.m14 = m11 * aMatrix.m14 + m12 * aMatrix.m24 + m13 * aMatrix.m34 + m14 * aMatrix.m44;
 
-	m31 = m31 * aMatrix.m11 + m32 * aMatrix.m21 + m33 * aMatrix.m31 + m34 * aMatrix.m41;
-	m32 = m31 * aMatrix.m12 + m32 * aMatrix.m22 + m33 * aMatrix.m32 + m34 * aMatrix.m42;
-	m33 = m31 * aMatrix.m13 + m32 * aMatrix.m23 + m33 * aMatrix.m33 + m34 * aMatrix.m43;
-	m34 = m31 * aMatrix.m14 + m32 * aMatrix.m24 + m33 * aMatrix.m34 + m34 * aMatrix.m44;
+	result.m21 = m21 * aMatrix.m11 + m22 * aMatrix.m21 + m23 * aMatrix.m31 + m24 * aMatrix.m41;
+	result.m22 = m21 * aMatrix.m12 + m22 * aMatrix.m22 + m23 * aMatrix.m32 + m24 * aMatrix.m42;
+	result.m23 = m21 * aMatrix.m13 + m22 * aMatrix.m23 + m23 * aMatrix.m33 + m24 * aMatrix.m43;
+	result.m24 = m21 * aMatrix.m14 + m22 * aMatrix.m24 + m23 * aMatrix.m34 + m24 * aMatrix.m44;
 
-	m41 = m41 * aMatrix.m11 + m42 * aMatrix.m21 + m43 * aMatrix.m31 + m44 * aMatrix.m41;
-	m42 = m41 * aMatrix.m12 + m42 * aMatrix.m22 + m43 * aMatrix.m32 + m44 * aMatrix.m42;
-	m43 = m41 * aMatrix.m13 + m42 * aMatrix.m23 + m43 * aMatrix.m33 + m44 * aMatrix.m43;
-	m44 = m41 * aMatrix.m14 + m42 * aMatrix.m24 + m43 * aMatrix.m34 + m44 * aMatrix.m44;
+	result.m31 = m31 * aMatrix.m11 + m32 * aMatrix.m21 + m33 * aMatrix.m31 + m34 * aMatrix.m41;
+	result.m32 = m31 * aMatrix.m12 + m32 * aMatrix.m22 + m33 * aMatrix.m32 + m34 * aMatrix.m42;
+	result.m33 = m31 * aMatrix.m13 + m32 * aMatrix.m23 + m33 * aMatrix.m33 + m34 * aMatrix.m43;
+	result.m34 = m31 * aMatrix.m14 + m32 * aMatrix.m24 + m33 * aMatrix.m34 + m34 * aMatrix.m44;
+
+	result.m41 = m41 * aMatrix.m11 + m42 * aMatrix.m21 + m43 * aMatrix.m31 + m44 * aMatrix.m41;
+	result.m42 = m41 * aMatrix.m12 + m42 * aMatrix.m22 + m43 * aMatrix.m32 + m44 * aMatrix.m42;
+	result.m43 = m41 * aMatrix.m13 + m42 * aMatrix.m23 + m43 * aMatrix.m33 + m44 * aMatrix.m43;
+	result.m44 = m41 * aMatrix.m14 + m42 * aMatrix.m24 + m43 * aMatrix.m34 + m44 * aMatrix.m44;
+
+	(*this) = result;
 
 	return *this;
 }
@@ -239,6 +244,17 @@ template<typename T>
 HD_Matrix4x4<T> HD_Matrix4x4<T>::CreateRotationAroundZ(T aAngleInRadians)
 {
 	return HD_Matrix3x3<T>::CreateRotationAroundZ(aAngleInRadians);
+}
+
+template<typename T>
+HD_Matrix4x4<T> HD_Matrix4x4<T>::CreateTranslation(T aX, T aY, T aZ)
+{
+	HD_Matrix4x4 result = Identity;
+	result.m41 = aX;
+	result.m42 = aY;
+	result.m43 = aZ;
+
+	return result;
 }
 
 template<typename T>
