@@ -29,7 +29,7 @@ namespace HD_CommonUtilities
 
 			for (s32 i = 0; i < staticArray.Size(); i++)
 			{
-				TestUtils::StringDataCheckIsUninitialized(staticArray[i]);
+				TestUtils::Test_IsStringUninitialized(staticArray[i]);
 			}
 		}
 

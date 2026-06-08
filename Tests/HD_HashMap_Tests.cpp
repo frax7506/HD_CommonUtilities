@@ -266,7 +266,7 @@ namespace HD_CommonUtilities
 			Assert::AreEqual(map.myCapacity, 16);
 
 			const HD_String* value4 = map.GetIfExists("4");
-			TestUtils::StringDataCheckIsUninitialized(*value4);
+			TestUtils::Test_IsStringUninitialized(*value4);
 		}
 
 		TEST_METHOD(Operator_Assignment_Copy_POD)

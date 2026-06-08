@@ -33,7 +33,7 @@ namespace HD_CommonUtilities
 
 			for (s32 i = 0; i < 8; i++)
 			{
-				TestUtils::StringDataCheckIsUninitialized(staticStack.myData[i]);
+				TestUtils::Test_IsStringUninitialized(staticStack.myData[i]);
 			}
 		}
 

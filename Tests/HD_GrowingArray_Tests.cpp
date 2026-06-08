@@ -445,10 +445,10 @@ namespace HD_CommonUtilities
 			HD_GrowingArray<HD_String> growingArray;
 			growingArray.Resize(4);
 
-			TestUtils::StringDataCheckIsUninitialized(growingArray[0]);
-			TestUtils::StringDataCheckIsUninitialized(growingArray[1]);
-			TestUtils::StringDataCheckIsUninitialized(growingArray[2]);
-			TestUtils::StringDataCheckIsUninitialized(growingArray[3]);
+			TestUtils::Test_IsStringUninitialized(growingArray[0]);
+			TestUtils::Test_IsStringUninitialized(growingArray[1]);
+			TestUtils::Test_IsStringUninitialized(growingArray[2]);
+			TestUtils::Test_IsStringUninitialized(growingArray[3]);
 			Assert::AreEqual(growingArray.mySize, 4);
 			Assert::AreEqual(growingArray.myCapacity, 4);
 		}
