@@ -157,6 +157,7 @@ project("Tests")
 		},
 		["Utils"] =
 		{
-			sourceTestsPath .. "TestUtils.h"
+			sourceTestsPath .. "TestUtils.h",
+			sourceTestsPath .. "TestUtils.cpp"
 		}
 	}

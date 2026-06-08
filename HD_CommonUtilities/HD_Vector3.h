@@ -132,9 +132,9 @@ template<typename T>
 HD_Vector3<T> HD_Vector3<T>::Cross(const HD_Vector3<T>& aOther) const
 {
 	HD_Vector3 result(
-		myY* aOther.myZ - aOther.myY * myZ,
-		myZ* aOther.myX - aOther.myZ * myX,
-		myX* aOther.myY - aOther.myX * myY
+		myY * aOther.myZ - aOther.myY * myZ,
+		myZ * aOther.myX - aOther.myZ * myX,
+		myX * aOther.myY - aOther.myX * myY
 	);
 
 	return result;

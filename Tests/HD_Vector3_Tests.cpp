@@ -15,59 +15,55 @@ namespace HD_CommonUtilities
 		TEST_METHOD(Constructor)
 		{
 			HD_Vector3f floatVector;
-			Assert::AreEqual(floatVector.myX, 0.f);
-			Assert::AreEqual(floatVector.myY, 0.f);
-			Assert::AreEqual(floatVector.myZ, 0.f);
+			TestUtils::Vector3_AreEqual(floatVector, 0.f, 0.f, 0.f);
 
 			HD_Vector3i intVector;
-			Assert::AreEqual(intVector.myX, 0);
-			Assert::AreEqual(intVector.myY, 0);
-			Assert::AreEqual(intVector.myZ, 0);
+			TestUtils::Vector3_AreEqual(intVector, 0, 0, 0);
 
-			// htodo: complement this test file with tests for HD_Vector3ui
+			HD_Vector3ui unsignedIntVector;
+			TestUtils::Vector3_AreEqual(unsignedIntVector, 0u, 0u, 0u);
 		}
 
 		TEST_METHOD(Constructor_X_And_Y_And_Z)
 		{
 			HD_Vector3f floatVector(1.f, 2.f, 3.f);
-			Assert::AreEqual(floatVector.myX, 1.f);
-			Assert::AreEqual(floatVector.myY, 2.f);
-			Assert::AreEqual(floatVector.myZ, 3.f);
+			TestUtils::Vector3_AreEqual(floatVector, 1.f, 2.f, 3.f);
 
-			HD_Vector3i intVector(3, 4, 5);
-			Assert::AreEqual(intVector.myX, 3);
-			Assert::AreEqual(intVector.myY, 4);
-			Assert::AreEqual(intVector.myZ, 5);
+			HD_Vector3i intVector(4, 5, 6);
+			TestUtils::Vector3_AreEqual(intVector, 4, 5, 6);
+
+			HD_Vector3ui unsignedIntVector(7u, 8u, 9u);
+			TestUtils::Vector3_AreEqual(unsignedIntVector, 7u, 8u, 9u);
 		}
 
 		TEST_METHOD(Constructor_Copy)
 		{
 			HD_Vector3f floatVector1(1.f, 2.f, 3.f);
 			HD_Vector3f floatVector2(floatVector1);
-			Assert::AreEqual(floatVector2.myX, 1.f);
-			Assert::AreEqual(floatVector2.myY, 2.f);
-			Assert::AreEqual(floatVector2.myZ, 3.f);
+			TestUtils::Vector3_AreEqual(floatVector2, 1.f, 2.f, 3.f);
 
-			HD_Vector3i intVector1(3, 4, 5);
+			HD_Vector3i intVector1(4, 5, 6);
 			HD_Vector3i intVector2(intVector1);
-			Assert::AreEqual(intVector2.myX, 3);
-			Assert::AreEqual(intVector2.myY, 4);
-			Assert::AreEqual(intVector2.myZ, 5);
+			TestUtils::Vector3_AreEqual(intVector2, 4, 5, 6);
+
+			HD_Vector3ui unsignedIntVector1(7u, 8u, 9u);
+			HD_Vector3ui unsignedIntVector2(unsignedIntVector1);
+			TestUtils::Vector3_AreEqual(unsignedIntVector2, 7u, 8u, 9u);
 		}
 
 		TEST_METHOD(Set)
 		{
 			HD_Vector3f floatVector;
 			floatVector.Set(1.f, 2.f, 3.f);
-			Assert::AreEqual(floatVector.myX, 1.f);
-			Assert::AreEqual(floatVector.myY, 2.f);
-			Assert::AreEqual(floatVector.myZ, 3.f);
+			TestUtils::Vector3_AreEqual(floatVector, 1.f, 2.f, 3.f);
 
 			HD_Vector3i intVector;
-			intVector.Set(3, 4, 5);
-			Assert::AreEqual(intVector.myX, 3);
-			Assert::AreEqual(intVector.myY, 4);
-			Assert::AreEqual(intVector.myZ, 5);
+			intVector.Set(4, 5, 6);
+			TestUtils::Vector3_AreEqual(intVector, 4, 5, 6);
+
+			HD_Vector3ui unsignedIntVector;
+			unsignedIntVector.Set(7u, 8u, 9u);
+			TestUtils::Vector3_AreEqual(unsignedIntVector, 7u, 8u, 9u);
 		}
 
 		TEST_METHOD(Length)
@@ -86,6 +82,10 @@ namespace HD_CommonUtilities
 			HD_Vector3i intVector(2, 2, 2);
 			s32 intLength2 = intVector.Length2();
 			Assert::AreEqual(intLength2, 12);
+
+			HD_Vector3ui unsignedIntVector(3u, 3u, 3u);
+			u32 unsignedIntLength2 = unsignedIntVector.Length2();
+			Assert::AreEqual(unsignedIntLength2, 27u);
 		}
 
 		TEST_METHOD(Normalize)
@@ -248,37 +248,14 @@ namespace HD_CommonUtilities
 			HD_Vector3f forwardCrossLeftCenter = forward.Cross(leftCenter);
 			HD_Vector3f forwardCrossLeftForward = forward.Cross(leftForward);
 
-			Assert::AreEqual(forwardCrossCenterForward.myX, 0.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(forwardCrossCenterForward.myZ, 0.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(forwardCrossCenterForward.myY, 0.f, FLOAT_EQUAL_TOLERANCE);
-
-			Assert::AreEqual(forwardCrossRightForward.myX, 0.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(forwardCrossRightForward.myZ, 0.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(forwardCrossRightForward.myY, 1.f, FLOAT_EQUAL_TOLERANCE);
-
-			Assert::AreEqual(forwardCrossRightCenter.myX, 0.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(forwardCrossRightCenter.myZ, 0.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(forwardCrossRightCenter.myY, 1.f, FLOAT_EQUAL_TOLERANCE);
-
-			Assert::AreEqual(forwardCrossRightBack.myX, 0.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(forwardCrossRightBack.myZ, 0.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(forwardCrossRightBack.myY, 1.f, FLOAT_EQUAL_TOLERANCE);
-
-			Assert::AreEqual(forwardCrossCenterBack.myX, 0.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(forwardCrossCenterBack.myZ, 0.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(forwardCrossCenterBack.myY, 0.f, FLOAT_EQUAL_TOLERANCE);
-
-			Assert::AreEqual(forwardCrossLeftBack.myX, 0.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(forwardCrossLeftBack.myZ, 0.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(forwardCrossLeftBack.myY, -1.f, FLOAT_EQUAL_TOLERANCE);
-
-			Assert::AreEqual(forwardCrossLeftCenter.myX, 0.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(forwardCrossLeftCenter.myZ, 0.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(forwardCrossLeftCenter.myY, -1.f, FLOAT_EQUAL_TOLERANCE);
-
-			Assert::AreEqual(forwardCrossLeftForward.myX, 0.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(forwardCrossLeftForward.myZ, 0.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(forwardCrossLeftForward.myY, -1.f, FLOAT_EQUAL_TOLERANCE);
+			TestUtils::Vector3_AreEqual(forwardCrossCenterForward, 0.f, 0.f, 0.f);
+			TestUtils::Vector3_AreEqual(forwardCrossRightForward, 0.f, 1.f, 0.f);
+			TestUtils::Vector3_AreEqual(forwardCrossRightCenter, 0.f, 1.f, 0.f);
+			TestUtils::Vector3_AreEqual(forwardCrossRightBack, 0.f, 1.f, 0.f);
+			TestUtils::Vector3_AreEqual(forwardCrossCenterBack, 0.f, 0.f, 0.f);
+			TestUtils::Vector3_AreEqual(forwardCrossLeftBack, 0.f, -1.f, 0.f);
+			TestUtils::Vector3_AreEqual(forwardCrossLeftCenter, 0.f, -1.f, 0.f);
+			TestUtils::Vector3_AreEqual(forwardCrossLeftForward, 0.f, -1.f, 0.f);
 		}
 
 		TEST_METHOD(Operator_Assignment)
@@ -286,16 +263,17 @@ namespace HD_CommonUtilities
 			HD_Vector3f floatVector1(1.f, 2.f, 3.f);
 			HD_Vector3f floatVector2;
 			floatVector2 = floatVector1;
-			Assert::AreEqual(floatVector2.myX, 1.f);
-			Assert::AreEqual(floatVector2.myY, 2.f);
-			Assert::AreEqual(floatVector2.myZ, 3.f);
+			TestUtils::Vector3_AreEqual(floatVector2, 1.f, 2.f, 3.f);
 
 			HD_Vector3i intVector1(1, 2, 3);
 			HD_Vector3i intVector2;
 			intVector2 = intVector1;
-			Assert::AreEqual(intVector2.myX, 1);
-			Assert::AreEqual(intVector2.myY, 2);
-			Assert::AreEqual(intVector2.myZ, 3);
+			TestUtils::Vector3_AreEqual(intVector2, 1, 2, 3);
+
+			HD_Vector3ui unsignedIntVector1(1u, 2u, 3u);
+			HD_Vector3ui unsignedIntVector2;
+			unsignedIntVector2 = unsignedIntVector1;
+			TestUtils::Vector3_AreEqual(unsignedIntVector2, 1u, 2u, 3u);
 		}
 
 		TEST_METHOD(Operator_PlusEquals)
@@ -303,16 +281,17 @@ namespace HD_CommonUtilities
 			HD_Vector3f floatVector1(1.f, 2.f, 3.f);
 			HD_Vector3f floatVector2(4.f, 5.f, 6.f);
 			floatVector1 += floatVector2;
-			Assert::AreEqual(floatVector1.myX, 5.f);
-			Assert::AreEqual(floatVector1.myY, 7.f);
-			Assert::AreEqual(floatVector1.myZ, 9.f);
+			TestUtils::Vector3_AreEqual(floatVector1, 5.f, 7.f, 9.f);
 
 			HD_Vector3i intVector1(1, 2, 3);
 			HD_Vector3i intVector2(4, 5, 6);
 			intVector1 += intVector2;
-			Assert::AreEqual(intVector1.myX, 5);
-			Assert::AreEqual(intVector1.myY, 7);
-			Assert::AreEqual(intVector1.myZ, 9);
+			TestUtils::Vector3_AreEqual(intVector1, 5, 7, 9);
+
+			HD_Vector3ui unsignedIntVector1(1u, 2u, 3u);
+			HD_Vector3ui unsignedIntVector2(4u, 5u, 6u);
+			unsignedIntVector1 += unsignedIntVector2;
+			TestUtils::Vector3_AreEqual(unsignedIntVector1, 5u, 7u, 9u);
 		}
 
 		TEST_METHOD(Operator_MinusEquals)
@@ -320,46 +299,47 @@ namespace HD_CommonUtilities
 			HD_Vector3f floatVector1(1.f, 2.f, 3.f);
 			HD_Vector3f floatVector2(4.f, 5.f, 6.f);
 			floatVector1 -= floatVector2;
-			Assert::AreEqual(floatVector1.myX, -3.f);
-			Assert::AreEqual(floatVector1.myY, -3.f);
-			Assert::AreEqual(floatVector1.myZ, -3.f);
+			TestUtils::Vector3_AreEqual(floatVector1, -3.f, -3.f, -3.f);
 
 			HD_Vector3i intVector1(1, 2, 3);
 			HD_Vector3i intVector2(4, 5, 6);
 			intVector1 -= intVector2;
-			Assert::AreEqual(intVector1.myX, -3);
-			Assert::AreEqual(intVector1.myY, -3);
-			Assert::AreEqual(intVector1.myZ, -3);
+			TestUtils::Vector3_AreEqual(intVector1, -3, -3, -3);
+
+			HD_Vector3ui unsignedIntVector1(4u, 5u, 6u);
+			HD_Vector3ui unsignedIntVector2(1u, 2u, 3u);
+			unsignedIntVector1 -= unsignedIntVector2;
+			TestUtils::Vector3_AreEqual(unsignedIntVector1, 3u, 3u, 3u);
 		}
 
 		TEST_METHOD(Operator_MultiplicationEquals)
 		{
 			HD_Vector3f floatVector(1.f, 2.f, 3.f);
 			floatVector *= 2.f;
-			Assert::AreEqual(floatVector.myX, 2.f);
-			Assert::AreEqual(floatVector.myY, 4.f);
-			Assert::AreEqual(floatVector.myZ, 6.f);
+			TestUtils::Vector3_AreEqual(floatVector, 2.f, 4.f, 6.f);
 
 			HD_Vector3i intVector(1, 2, 3);
 			intVector *= 2;
-			Assert::AreEqual(intVector.myX, 2);
-			Assert::AreEqual(intVector.myY, 4);
-			Assert::AreEqual(intVector.myZ, 6);
+			TestUtils::Vector3_AreEqual(intVector, 2, 4, 6);
+
+			HD_Vector3ui unsignedIntVector(1u, 2u, 3u);
+			unsignedIntVector *= 2u;
+			TestUtils::Vector3_AreEqual(unsignedIntVector, 2u, 4u, 6u);
 		}
 
 		TEST_METHOD(Operator_DivisionEquals)
 		{
 			HD_Vector3f floatVector(1.f, 2.f, 3.f);
 			floatVector /= 2.f;
-			Assert::AreEqual(floatVector.myX, 0.5f);
-			Assert::AreEqual(floatVector.myY, 1.f);
-			Assert::AreEqual(floatVector.myZ, 1.5f);
+			TestUtils::Vector3_AreEqual(floatVector, 0.5f, 1.f, 1.5f);
 
 			HD_Vector3i intVector(1, 2, 3);
 			intVector /= 2;
-			Assert::AreEqual(intVector.myX, 0);
-			Assert::AreEqual(intVector.myY, 1);
-			Assert::AreEqual(intVector.myZ, 1);
+			TestUtils::Vector3_AreEqual(intVector, 0, 1, 1);
+
+			HD_Vector3ui unsignedIntVector(1u, 2u, 3u);
+			unsignedIntVector /= 2u;
+			TestUtils::Vector3_AreEqual(unsignedIntVector, 0u, 1u, 1u);
 		}
 
 		TEST_METHOD(Operator_Plus)
@@ -367,16 +347,17 @@ namespace HD_CommonUtilities
 			HD_Vector3f floatVector1(1.f, 2.f, 3.f);
 			HD_Vector3f floatVector2(4.f, 5.f, 6.f);
 			HD_Vector3f floatVectorResult = floatVector1 + floatVector2;
-			Assert::AreEqual(floatVectorResult.myX, 5.f);
-			Assert::AreEqual(floatVectorResult.myY, 7.f);
-			Assert::AreEqual(floatVectorResult.myZ, 9.f);
+			TestUtils::Vector3_AreEqual(floatVectorResult, 5.f, 7.f, 9.f);
 
 			HD_Vector3i intVector1(1, 2, 3);
 			HD_Vector3i intVector2(4, 5, 6);
 			HD_Vector3i intVectorResult = intVector1 + intVector2;
-			Assert::AreEqual(intVectorResult.myX, 5);
-			Assert::AreEqual(intVectorResult.myY, 7);
-			Assert::AreEqual(intVectorResult.myZ, 9);
+			TestUtils::Vector3_AreEqual(intVectorResult, 5, 7, 9);
+
+			HD_Vector3ui unsignedIntVector1(1u, 2u, 3u);
+			HD_Vector3ui unsignedIntVector2(4u, 5u, 6u);
+			HD_Vector3ui unsignedIntVectorResult = unsignedIntVector1 + unsignedIntVector2;
+			TestUtils::Vector3_AreEqual(unsignedIntVectorResult, 5u, 7u, 9u);
 		}
 
 		TEST_METHOD(Operator_Minus)
@@ -384,61 +365,62 @@ namespace HD_CommonUtilities
 			HD_Vector3f floatVector1(1.f, 2.f, 3.f);
 			HD_Vector3f floatVector2(4.f, 5.f, 6.f);
 			HD_Vector3f floatVectorResult = floatVector1 - floatVector2;
-			Assert::AreEqual(floatVectorResult.myX, -3.f);
-			Assert::AreEqual(floatVectorResult.myY, -3.f);
-			Assert::AreEqual(floatVectorResult.myZ, -3.f);
+			TestUtils::Vector3_AreEqual(floatVectorResult, -3.f, -3.f, -3.f);
 
 			HD_Vector3i intVector1(1, 2, 3);
 			HD_Vector3i intVector2(4, 5, 6);
 			HD_Vector3i intVectorResult = intVector1 - intVector2;
-			Assert::AreEqual(intVectorResult.myX, -3);
-			Assert::AreEqual(intVectorResult.myY, -3);
-			Assert::AreEqual(intVectorResult.myZ, -3);
+			TestUtils::Vector3_AreEqual(intVectorResult, -3, -3, -3);
+
+			HD_Vector3ui unsignedIntVector1(4u, 5u, 6u);
+			HD_Vector3ui unsignedIntVector2(1u, 2u, 3u);
+			HD_Vector3ui unsignedIntVectorResult = unsignedIntVector1 - unsignedIntVector2;
+			TestUtils::Vector3_AreEqual(unsignedIntVectorResult, 3u, 3u, 3u);
 		}
 
 		TEST_METHOD(Operator_Multiplication_Vector_With_Constant)
 		{
 			HD_Vector3f floatVector(1.f, 2.f, 3.f);
 			HD_Vector3f floatVectorResult = floatVector * 2.f;
-			Assert::AreEqual(floatVectorResult.myX, 2.f);
-			Assert::AreEqual(floatVectorResult.myY, 4.f);
-			Assert::AreEqual(floatVectorResult.myZ, 6.f);
+			TestUtils::Vector3_AreEqual(floatVectorResult, 2.f, 4.f, 6.f);
 
 			HD_Vector3i intVector(1, 2, 3);
 			HD_Vector3i intVectorResult = intVector * 2;
-			Assert::AreEqual(intVectorResult.myX, 2);
-			Assert::AreEqual(intVectorResult.myY, 4);
-			Assert::AreEqual(intVectorResult.myZ, 6);
+			TestUtils::Vector3_AreEqual(intVectorResult, 2, 4, 6);
+
+			HD_Vector3ui unsignedIntVector(1u, 2u, 3u);
+			HD_Vector3ui unsignedIntVectorResult = unsignedIntVector * 2u;
+			TestUtils::Vector3_AreEqual(unsignedIntVectorResult, 2u, 4u, 6u);
 		}
 
 		TEST_METHOD(Operator_Multiplication_Constant_With_Vector)
 		{
 			HD_Vector3f floatVector(1.f, 2.f, 3.f);
 			HD_Vector3f floatVectorResult = 2.f * floatVector;
-			Assert::AreEqual(floatVectorResult.myX, 2.f);
-			Assert::AreEqual(floatVectorResult.myY, 4.f);
-			Assert::AreEqual(floatVectorResult.myZ, 6.f);
+			TestUtils::Vector3_AreEqual(floatVectorResult, 2.f, 4.f, 6.f);
 
 			HD_Vector3i intVector(1, 2, 3);
 			HD_Vector3i intVectorResult = 2 * intVector;
-			Assert::AreEqual(intVectorResult.myX, 2);
-			Assert::AreEqual(intVectorResult.myY, 4);
-			Assert::AreEqual(intVectorResult.myZ, 6);
+			TestUtils::Vector3_AreEqual(intVectorResult, 2, 4, 6);
+
+			HD_Vector3ui unsignedIntVector(1u, 2u, 3u);
+			HD_Vector3ui unsignedIntVectorResult = 2u * unsignedIntVector;
+			TestUtils::Vector3_AreEqual(unsignedIntVectorResult, 2u, 4u, 6u);
 		}
 
 		TEST_METHOD(Operator_Division_Vector_With_Constant)
 		{
 			HD_Vector3f floatVector(1.f, 2.f, 3.f);
 			HD_Vector3f floatVectorResult = floatVector / 2.f;
-			Assert::AreEqual(floatVectorResult.myX, 0.5f);
-			Assert::AreEqual(floatVectorResult.myY, 1.f);
-			Assert::AreEqual(floatVectorResult.myZ, 1.5f);
+			TestUtils::Vector3_AreEqual(floatVectorResult, 0.5f, 1.f, 1.5f);
 
 			HD_Vector3i intVector(1, 2, 3);
 			HD_Vector3i intVectorResult = intVector / 2;
-			Assert::AreEqual(intVectorResult.myX, 0);
-			Assert::AreEqual(intVectorResult.myY, 1);
-			Assert::AreEqual(intVectorResult.myZ, 1);
+			TestUtils::Vector3_AreEqual(intVectorResult, 0, 1, 1);
+
+			HD_Vector3ui unsignedIntVector(1u, 2u, 3u);
+			HD_Vector3ui unsignedIntVectorResult = unsignedIntVector / 2u;
+			TestUtils::Vector3_AreEqual(unsignedIntVectorResult, 0u, 1u, 1u);
 		}
 	};
 }

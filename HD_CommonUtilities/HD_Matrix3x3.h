@@ -153,22 +153,7 @@ HD_Matrix3x3<T>& HD_Matrix3x3<T>::operator-=(const HD_Matrix3x3& aMatrix)
 template<typename T>
 HD_Matrix3x3<T>& HD_Matrix3x3<T>::operator*=(const HD_Matrix3x3& aMatrix)
 {
-	HD_Matrix3x3 result;
-
-	result.m11 = m11 * aMatrix.m11 + m12 * aMatrix.m21 + m13 * aMatrix.m31;
-	result.m12 = m11 * aMatrix.m12 + m12 * aMatrix.m22 + m13 * aMatrix.m32;
-	result.m13 = m11 * aMatrix.m13 + m12 * aMatrix.m23 + m13 * aMatrix.m33;
-
-	result.m21 = m21 * aMatrix.m11 + m22 * aMatrix.m21 + m23 * aMatrix.m31;
-	result.m22 = m21 * aMatrix.m12 + m22 * aMatrix.m22 + m23 * aMatrix.m32;
-	result.m23 = m21 * aMatrix.m13 + m22 * aMatrix.m23 + m23 * aMatrix.m33;
-
-	result.m31 = m31 * aMatrix.m11 + m32 * aMatrix.m21 + m33 * aMatrix.m31;
-	result.m32 = m31 * aMatrix.m12 + m32 * aMatrix.m22 + m33 * aMatrix.m32;
-	result.m33 = m31 * aMatrix.m13 + m32 * aMatrix.m23 + m33 * aMatrix.m33;
-
-	(*this) = result;
-
+	(*this) = (*this) * aMatrix;
 	return *this;
 }
 
@@ -201,19 +186,12 @@ HD_Matrix3x3<T> HD_Matrix3x3<T>::GetTranspose() const
 template<typename T>
 HD_Matrix3x3<T> HD_Matrix3x3<T>::CreateRotationAroundX(T aAngleInRadians)
 {
-	HD_Matrix3x3 result;
-
-	result.m11 = 1;
-	result.m12 = 0;
-	result.m13 = 0;
-
-	result.m21 = 0;
-	result.m22 = HD_Cos(aAngleInRadians);
-	result.m23 = HD_Sin(aAngleInRadians);
-
-	result.m31 = 0;
-	result.m32 = -1 * HD_Sin(aAngleInRadians);
-	result.m33 = HD_Cos(aAngleInRadians);
+	HD_Matrix3x3 result =
+	{
+		1, 0, 0,
+		0, HD_Cos(aAngleInRadians), HD_Sin(aAngleInRadians),
+		0, -1 * HD_Sin(aAngleInRadians), HD_Cos(aAngleInRadians)
+	};
 
 	return result;
 }
@@ -221,19 +199,12 @@ HD_Matrix3x3<T> HD_Matrix3x3<T>::CreateRotationAroundX(T aAngleInRadians)
 template<typename T>
 HD_Matrix3x3<T> HD_Matrix3x3<T>::CreateRotationAroundY(T aAngleInRadians)
 {
-	HD_Matrix3x3 result;
-
-	result.m11 = HD_Cos(aAngleInRadians);
-	result.m12 = 0;
-	result.m13 = -1 * HD_Sin(aAngleInRadians);
-
-	result.m21 = 0;
-	result.m22 = 1;
-	result.m23 = 0;
-
-	result.m31 = HD_Sin(aAngleInRadians);
-	result.m32 = 0;
-	result.m33 = HD_Cos(aAngleInRadians);
+	HD_Matrix3x3 result =
+	{
+		HD_Cos(aAngleInRadians), 0, -1 * HD_Sin(aAngleInRadians),
+		0, 1, 0,
+		HD_Sin(aAngleInRadians), 0, HD_Cos(aAngleInRadians)
+	};
 
 	return result;
 }
@@ -241,19 +212,12 @@ HD_Matrix3x3<T> HD_Matrix3x3<T>::CreateRotationAroundY(T aAngleInRadians)
 template<typename T>
 HD_Matrix3x3<T> HD_Matrix3x3<T>::CreateRotationAroundZ(T aAngleInRadians)
 {
-	HD_Matrix3x3 result;
-
-	result.m11 = HD_Cos(aAngleInRadians);
-	result.m12 = HD_Sin(aAngleInRadians);
-	result.m13 = 0;
-
-	result.m21 = -1 * HD_Sin(aAngleInRadians);
-	result.m22 = HD_Cos(aAngleInRadians);
-	result.m23 = 0;
-
-	result.m31 = 0;
-	result.m32 = 0;
-	result.m33 = 1;
+	HD_Matrix3x3 result =
+	{
+		HD_Cos(aAngleInRadians), HD_Sin(aAngleInRadians), 0,
+		-1 * HD_Sin(aAngleInRadians), HD_Cos(aAngleInRadians), 0,
+		0, 0, 1
+	};
 
 	return result;
 }

@@ -135,10 +135,10 @@ namespace HD_CommonUtilities
 			Assert::IsTrue(circularArray.myData[1] == "1");
 			Assert::IsTrue(circularArray.myData[2] == "2");
 			Assert::IsTrue(circularArray.myData[3] == "3");
-			TestUtils::Test_IsStringUninitialized(circularArray.myData[4]);
-			TestUtils::Test_IsStringUninitialized(circularArray.myData[5]);
-			TestUtils::Test_IsStringUninitialized(circularArray.myData[6]);
-			TestUtils::Test_IsStringUninitialized(circularArray.myData[7]);
+			TestUtils::String_IsUninitialized(circularArray.myData[4]);
+			TestUtils::String_IsUninitialized(circularArray.myData[5]);
+			TestUtils::String_IsUninitialized(circularArray.myData[6]);
+			TestUtils::String_IsUninitialized(circularArray.myData[7]);
 
 			circularArray.PushBack("4");
 			circularArray.PushBack("5");
@@ -276,18 +276,18 @@ namespace HD_CommonUtilities
 			Assert::AreEqual(circularArray.myWriteIndex, 4);
 			Assert::AreEqual(circularArray.mySize, 4);
 
-			TestUtils::Test_IsStringUninitialized(string0);
-			TestUtils::Test_IsStringUninitialized(string1);
-			TestUtils::Test_IsStringUninitialized(string2);
-			TestUtils::Test_IsStringUninitialized(string3);
+			TestUtils::String_IsUninitialized(string0);
+			TestUtils::String_IsUninitialized(string1);
+			TestUtils::String_IsUninitialized(string2);
+			TestUtils::String_IsUninitialized(string3);
 			Assert::IsTrue(circularArray.myData[0] == "0");
 			Assert::IsTrue(circularArray.myData[1] == "1");
 			Assert::IsTrue(circularArray.myData[2] == "2");
 			Assert::IsTrue(circularArray.myData[3] == "3");
-			TestUtils::Test_IsStringUninitialized(circularArray.myData[4]);
-			TestUtils::Test_IsStringUninitialized(circularArray.myData[5]);
-			TestUtils::Test_IsStringUninitialized(circularArray.myData[6]);
-			TestUtils::Test_IsStringUninitialized(circularArray.myData[7]);
+			TestUtils::String_IsUninitialized(circularArray.myData[4]);
+			TestUtils::String_IsUninitialized(circularArray.myData[5]);
+			TestUtils::String_IsUninitialized(circularArray.myData[6]);
+			TestUtils::String_IsUninitialized(circularArray.myData[7]);
 
 			circularArray.PushBack(HD_Move(string4));
 			circularArray.PushBack(HD_Move(string5));
@@ -298,10 +298,10 @@ namespace HD_CommonUtilities
 			Assert::AreEqual(circularArray.myWriteIndex, 0);
 			Assert::AreEqual(circularArray.mySize, 8);
 
-			TestUtils::Test_IsStringUninitialized(string4);
-			TestUtils::Test_IsStringUninitialized(string5);
-			TestUtils::Test_IsStringUninitialized(string6);
-			TestUtils::Test_IsStringUninitialized(string7);
+			TestUtils::String_IsUninitialized(string4);
+			TestUtils::String_IsUninitialized(string5);
+			TestUtils::String_IsUninitialized(string6);
+			TestUtils::String_IsUninitialized(string7);
 			Assert::IsTrue(circularArray.myData[0] == "0");
 			Assert::IsTrue(circularArray.myData[1] == "1");
 			Assert::IsTrue(circularArray.myData[2] == "2");
@@ -317,7 +317,7 @@ namespace HD_CommonUtilities
 			Assert::AreEqual(circularArray.myWriteIndex, 1);
 			Assert::AreEqual(circularArray.mySize, 8);
 
-			TestUtils::Test_IsStringUninitialized(string8);
+			TestUtils::String_IsUninitialized(string8);
 			Assert::IsTrue(circularArray.myData[0] == "8");
 			Assert::IsTrue(circularArray.myData[1] == "1");
 			Assert::IsTrue(circularArray.myData[2] == "2");
@@ -333,7 +333,7 @@ namespace HD_CommonUtilities
 			Assert::AreEqual(circularArray.myWriteIndex, 2);
 			Assert::AreEqual(circularArray.mySize, 8);
 
-			TestUtils::Test_IsStringUninitialized(string9);
+			TestUtils::String_IsUninitialized(string9);
 			Assert::IsTrue(circularArray.myData[0] == "8");
 			Assert::IsTrue(circularArray.myData[1] == "9");
 			Assert::IsTrue(circularArray.myData[2] == "2");
@@ -373,14 +373,14 @@ namespace HD_CommonUtilities
 			Assert::AreEqual(circularArray.myWriteIndex, 0);
 			Assert::AreEqual(circularArray.mySize, 8);
 
-			TestUtils::Test_IsStringUninitialized(string0);
-			TestUtils::Test_IsStringUninitialized(string1);
-			TestUtils::Test_IsStringUninitialized(string2);
-			TestUtils::Test_IsStringUninitialized(string3);
-			TestUtils::Test_IsStringUninitialized(string4);
-			TestUtils::Test_IsStringUninitialized(string5);
-			TestUtils::Test_IsStringUninitialized(string6);
-			TestUtils::Test_IsStringUninitialized(string7);
+			TestUtils::String_IsUninitialized(string0);
+			TestUtils::String_IsUninitialized(string1);
+			TestUtils::String_IsUninitialized(string2);
+			TestUtils::String_IsUninitialized(string3);
+			TestUtils::String_IsUninitialized(string4);
+			TestUtils::String_IsUninitialized(string5);
+			TestUtils::String_IsUninitialized(string6);
+			TestUtils::String_IsUninitialized(string7);
 			Assert::IsTrue(circularArray.myData[0] == "0");
 			Assert::IsTrue(circularArray.myData[1] == "1");
 			Assert::IsTrue(circularArray.myData[2] == "2");
@@ -411,10 +411,10 @@ namespace HD_CommonUtilities
 			Assert::IsTrue(circularArray.myData[1] == "1");
 			Assert::IsTrue(circularArray.myData[2] == "2");
 			Assert::IsTrue(circularArray.myData[3] == "3");
-			TestUtils::Test_IsStringUninitialized(circularArray.myData[4]);
-			TestUtils::Test_IsStringUninitialized(circularArray.myData[5]);
-			TestUtils::Test_IsStringUninitialized(circularArray.myData[6]);
-			TestUtils::Test_IsStringUninitialized(circularArray.myData[7]);
+			TestUtils::String_IsUninitialized(circularArray.myData[4]);
+			TestUtils::String_IsUninitialized(circularArray.myData[5]);
+			TestUtils::String_IsUninitialized(circularArray.myData[6]);
+			TestUtils::String_IsUninitialized(circularArray.myData[7]);
 
 			circularArray.EmplaceBack("4");
 			circularArray.EmplaceBack("5");
@@ -543,10 +543,10 @@ namespace HD_CommonUtilities
 			Assert::IsTrue(circularArray.myData[1] == "4");
 			Assert::IsTrue(circularArray.myData[2] == "4");
 			Assert::IsTrue(circularArray.myData[3] == "4");
-			TestUtils::Test_IsStringUninitialized(circularArray.myData[4]);
-			TestUtils::Test_IsStringUninitialized(circularArray.myData[5]);
-			TestUtils::Test_IsStringUninitialized(circularArray.myData[6]);
-			TestUtils::Test_IsStringUninitialized(circularArray.myData[7]);
+			TestUtils::String_IsUninitialized(circularArray.myData[4]);
+			TestUtils::String_IsUninitialized(circularArray.myData[5]);
+			TestUtils::String_IsUninitialized(circularArray.myData[6]);
+			TestUtils::String_IsUninitialized(circularArray.myData[7]);
 		}
 
 		TEST_METHOD(Clear_POD)
