@@ -131,16 +131,16 @@ namespace HD_CommonUtilities
 
 		TEST_METHOD(Operator_MultiplicationEquals)
 		{
-			HD_Matrix4x4f translation = HD_Matrix4x4f::CreateTranslation(1.f, 1.f, 1.f);
 			HD_Matrix4x4f rotation = HD_Matrix4x4f::CreateRotationAroundX(F_PI_HALF);
+			HD_Matrix4x4f translation = HD_Matrix4x4f::CreateTranslation(1.f, 1.f, 1.f);
 
-			HD_Matrix4x4f translationAndRotation = translation;
-			translationAndRotation *= rotation;
+			HD_Matrix4x4f rotationAndTranslation = rotation;
+			rotationAndTranslation *= translation;
 
 			HD_Vector4f point3D(1.f, 1.f, 1.f, 1.f);
-			point3D *= translationAndRotation;
+			point3D *= rotationAndTranslation;
 
-			TestUtils::Vector4_AreEqual(point3D, 2.f, -2.f, 2.f, 1.f);
+			TestUtils::Vector4_AreEqual(point3D, 2.f, 0.f, 2.f, 1.f);
 		}
 
 		TEST_METHOD(Operator_Equals)

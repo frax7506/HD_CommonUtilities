@@ -124,16 +124,16 @@ namespace HD_CommonUtilities
 
 		TEST_METHOD(Operator_Multiplication_Equals)
 		{
-			HD_Matrix3x3f translation = HD_Matrix3x3f::Create2DTranslation(1.f, 1.f);
 			HD_Matrix3x3f rotation = HD_Matrix3x3f::Create2DRotation(F_PI_HALF);
+			HD_Matrix3x3f translation = HD_Matrix3x3f::Create2DTranslation(1.f, 1.f);
 
-			HD_Matrix3x3f translationAndRotation = translation;
-			translationAndRotation *= rotation;
+			HD_Matrix3x3f rotationAndTranslation = rotation;
+			rotationAndTranslation *= translation;
 
 			HD_Vector3f point2D(1.f, 1.f, 1.f);
-			point2D *= translationAndRotation;
+			point2D *= rotationAndTranslation;
 
-			TestUtils::Vector3_AreEqual(point2D, -2.f, 2.f, 1.f);
+			TestUtils::Vector3_AreEqual(point2D, 0.f, 2.f, 1.f);
 		}
 
 		TEST_METHOD(Operator_Equals)
