@@ -36,7 +36,12 @@ namespace HD_CommonUtilities
 			};
 
 			HD_Matrix3x3f matrix2(matrix1);
-			TestUtils::Matrix3x3_AreEqual(matrix2, 0.f, 1.f, 2.f, 4.f, 5.f, 6.f, 8.f, 9.f, 10.f);
+
+			TestUtils::Matrix3x3_AreEqual(matrix2,
+				0.f, 1.f, 2.f,
+				4.f, 5.f, 6.f,
+				8.f, 9.f, 10.f
+			);
 		}
 
 		TEST_METHOD(Constructor_InitializerList)
@@ -68,7 +73,11 @@ namespace HD_CommonUtilities
 			HD_Matrix3x3f matrix2;
 			matrix2 = matrix1;
 
-			TestUtils::Matrix3x3_AreEqual(matrix2, 0.f, 1.f, 2.f, 4.f, 5.f, 6.f, 8.f, 9.f, 10.f);
+			TestUtils::Matrix3x3_AreEqual(matrix2,
+				0.f, 1.f, 2.f,
+				4.f, 5.f, 6.f,
+				8.f, 9.f, 10.f
+			);
 		}
 
 		TEST_METHOD(Operator_Assignment_InitializerList)
@@ -82,15 +91,15 @@ namespace HD_CommonUtilities
 		{
 			HD_Matrix3x3f matrix = { 0.f, 1.f, 2.f, 3.f, 4.f, 5.f, 6.f, 7.f, 8.f };
 
-			Assert::AreEqual(matrix(1, 1), 0.f);
-			Assert::AreEqual(matrix(1, 2), 1.f);
-			Assert::AreEqual(matrix(1, 3), 2.f);
-			Assert::AreEqual(matrix(2, 1), 3.f);
-			Assert::AreEqual(matrix(2, 2), 4.f);
-			Assert::AreEqual(matrix(2, 3), 5.f);
-			Assert::AreEqual(matrix(3, 1), 6.f);
-			Assert::AreEqual(matrix(3, 2), 7.f);
-			Assert::AreEqual(matrix(3, 3), 8.f);
+			Assert::AreEqual(matrix(1, 1), 0.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(1, 2), 1.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(1, 3), 2.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(2, 1), 3.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(2, 2), 4.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(2, 3), 5.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(3, 1), 6.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(3, 2), 7.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(3, 3), 8.f, FLOAT_EQUAL_TOLERANCE);
 		}
 
 		TEST_METHOD(Operator_Plus_Equals)
@@ -124,8 +133,7 @@ namespace HD_CommonUtilities
 			HD_Vector3f point2D(1.f, 1.f, 1.f);
 			point2D *= translationAndRotation;
 
-			Assert::AreEqual(point2D.myX, -2.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(point2D.myY, 2.f, FLOAT_EQUAL_TOLERANCE);
+			TestUtils::Vector3_AreEqual(point2D, -2.f, 2.f, 1.f);
 		}
 
 		TEST_METHOD(Operator_Equals)

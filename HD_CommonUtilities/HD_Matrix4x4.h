@@ -57,7 +57,7 @@ template<typename T> HD_Vector4<T> operator*(const HD_Vector4<T>& aVector, const
 
 template<typename T>
 HD_Matrix4x4<T>::HD_Matrix4x4()
-	: m11(), m12(), m13(), m14(), m21(), m22(), m23(), m24(), m31(), m32(), m33(), m34()
+	: m11(), m12(), m13(), m14(), m21(), m22(), m23(), m24(), m31(), m32(), m33(), m34(), m41(), m42(), m43(), m44()
 {
 }
 
@@ -69,6 +69,7 @@ HD_Matrix4x4<T>::HD_Matrix4x4(const HD_Matrix4x4& aMatrix)
 
 template<typename T>
 HD_Matrix4x4<T>::HD_Matrix4x4(const HD_Matrix3x3<T>& aMatrix)
+	: m14(), m24(), m34(), m41(), m42(), m43(), m44(1)
 {
 	(*this) = aMatrix;
 }
@@ -89,9 +90,9 @@ HD_Matrix4x4<T>& HD_Matrix4x4<T>::operator=(const HD_Matrix4x4& aMatrix)
 template<typename T>
 HD_Matrix4x4<T>& HD_Matrix4x4<T>::operator=(const HD_Matrix3x3<T>& aMatrix)
 {
-	memcpy(&m11, aMatrix.m11, 3 * sizeof(T));
-	memcpy(&m21, aMatrix.m21, 3 * sizeof(T));
-	memcpy(&m31, aMatrix.m31, 3 * sizeof(T));
+	memcpy(&m11, &aMatrix.m11, 3 * sizeof(T));
+	memcpy(&m21, &aMatrix.m21, 3 * sizeof(T));
+	memcpy(&m31, &aMatrix.m31, 3 * sizeof(T));
 	return *this;
 }
 
@@ -265,7 +266,7 @@ HD_Matrix4x4<T> operator+(const HD_Matrix4x4<T>& aMatrix0, const HD_Matrix4x4<T>
 		aMatrix0.m11 + aMatrix1.m11, aMatrix0.m12 + aMatrix1.m12, aMatrix0.m13 + aMatrix1.m13, aMatrix0.m14 + aMatrix1.m14,
 		aMatrix0.m21 + aMatrix1.m21, aMatrix0.m22 + aMatrix1.m22, aMatrix0.m23 + aMatrix1.m23, aMatrix0.m24 + aMatrix1.m24,
 		aMatrix0.m31 + aMatrix1.m31, aMatrix0.m32 + aMatrix1.m32, aMatrix0.m33 + aMatrix1.m33, aMatrix0.m34 + aMatrix1.m34,
-		aMatrix0.m41 + aMatrix1.m41, aMatrix0.m42 + aMatrix1.m42, aMatrix0.m43 + aMatrix1.m42, aMatrix0.m44 + aMatrix1.m44
+		aMatrix0.m41 + aMatrix1.m41, aMatrix0.m42 + aMatrix1.m42, aMatrix0.m43 + aMatrix1.m43, aMatrix0.m44 + aMatrix1.m44
 	};
 
 	return result;
@@ -279,7 +280,7 @@ HD_Matrix4x4<T> operator-(const HD_Matrix4x4<T>& aMatrix0, const HD_Matrix4x4<T>
 		aMatrix0.m11 - aMatrix1.m11, aMatrix0.m12 - aMatrix1.m12, aMatrix0.m13 - aMatrix1.m13, aMatrix0.m14 - aMatrix1.m14,
 		aMatrix0.m21 - aMatrix1.m21, aMatrix0.m22 - aMatrix1.m22, aMatrix0.m23 - aMatrix1.m23, aMatrix0.m24 - aMatrix1.m24,
 		aMatrix0.m31 - aMatrix1.m31, aMatrix0.m32 - aMatrix1.m32, aMatrix0.m33 - aMatrix1.m33, aMatrix0.m34 - aMatrix1.m34,
-		aMatrix0.m41 - aMatrix1.m41, aMatrix0.m42 - aMatrix1.m42, aMatrix0.m43 - aMatrix1.m42, aMatrix0.m44 - aMatrix1.m44
+		aMatrix0.m41 - aMatrix1.m41, aMatrix0.m42 - aMatrix1.m42, aMatrix0.m43 - aMatrix1.m43, aMatrix0.m44 - aMatrix1.m44
 	};
 
 	return result;
@@ -337,13 +338,13 @@ HD_Matrix4x4<T> operator*(T aScalar, const HD_Matrix4x4<T>& aMatrix)
 template<typename T>
 HD_Vector4<T> operator*(const HD_Vector4<T>& aVector, const HD_Matrix4x4<T>& aMatrix)
 {
-	HD_Vector4 result =
-	{
-		aVector.myX * aMatrix.m11 + aVector.myY * aMatrix.m21 + aVector.myZ * aMatrix.m31, aVector.myW * aMatrix.m41,
-		aVector.myX * aMatrix.m21 + aVector.myY * aMatrix.m22 + aVector.myZ * aMatrix.m32, aVector.myW * aMatrix.m42,
-		aVector.myX * aMatrix.m31 + aVector.myY * aMatrix.m23 + aVector.myZ * aMatrix.m33, aVector.myW * aMatrix.m43,
-		aVector.myX * aMatrix.m41 + aVector.myY * aMatrix.m24 + aVector.myZ * aMatrix.m34, aVector.myW * aMatrix.m44
-	};
+	HD_Vector4<T> result
+	(
+		aVector.myX * aMatrix.m11 + aVector.myY * aMatrix.m21 + aVector.myZ * aMatrix.m31 + aVector.myW * aMatrix.m41,
+		aVector.myX * aMatrix.m12 + aVector.myY * aMatrix.m22 + aVector.myZ * aMatrix.m32 + aVector.myW * aMatrix.m42,
+		aVector.myX * aMatrix.m13 + aVector.myY * aMatrix.m23 + aVector.myZ * aMatrix.m33 + aVector.myW * aMatrix.m43,
+		aVector.myX * aMatrix.m14 + aVector.myY * aMatrix.m24 + aVector.myZ * aMatrix.m34 + aVector.myW * aMatrix.m44
+	);
 
 	return result;
 }
