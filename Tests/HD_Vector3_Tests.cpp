@@ -70,7 +70,7 @@ namespace HD_CommonUtilities
 		{
 			HD_Vector3f floatVector(1.f, 1.f, 1.f);
 			f32 length = floatVector.Length();
-			Assert::AreEqual(length, HD_Sqrtf(3.f), FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(length, HD_Sqrt(3.f), FLOAT_EQUAL_TOLERANCE);
 		}
 
 		TEST_METHOD(Length2)
@@ -102,7 +102,7 @@ namespace HD_CommonUtilities
 			HD_Vector3f normalizedFloatVector = floatVector.GetNormalized();
 			f32 floatVectorLength = floatVector.Length();
 			f32 normalizedFloatVectorLength = normalizedFloatVector.Length();
-			Assert::AreEqual(floatVectorLength, HD_Sqrtf(12.f), FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(floatVectorLength, HD_Sqrt(12.f), FLOAT_EQUAL_TOLERANCE);
 			Assert::AreEqual(normalizedFloatVectorLength, 1.f, FLOAT_EQUAL_TOLERANCE);
 		}
 

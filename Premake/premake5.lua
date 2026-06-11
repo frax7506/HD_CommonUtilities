@@ -53,6 +53,7 @@ project("HD_CommonUtilities")
 		["Math"] =
 		{
 			sourceHDCommonUtilitiesPath .. "HD_AABB_2D.h",
+			sourceHDCommonUtilitiesPath .. "HD_Camera.h",
 			sourceHDCommonUtilitiesPath .. "HD_Math.h",
 			sourceHDCommonUtilitiesPath .. "HD_Matrix.h",
 			sourceHDCommonUtilitiesPath .. "HD_Matrix3x3.h",

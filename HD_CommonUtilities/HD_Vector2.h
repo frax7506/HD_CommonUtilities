@@ -10,13 +10,13 @@ public:
 
 	void Set(T aX, T aY);
 
-	float Length() const;
+	T Length() const;
 	T Length2() const;
 
 	void Normalize();
 	HD_Vector2 GetNormalized() const;
 
-	float Dot(const HD_Vector2& aOther) const;
+	T Dot(const HD_Vector2& aOther) const;
 
 	HD_Vector2& operator=(const HD_Vector2& aOther);
 	HD_Vector2& operator+=(const HD_Vector2& aOther);
@@ -69,7 +69,7 @@ void HD_Vector2<T>::Set(T aX, T aY)
 }
 
 template<typename T>
-float HD_Vector2<T>::Length() const
+T HD_Vector2<T>::Length() const
 {
 	// Note: this will cause float impercisions if the class is used
 	// with big values. So far it's not been an issue. Normally
@@ -77,9 +77,7 @@ float HD_Vector2<T>::Length() const
 	// HD_Vector2i is used then it's more used like a container than
 	// a mathematical vector.
 
-	float x = static_cast<float>(myX);
-	float y = static_cast<float>(myY);
-	return HD_Sqrtf(x * x + y * y);
+	return HD_Sqrt(myX * myX + myY * myY);
 }
 
 template<typename T>
@@ -96,7 +94,7 @@ void HD_Vector2<T>::Normalize()
 	// data loss in the float -> non-float conversion. But normalizing
 	// a non-floating point type vector should be unusual anyway.
 
-	float length = Length();
+	T length = Length();
 	(*this) /= length;
 }
 
@@ -111,7 +109,7 @@ HD_Vector2<T> HD_Vector2<T>::GetNormalized() const
 }
 
 template<typename T>
-float HD_Vector2<T>::Dot(const HD_Vector2<T>& aOther) const
+T HD_Vector2<T>::Dot(const HD_Vector2<T>& aOther) const
 {
 	return myX * aOther.myX + myY * aOther.myY;
 }

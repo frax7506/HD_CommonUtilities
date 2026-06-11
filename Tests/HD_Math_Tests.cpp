@@ -12,7 +12,7 @@ namespace HD_CommonUtilities
 	public:
 		TEST_METHOD(SquareRoot)
 		{
-			Assert::AreEqual(HD_Sqrtf(4.f), 2.f);
+			Assert::AreEqual(HD_Sqrt(4.f), 2.f);
 		}
 
 		TEST_METHOD(AbsoluteValue)
@@ -26,7 +26,7 @@ namespace HD_CommonUtilities
 		TEST_METHOD(Power)
 		{
 			Assert::AreEqual(HD_Pow(2, 2), 4);
-			Assert::AreEqual(HD_Powf(3.f, 3.f), 27.f);
+			Assert::AreEqual(HD_Pow(3.f, 3.f), 27.f);
 		}
 
 		TEST_METHOD(Max)

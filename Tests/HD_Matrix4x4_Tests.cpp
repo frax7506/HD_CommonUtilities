@@ -109,6 +109,28 @@ namespace HD_CommonUtilities
 			Assert::AreEqual(matrix(4, 4), 15.f, FLOAT_EQUAL_TOLERANCE);
 		}
 
+		TEST_METHOD(Operator_Function_Call_Row_And_Col_Const)
+		{
+			HD_Matrix4x4f matrix = { 0.f, 1.f, 2.f, 3.f, 4.f, 5.f, 6.f, 7.f, 8.f, 9.f, 10.f, 11.f, 12.f, 13.f, 14.f, 15.f };
+
+			Assert::AreEqual(matrix(1, 1), 0.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(1, 2), 1.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(1, 3), 2.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(1, 4), 3.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(2, 1), 4.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(2, 2), 5.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(2, 3), 6.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(2, 4), 7.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(3, 1), 8.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(3, 2), 9.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(3, 3), 10.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(3, 4), 11.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(4, 1), 12.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(4, 2), 13.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(4, 3), 14.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(4, 4), 15.f, FLOAT_EQUAL_TOLERANCE);
+		}
+
 		TEST_METHOD(Operator_PlusEquals)
 		{
 			HD_Matrix4x4f matrix1 = { 0.f, 1.f, 2.f, 3.f, 4.f, 5.f, 6.f, 7.f, 8.f, 9.f, 10.f, 11.f, 12.f, 13.f, 14.f, 15.f };
@@ -143,6 +165,21 @@ namespace HD_CommonUtilities
 			TestUtils::Vector4_AreEqual(point3D, 2.f, 0.f, 2.f, 1.f);
 		}
 
+		TEST_METHOD(ScaleInX)
+		{
+			Assert::IsTrue(false);
+		}
+
+		TEST_METHOD(ScaleInY)
+		{
+			Assert::IsTrue(false);
+		}
+
+		TEST_METHOD(ScaleInZ)
+		{
+			Assert::IsTrue(false);
+		}
+
 		TEST_METHOD(Operator_Equals)
 		{
 			HD_Matrix4x4f matrix1 = { 0.f, 1.f, 2.f, 3.f, 4.f, 5.f, 6.f, 7.f, 8.f, 9.f, 10.f, 11.f, 12.f, 13.f, 14.f, 15.f };
@@ -161,6 +198,86 @@ namespace HD_CommonUtilities
 
 			Assert::IsFalse(matrix1 != matrix2);
 			Assert::IsTrue(matrix1 != matrix3);
+		}
+
+		TEST_METHOD(GetRightVector)
+		{
+			Assert::IsTrue(false);
+		}
+
+		TEST_METHOD(GetUpVector)
+		{
+			Assert::IsTrue(false);
+		}
+
+		TEST_METHOD(GetForwardVector)
+		{
+			Assert::IsTrue(false);
+		}
+
+		TEST_METHOD(GetScaleInX)
+		{
+			Assert::IsTrue(false);
+		}
+
+		TEST_METHOD(GetScaleInY)
+		{
+			Assert::IsTrue(false);
+		}
+
+		TEST_METHOD(GetScaleInZ)
+		{
+			Assert::IsTrue(false);
+		}
+
+		TEST_METHOD(GetScaleInXYZ)
+		{
+			Assert::IsTrue(false);
+		}
+
+		TEST_METHOD(GetRotationAroundX)
+		{
+			Assert::IsTrue(false);
+		}
+
+		TEST_METHOD(GetRotationAroundY)
+		{
+			Assert::IsTrue(false);
+		}
+
+		TEST_METHOD(GetRotationAroundZ)
+		{
+			Assert::IsTrue(false);
+		}
+
+		TEST_METHOD(GetRotationAroundXYZ)
+		{
+			Assert::IsTrue(false);
+		}
+
+		TEST_METHOD(GetRotationAroundHPB)
+		{
+			Assert::IsTrue(false);
+		}
+
+		TEST_METHOD(GetPositionX)
+		{
+			Assert::IsTrue(false);
+		}
+
+		TEST_METHOD(GetPositionY)
+		{
+			Assert::IsTrue(false);
+		}
+
+		TEST_METHOD(GetPositionZ)
+		{
+			Assert::IsTrue(false);
+		}
+
+		TEST_METHOD(GetPosition)
+		{
+			Assert::IsTrue(false);
 		}
 
 		TEST_METHOD(GetTranspose)
@@ -183,10 +300,25 @@ namespace HD_CommonUtilities
 			);
 		}
 
+		TEST_METHOD(GetFastInverse)
+		{
+			Assert::IsTrue(false);
+		}
+
+		TEST_METHOD(Get3x3)
+		{
+			Assert::IsTrue(false);
+		}
+
+		TEST_METHOD(CreateScale)
+		{
+			Assert::IsTrue(false);
+		}
+
 		TEST_METHOD(CreateRotationAroundX)
 		{
 			HD_Vector4f vector(1.f, 1.f, 1.f, 0.f);
-			HD_Matrix4x4f rotation = HD_Matrix3x3f::CreateRotationAroundX(F_PI_HALF);
+			HD_Matrix4x4f rotation = HD_Matrix4x4f::CreateRotationAroundX(F_PI_HALF);
 
 			vector *= rotation;
 
@@ -196,7 +328,7 @@ namespace HD_CommonUtilities
 		TEST_METHOD(CreateRotationAroundY)
 		{
 			HD_Vector4f vector(1.f, 1.f, 1.f, 0.f);
-			HD_Matrix4x4f rotation = HD_Matrix3x3f::CreateRotationAroundY(F_PI_HALF);
+			HD_Matrix4x4f rotation = HD_Matrix4x4f::CreateRotationAroundY(F_PI_HALF);
 
 			vector *= rotation;
 
@@ -206,7 +338,7 @@ namespace HD_CommonUtilities
 		TEST_METHOD(CreateRotationAroundZ)
 		{
 			HD_Vector4f vector(1.f, 1.f, 1.f, 0.f);
-			HD_Matrix4x4f rotation = HD_Matrix3x3f::CreateRotationAroundZ(F_PI_HALF);
+			HD_Matrix4x4f rotation = HD_Matrix4x4f::CreateRotationAroundZ(F_PI_HALF);
 
 			vector *= rotation;
 

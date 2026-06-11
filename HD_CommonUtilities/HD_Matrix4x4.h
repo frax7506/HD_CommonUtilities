@@ -7,6 +7,9 @@
 #include <initializer_list>
 
 template<typename T>
+class HD_Vector3;
+
+template<typename T>
 class HD_Vector4;
 
 template<typename T>
@@ -32,14 +35,41 @@ public:
 	HD_Matrix4x4& operator-=(const HD_Matrix4x4& aMatrix);
 	HD_Matrix4x4& operator*=(const HD_Matrix4x4& aMatrix);
 
+	void ScaleInX(T aScalar);
+	void ScaleInY(T aScalar);
+	void ScaleInZ(T aScalar);
+
 	bool operator==(const HD_Matrix4x4& aMatrix) const;
 	bool operator!=(const HD_Matrix4x4& aMatrix) const;
 
+	HD_Vector3<T> GetRightVector() const;
+	HD_Vector3<T> GetUpVector() const;
+	HD_Vector3<T> GetForwardVector() const;
+
+	T GetScaleInX() const;
+	T GetScaleInY() const;
+	T GetScaleInZ() const;
+	HD_Vector3<T> GetScaleInXYZ() const;
+
+	T GetRotationAroundX() const;
+	T GetRotationAroundY() const;
+	T GetRotationAroundZ() const;
+	HD_Vector3<T> GetRotationInXYZ() const;
+	HD_Vector3<T> GetRotationInHPB() const;
+
+	T GetPositionX() const;
+	T GetPositionY() const;
+	T GetPositionZ() const;
+	HD_Vector3<T> GetPosition() const;
+
 	HD_Matrix4x4 GetTranspose() const;
+	HD_Matrix4x4 GetFastInverse() const;
+	HD_Matrix4x4 Get3x3() const;
 
 	T m11, m12, m13, m14, m21, m22, m23, m24, m31, m32, m33, m34, m41, m42, m43, m44;
 
 public:
+	static HD_Matrix4x4 CreateScale(T aScaleInX, T aScaleInY, T aScaleInZ);
 	static HD_Matrix4x4 CreateRotationAroundX(T aAngleInRadians);
 	static HD_Matrix4x4 CreateRotationAroundY(T aAngleInRadians);
 	static HD_Matrix4x4 CreateRotationAroundZ(T aAngleInRadians);
@@ -200,18 +230,205 @@ HD_Matrix4x4<T>& HD_Matrix4x4<T>::operator*=(const HD_Matrix4x4& aMatrix)
 }
 
 template<typename T>
+void HD_Matrix4x4<T>::ScaleInX(T aScalar)
+{
+	m11 *= aScalar;
+	m12 *= aScalar;
+	m13 *= aScalar;
+}
+
+template<typename T>
+void HD_Matrix4x4<T>::ScaleInY(T aScalar)
+{
+	m21 *= aScalar;
+	m22 *= aScalar;
+	m23 *= aScalar;
+}
+
+template<typename T>
+void HD_Matrix4x4<T>::ScaleInZ(T aScalar)
+{
+	m31 *= aScalar;
+	m32 *= aScalar;
+	m33 *= aScalar;
+}
+
+template<typename T>
 bool HD_Matrix4x4<T>::operator==(const HD_Matrix4x4& aMatrix) const
 {
-	return	m11 == aMatrix.m11 && m12 == aMatrix.m12 && m13 == aMatrix.m13 && m14 == aMatrix.m14 &&
-			m21 == aMatrix.m21 && m22 == aMatrix.m22 && m23 == aMatrix.m23 && m24 == aMatrix.m24 &&
-			m31 == aMatrix.m31 && m32 == aMatrix.m32 && m33 == aMatrix.m33 && m34 == aMatrix.m34 &&
-			m41 == aMatrix.m41 && m42 == aMatrix.m42 && m43 == aMatrix.m43 && m44 == aMatrix.m44;
+	return	HD_ARE_FLOAT_VALUES_CLOSE(m11, aMatrix.m11) &&
+			HD_ARE_FLOAT_VALUES_CLOSE(m12, aMatrix.m12) &&
+			HD_ARE_FLOAT_VALUES_CLOSE(m13, aMatrix.m13) &&
+			HD_ARE_FLOAT_VALUES_CLOSE(m14, aMatrix.m14) &&
+			HD_ARE_FLOAT_VALUES_CLOSE(m21, aMatrix.m21) &&
+			HD_ARE_FLOAT_VALUES_CLOSE(m22, aMatrix.m22) &&
+			HD_ARE_FLOAT_VALUES_CLOSE(m23, aMatrix.m23) &&
+			HD_ARE_FLOAT_VALUES_CLOSE(m24, aMatrix.m24) &&
+			HD_ARE_FLOAT_VALUES_CLOSE(m31, aMatrix.m31) &&
+			HD_ARE_FLOAT_VALUES_CLOSE(m32, aMatrix.m32) &&
+			HD_ARE_FLOAT_VALUES_CLOSE(m33, aMatrix.m33) &&
+			HD_ARE_FLOAT_VALUES_CLOSE(m34, aMatrix.m34) &&
+			HD_ARE_FLOAT_VALUES_CLOSE(m41, aMatrix.m41) &&
+			HD_ARE_FLOAT_VALUES_CLOSE(m42, aMatrix.m42) &&
+			HD_ARE_FLOAT_VALUES_CLOSE(m43, aMatrix.m43) &&
+			HD_ARE_FLOAT_VALUES_CLOSE(m44, aMatrix.m44);
 }
 
 template<typename T>
 bool HD_Matrix4x4<T>::operator!=(const HD_Matrix4x4& aMatrix) const
 {
 	return !((*this) == aMatrix);
+}
+
+template<typename T>
+HD_Vector3<T> HD_Matrix4x4<T>::GetRightVector() const
+{
+	return { m11, m12, m13 };
+}
+
+template<typename T>
+HD_Vector3<T> HD_Matrix4x4<T>::GetUpVector() const
+{
+	return { m21, m22, m23 };
+}
+
+template<typename T>
+HD_Vector3<T> HD_Matrix4x4<T>::GetForwardVector() const
+{
+	return { m31, m32, m33 };
+}
+
+template<typename T>
+T HD_Matrix4x4<T>::GetScaleInX() const
+{
+	T scaleInX = GetRightVector().Length();
+	return scaleInX;
+}
+
+template<typename T>
+T HD_Matrix4x4<T>::GetScaleInY() const
+{
+	T scaleInY = GetUpVector().Length();
+	return scaleInY;
+}
+
+template<typename T>
+T HD_Matrix4x4<T>::GetScaleInZ() const
+{
+	T scaleInZ = GetForwardVector().Length();
+	return scaleInZ;
+}
+
+template<typename T>
+HD_Vector3<T> HD_Matrix4x4<T>::GetScaleInXYZ() const
+{
+	T scaleInX = GetScaleInX();
+	T scaleInY = GetScaleInY();
+	T scaleInZ = GetScaleInZ();
+
+	return { scaleInX, scaleInY, scaleInZ };
+}
+
+template<typename T>
+T HD_Matrix4x4<T>::GetRotationAroundX() const
+{
+	HD_Vector3<T> xyz = GetRotationInXYZ();
+	return xyz.myX;
+}
+
+template<typename T>
+T HD_Matrix4x4<T>::GetRotationAroundY() const
+{
+	HD_Vector3<T> xyz = GetRotationInXYZ();
+	return xyz.myY;
+}
+
+template<typename T>
+T HD_Matrix4x4<T>::GetRotationAroundZ() const
+{
+	HD_Vector3<T> xyz = GetRotationInXYZ();
+	return xyz.myZ;
+}
+
+template<typename T>
+HD_Vector3<T> HD_Matrix4x4<T>::GetRotationInXYZ() const
+{
+	HD_Vector3<T> hpb = GetRotationInHPB();
+	HD_Vector3<T> xyz(hpb.myY, hpb.myX, hpb.myZ);
+	return xyz;
+}
+
+template<typename T>
+HD_Vector3<T> HD_Matrix4x4<T>::GetRotationInHPB() const
+{
+	// From https://gamemath.com/book/orient.html#matrix_to_euler
+
+	T heading = 0;
+	T pitch = 0;
+	T bank = 0;
+
+	// Extract pitch from m32, being careful for domain errors with
+	// asin(). We could have values slightly out of range due to
+	// floating point arithmetic.
+
+	T sinOfPitch = -1 * m32;
+	if (sinOfPitch <= -1)
+	{
+		pitch = F_PI_HALF;
+	}
+	else if (sinOfPitch >= 1)
+	{
+		pitch = -1 * F_PI_HALF;
+	}
+	else
+	{
+		pitch = HD_ArcSin(sinOfPitch);
+	}
+
+	// Check for the Gimbal lock case, giving a slight tolerance
+	// for numerical imprecision.
+
+	if (HD_Abs(sinOfPitch) > 0.9999)
+	{
+		// We are looking straight up or down.
+		// Set bank to zero and just set heading.
+		bank = 0;
+		heading = HD_ArcTan2(-1 * m13, m11);
+	}
+	else
+	{
+		// Compute heading from m13 and m33
+		heading = HD_ArcTan2(m31, m33);
+
+		// Compute bank from m21 and m22
+		bank = HD_ArcTan2(m12, m22);
+	}
+
+	return { heading, pitch, bank };
+}
+
+template<typename T>
+T HD_Matrix4x4<T>::GetPositionX() const
+{
+	return m31;
+}
+
+template<typename T>
+T HD_Matrix4x4<T>::GetPositionY() const
+{
+	return m32;
+}
+
+template<typename T>
+T HD_Matrix4x4<T>::GetPositionZ() const
+{
+	return m33;
+}
+
+template<typename T>
+HD_Vector3<T> HD_Matrix4x4<T>::GetPosition() const
+{
+	return { m31, m32, m33 };
 }
 
 template<typename T>
@@ -230,21 +447,80 @@ HD_Matrix4x4<T> HD_Matrix4x4<T>::GetTranspose() const
 }
 
 template<typename T>
+HD_Matrix4x4<T> HD_Matrix4x4<T>::GetFastInverse() const
+{
+	// htodo
+	return HD_Matrix4x4::Identity;
+}
+
+template<typename T>
+HD_Matrix4x4<T> HD_Matrix4x4<T>::Get3x3() const
+{
+	HD_Matrix4x4 result =
+	{
+		m11, m12, m13, 0,
+		m21, m22, m23, 0,
+		m31, m32, m33, 0,
+		0, 0, 0, 1
+	};
+
+	return result;
+}
+
+template<typename T>
+HD_Matrix4x4<T> HD_Matrix4x4<T>::CreateScale(T aScaleInX, T aScaleInY, T aScaleInZ)
+{
+	HD_Matrix4x4 result =
+	{
+		aScaleInX, 0, 0, 0,
+		0, aScaleInY, 0, 0,
+		0, 0, aScaleInZ, 0,
+		0, 0, 0, 1
+	};
+
+	return result;
+}
+
+template<typename T>
 HD_Matrix4x4<T> HD_Matrix4x4<T>::CreateRotationAroundX(T aAngleInRadians)
 {
-	return HD_Matrix3x3<T>::CreateRotationAroundX(aAngleInRadians);
+	HD_Matrix4x4 result =
+	{
+		1, 0, 0, 0,
+		0, HD_Cos(aAngleInRadians), HD_Sin(aAngleInRadians), 0,
+		0, -1 * HD_Sin(aAngleInRadians), HD_Cos(aAngleInRadians), 0,
+		0, 0, 0, 1
+	};
+
+	return result;
 }
 
 template<typename T>
 HD_Matrix4x4<T> HD_Matrix4x4<T>::CreateRotationAroundY(T aAngleInRadians)
 {
-	return HD_Matrix3x3<T>::CreateRotationAroundY(aAngleInRadians);
+	HD_Matrix4x4 result =
+	{
+		HD_Cos(aAngleInRadians), 0, -1 * HD_Sin(aAngleInRadians), 0,
+		0, 1, 0, 0,
+		HD_Sin(aAngleInRadians), 0, HD_Cos(aAngleInRadians), 0,
+		0, 0, 0, 1
+	};
+
+	return result;
 }
 
 template<typename T>
 HD_Matrix4x4<T> HD_Matrix4x4<T>::CreateRotationAroundZ(T aAngleInRadians)
 {
-	return HD_Matrix3x3<T>::CreateRotationAroundZ(aAngleInRadians);
+	HD_Matrix4x4 result =
+	{
+		HD_Cos(aAngleInRadians), HD_Sin(aAngleInRadians), 0, 0,
+		-1 * HD_Sin(aAngleInRadians), HD_Cos(aAngleInRadians), 0, 0,
+		0, 0, 1, 0,
+		0, 0, 0, 1
+	};
+
+	return result;
 }
 
 template<typename T>
