@@ -129,6 +129,7 @@ HD_Matrix4x4<T>& HD_Matrix4x4<T>::operator=(const HD_Matrix3x3<T>& aMatrix)
 template<typename T>
 HD_Matrix4x4<T>& HD_Matrix4x4<T>::operator=(std::initializer_list<T> aInitializerList)
 {
+	assert(aInitializerList.size() == 16);
 	memcpy(&m11, aInitializerList.begin(), 4 * 4 * sizeof(T));
 	return *this;
 }

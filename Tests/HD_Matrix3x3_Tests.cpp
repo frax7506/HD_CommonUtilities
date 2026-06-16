@@ -295,17 +295,31 @@ namespace HD_CommonUtilities
 
 		TEST_METHOD(GetFastInverse)
 		{
-			Assert::IsTrue(false);
+			HD_Matrix3x3f scale = HD_Matrix3x3f::CreateScale(2.f, 3.f);
+			HD_Matrix3x3f rotation = HD_Matrix3x3f::CreateRotation(F_PI_HALF);
+			HD_Matrix3x3f translation = HD_Matrix3x3f::CreateTranslation(1.f, 1.f);
+
+			HD_Matrix3x3f scaleRotationTranslation = scale * rotation * translation;
+			HD_Matrix3x3f inverse = scaleRotationTranslation.GetFastInverse();
+			HD_Matrix3x3f inversed = scaleRotationTranslation * inverse;
+
+			Assert::IsTrue(inversed == HD_Matrix3x3f::Identity);
 		}
 
 		TEST_METHOD(Get2x2)
 		{
-			Assert::IsTrue(false);
+			HD_Matrix3x3f matrix = { 0.f, 1.f, 2.f, 3.f, 4.f, 5.f, 6.f, 7.f, 8.f };
+			HD_Matrix3x3f twoByTwo = matrix.Get2x2();
+			TestUtils::Matrix3x3_AreEqual(twoByTwo, 0.f, 1.f, 0.f, 3.f, 4.f, 0.f, 0.f, 0.f, 1.f);
 		}
 
 		TEST_METHOD(CreateScale)
 		{
-			Assert::IsTrue(false);
+			HD_Vector3f vector(1.f, 1.f, 0.f);
+			vector *= HD_Matrix3x3f::CreateScale(2.f, 3.f);
+
+			Assert::AreEqual(vector.myX, 2.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(vector.myY, 3.f, FLOAT_EQUAL_TOLERANCE);
 		}
 
 		TEST_METHOD(CreateRotation)

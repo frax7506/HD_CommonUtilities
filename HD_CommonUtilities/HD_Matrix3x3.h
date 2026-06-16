@@ -119,6 +119,7 @@ HD_Matrix3x3<T>& HD_Matrix3x3<T>::operator=(const HD_Matrix4x4<T>& aMatrix)
 template<typename T>
 HD_Matrix3x3<T>& HD_Matrix3x3<T>::operator=(std::initializer_list<T> aInitializerList)
 {
+	assert(aInitializerList.size() == 9);
 	memcpy(this, aInitializerList.begin(), 3 * 3 * sizeof(T));
 	return *this;
 }
@@ -285,9 +286,20 @@ HD_Matrix3x3<T> HD_Matrix3x3<T>::GetTranspose() const
 template<typename T>
 HD_Matrix3x3<T> HD_Matrix3x3<T>::GetFastInverse() const
 {
+	// Assumes that this matrix is composed as an SRT matrix (scale, rotation, translation), which
+	// means the inverse is the inverse of each operation in reverse order: T^-1 * R^-1 * S^-1.
+
 	HD_Matrix3x3 translationInverse = CreateTranslation(-1 * m31, -1 * m32);
-	HD_Matrix3x3 rotationInverse = Get2x2().GetTranspose();
 	HD_Matrix3x3 scaleInverse = CreateScale(1 / GetScaleInX(), 1 / GetScaleInY());
+
+	// At this point rotationInverse still holds a scaling as well. It's removed by normalizing its
+	// right and up vectors. Multiplying by scaleInverse doesn't work since CreateScale assumes no
+	// rotation.
+	HD_Matrix3x3 rotationInverse = Get2x2().GetTranspose();
+	HD_Vector2<T>& rightVector = *reinterpret_cast<HD_Vector2<T>*>(&rotationInverse.m11);
+	HD_Vector2<T>& upVector = *reinterpret_cast<HD_Vector2<T>*>(&rotationInverse.m21);
+	rightVector.Normalize();
+	upVector.Normalize();
 
 	HD_Matrix3x3 inverse = translationInverse * rotationInverse * scaleInverse;
 	return inverse;
