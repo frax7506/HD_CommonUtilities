@@ -296,10 +296,8 @@ HD_Matrix3x3<T> HD_Matrix3x3<T>::GetFastInverse() const
 	// right and up vectors. Multiplying by scaleInverse doesn't work since CreateScale assumes no
 	// rotation.
 	HD_Matrix3x3 rotationInverse = Get2x2().GetTranspose();
-	HD_Vector2<T>& rightVector = *reinterpret_cast<HD_Vector2<T>*>(&rotationInverse.m11);
-	HD_Vector2<T>& upVector = *reinterpret_cast<HD_Vector2<T>*>(&rotationInverse.m21);
-	rightVector.Normalize();
-	upVector.Normalize();
+	reinterpret_cast<HD_Vector2<T>*>(&rotationInverse.m11)->Normalize();
+	reinterpret_cast<HD_Vector2<T>*>(&rotationInverse.m21)->Normalize();
 
 	HD_Matrix3x3 inverse = translationInverse * rotationInverse * scaleInverse;
 	return inverse;

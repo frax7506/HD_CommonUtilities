@@ -167,17 +167,29 @@ namespace HD_CommonUtilities
 
 		TEST_METHOD(ScaleInX)
 		{
-			Assert::IsTrue(false);
+			HD_Matrix4x4f matrix = HD_Matrix4x4f::Identity;
+			matrix.ScaleInX(2.f);
+			f32 scaleInX = matrix.GetScaleInX();
+
+			Assert::AreEqual(scaleInX, 2.f, FLOAT_EQUAL_TOLERANCE);
 		}
 
 		TEST_METHOD(ScaleInY)
 		{
-			Assert::IsTrue(false);
+			HD_Matrix4x4f matrix = HD_Matrix4x4f::Identity;
+			matrix.ScaleInY(2.f);
+			f32 scaleInX = matrix.GetScaleInY();
+
+			Assert::AreEqual(scaleInX, 2.f, FLOAT_EQUAL_TOLERANCE);
 		}
 
 		TEST_METHOD(ScaleInZ)
 		{
-			Assert::IsTrue(false);
+			HD_Matrix4x4f matrix = HD_Matrix4x4f::Identity;
+			matrix.ScaleInZ(2.f);
+			f32 scaleInX = matrix.GetScaleInZ();
+
+			Assert::AreEqual(scaleInX, 2.f, FLOAT_EQUAL_TOLERANCE);
 		}
 
 		TEST_METHOD(Operator_Equals)
@@ -202,82 +214,153 @@ namespace HD_CommonUtilities
 
 		TEST_METHOD(GetRightVector)
 		{
-			Assert::IsTrue(false);
+			HD_Matrix4x4f identity = HD_Matrix4x4f::Identity;
+			HD_Matrix4x4f rotated90InY = HD_Matrix4x4f::CreateRotationAroundY(F_PI_HALF);
+
+			HD_Vector3f identityRight = identity.GetRightVector();
+			HD_Vector3f rotated90InYRight = rotated90InY.GetRightVector();
+
+			TestUtils::Vector3_AreEqual(identityRight, 1.f, 0.f, 0.f);
+			TestUtils::Vector3_AreEqual(rotated90InYRight, 0.f, 0.f, -1.f);
 		}
 
 		TEST_METHOD(GetUpVector)
 		{
-			Assert::IsTrue(false);
+			HD_Matrix4x4f identity = HD_Matrix4x4f::Identity;
+			HD_Matrix4x4f rotated90InZ = HD_Matrix4x4f::CreateRotationAroundZ(F_PI_HALF);
+
+			HD_Vector3f identityUp = identity.GetUpVector();
+			HD_Vector3f rotated90InZUp = rotated90InZ.GetUpVector();
+
+			TestUtils::Vector3_AreEqual(identityUp, 0.f, 1.f, 0.f);
+			TestUtils::Vector3_AreEqual(rotated90InZUp, -1.f, 0.f, 0.f);
 		}
 
 		TEST_METHOD(GetForwardVector)
 		{
-			Assert::IsTrue(false);
+			HD_Matrix4x4f identity = HD_Matrix4x4f::Identity;
+			HD_Matrix4x4f rotated90InX = HD_Matrix4x4f::CreateRotationAroundX(F_PI_HALF);
+
+			HD_Vector3f identityUp = identity.GetUpVector();
+			HD_Vector3f rotated90InXUp = rotated90InX.GetUpVector();
+
+			TestUtils::Vector3_AreEqual(identityUp, 0.f, 1.f, 0.f);
+			TestUtils::Vector3_AreEqual(rotated90InXUp, 0.f, 0.f, 1.f);
 		}
 
 		TEST_METHOD(GetScaleInX)
 		{
-			Assert::IsTrue(false);
+			HD_Matrix4x4f matrix = HD_Matrix4x4f::Identity;
+			matrix.ScaleInX(2.f);
+			f32 scaleInX = matrix.GetScaleInX();
+
+			Assert::AreEqual(scaleInX, 2.f, FLOAT_EQUAL_TOLERANCE);
 		}
 
 		TEST_METHOD(GetScaleInY)
 		{
-			Assert::IsTrue(false);
+			HD_Matrix4x4f matrix = HD_Matrix4x4f::Identity;
+			matrix.ScaleInY(2.f);
+			f32 scaleInY = matrix.GetScaleInY();
+
+			Assert::AreEqual(scaleInY, 2.f, FLOAT_EQUAL_TOLERANCE);
 		}
 
 		TEST_METHOD(GetScaleInZ)
 		{
-			Assert::IsTrue(false);
+			HD_Matrix4x4f matrix = HD_Matrix4x4f::Identity;
+			matrix.ScaleInZ(2.f);
+			f32 scaleInZ = matrix.GetScaleInZ();
+
+			Assert::AreEqual(scaleInZ, 2.f, FLOAT_EQUAL_TOLERANCE);
 		}
 
 		TEST_METHOD(GetScaleInXYZ)
 		{
-			Assert::IsTrue(false);
+			HD_Matrix4x4f matrix = HD_Matrix4x4f::Identity;
+			matrix.ScaleInX(2.f);
+			matrix.ScaleInY(3.f);
+			matrix.ScaleInZ(4.f);
+			HD_Vector3f scaleInXYZ = matrix.GetScaleInXYZ();
+
+			TestUtils::Vector3_AreEqual(scaleInXYZ, 2.f, 3.f, 4.f);
 		}
 
 		TEST_METHOD(GetRotationAroundX)
 		{
-			Assert::IsTrue(false);
+			HD_Matrix4x4f matrix = HD_Matrix4x4f::CreateRotationAroundX(F_PI / 4.f);
+			f32 rotation = matrix.GetRotationAroundX();
+			Assert::AreEqual(rotation, F_PI / 4.f, FLOAT_EQUAL_TOLERANCE);
 		}
 
 		TEST_METHOD(GetRotationAroundY)
 		{
-			Assert::IsTrue(false);
+			HD_Matrix4x4f matrix = HD_Matrix4x4f::CreateRotationAroundY(F_PI / 4.f);
+			f32 rotation = matrix.GetRotationAroundY();
+			Assert::AreEqual(rotation, F_PI / 4.f, FLOAT_EQUAL_TOLERANCE);
 		}
 
 		TEST_METHOD(GetRotationAroundZ)
 		{
-			Assert::IsTrue(false);
+			HD_Matrix4x4f matrix = HD_Matrix4x4f::CreateRotationAroundZ(F_PI / 4.f);
+			f32 rotation = matrix.GetRotationAroundZ();
+			Assert::AreEqual(rotation, F_PI / 4.f, FLOAT_EQUAL_TOLERANCE);
 		}
 
-		TEST_METHOD(GetRotationAroundXYZ)
+		TEST_METHOD(GetRotationInXYZ)
 		{
-			Assert::IsTrue(false);
+			HD_Matrix4x4f matrix = HD_Matrix4x4f::Identity;
+			matrix *= HD_Matrix4x4f::CreateRotationAroundX(F_PI / 4.f);
+			matrix *= HD_Matrix4x4f::CreateRotationAroundY(F_PI / 4.f);
+
+			HD_Vector3f rotation = matrix.GetRotationInXYZ();
+			TestUtils::Vector3_AreEqual(rotation, F_PI / 4.f, F_PI / 4.f, 0.f);
 		}
 
-		TEST_METHOD(GetRotationAroundHPB)
+		TEST_METHOD(GetRotationInHPB)
 		{
-			Assert::IsTrue(false);
+			HD_Matrix4x4f matrix = HD_Matrix4x4f::Identity;
+			matrix *= HD_Matrix4x4f::CreateRotationAroundX(F_PI / 4.f);
+			matrix *= HD_Matrix4x4f::CreateRotationAroundY(F_PI / 4.f);
+
+			HD_Vector3f rotation = matrix.GetRotationInHPB();
+			TestUtils::Vector3_AreEqual(rotation, F_PI / 4.f, F_PI / 4.f, 0.f);
 		}
 
 		TEST_METHOD(GetPositionX)
 		{
-			Assert::IsTrue(false);
+			HD_Matrix4x4f matrix = HD_Matrix4x4f::Identity;
+			matrix *= HD_Matrix4x4f::CreateTranslation(2.f, 3.f, 4.f);
+
+			f32 positionX = matrix.GetPositionX();
+			Assert::AreEqual(positionX, 2.f, FLOAT_EQUAL_TOLERANCE);
 		}
 
 		TEST_METHOD(GetPositionY)
 		{
-			Assert::IsTrue(false);
+			HD_Matrix4x4f matrix = HD_Matrix4x4f::Identity;
+			matrix *= HD_Matrix4x4f::CreateTranslation(2.f, 3.f, 4.f);
+
+			f32 positionY = matrix.GetPositionY();
+			Assert::AreEqual(positionY, 3.f, FLOAT_EQUAL_TOLERANCE);
 		}
 
 		TEST_METHOD(GetPositionZ)
 		{
-			Assert::IsTrue(false);
+			HD_Matrix4x4f matrix = HD_Matrix4x4f::Identity;
+			matrix *= HD_Matrix4x4f::CreateTranslation(2.f, 3.f, 4.f);
+
+			f32 positionZ = matrix.GetPositionZ();
+			Assert::AreEqual(positionZ, 4.f, FLOAT_EQUAL_TOLERANCE);
 		}
 
 		TEST_METHOD(GetPosition)
 		{
-			Assert::IsTrue(false);
+			HD_Matrix4x4f matrix = HD_Matrix4x4f::Identity;
+			matrix *= HD_Matrix4x4f::CreateTranslation(2.f, 3.f, 4.f);
+
+			HD_Vector3f position = matrix.GetPosition();
+			TestUtils::Vector3_AreEqual(position, 2.f, 3.f, 4.f);
 		}
 
 		TEST_METHOD(GetTranspose)
@@ -302,17 +385,30 @@ namespace HD_CommonUtilities
 
 		TEST_METHOD(GetFastInverse)
 		{
-			Assert::IsTrue(false);
+			HD_Matrix4x4f scale = HD_Matrix4x4f::CreateScale(2.f, 3.f, 4.f);
+			HD_Matrix4x4f rotation = HD_Matrix4x4f::CreateRotationAroundX(F_PI_HALF);
+			HD_Matrix4x4f translation = HD_Matrix4x4f::CreateTranslation(1.f, 1.f, 1.f);
+
+			HD_Matrix4x4f scaleRotationTranslation = scale * rotation * translation;
+			HD_Matrix4x4f inverse = scaleRotationTranslation.GetFastInverse();
+			HD_Matrix4x4f inversed = scaleRotationTranslation * inverse;
+
+			Assert::IsTrue(inversed == HD_Matrix4x4f::Identity);
 		}
 
 		TEST_METHOD(Get3x3)
 		{
-			Assert::IsTrue(false);
+			HD_Matrix4x4f matrix = { 0.f, 1.f, 2.f, 3.f, 4.f, 5.f, 6.f, 7.f, 8.f, 9.f, 10.f, 11.f, 12.f, 13.f, 14.f, 15.f };
+			HD_Matrix4x4f threeByThree = matrix.Get3x3();
+			TestUtils::Matrix4x4_AreEqual(threeByThree, 0.f, 1.f, 2.f, 0.f, 4.f, 5.f, 6.f, 0.f, 8.f, 9.f, 10.f, 0.f, 0.f, 0.f, 0.f, 1.f);
 		}
 
 		TEST_METHOD(CreateScale)
 		{
-			Assert::IsTrue(false);
+			HD_Vector4f vector(1.f, 1.f, 1.f, 0.f);
+			vector *= HD_Matrix4x4f::CreateScale(2.f, 3.f, 4.f);
+
+			TestUtils::Vector4_AreEqual(vector, 2.f, 3.f, 4.f, 0.f);
 		}
 
 		TEST_METHOD(CreateRotationAroundX)

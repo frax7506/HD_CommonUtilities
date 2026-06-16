@@ -411,25 +411,25 @@ HD_Vector3<T> HD_Matrix4x4<T>::GetRotationInHPB() const
 template<typename T>
 T HD_Matrix4x4<T>::GetPositionX() const
 {
-	return m31;
+	return m41;
 }
 
 template<typename T>
 T HD_Matrix4x4<T>::GetPositionY() const
 {
-	return m32;
+	return m42;
 }
 
 template<typename T>
 T HD_Matrix4x4<T>::GetPositionZ() const
 {
-	return m33;
+	return m43;
 }
 
 template<typename T>
 HD_Vector3<T> HD_Matrix4x4<T>::GetPosition() const
 {
-	return { m31, m32, m33 };
+	return { m41, m42, m43 };
 }
 
 template<typename T>
@@ -450,8 +450,22 @@ HD_Matrix4x4<T> HD_Matrix4x4<T>::GetTranspose() const
 template<typename T>
 HD_Matrix4x4<T> HD_Matrix4x4<T>::GetFastInverse() const
 {
-	// htodo
-	return HD_Matrix4x4::Identity;
+	// Assumes that this matrix is composed as an SRT matrix (scale, rotation, translation), which
+	// means the inverse is the inverse of each operation in reverse order: T^-1 * R^-1 * S^-1.
+
+	HD_Matrix4x4 translationInverse = CreateTranslation(-1 * m41, -1 * m42, -1 * m43);
+	HD_Matrix4x4 scaleInverse = CreateScale(1 / GetScaleInX(), 1 / GetScaleInY(), 1 / GetScaleInZ());
+
+	// At this point rotationInverse still holds a scaling as well. It's removed by normalizing its
+	// right and up vectors. Multiplying by scaleInverse doesn't work since CreateScale assumes no
+	// rotation.
+	HD_Matrix4x4 rotationInverse = Get3x3().GetTranspose();
+	reinterpret_cast<HD_Vector3<T>*>(&rotationInverse.m11)->Normalize();
+	reinterpret_cast<HD_Vector3<T>*>(&rotationInverse.m21)->Normalize();
+	reinterpret_cast<HD_Vector3<T>*>(&rotationInverse.m31)->Normalize();
+
+	HD_Matrix4x4 inverse = translationInverse * rotationInverse * scaleInverse;
+	return inverse;
 }
 
 template<typename T>

@@ -251,7 +251,7 @@ namespace HD_CommonUtilities
 		TEST_METHOD(GetPositionX)
 		{
 			HD_Matrix3x3f matrix = HD_Matrix3x3f::Identity;
-			matrix *= HD_Matrix3x3f::CreateTranslation(2.f, 2.f);
+			matrix *= HD_Matrix3x3f::CreateTranslation(2.f, 3.f);
 
 			f32 positionX = matrix.GetPositionX();
 			Assert::AreEqual(positionX, 2.f, FLOAT_EQUAL_TOLERANCE);
@@ -260,19 +260,19 @@ namespace HD_CommonUtilities
 		TEST_METHOD(GetPositionY)
 		{
 			HD_Matrix3x3f matrix = HD_Matrix3x3f::Identity;
-			matrix *= HD_Matrix3x3f::CreateTranslation(2.f, 2.f);
+			matrix *= HD_Matrix3x3f::CreateTranslation(2.f, 3.f);
 
 			f32 positionY = matrix.GetPositionY();
-			Assert::AreEqual(positionY, 2.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(positionY, 3.f, FLOAT_EQUAL_TOLERANCE);
 		}
 
 		TEST_METHOD(GetPosition)
 		{
 			HD_Matrix3x3f matrix = HD_Matrix3x3f::Identity;
-			matrix *= HD_Matrix3x3f::CreateTranslation(2.f, 2.f);
+			matrix *= HD_Matrix3x3f::CreateTranslation(2.f, 3.f);
 
 			HD_Vector2f position = matrix.GetPosition();
-			TestUtils::Vector2_AreEqual(position, 2.f, 2.f);
+			TestUtils::Vector2_AreEqual(position, 2.f, 3.f);
 		}
 
 		TEST_METHOD(GetTranspose)
@@ -318,8 +318,7 @@ namespace HD_CommonUtilities
 			HD_Vector3f vector(1.f, 1.f, 0.f);
 			vector *= HD_Matrix3x3f::CreateScale(2.f, 3.f);
 
-			Assert::AreEqual(vector.myX, 2.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(vector.myY, 3.f, FLOAT_EQUAL_TOLERANCE);
+			TestUtils::Vector3_AreEqual(vector, 2.f, 3.f, 0.f);
 		}
 
 		TEST_METHOD(CreateRotation)
