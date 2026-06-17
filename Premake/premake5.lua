@@ -53,6 +53,7 @@ project("HD_CommonUtilities")
 		["Math"] =
 		{
 			sourceHDCommonUtilitiesPath .. "HD_AABB_2D.h",
+			sourceHDCommonUtilitiesPath .. "HD_AABB_3D.h",
 			sourceHDCommonUtilitiesPath .. "HD_Camera.h",
 			sourceHDCommonUtilitiesPath .. "HD_Math.h",
 			sourceHDCommonUtilitiesPath .. "HD_Matrix.h",
@@ -128,7 +129,7 @@ project("Tests")
 	{
 		["Containers"] =
 		{
-			sourceTestsPath .. "HD_AABB_2D_Tests.cpp",
+			
 			sourceTestsPath .. "HD_Bitset_Tests.cpp",
 			sourceTestsPath .. "HD_CircularArray_Tests.cpp",
 			sourceTestsPath .. "HD_DataBuffer_Tests.cpp",
@@ -143,6 +144,8 @@ project("Tests")
 		},
 		["Math"] =
 		{
+			sourceTestsPath .. "HD_AABB_2D_Tests.cpp",
+			sourceTestsPath .. "HD_AABB_3D_Tests.cpp",
 			sourceTestsPath .. "HD_Math_Tests.cpp",
 			sourceTestsPath .. "HD_Matrix3x3_Tests.cpp",
 			sourceTestsPath .. "HD_Matrix4x4_Tests.cpp",
