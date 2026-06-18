@@ -1,6 +1,9 @@
 projectRootFolder = ".."
 projectRootPath = projectRootFolder .. "/"
 
+projectFilesHDCommonUtilitiesFolder = projectRootPath .. "ProjectFiles/HD_CommonUtilities"
+projectFilesTestsFolder = projectRootPath .. "ProjectFiles/Tests"
+
 sourceHDCommonUtilitiesFolder = projectRootPath .. "Source/HD_CommonUtilities"
 sourceHDCommonUtilitiesPath = sourceHDCommonUtilitiesFolder .. "/"
 sourceHDCommonUtilitiesContainersFolder = sourceHDCommonUtilitiesPath .. "Containers"
@@ -38,7 +41,7 @@ project("HD_CommonUtilities")
 	targetname("HD_CommonUtilities_$(Configuration)")
 	targetdir("$(SolutionDir)Output/HD_CommonUtilities")
 	objdir("$(Solutiondir)Intermediate/HD_CommonUtilities")
-	location(sourceHDCommonUtilitiesFolder)
+	location(projectFilesHDCommonUtilitiesFolder)
 	pchheader("stdafx.h")
 	pchsource(sourceHDCommonUtilitiesPath .. "stdafx.cpp")
 	files
@@ -88,7 +91,7 @@ project("Tests")
 	targetname("Tests_$(Configuration)")
 	targetdir("$(SolutionDir)Output/Tests")
 	objdir("$(SolutionDir)Intermediate/Tests")
-	location(sourceTestsFolder)
+	location(projectFilesTestsFolder)
 	pchheader("stdafx.h")
 	pchsource(sourceTestsPath .. "stdafx.cpp")
 	files

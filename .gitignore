@@ -5,6 +5,8 @@
 
 /Output
 
+/ProjectFiles
+
 *.vcxproj
 *.vcxproj.filters
 *.vcxproj.user
