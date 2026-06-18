@@ -1,11 +1,29 @@
 projectRootFolder = ".."
 projectRootPath = projectRootFolder .. "/"
 
-sourceHDCommonUtilitiesFolder = projectRootPath .. "HD_CommonUtilities"
+sourceHDCommonUtilitiesFolder = projectRootPath .. "Source/HD_CommonUtilities"
 sourceHDCommonUtilitiesPath = sourceHDCommonUtilitiesFolder .. "/"
+sourceHDCommonUtilitiesContainersFolder = sourceHDCommonUtilitiesPath .. "Containers"
+sourceHDCommonUtilitiesContainersPath = sourceHDCommonUtilitiesContainersFolder .. "/"
+sourceHDCommonUtilitiesMathFolder = sourceHDCommonUtilitiesPath .. "Math"
+sourceHDCommonUtilitiesMathPath = sourceHDCommonUtilitiesMathFolder .. "/"
+sourceHDCommonUtilitiesMiscFolder = sourceHDCommonUtilitiesPath .. "Misc"
+sourceHDCommonUtilitiesMiscPath = sourceHDCommonUtilitiesMiscFolder .. "/"
+sourceHDCommonUtilitiesNatvisFolder = sourceHDCommonUtilitiesPath .. "Natvis"
+sourceHDCommonUtilitiesNatvisPath = sourceHDCommonUtilitiesNatvisFolder .. "/"
+sourceHDCommonUtilitiesProfilingFolder = sourceHDCommonUtilitiesPath .. "Profiling"
+sourceHDCommonUtilitiesProfilingPath = sourceHDCommonUtilitiesProfilingFolder .. "/"
 
-sourceTestsFolder = projectRootPath .. "Tests"
+sourceTestsFolder = projectRootPath .. "Source/Tests"
 sourceTestsPath = sourceTestsFolder .. "/"
+sourceTestsContainersFolder = sourceTestsPath .. "Containers"
+sourceTestsContainersPath = sourceTestsContainersFolder .. "/"
+sourceTestsMathFolder = sourceTestsPath .. "Math"
+sourceTestsMathPath = sourceTestsMathFolder .. "/"
+sourceTestsMiscFolder = sourceTestsPath .. "Misc"
+sourceTestsMiscPath = sourceTestsMiscFolder .. "/"
+sourceTestsUtilsFolder = sourceTestsPath .. "Utils"
+sourceTestsUtilsPath = sourceTestsUtilsFolder .. "/"
 
 workspace("HD_CommonUtilities")
 	configurations({ "Debug", "Release", "Retail" })
@@ -21,9 +39,27 @@ project("HD_CommonUtilities")
 	targetdir("$(SolutionDir)Output/HD_CommonUtilities")
 	objdir("$(Solutiondir)Intermediate/HD_CommonUtilities")
 	location(sourceHDCommonUtilitiesFolder)
-	files({ sourceHDCommonUtilitiesPath.. "*.h", sourceHDCommonUtilitiesPath .. "*.cpp", sourceHDCommonUtilitiesPath .. "HD_CommonUtilities.natvis" })
 	pchheader("stdafx.h")
 	pchsource(sourceHDCommonUtilitiesPath .. "stdafx.cpp")
+	files
+	{
+		sourceHDCommonUtilitiesContainersPath .. "*.h",
+		sourceHDCommonUtilitiesMathPath .. "*.h",
+		sourceHDCommonUtilitiesMiscPath .. "*.h",
+		sourceHDCommonUtilitiesMiscPath .. "*.cpp",
+		sourceHDCommonUtilitiesNatvisPath .. "*.natvis",
+		sourceHDCommonUtilitiesProfilingPath .. "*.h",
+		sourceHDCommonUtilitiesProfilingPath .. "*.cpp",
+		sourceHDCommonUtilitiesPath .. "stdafx.h",
+		sourceHDCommonUtilitiesPath .. "stdafx.cpp"
+	}
+	
+	includedirs
+	{
+		sourceHDCommonUtilitiesContainersFolder,
+		sourceHDCommonUtilitiesMathFolder,
+		sourceHDCommonUtilitiesMiscFolder
+	}
 		
 	warnings("Extra")
 	fatalwarnings("All")
@@ -36,66 +72,11 @@ project("HD_CommonUtilities")
 	
 	vpaths
 	{
-		["Containers"] =
-		{
-			sourceHDCommonUtilitiesPath .. "HD_ArrayIterator.h",
-			sourceHDCommonUtilitiesPath .. "HD_Bitset.h",
-			sourceHDCommonUtilitiesPath .. "HD_CircularArray.h",
-			sourceHDCommonUtilitiesPath .. "HD_DataBuffer.h",
-			sourceHDCommonUtilitiesPath .. "HD_GrowingArray.h",
-			sourceHDCommonUtilitiesPath .. "HD_HashMap.h",
-			sourceHDCommonUtilitiesPath .. "HD_Map.h",
-			sourceHDCommonUtilitiesPath .. "HD_Pair.h",
-			sourceHDCommonUtilitiesPath .. "HD_StaticArray.h",
-			sourceHDCommonUtilitiesPath .. "HD_StaticStack.h",
-			sourceHDCommonUtilitiesPath .. "HD_String.h"
-		},
-		["Math"] =
-		{
-			sourceHDCommonUtilitiesPath .. "HD_AABB_2D.h",
-			sourceHDCommonUtilitiesPath .. "HD_AABB_3D.h",
-			sourceHDCommonUtilitiesPath .. "HD_Camera.h",
-			sourceHDCommonUtilitiesPath .. "HD_Math.h",
-			sourceHDCommonUtilitiesPath .. "HD_Matrix.h",
-			sourceHDCommonUtilitiesPath .. "HD_Matrix3x3.h",
-			sourceHDCommonUtilitiesPath .. "HD_Matrix4x4.h",
-			sourceHDCommonUtilitiesPath .. "HD_Vector2.h",
-			sourceHDCommonUtilitiesPath .. "HD_Vector3.h",
-			sourceHDCommonUtilitiesPath .. "HD_Vector4.h"
-		},
-		["Misc"] =
-		{
-			sourceHDCommonUtilitiesPath .. "HD_ExeArgs.h",
-			sourceHDCommonUtilitiesPath .. "HD_ExeArgs.cpp",
-			sourceHDCommonUtilitiesPath .. "HD_Format.h",
-			sourceHDCommonUtilitiesPath .. "HD_Hash.h",
-			sourceHDCommonUtilitiesPath .. "HD_IsFundamental.h",
-			sourceHDCommonUtilitiesPath .. "HD_Logger.h",
-			sourceHDCommonUtilitiesPath .. "HD_Logger.cpp",
-			sourceHDCommonUtilitiesPath .. "HD_Move.h",
-			sourceHDCommonUtilitiesPath .. "HD_PreprocessorMacros.h",
-			sourceHDCommonUtilitiesPath .. "HD_Random.h",
-			sourceHDCommonUtilitiesPath .. "HD_Random.cpp",
-			sourceHDCommonUtilitiesPath .. "HD_SafeDelete.h",
-			sourceHDCommonUtilitiesPath .. "HD_Singleton.h",
-			sourceHDCommonUtilitiesPath .. "HD_StringUtils.h",
-			sourceHDCommonUtilitiesPath .. "HD_Swap.h",
-			sourceHDCommonUtilitiesPath .. "HD_Time.h",
-			sourceHDCommonUtilitiesPath .. "HD_Time.cpp",
-			sourceHDCommonUtilitiesPath .. "HD_Types.h",
-			sourceHDCommonUtilitiesPath .. "HD_TypeTraits.h",
-			sourceHDCommonUtilitiesPath .. "HD_Unused.h",
-			sourceHDCommonUtilitiesPath .. "OptimizedWindowsInclude.h"
-		},
-		["Natvis"] =
-		{
-			sourceHDCommonUtilitiesPath .. "HD_CommonUtilities.natvis"
-		},
-		["Profiling"] =
-		{
-			sourceHDCommonUtilitiesPath .. "HD_ScopedTimer.h",
-			sourceHDCommonUtilitiesPath .. "HD_ScopedTimer.cpp"
-		}
+		["Containers"] = sourceHDCommonUtilitiesContainersPath .. "*.h",
+		["Math"] = sourceHDCommonUtilitiesMathPath .. "*.h",
+		["Misc"] = { sourceHDCommonUtilitiesMiscPath .. "*.h", sourceHDCommonUtilitiesMiscPath .. ".*cpp" },
+		["Natvis"] = sourceHDCommonUtilitiesNatvisPath .. "*.natvis",
+		["Profiling"] = { sourceHDCommonUtilitiesProfilingPath .. "*.h", sourceHDCommonUtilitiesProfilingPath .. "*.cpp" }
 	}
 	
 project("Tests")
@@ -108,13 +89,27 @@ project("Tests")
 	targetdir("$(SolutionDir)Output/Tests")
 	objdir("$(SolutionDir)Intermediate/Tests")
 	location(sourceTestsFolder)
-	files({ sourceTestsPath .. "*.h", sourceTestsPath .. "*.cpp" })
 	pchheader("stdafx.h")
 	pchsource(sourceTestsPath .. "stdafx.cpp")
+	files
+	{
+		sourceTestsContainersPath .. "*.cpp",
+		sourceTestsMathPath .. "*.cpp",
+		sourceTestsMiscPath .. "*.cpp",
+		sourceTestsUtilsPath .. "*.cpp",
+		sourceTestsPath .. "stdafx.h",
+		sourceTestsPath .. "stdafx.cpp"
+	}
 	
 	libdirs("$(SolutionDir)Output/HD_CommonUtilities")
 	links("HD_CommonUtilities_$(Configuration)")
-	includedirs(sourceHDCommonUtilitiesFolder)
+	includedirs
+	{
+		sourceHDCommonUtilitiesContainersFolder,
+		sourceHDCommonUtilitiesMathFolder,
+		sourceHDCommonUtilitiesMiscFolder,
+		sourceTestsUtilsFolder
+	}
 	
 	warnings("Extra")
 	fatalwarnings("All")
@@ -127,41 +122,8 @@ project("Tests")
 	
 	vpaths
 	{
-		["Containers"] =
-		{
-			
-			sourceTestsPath .. "HD_Bitset_Tests.cpp",
-			sourceTestsPath .. "HD_CircularArray_Tests.cpp",
-			sourceTestsPath .. "HD_DataBuffer_Tests.cpp",
-			sourceTestsPath .. "HD_GrowingArray_Tests.cpp",
-			sourceTestsPath .. "HD_HashMap_Tests.cpp",
-			sourceTestsPath .. "HD_Logger_Tests.cpp",
-			sourceTestsPath .. "HD_Map_Tests.cpp",
-			sourceTestsPath .. "HD_Pair_Tests.cpp",
-			sourceTestsPath .. "HD_StaticArray_Tests.cpp",
-			sourceTestsPath .. "HD_StaticStack_Tests.cpp",
-			sourceTestsPath .. "HD_String_Tests.cpp"
-		},
-		["Math"] =
-		{
-			sourceTestsPath .. "HD_AABB_2D_Tests.cpp",
-			sourceTestsPath .. "HD_AABB_3D_Tests.cpp",
-			sourceTestsPath .. "HD_Math_Tests.cpp",
-			sourceTestsPath .. "HD_Matrix3x3_Tests.cpp",
-			sourceTestsPath .. "HD_Matrix4x4_Tests.cpp",
-			sourceTestsPath .. "HD_Vector2_Tests.cpp",
-			sourceTestsPath .. "HD_Vector3_Tests.cpp",
-			sourceTestsPath .. "HD_Vector4_Tests.cpp"
-		},
-		["Misc"] =
-		{
-			sourceTestsPath .. "HD_ExeArgs_Tests.cpp",
-			sourceTestsPath .. "HD_Format_Tests.cpp",
-			sourceTestsPath .. "HD_IsFundamental_Tests.cpp"
-		},
-		["Utils"] =
-		{
-			sourceTestsPath .. "TestUtils.h",
-			sourceTestsPath .. "TestUtils.cpp"
-		}
+		["Containers"] = sourceTestsContainersPath .. "*.cpp",
+		["Math"] = sourceTestsMathPath .. "*.cpp",
+		["Misc"] = sourceTestsMiscPath .. "*.cpp",
+		["Utils"] = sourceTestsUtilsPath .. "*cpp"
 	}
