@@ -73,15 +73,6 @@ project("HD_CommonUtilities")
 	
 	filter({})
 	
-	vpaths
-	{
-		["Containers"] = sourceHDCommonUtilitiesContainersPath .. "*.h",
-		["Math"] = sourceHDCommonUtilitiesMathPath .. "*.h",
-		["Misc"] = { sourceHDCommonUtilitiesMiscPath .. "*.h", sourceHDCommonUtilitiesMiscPath .. ".*cpp" },
-		["Natvis"] = sourceHDCommonUtilitiesNatvisPath .. "*.natvis",
-		["Profiling"] = { sourceHDCommonUtilitiesProfilingPath .. "*.h", sourceHDCommonUtilitiesProfilingPath .. "*.cpp" }
-	}
-	
 project("Tests")
 	dependson("HD_CommonUtilities")
 	kind("SharedLib")
@@ -99,6 +90,7 @@ project("Tests")
 		sourceTestsContainersPath .. "*.cpp",
 		sourceTestsMathPath .. "*.cpp",
 		sourceTestsMiscPath .. "*.cpp",
+		sourceTestsUtilsPath .. "*.h",
 		sourceTestsUtilsPath .. "*.cpp",
 		sourceTestsPath .. "stdafx.h",
 		sourceTestsPath .. "stdafx.cpp"
@@ -122,11 +114,3 @@ project("Tests")
 		defines("_RETAIL")
 	
 	filter({})
-	
-	vpaths
-	{
-		["Containers"] = sourceTestsContainersPath .. "*.cpp",
-		["Math"] = sourceTestsMathPath .. "*.cpp",
-		["Misc"] = sourceTestsMiscPath .. "*.cpp",
-		["Utils"] = sourceTestsUtilsPath .. "*cpp"
-	}
