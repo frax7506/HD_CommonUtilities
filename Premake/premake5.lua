@@ -42,19 +42,17 @@ project("HD_CommonUtilities")
 	targetdir("$(SolutionDir)Output/HD_CommonUtilities")
 	objdir("$(Solutiondir)Intermediate/HD_CommonUtilities")
 	location(projectFilesHDCommonUtilitiesFolder)
-	pchheader("stdafx.h")
-	pchsource(sourceHDCommonUtilitiesPath .. "stdafx.cpp")
 	files
 	{
 		sourceHDCommonUtilitiesContainersPath .. "*.h",
+		sourceHDCommonUtilitiesContainersPath .. "*.cpp",
 		sourceHDCommonUtilitiesMathPath .. "*.h",
+		sourceHDCommonUtilitiesMathPath .. "*.cpp",
 		sourceHDCommonUtilitiesMiscPath .. "*.h",
 		sourceHDCommonUtilitiesMiscPath .. "*.cpp",
-		sourceHDCommonUtilitiesNatvisPath .. "*.natvis",
 		sourceHDCommonUtilitiesProfilingPath .. "*.h",
 		sourceHDCommonUtilitiesProfilingPath .. "*.cpp",
-		sourceHDCommonUtilitiesPath .. "stdafx.h",
-		sourceHDCommonUtilitiesPath .. "stdafx.cpp"
+		sourceHDCommonUtilitiesNatvisPath .. "*.natvis"
 	}
 	
 	includedirs
