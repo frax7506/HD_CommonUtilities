@@ -15,7 +15,7 @@ namespace HD_CommonUtilities
 		TEST_METHOD(Constructor)
 		{
 			HD_Matrix3x3f matrix;
-			TestUtils::Matrix3x3_AreEqual(matrix, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f);
+			TestUtils::Matrix3x3_AreEqual(matrix, 1.f, 0.f, 0.f, 0.f, 1.f, 0.f, 0.f, 0.f, 1.f);
 		}
 
 		TEST_METHOD(Constructor_Copy)

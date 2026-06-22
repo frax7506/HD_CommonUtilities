@@ -87,8 +87,8 @@ template<typename T> HD_Vector4<T> operator*(const HD_Vector4<T>& aVector, const
 
 template<typename T>
 HD_Matrix4x4<T>::HD_Matrix4x4()
-	: m11(), m12(), m13(), m14(), m21(), m22(), m23(), m24(), m31(), m32(), m33(), m34(), m41(), m42(), m43(), m44()
 {
+	(*this) = Identity;
 }
 
 template<typename T>

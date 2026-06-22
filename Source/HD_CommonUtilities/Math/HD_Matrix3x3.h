@@ -78,8 +78,8 @@ template<typename T> HD_Vector3<T> operator*(const HD_Vector3<T>& aVector, const
 
 template<typename T>
 HD_Matrix3x3<T>::HD_Matrix3x3()
-	: m11(), m12(), m13(), m21(), m22(), m23(), m31(), m32(), m33()
 {
+	(*this) = Identity;
 }
 
 template<typename T>

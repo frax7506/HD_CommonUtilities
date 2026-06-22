@@ -15,7 +15,7 @@ namespace HD_CommonUtilities
 		TEST_METHOD(Constructor)
 		{
 			HD_Matrix4x4f matrix;
-			TestUtils::Matrix4x4_AreEqual(matrix, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f);
+			TestUtils::Matrix4x4_AreEqual(matrix, 1.f, 0.f, 0.f, 0.f, 0.f, 1.f, 0.f, 0.f, 0.f, 0.f, 1.f, 0.f, 0.f, 0.f, 0.f, 1.f);
 		}
 
 		TEST_METHOD(Constructor_Copy)
@@ -76,7 +76,7 @@ namespace HD_CommonUtilities
 				0.f, 1.f, 2.f, 0.f,
 				3.f, 4.f, 5.f, 0.f,
 				6.f, 7.f, 8.f, 0.f,
-				0.f, 0.f, 0.f, 0.f
+				0.f, 0.f, 0.f, 1.f
 			);
 		}
 
