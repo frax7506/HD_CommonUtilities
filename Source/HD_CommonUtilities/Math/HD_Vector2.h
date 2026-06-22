@@ -190,6 +190,7 @@ HD_Vector2<T> operator/(const HD_Vector2<T>& aVector, T aScalar)
 }
 
 typedef HD_Vector2<float> HD_Vector2f;
+typedef HD_Vector2<double> HD_Vector2d;
 typedef HD_Vector2<int> HD_Vector2i;
 typedef HD_Vector2<unsigned int> HD_Vector2ui;
 

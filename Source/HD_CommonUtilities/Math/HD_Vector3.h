@@ -225,6 +225,7 @@ HD_Vector3<T> operator/(const HD_Vector3<T>& aVector, T aScalar)
 }
 
 typedef HD_Vector3<float> HD_Vector3f;
+typedef HD_Vector3<double> HD_Vector3d;
 typedef HD_Vector3<int> HD_Vector3i;
 typedef HD_Vector3<unsigned int> HD_Vector3ui;
 
