@@ -435,3 +435,4 @@ typedef HD_Matrix3x3<float> HD_Matrix3x3f;
 typedef HD_Matrix3x3<double> HD_Matrix3x3d;
 
 template <> const HD_Matrix3x3<float> HD_Matrix3x3<float>::Identity = { 1.f, 0.f, 0.f, 0.f, 1.f, 0.f, 0.f, 0.f, 1.f };
+template <> const HD_Matrix3x3<double> HD_Matrix3x3<double>::Identity = { 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0 };

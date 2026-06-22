@@ -644,3 +644,4 @@ typedef HD_Matrix4x4<float> HD_Matrix4x4f;
 typedef HD_Matrix4x4<double> HD_Matrix4x4d;
 
 template <> const HD_Matrix4x4<float> HD_Matrix4x4<float>::Identity = { 1.f, 0.f, 0.f, 0.f, 0.f, 1.f, 0.f, 0.f, 0.f, 0.f, 1.f, 0.f, 0.f, 0.f, 0.f, 1.f };
+template <> const HD_Matrix4x4<double> HD_Matrix4x4<double>::Identity = { 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0 };
