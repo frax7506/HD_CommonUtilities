@@ -552,7 +552,7 @@ HD_Matrix4x4<T> HD_Matrix4x4<T>::CreateTranslation(T aX, T aY, T aZ)
 template<typename T>
 HD_Matrix4x4<T> operator+(const HD_Matrix4x4<T>& aMatrix0, const HD_Matrix4x4<T>& aMatrix1)
 {
-	HD_Matrix4x4 result =
+	HD_Matrix4x4<T> result =
 	{
 		aMatrix0.m11 + aMatrix1.m11, aMatrix0.m12 + aMatrix1.m12, aMatrix0.m13 + aMatrix1.m13, aMatrix0.m14 + aMatrix1.m14,
 		aMatrix0.m21 + aMatrix1.m21, aMatrix0.m22 + aMatrix1.m22, aMatrix0.m23 + aMatrix1.m23, aMatrix0.m24 + aMatrix1.m24,
@@ -566,7 +566,7 @@ HD_Matrix4x4<T> operator+(const HD_Matrix4x4<T>& aMatrix0, const HD_Matrix4x4<T>
 template<typename T>
 HD_Matrix4x4<T> operator-(const HD_Matrix4x4<T>& aMatrix0, const HD_Matrix4x4<T>& aMatrix1)
 {
-	HD_Matrix4x4 result =
+	HD_Matrix4x4<T> result =
 	{
 		aMatrix0.m11 - aMatrix1.m11, aMatrix0.m12 - aMatrix1.m12, aMatrix0.m13 - aMatrix1.m13, aMatrix0.m14 - aMatrix1.m14,
 		aMatrix0.m21 - aMatrix1.m21, aMatrix0.m22 - aMatrix1.m22, aMatrix0.m23 - aMatrix1.m23, aMatrix0.m24 - aMatrix1.m24,
@@ -580,7 +580,7 @@ HD_Matrix4x4<T> operator-(const HD_Matrix4x4<T>& aMatrix0, const HD_Matrix4x4<T>
 template<typename T>
 HD_Matrix4x4<T> operator*(const HD_Matrix4x4<T>& aMatrix0, const HD_Matrix4x4<T>& aMatrix1)
 {
-	HD_Matrix4x4 result =
+	HD_Matrix4x4<T> result =
 	{
 		aMatrix0.m11 * aMatrix1.m11 + aMatrix0.m12 * aMatrix1.m21 + aMatrix0.m13 * aMatrix1.m31 + aMatrix0.m14 * aMatrix1.m41,
 		aMatrix0.m11 * aMatrix1.m12 + aMatrix0.m12 * aMatrix1.m22 + aMatrix0.m13 * aMatrix1.m32 + aMatrix0.m14 * aMatrix1.m42,
@@ -609,7 +609,7 @@ HD_Matrix4x4<T> operator*(const HD_Matrix4x4<T>& aMatrix0, const HD_Matrix4x4<T>
 template<typename T>
 HD_Matrix4x4<T> operator*(const HD_Matrix4x4<T>& aMatrix, T aScalar)
 {
-	HD_Matrix4x4 result =
+	HD_Matrix4x4<T> result =
 	{
 		aMatrix.m11 * aScalar, aMatrix.m12 * aScalar, aMatrix.m13 * aScalar, aMatrix.m14 * aScalar,
 		aMatrix.m21 * aScalar, aMatrix.m22 * aScalar, aMatrix.m23 * aScalar, aMatrix.m24 * aScalar,

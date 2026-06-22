@@ -355,7 +355,7 @@ HD_Matrix3x3<T> HD_Matrix3x3<T>::CreateTranslation(T aX, T aY)
 template<typename T>
 HD_Matrix3x3<T> operator+(const HD_Matrix3x3<T>& aMatrix0, const HD_Matrix3x3<T>& aMatrix1)
 {
-	HD_Matrix3x3 result =
+	HD_Matrix3x3<T> result =
 	{
 		aMatrix0.m11 + aMatrix1.m11, aMatrix0.m12 + aMatrix1.m12, aMatrix0.m13 + aMatrix1.m13,
 		aMatrix0.m21 + aMatrix1.m21, aMatrix0.m22 + aMatrix1.m22, aMatrix0.m23 + aMatrix1.m23,
@@ -368,7 +368,7 @@ HD_Matrix3x3<T> operator+(const HD_Matrix3x3<T>& aMatrix0, const HD_Matrix3x3<T>
 template<typename T>
 HD_Matrix3x3<T> operator-(const HD_Matrix3x3<T>& aMatrix0, const HD_Matrix3x3<T>& aMatrix1)
 {
-	HD_Matrix3x3 result =
+	HD_Matrix3x3<T> result =
 	{
 		aMatrix0.m11 - aMatrix1.m11, aMatrix0.m12 - aMatrix1.m12, aMatrix0.m13 - aMatrix1.m13,
 		aMatrix0.m21 - aMatrix1.m21, aMatrix0.m22 - aMatrix1.m22, aMatrix0.m23 - aMatrix1.m23,
@@ -381,7 +381,7 @@ HD_Matrix3x3<T> operator-(const HD_Matrix3x3<T>& aMatrix0, const HD_Matrix3x3<T>
 template<typename T>
 HD_Matrix3x3<T> operator*(const HD_Matrix3x3<T>& aMatrix0, const HD_Matrix3x3<T>& aMatrix1)
 {
-	HD_Matrix3x3 result =
+	HD_Matrix3x3<T> result =
 	{
 		aMatrix0.m11 * aMatrix1.m11 + aMatrix0.m12 * aMatrix1.m21 + aMatrix0.m13 * aMatrix1.m31,
 		aMatrix0.m11 * aMatrix1.m12 + aMatrix0.m12 * aMatrix1.m22 + aMatrix0.m13 * aMatrix1.m32,
@@ -402,7 +402,7 @@ HD_Matrix3x3<T> operator*(const HD_Matrix3x3<T>& aMatrix0, const HD_Matrix3x3<T>
 template<typename T>
 HD_Matrix3x3<T> operator*(const HD_Matrix3x3<T>& aMatrix, T aScalar)
 {
-	HD_Matrix3x3 result =
+	HD_Matrix3x3<T> result =
 	{
 		aMatrix.m11 * aScalar, aMatrix.m12 * aScalar, aMatrix.m13 * aScalar,
 		aMatrix.m21 * aScalar, aMatrix.m22 * aScalar, aMatrix.m23 * aScalar,
@@ -421,7 +421,7 @@ HD_Matrix3x3<T> operator*(T aScalar, const HD_Matrix3x3<T>& aMatrix)
 template<typename T>
 HD_Vector3<T> operator*(const HD_Vector3<T>& aVector, const HD_Matrix3x3<T>& aMatrix)
 {
-	HD_Vector3 result
+	HD_Vector3<T> result
 	(
 		aVector.myX * aMatrix.m11 + aVector.myY * aMatrix.m21 + aVector.myZ * aMatrix.m31,
 		aVector.myX * aMatrix.m12 + aVector.myY * aMatrix.m22 + aVector.myZ * aMatrix.m32,
