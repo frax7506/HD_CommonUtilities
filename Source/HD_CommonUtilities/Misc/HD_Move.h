@@ -13,7 +13,7 @@ template<typename T> struct HD_Is_lValue_Reference : HD_FalseType {};
 template<typename T> struct HD_Is_lValue_Reference<T&> : HD_TrueType {};
 
 template<typename T>
-constexpr bool HD_Is_lValue_Reference_v = HD_Is_lValue_Reference<T>:Value;
+constexpr bool HD_Is_lValue_Reference_v = HD_Is_lValue_Reference<T>::Value;
 
 template<typename T>
 constexpr HD_RemoveReference_t<T>&& HD_Move(T&& aArg) noexcept
