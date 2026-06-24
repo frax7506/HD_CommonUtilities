@@ -434,5 +434,5 @@ HD_Vector3<T> operator*(const HD_Vector3<T>& aVector, const HD_Matrix3x3<T>& aMa
 typedef HD_Matrix3x3<float> HD_Matrix3x3f;
 typedef HD_Matrix3x3<double> HD_Matrix3x3d;
 
-template <> const HD_Matrix3x3<float> HD_Matrix3x3<float>::Identity = { 1.f, 0.f, 0.f, 0.f, 1.f, 0.f, 0.f, 0.f, 1.f };
-template <> const HD_Matrix3x3<double> HD_Matrix3x3<double>::Identity = { 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0 };
+template<> const HD_Matrix3x3<float> HD_Matrix3x3<float>::Identity = { 1.f, 0.f, 0.f, 0.f, 1.f, 0.f, 0.f, 0.f, 1.f };
+template<> const HD_Matrix3x3<double> HD_Matrix3x3<double>::Identity = { 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0 };
