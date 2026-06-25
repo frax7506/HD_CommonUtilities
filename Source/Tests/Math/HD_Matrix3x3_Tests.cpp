@@ -151,19 +151,19 @@ namespace HD_CommonUtilities
 			TestUtils::Vector3_AreEqual(point2D, 0.f, 2.f, 1.f);
 		}
 
-		TEST_METHOD(ScaleInX)
+		TEST_METHOD(SetScaleInX)
 		{
 			HD_Matrix3x3f matrix = HD_Matrix3x3f::Identity;
-			matrix.ScaleInX(2.f);
+			matrix.SetScaleInX(2.f);
 			f32 scaleInX = matrix.GetScaleInX();
 
 			Assert::AreEqual(scaleInX, 2.f, FLOAT_EQUAL_TOLERANCE);
 		}
 
-		TEST_METHOD(ScaleInY)
+		TEST_METHOD(SetScaleInY)
 		{
 			HD_Matrix3x3f matrix = HD_Matrix3x3f::Identity;
-			matrix.ScaleInY(2.f);
+			matrix.SetScaleInY(2.f);
 			f32 scaleInY = matrix.GetScaleInY();
 
 			Assert::AreEqual(scaleInY, 2.f, FLOAT_EQUAL_TOLERANCE);
@@ -216,7 +216,7 @@ namespace HD_CommonUtilities
 		TEST_METHOD(GetScaleInX)
 		{
 			HD_Matrix3x3f matrix = HD_Matrix3x3f::Identity;
-			matrix.ScaleInX(2.f);
+			matrix.SetScaleInX(2.f);
 			f32 scaleInX = matrix.GetScaleInX();
 
 			Assert::AreEqual(scaleInX, 2.f, FLOAT_EQUAL_TOLERANCE);
@@ -225,7 +225,7 @@ namespace HD_CommonUtilities
 		TEST_METHOD(GetScaleInY)
 		{
 			HD_Matrix3x3f matrix = HD_Matrix3x3f::Identity;
-			matrix.ScaleInY(2.f);
+			matrix.SetScaleInY(2.f);
 			f32 scaleInY = matrix.GetScaleInY();
 
 			Assert::AreEqual(scaleInY, 2.f, FLOAT_EQUAL_TOLERANCE);
@@ -234,8 +234,8 @@ namespace HD_CommonUtilities
 		TEST_METHOD(GetScaleInXY)
 		{
 			HD_Matrix3x3f matrix = HD_Matrix3x3f::Identity;
-			matrix.ScaleInX(2.f);
-			matrix.ScaleInY(3.f);
+			matrix.SetScaleInX(2.f);
+			matrix.SetScaleInY(3.f);
 			HD_Vector2f scaleInXY = matrix.GetScaleInXY();
 
 			TestUtils::Vector2_AreEqual(scaleInXY, 2.f, 3.f);

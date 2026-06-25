@@ -36,8 +36,8 @@ public:
 	HD_Matrix3x3& operator-=(const HD_Matrix3x3& aMatrix);
 	HD_Matrix3x3& operator*=(const HD_Matrix3x3& aMatrix);
 
-	void ScaleInX(T aScalar);
-	void ScaleInY(T aScalar);
+	void SetScaleInX(T aScalar);
+	void SetScaleInY(T aScalar);
 
 	bool operator==(const HD_Matrix3x3& aMatrix) const;
 	bool operator!=(const HD_Matrix3x3& aMatrix) const;
@@ -178,17 +178,23 @@ HD_Matrix3x3<T>& HD_Matrix3x3<T>::operator*=(const HD_Matrix3x3& aMatrix)
 }
 
 template<typename T>
-void HD_Matrix3x3<T>::ScaleInX(T aScalar)
+void HD_Matrix3x3<T>::SetScaleInX(T aScalar)
 {
-	m11 *= aScalar;
-	m12 *= aScalar;
+	HD_Vector2<T> rightVector = GetRightVector();
+	rightVector.SetLength(aScalar);
+
+	m11 = rightVector.myX;
+	m12 = rightVector.myY;
 }
 
 template<typename T>
-void HD_Matrix3x3<T>::ScaleInY(T aScalar)
+void HD_Matrix3x3<T>::SetScaleInY(T aScalar)
 {
-	m21 *= aScalar;
-	m22 *= aScalar;
+	HD_Vector2<T> upVector = GetUpVector();
+	upVector.SetLength(aScalar);
+
+	m21 = upVector.myX;
+	m22 = upVector.myY;
 }
 
 template<typename T>

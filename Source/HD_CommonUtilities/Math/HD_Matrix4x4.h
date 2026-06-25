@@ -35,9 +35,9 @@ public:
 	HD_Matrix4x4& operator-=(const HD_Matrix4x4& aMatrix);
 	HD_Matrix4x4& operator*=(const HD_Matrix4x4& aMatrix);
 
-	void ScaleInX(T aScalar);
-	void ScaleInY(T aScalar);
-	void ScaleInZ(T aScalar);
+	void SetScaleInX(T aScalar);
+	void SetScaleInY(T aScalar);
+	void SetScaleInZ(T aScalar);
 
 	bool operator==(const HD_Matrix4x4& aMatrix) const;
 	bool operator!=(const HD_Matrix4x4& aMatrix) const;
@@ -231,27 +231,33 @@ HD_Matrix4x4<T>& HD_Matrix4x4<T>::operator*=(const HD_Matrix4x4& aMatrix)
 }
 
 template<typename T>
-void HD_Matrix4x4<T>::ScaleInX(T aScalar)
+void HD_Matrix4x4<T>::SetScaleInX(T aScalar)
 {
-	m11 *= aScalar;
-	m12 *= aScalar;
-	m13 *= aScalar;
+	HD_Vector3<T> rightVector = GetRightVector();
+	rightVector.SetLength(aScalar);
+	m11 = rightVector.myX;
+	m12 = rightVector.myY;
+	m13 = rightVector.myZ;
 }
 
 template<typename T>
-void HD_Matrix4x4<T>::ScaleInY(T aScalar)
+void HD_Matrix4x4<T>::SetScaleInY(T aScalar)
 {
-	m21 *= aScalar;
-	m22 *= aScalar;
-	m23 *= aScalar;
+	HD_Vector3<T> upVector = GetUpVector();
+	upVector.SetLength(aScalar);
+	m21 = upVector.myX;
+	m22 = upVector.myY;
+	m23 = upVector.myZ;
 }
 
 template<typename T>
-void HD_Matrix4x4<T>::ScaleInZ(T aScalar)
+void HD_Matrix4x4<T>::SetScaleInZ(T aScalar)
 {
-	m31 *= aScalar;
-	m32 *= aScalar;
-	m33 *= aScalar;
+	HD_Vector3<T> forwardVector = GetForwardVector();
+	forwardVector.SetLength(aScalar);
+	m31 = forwardVector.myX;
+	m32 = forwardVector.myY;
+	m33 = forwardVector.myZ;
 }
 
 template<typename T>
