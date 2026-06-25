@@ -44,6 +44,22 @@ namespace HD_CommonUtilities
 			Assert::AreEqual(string.GetCapacity(), 8);
 		}
 
+		TEST_METHOD(Constructor_CString_NonWide_Empty)
+		{
+			HD_StaticString<8> string("");
+			Assert::IsTrue(string == "");
+			Assert::AreEqual(string.GetLength(), 0);
+			Assert::AreEqual(string.GetCapacity(), 8);
+		}
+
+		TEST_METHOD(Constructor_CString_Wide_Empty)
+		{
+			HD_StaticWString<8> string(L"");
+			Assert::IsTrue(string == L"");
+			Assert::AreEqual(string.GetLength(), 0);
+			Assert::AreEqual(string.GetCapacity(), 8);
+		}
+
 		TEST_METHOD(Consturctor_Copy_NonWide)
 		{
 			HD_StaticString<8> string1("haha");
@@ -124,7 +140,7 @@ namespace HD_CommonUtilities
 			Assert::AreEqual(string.GetLength(), 4);
 		}
 
-		TEST_METHOD(GetChatAt_NonWide)
+		TEST_METHOD(GetCharAt_NonWide)
 		{
 			HD_StaticString<8> string("abcdef");
 			Assert::AreEqual(string.GetCharAt(0), 'a');
@@ -135,7 +151,7 @@ namespace HD_CommonUtilities
 			Assert::AreEqual(string.GetCharAt(5), 'f');
 		}
 
-		TEST_METHOD(GetChatAt_Wide)
+		TEST_METHOD(GetCharAt_Wide)
 		{
 			HD_StaticWString<8> string(L"abcdef");
 			Assert::AreEqual(string.GetCharAt(0), L'a');
@@ -182,6 +198,34 @@ namespace HD_CommonUtilities
 			Assert::AreEqual(string.GetCapacity(), 8);
 		}
 
+		TEST_METHOD(Append_CString_NonWide_Empty)
+		{
+			HD_StaticString<8> string("haha");
+			Assert::IsTrue(string == "haha");
+			Assert::AreEqual(string.GetLength(), 4);
+			Assert::AreEqual(string.GetCapacity(), 8);
+
+			string.Append("");
+
+			Assert::IsTrue(string == "haha");
+			Assert::AreEqual(string.GetLength(), 4);
+			Assert::AreEqual(string.GetCapacity(), 8);
+		}
+
+		TEST_METHOD(Append_CString_Wide_Empty)
+		{
+			HD_StaticWString<8> string(L"haha");
+			Assert::IsTrue(string == L"haha");
+			Assert::AreEqual(string.GetLength(), 4);
+			Assert::AreEqual(string.GetCapacity(), 8);
+
+			string.Append(L"");
+
+			Assert::IsTrue(string == L"haha");
+			Assert::AreEqual(string.GetLength(), 4);
+			Assert::AreEqual(string.GetCapacity(), 8);
+		}
+
 		TEST_METHOD(Append_HD_StaticString_NonWide)
 		{
 			HD_StaticString<8> string;
@@ -222,64 +266,54 @@ namespace HD_CommonUtilities
 			Assert::AreEqual(string.GetCapacity(), 8);
 		}
 
-		TEST_METHOD(Operator_Addition_NonWide)
+		TEST_METHOD(Append_HD_StaticString_NonWide_Empty)
 		{
-			HD_StaticString<16> string1("haha");
-			HD_StaticString<16> string2("hehe");
+			HD_StaticString<8> string("haha");
+			Assert::IsTrue(string == "haha");
+			Assert::AreEqual(string.GetLength(), 4);
+			Assert::AreEqual(string.GetCapacity(), 8);
 
-			{
-				HD_StaticString<16> string3 = string1 + string2;
+			HD_StaticString<8> emptyString;
+			string.Append(emptyString);
 
-				Assert::IsTrue(string3 == "hahahehe");
-				Assert::AreEqual(string3.GetLength(), 8);
-				Assert::AreEqual(string3.GetCapacity(), 16);
-			}
-
-			{
-				HD_StaticString<16> string3 = string1 + " ";
-
-				Assert::IsTrue(string3 == "haha ");
-				Assert::AreEqual(string3.GetLength(), 5);
-				Assert::AreEqual(string3.GetCapacity(), 16);
-			}
-
-			{
-				HD_StaticString<16> string3 = " " + string1;
-
-				Assert::IsTrue(string3 == " haha");
-				Assert::AreEqual(string3.GetLength(), 5);
-				Assert::AreEqual(string3.GetCapacity(), 16);
-			}
+			Assert::IsTrue(string == "haha");
+			Assert::AreEqual(string.GetLength(), 4);
+			Assert::AreEqual(string.GetCapacity(), 8);
 		}
 
-		TEST_METHOD(Operator_Addition_Wide)
+		TEST_METHOD(Append_HD_StaticString_Wide_Empty)
 		{
-			HD_StaticWString<16> string1(L"haha");
-			HD_StaticWString<16> string2(L"hehe");
+			HD_StaticWString<8> string(L"haha");
+			Assert::IsTrue(string == L"haha");
+			Assert::AreEqual(string.GetLength(), 4);
+			Assert::AreEqual(string.GetCapacity(), 8);
 
-			{
-				HD_StaticWString<16> string3 = string1 + string2;
+			HD_StaticWString<8> emptyString;
+			string.Append(emptyString);
 
-				Assert::IsTrue(string3 == L"hahahehe");
-				Assert::AreEqual(string3.GetLength(), 8);
-				Assert::AreEqual(string3.GetCapacity(), 16);
-			}
+			Assert::IsTrue(string == L"haha");
+			Assert::AreEqual(string.GetLength(), 4);
+			Assert::AreEqual(string.GetCapacity(), 8);
+		}
 
-			{
-				HD_StaticWString<16> string3 = string1 + L" ";
+		TEST_METHOD(Clear_NonWide)
+		{
+			HD_StaticString<8> string("haha");
+			string.Clear();
 
-				Assert::IsTrue(string3 == L"haha ");
-				Assert::AreEqual(string3.GetLength(), 5);
-				Assert::AreEqual(string3.GetCapacity(), 16);
-			}
+			Assert::IsTrue(string == "");
+			Assert::AreEqual(string.GetLength(), 0);
+			Assert::AreEqual(string.GetCapacity(), 8);
+		}
 
-			{
-				HD_StaticWString<16> string3 = L" " + string1;
+		TEST_METHOD(Clear_Wide)
+		{
+			HD_StaticWString<8> string(L"haha");
+			string.Clear();
 
-				Assert::IsTrue(string3 == L" haha");
-				Assert::AreEqual(string3.GetLength(), 5);
-				Assert::AreEqual(string3.GetCapacity(), 16);
-			}
+			Assert::IsTrue(string == L"");
+			Assert::AreEqual(string.GetLength(), 0);
+			Assert::AreEqual(string.GetCapacity(), 8);
 		}
 
 		TEST_METHOD(Operator_Assignment_CString_NonWide)
@@ -370,179 +404,199 @@ namespace HD_CommonUtilities
 			Assert::AreEqual(string2.GetCapacity(), 8);
 		}
 
-		TEST_METHOD(Operator_Equals_CString_NonWide)
+		TEST_METHOD(Operator_Addition_NonWide)
 		{
-			HD_StaticString<8> string("haha");
-			Assert::IsTrue(string == "haha");
-			Assert::IsFalse(string == "hehe");
-		}
+			HD_StaticString<16> string1("haha");
+			HD_StaticString<16> string2("hehe");
 
-		TEST_METHOD(Operator_Equals_CString_Wide)
-		{
-			HD_StaticWString<8> string(L"haha");
-			Assert::IsTrue(string == L"haha");
-			Assert::IsFalse(string == L"hehe");
-		}
-
-		TEST_METHOD(Operator_Equals_CString_NonWide_Empty)
-		{
-			HD_StaticString<8> string;
-			Assert::IsTrue(string == "");
-			Assert::IsFalse(string == "haha");
-		}
-
-		TEST_METHOD(Operator_Equals_CString_Wide_Empty)
-		{
-			HD_StaticWString<8> string;
-			Assert::IsTrue(string == L"");
-			Assert::IsFalse(string == L"haha");
-		}
-
-		TEST_METHOD(Operator_Equals_HD_StaticString_NonWide)
-		{
-			HD_StaticString<8> string1("haha");
-			HD_StaticString<8> string2("haha");
-			HD_StaticString<8> string3("hehe");
-			Assert::IsTrue(string1 == string2);
-			Assert::IsFalse(string1 == string3);
-		}
-
-		TEST_METHOD(Operator_Equals_HD_StaticString_Wide)
-		{
-			HD_StaticWString<8> string1(L"haha");
-			HD_StaticWString<8> string2(L"haha");
-			HD_StaticWString<8> string3(L"hehe");
-			Assert::IsTrue(string1 == string2);
-			Assert::IsFalse(string1 == string3);
-		}
-
-		TEST_METHOD(Operator_Equals_HD_StaticString_NonWide_Empty)
-		{
-			// Empty as lhs
 			{
-				HD_StaticString<8> string1;
-				HD_StaticString<8> string2("haha");
-				Assert::IsTrue(string1 == "");
-				Assert::IsFalse(string1 == string2);
+				HD_StaticString<16> string3 = string1 + string2;
+
+				Assert::IsTrue(string3 == "hahahehe");
+				Assert::AreEqual(string3.GetLength(), 8);
+				Assert::AreEqual(string3.GetCapacity(), 16);
 			}
 
-			// Empty as rhs
+			{
+				HD_StaticString<16> string3 = string1 + " ";
+
+				Assert::IsTrue(string3 == "haha ");
+				Assert::AreEqual(string3.GetLength(), 5);
+				Assert::AreEqual(string3.GetCapacity(), 16);
+			}
+
+			{
+				HD_StaticString<16> string3 = " " + string1;
+
+				Assert::IsTrue(string3 == " haha");
+				Assert::AreEqual(string3.GetLength(), 5);
+				Assert::AreEqual(string3.GetCapacity(), 16);
+			}
+		}
+
+		TEST_METHOD(Operator_Addition_Wide)
+		{
+			HD_StaticWString<16> string1(L"haha");
+			HD_StaticWString<16> string2(L"hehe");
+
+			{
+				HD_StaticWString<16> string3 = string1 + string2;
+
+				Assert::IsTrue(string3 == L"hahahehe");
+				Assert::AreEqual(string3.GetLength(), 8);
+				Assert::AreEqual(string3.GetCapacity(), 16);
+			}
+
+			{
+				HD_StaticWString<16> string3 = string1 + L" ";
+
+				Assert::IsTrue(string3 == L"haha ");
+				Assert::AreEqual(string3.GetLength(), 5);
+				Assert::AreEqual(string3.GetCapacity(), 16);
+			}
+
+			{
+				HD_StaticWString<16> string3 = L" " + string1;
+
+				Assert::IsTrue(string3 == L" haha");
+				Assert::AreEqual(string3.GetLength(), 5);
+				Assert::AreEqual(string3.GetCapacity(), 16);
+			}
+		}
+
+		TEST_METHOD(Operator_Equals_NonWide)
+		{
 			{
 				HD_StaticString<8> string1("haha");
-				HD_StaticString<8> string2;
-				Assert::IsTrue(string1 == "haha");
-				Assert::IsFalse(string1 == string2);
+				HD_StaticString<8> string2("haha");
+				HD_StaticString<8> string3("hehe");
+				Assert::IsTrue(string1 == string2);
+				Assert::IsFalse(string1 == string3);
+
+				HD_StaticString<8> emptyString1;
+				HD_StaticString<8> emptyString2;
+				Assert::IsTrue(emptyString1 == emptyString2);
+				Assert::IsFalse(string1 == emptyString1);
+			}
+
+			{
+				HD_StaticString<8> string("haha");
+				Assert::IsTrue(string == "haha");
+				Assert::IsFalse(string == "hehe");
+
+				HD_StaticString<8> emptyString;
+				Assert::IsTrue(emptyString == "");
+			}
+
+			{
+				HD_StaticString<8> string("haha");
+				Assert::IsTrue("haha" == string);
+				Assert::IsFalse("hehe" == string);
+
+				HD_StaticString<8> emptyString;
+				Assert::IsTrue("" == emptyString);
 			}
 		}
 
-		TEST_METHOD(Operator_Equals_HD_StaticString_Wide_Empty)
+		TEST_METHOD(Operator_Equals_Wide)
 		{
-			// Empty as lhs
-			{
-				HD_StaticWString<8> string1;
-				HD_StaticWString<8> string2(L"haha");
-				Assert::IsTrue(string1 == L"");
-				Assert::IsFalse(string1 == string2);
-			}
-
-			// Empty as rhs
 			{
 				HD_StaticWString<8> string1(L"haha");
-				HD_StaticWString<8> string2;
-				Assert::IsTrue(string1 == L"haha");
-				Assert::IsFalse(string1 == string2);
+				HD_StaticWString<8> string2(L"haha");
+				HD_StaticWString<8> string3(L"hehe");
+				Assert::IsTrue(string1 == string2);
+				Assert::IsFalse(string1 == string3);
+
+				HD_StaticWString<8> emptyString1;
+				HD_StaticWString<8> emptyString2;
+				Assert::IsTrue(emptyString1 == emptyString2);
+				Assert::IsFalse(string1 == emptyString1);
 			}
-		}
 
-		TEST_METHOD(Operator_Not_Equals_CString_NonWide)
-		{
-			HD_StaticString<8> string("haha");
-			Assert::IsTrue(string != "hehe");
-			Assert::IsFalse(string != "haha");
-		}
-
-		TEST_METHOD(Operator_Not_Equals_CString_Wide)
-		{
-			HD_StaticWString<8> string(L"haha");
-			Assert::IsTrue(string != L"hehe");
-			Assert::IsFalse(string != L"haha");
-		}
-
-		TEST_METHOD(Operator_Not_Equals_CString_NonWide_Empty)
-		{
-			HD_StaticString<8> string1("haha");
-			Assert::IsTrue(string1 != "");
-			Assert::IsFalse(string1 != "haha");
-
-			HD_StaticString<8> string2;
-			Assert::IsTrue(string2 != "haha");
-			Assert::IsFalse(string2 != "");
-		}
-
-		TEST_METHOD(Operator_Not_Equals_CString_Wide_Empty)
-		{
-			HD_StaticWString<8> string1(L"haha");
-			Assert::IsTrue(string1 != L"");
-			Assert::IsFalse(string1 != L"haha");
-
-			HD_StaticWString<8> string2;
-			Assert::IsTrue(string2 != L"haha");
-			Assert::IsFalse(string2 != L"");
-		}
-
-		TEST_METHOD(Operator_Not_Equals_HD_StaticString_NonWide)
-		{
-			HD_StaticString<8> string1("haha");
-			HD_StaticString<8> string2("hehe");
-			HD_StaticString<8> string3("haha");
-			Assert::IsTrue(string1 != string2);
-			Assert::IsFalse(string1 != string3);
-		}
-
-		TEST_METHOD(Operator_Not_Equals_HD_StaticString_Wide)
-		{
-			HD_StaticWString<8> string1(L"haha");
-			HD_StaticWString<8> string2(L"hehe");
-			HD_StaticWString<8> string3(L"haha");
-			Assert::IsTrue(string1 != string2);
-			Assert::IsFalse(string1 != string3);
-		}
-
-		TEST_METHOD(Operator_Not_Equals_HD_StaticString_NonWide_Empty)
-		{
-			// Empty as lhs
 			{
-				HD_StaticString<8> string1;
-				HD_StaticString<8> string2("haha");
-				Assert::IsTrue(string1 != string2);
-				Assert::IsFalse(string1 != "");
+				HD_StaticWString<8> string(L"haha");
+				Assert::IsTrue(string == L"haha");
+				Assert::IsFalse(string == L"hehe");
+
+				HD_StaticWString<8> emptyString;
+				Assert::IsTrue(emptyString == L"");
 			}
 
-			// Empty as rhs
+			{
+				HD_StaticWString<8> string(L"haha");
+				Assert::IsTrue(L"haha" == string);
+				Assert::IsFalse(L"hehe" == string);
+
+				HD_StaticWString<8> emptyString;
+				Assert::IsTrue(L"" == emptyString);
+			}
+		}
+
+		TEST_METHOD(Operator_Not_Equals_NonWide)
+		{
 			{
 				HD_StaticString<8> string1("haha");
-				HD_StaticString<8> string2;
-				Assert::IsTrue(string1 != string2);
-				Assert::IsFalse(string1 != "haha");
+				HD_StaticString<8> string2("haha");
+				HD_StaticString<8> string3("hehe");
+				Assert::IsFalse(string1 != string2);
+				Assert::IsTrue(string1 != string3);
+
+				HD_StaticString<8> emptyString1;
+				HD_StaticString<8> emptyString2;
+				Assert::IsFalse(emptyString1 != emptyString2);
+				Assert::IsTrue(string1 != emptyString1);
+			}
+
+			{
+				HD_StaticString<8> string("haha");
+				Assert::IsFalse(string != "haha");
+				Assert::IsTrue(string != "hehe");
+
+				HD_StaticString<8> emptyString;
+				Assert::IsFalse(emptyString != "");
+			}
+
+			{
+				HD_StaticString<8> string("haha");
+				Assert::IsFalse("haha" != string);
+				Assert::IsTrue("hehe" != string);
+
+				HD_StaticString<8> emptyString;
+				Assert::IsFalse("" != emptyString);
 			}
 		}
 
-		TEST_METHOD(Operator_Not_Equals_HD_StaticString_Wide_Empty)
+		TEST_METHOD(Operator_Not_Equals_Wide)
 		{
-			// Empty as lhs
-			{
-				HD_StaticWString<8> string1;
-				HD_StaticWString<8> string2(L"haha");
-				Assert::IsTrue(string1 != string2);
-				Assert::IsFalse(string1 != L"");
-			}
-
-			// Empty as rhs
 			{
 				HD_StaticWString<8> string1(L"haha");
-				HD_StaticWString<8> string2;
-				Assert::IsTrue(string1 != string2);
-				Assert::IsFalse(string1 != L"haha");
+				HD_StaticWString<8> string2(L"haha");
+				HD_StaticWString<8> string3(L"hehe");
+				Assert::IsFalse(string1 != string2);
+				Assert::IsTrue(string1 != string3);
+
+				HD_StaticWString<8> emptyString1;
+				HD_StaticWString<8> emptyString2;
+				Assert::IsFalse(emptyString1 != emptyString2);
+				Assert::IsTrue(string1 != emptyString1);
+			}
+
+			{
+				HD_StaticWString<8> string(L"haha");
+				Assert::IsFalse(string != L"haha");
+				Assert::IsTrue(string != L"hehe");
+
+				HD_StaticWString<8> emptyString;
+				Assert::IsFalse(emptyString != L"");
+			}
+
+			{
+				HD_StaticWString<8> string(L"haha");
+				Assert::IsFalse(L"haha" != string);
+				Assert::IsTrue(L"hehe" != string);
+
+				HD_StaticWString<8> emptyString;
+				Assert::IsFalse(L"" != emptyString);
 			}
 		}
 	};

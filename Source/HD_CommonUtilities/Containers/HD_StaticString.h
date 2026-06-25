@@ -26,29 +26,32 @@ public:
 
 	void Clear();
 
-	HD_StaticStr operator+(const T* aString) const;
-	HD_StaticStr operator+(const HD_StaticStr& aString) const;
-
 	HD_StaticStr& operator=(const T* aString);
 	HD_StaticStr& operator=(const HD_StaticStr& aString);
-
-	bool operator==(const T* aString) const;
-	bool operator==(const HD_StaticStr& aString) const;
-	bool operator!=(const T* aString) const;
-	bool operator!=(const HD_StaticStr& aString) const;
-
-	bool operator<(const T* aString) const;
-	bool operator<(const HD_StaticStr& aString) const;
-	bool operator>(const T* aString) const;
-	bool operator>(const HD_StaticStr& aString) const;
 
 private:
 	T myString[aCapacity];
 };
 
-// Global operator for doing <string literal> + aString.
-template<typename T, int aCapacity>
-HD_StaticStr<T, aCapacity> operator+(const T* aString1, const HD_StaticStr<T, aCapacity>& aString2);
+template<typename T, int aCapacity> HD_StaticStr<T, aCapacity> operator+(const HD_StaticStr<T, aCapacity>& aString1, const HD_StaticStr<T, aCapacity>& aString2);
+template<typename T, int aCapacity> HD_StaticStr<T, aCapacity> operator+(const HD_StaticStr<T, aCapacity>& aString1, const T* aString2);
+template<typename T, int aCapacity> HD_StaticStr<T, aCapacity> operator+(const T* aString1, const HD_StaticStr<T, aCapacity>& aString2);
+
+template<typename T, int aCapacity> bool operator==(const HD_StaticStr<T, aCapacity>& aString1, const HD_StaticStr<T, aCapacity>& aString2);
+template<typename T, int aCapacity> bool operator==(const HD_StaticStr<T, aCapacity>& aString1, const T* aString2);
+template<typename T, int aCapacity> bool operator==(const T* aString1, const HD_StaticStr<T, aCapacity>& aString2);
+
+template<typename T, int aCapacity> bool operator!=(const HD_StaticStr<T, aCapacity>& aString1, const HD_StaticStr<T, aCapacity>& aString2);
+template<typename T, int aCapacity> bool operator!=(const HD_StaticStr<T, aCapacity>& aString1, const T* aString2);
+template<typename T, int aCapacity> bool operator!=(const T* aString1, const HD_StaticStr<T, aCapacity>& aString2);
+
+template<typename T, int aCapacity> bool operator<(const HD_StaticStr<T, aCapacity>& aString1, const HD_StaticStr<T, aCapacity>& aString2);
+template<typename T, int aCapacity> bool operator<(const HD_StaticStr<T, aCapacity>& aString1, const T* aString2);
+template<typename T, int aCapacity> bool operator<(const T* aString1, const HD_StaticStr<T, aCapacity>& aString2);
+
+template<typename T, int aCapacity> bool operator>(const HD_StaticStr<T, aCapacity>& aString1, const HD_StaticStr<T, aCapacity>& aString2);
+template<typename T, int aCapacity> bool operator>(const HD_StaticStr<T, aCapacity>& aString1, const T* aString2);
+template<typename T, int aCapacity> bool operator>(const T* aString1, const HD_StaticStr<T, aCapacity>& aString2);
 
 template<typename T, int aCapacity>
 HD_StaticStr<T, aCapacity>::HD_StaticStr()
@@ -124,25 +127,6 @@ void HD_StaticStr<T, aCapacity>::Clear()
 }
 
 template<typename T, int aCapacity>
-HD_StaticStr<T, aCapacity> HD_StaticStr<T, aCapacity>::operator+(const T* aString) const
-{
-	int localLength = GetLength();
-	int otherLength = HD_Strlen(aString);
-	assert(localLength + otherLength < aCapacity);
-
-	HD_StaticStr string;
-	string.Append(*this);
-	string.Append(aString);
-	return string;
-}
-
-template<typename T, int aCapacity>
-HD_StaticStr<T, aCapacity> HD_StaticStr<T, aCapacity>::operator+(const HD_StaticStr& aString) const
-{
-	return (*this) + aString.GetBuffer();
-}
-
-template<typename T, int aCapacity>
 HD_StaticStr<T, aCapacity>& HD_StaticStr<T, aCapacity>::operator=(const T* aString)
 {
 	int length = HD_Strlen(aString);
@@ -160,75 +144,112 @@ HD_StaticStr<T, aCapacity>& HD_StaticStr<T, aCapacity>::operator=(const HD_Stati
 }
 
 template<typename T, int aCapacity>
-bool HD_StaticStr<T, aCapacity>::operator==(const T* aString) const
+HD_StaticStr<T, aCapacity> operator+(const HD_StaticStr<T, aCapacity>& aString1, const HD_StaticStr<T, aCapacity>& aString2)
 {
-	if (aString)
-	{
-		return HD_Strcmp(myString, aString) == 0;
-	}
+	assert(aString1.GetLength() + aString2.GetLength() < aCapacity);
 
-	return false;
+	HD_StaticStr<T, aCapacity> result = aString1;
+	result.Append(aString2);
+	return result;
 }
 
 template<typename T, int aCapacity>
-bool HD_StaticStr<T, aCapacity>::operator==(const HD_StaticStr& aString) const
+HD_StaticStr<T, aCapacity> operator+(const HD_StaticStr<T, aCapacity>& aString1, const T* aString2)
 {
-	return (*this) == aString.GetBuffer();
-}
+	assert(aString1.GetLength() + HD_Strlen(aString2) < aCapacity);
 
-template<typename T, int aCapacity>
-bool HD_StaticStr<T, aCapacity>::operator!=(const T* aString) const
-{
-	return !((*this) == aString);
-}
-
-template<typename T, int aCapacity>
-bool HD_StaticStr<T, aCapacity>::operator!=(const HD_StaticStr& aString) const
-{
-	return !((*this) == aString.GetBuffer());
-}
-
-template<typename T, int aCapacity>
-bool HD_StaticStr<T, aCapacity>::operator<(const T* aString) const
-{
-	if (aString)
-	{
-		return HD_Strcmp(myString, aString) < 0;
-	}
-
-	return false;
-}
-
-template<typename T, int aCapacity>
-bool HD_StaticStr<T, aCapacity>::operator<(const HD_StaticStr& aString) const
-{
-	return (*this) < aString.GetBuffer();
-}
-
-template<typename T, int aCapacity>
-bool HD_StaticStr<T, aCapacity>::operator>(const T* aString) const
-{
-	if (aString)
-	{
-		return HD_Strcmp(myString, aString) > 0;
-	}
-
-	return false;
-}
-
-template<typename T, int aCapacity>
-bool HD_StaticStr<T, aCapacity>::operator>(const HD_StaticStr& aString) const
-{
-	return (*this) > aString.GetBuffer();
+	HD_StaticStr<T, aCapacity> result = aString1;
+	result.Append(aString2);
+	return result;
 }
 
 template<typename T, int aCapacity>
 HD_StaticStr<T, aCapacity> operator+(const T* aString1, const HD_StaticStr<T, aCapacity>& aString2)
 {
 	assert(HD_Strlen(aString1) + aString2.GetLength() < aCapacity);
-	HD_StaticStr<T, aCapacity> result(aString1);
+
+	HD_StaticStr<T, aCapacity> result = aString1;
 	result.Append(aString2);
 	return result;
+}
+
+template<typename T, int aCapacity>
+bool operator==(const HD_StaticStr<T, aCapacity>& aString1, const HD_StaticStr<T, aCapacity>& aString2)
+{
+	return aString1 == aString2.GetBuffer();
+}
+
+template<typename T, int aCapacity>
+bool operator==(const HD_StaticStr<T, aCapacity>& aString1, const T* aString2)
+{
+	if (aString2)
+	{
+		return HD_Strcmp(aString1.GetBuffer(), aString2) == 0;
+	}
+	else
+	{
+		return aString1.GetLength() == 0;
+	}
+}
+
+template<typename T, int aCapacity>
+bool operator==(const T* aString1, const HD_StaticStr<T, aCapacity>& aString2)
+{
+	return aString2 == aString1;
+}
+
+template<typename T, int aCapacity>
+bool operator!=(const HD_StaticStr<T, aCapacity>& aString1, const HD_StaticStr<T, aCapacity>& aString2)
+{
+	return !(aString1 == aString2);
+}
+
+template<typename T, int aCapacity>
+bool operator!=(const HD_StaticStr<T, aCapacity>& aString1, const T* aString2)
+{
+	return !(aString1 == aString2);
+}
+
+template<typename T, int aCapacity>
+bool operator!=(const T* aString1, const HD_StaticStr<T, aCapacity>& aString2)
+{
+	return !(aString1 == aString2);
+}
+
+template<typename T, int aCapacity>
+bool operator<(const HD_StaticStr<T, aCapacity>& aString1, const HD_StaticStr<T, aCapacity>& aString2)
+{
+	return HD_Strcmp(aString1.GetBuffer(), aString2.GetBuffer()) < 0;
+}
+
+template<typename T, int aCapacity>
+bool operator<(const HD_StaticStr<T, aCapacity>& aString1, const T* aString2)
+{
+	return HD_Strcmp(aString1.GetBuffer(), aString2) < 0;
+}
+
+template<typename T, int aCapacity>
+bool operator<(const T* aString1, const HD_StaticStr<T, aCapacity>& aString2)
+{
+	return HD_Strcmp(aString1, aString2.GetBuffer()) < 0;
+}
+
+template<typename T, int aCapacity>
+bool operator>(const HD_StaticStr<T, aCapacity>& aString1, const HD_StaticStr<T, aCapacity>& aString2)
+{
+	return HD_Strcmp(aString1.GetBuffer(), aString2.GetBuffer()) > 0;
+}
+
+template<typename T, int aCapacity>
+bool operator>(const HD_StaticStr<T, aCapacity>& aString1, const T* aString2)
+{
+	return HD_Strcmp(aString1.GetBuffer(), aString2) > 0;
+}
+
+template<typename T, int aCapacity>
+bool operator>(const T* aString1, const HD_StaticStr<T, aCapacity>& aString2)
+{
+	return HD_Strcmp(aString1, aString2.GetBuffer()) > 0;
 }
 
 template<int aCapacity> using HD_StaticString = HD_StaticStr<char, aCapacity>;
