@@ -457,7 +457,7 @@ HD_Matrix4x4<T> HD_Matrix4x4<T>::GetFastInverse() const
 	HD_Matrix4x4 scaleInverse = CreateScale(1 / GetScaleInX(), 1 / GetScaleInY(), 1 / GetScaleInZ());
 
 	// At this point rotationInverse still holds a scaling as well. It's removed by normalizing its
-	// right and up vectors. Multiplying by scaleInverse doesn't work since CreateScale assumes no
+	// right, up and forward vectors. Multiplying by scaleInverse doesn't work since CreateScale assumes no
 	// rotation.
 	HD_Matrix4x4 rotationInverse = Get3x3().GetTranspose();
 	reinterpret_cast<HD_Vector3<T>*>(&rotationInverse.m11)->Normalize();
