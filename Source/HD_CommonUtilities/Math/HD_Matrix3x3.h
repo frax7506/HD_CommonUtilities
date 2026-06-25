@@ -36,9 +36,6 @@ public:
 	HD_Matrix3x3& operator-=(const HD_Matrix3x3& aMatrix);
 	HD_Matrix3x3& operator*=(const HD_Matrix3x3& aMatrix);
 
-	void ScaleInX(T aScalar);
-	void ScaleInY(T aScalar);
-
 	bool operator==(const HD_Matrix3x3& aMatrix) const;
 	bool operator!=(const HD_Matrix3x3& aMatrix) const;
 
@@ -175,20 +172,6 @@ HD_Matrix3x3<T>& HD_Matrix3x3<T>::operator*=(const HD_Matrix3x3& aMatrix)
 {
 	(*this) = (*this) * aMatrix;
 	return *this;
-}
-
-template<typename T>
-void HD_Matrix3x3<T>::ScaleInX(T aScalar)
-{
-	m11 *= aScalar;
-	m12 *= aScalar;
-}
-
-template<typename T>
-void HD_Matrix3x3<T>::ScaleInY(T aScalar)
-{
-	m21 *= aScalar;
-	m22 *= aScalar;
 }
 
 template<typename T>
