@@ -13,6 +13,8 @@ public:
 	T Length() const;
 	T Length2() const;
 
+	void SetLength(T aLength);
+
 	void Normalize();
 	HD_Vector2 GetNormalized() const;
 
@@ -84,6 +86,13 @@ template<typename T>
 T HD_Vector2<T>::Length2() const
 {
 	return myX * myX + myY * myY;
+}
+
+template<typename T>
+void HD_Vector2<T>::SetLength(T aLength)
+{
+	Normalize();
+	(*this) *= aLength;
 }
 
 template<typename T>

@@ -88,6 +88,17 @@ namespace HD_CommonUtilities
 			Assert::AreEqual(unsignedintLength2, 18u);
 		}
 
+		TEST_METHOD(SetLength)
+		{
+			HD_Vector2f floatVector(1.f, 1.f);
+
+			floatVector.SetLength(1.f);
+			Assert::AreEqual(floatVector.Length(), 1.f, FLOAT_EQUAL_TOLERANCE);
+
+			floatVector.SetLength(2.f);
+			Assert::AreEqual(floatVector.Length(), 2.f, FLOAT_EQUAL_TOLERANCE);
+		}
+
 		TEST_METHOD(Normalize)
 		{
 			HD_Vector2f floatVector(2.f, 2.f);
