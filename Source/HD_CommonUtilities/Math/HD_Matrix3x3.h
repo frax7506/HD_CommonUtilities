@@ -29,9 +29,6 @@ public:
 	HD_Matrix3x3& operator=(const HD_Matrix4x4<T>& aMatrix);
 	HD_Matrix3x3& operator=(std::initializer_list<T> aInitializerList);
 
-	T& operator()(int aRow, int aCol);
-	const T& operator()(int aRow, int aCol) const;
-
 	HD_Matrix3x3& operator+=(const HD_Matrix3x3& aMatrix);
 	HD_Matrix3x3& operator-=(const HD_Matrix3x3& aMatrix);
 	HD_Matrix3x3& operator*=(const HD_Matrix3x3& aMatrix);
@@ -39,8 +36,8 @@ public:
 	void SetScaleInX(T aScalar);
 	void SetScaleInY(T aScalar);
 
-	bool operator==(const HD_Matrix3x3& aMatrix) const;
-	bool operator!=(const HD_Matrix3x3& aMatrix) const;
+	T& operator()(int aRow, int aCol);
+	const T& operator()(int aRow, int aCol) const;
 
 	HD_Vector2<T> GetRightVector() const;
 	HD_Vector2<T> GetUpVector() const;
@@ -75,6 +72,8 @@ template<typename T> HD_Matrix3x3<T> operator*(const HD_Matrix3x3<T>& aMatrix0, 
 template<typename T> HD_Matrix3x3<T> operator*(const HD_Matrix3x3<T>& aMatrix, T aScalar);
 template<typename T> HD_Matrix3x3<T> operator*(T aScalar, const HD_Matrix3x3<T>& aMatrix);
 template<typename T> HD_Vector3<T> operator*(const HD_Vector3<T>& aVector, const HD_Matrix3x3<T>& aMatrix);
+template<typename T> bool operator==(const HD_Matrix3x3<T>& aMatrix0, const HD_Matrix3x3<T>& aMatrix1);
+template<typename T> bool operator!=(const HD_Matrix3x3<T>& aMatrix0, const HD_Matrix3x3<T>& aMatrix1);
 
 template<typename T>
 HD_Matrix3x3<T>::HD_Matrix3x3()
@@ -122,20 +121,6 @@ HD_Matrix3x3<T>& HD_Matrix3x3<T>::operator=(std::initializer_list<T> aInitialize
 	assert(aInitializerList.size() == 9);
 	memcpy(this, aInitializerList.begin(), 3 * 3 * sizeof(T));
 	return *this;
-}
-
-template<typename T>
-T& HD_Matrix3x3<T>::operator()(int aRow, int aCol)
-{
-	assert(1 <= aRow && aRow <= 3 && 1 <= aCol && aCol <= 3);
-	return *(&m11 + ((aRow - 1) * 3) + (aCol - 1));
-}
-
-template<typename T>
-const T& HD_Matrix3x3<T>::operator()(int aRow, int aCol) const
-{
-	assert(1 <= aRow && aRow <= 3 && 1 <= aCol && aCol <= 3);
-	return *(&m11 + ((aRow - 1) * 3) + (aCol - 1));
 }
 
 template<typename T>
@@ -198,23 +183,17 @@ void HD_Matrix3x3<T>::SetScaleInY(T aScalar)
 }
 
 template<typename T>
-bool HD_Matrix3x3<T>::operator==(const HD_Matrix3x3& aMatrix) const
+T& HD_Matrix3x3<T>::operator()(int aRow, int aCol)
 {
-	return	HD_ARE_FLOAT_VALUES_CLOSE(m11, aMatrix.m11) &&
-			HD_ARE_FLOAT_VALUES_CLOSE(m12, aMatrix.m12) &&
-			HD_ARE_FLOAT_VALUES_CLOSE(m13, aMatrix.m13) &&
-			HD_ARE_FLOAT_VALUES_CLOSE(m21, aMatrix.m21) &&
-			HD_ARE_FLOAT_VALUES_CLOSE(m22, aMatrix.m22) &&
-			HD_ARE_FLOAT_VALUES_CLOSE(m23, aMatrix.m23) &&
-			HD_ARE_FLOAT_VALUES_CLOSE(m31, aMatrix.m31) &&
-			HD_ARE_FLOAT_VALUES_CLOSE(m32, aMatrix.m32) &&
-			HD_ARE_FLOAT_VALUES_CLOSE(m33, aMatrix.m33);
+	assert(1 <= aRow && aRow <= 3 && 1 <= aCol && aCol <= 3);
+	return *(&m11 + ((aRow - 1) * 3) + (aCol - 1));
 }
 
 template<typename T>
-bool HD_Matrix3x3<T>::operator!=(const HD_Matrix3x3& aMatrix) const
+const T& HD_Matrix3x3<T>::operator()(int aRow, int aCol) const
 {
-	return !((*this) == aMatrix);
+	assert(1 <= aRow && aRow <= 3 && 1 <= aCol && aCol <= 3);
+	return *(&m11 + ((aRow - 1) * 3) + (aCol - 1));
 }
 
 template<typename T>
@@ -435,6 +414,26 @@ HD_Vector3<T> operator*(const HD_Vector3<T>& aVector, const HD_Matrix3x3<T>& aMa
 	);
 
 	return result;
+}
+
+template<typename T>
+bool operator==(const HD_Matrix3x3<T>& aMatrix0, const HD_Matrix3x3<T>& aMatrix1)
+{
+	return	HD_ARE_FLOAT_VALUES_CLOSE(aMatrix0.m11, aMatrix1.m11) &&
+		HD_ARE_FLOAT_VALUES_CLOSE(aMatrix0.m12, aMatrix1.m12) &&
+		HD_ARE_FLOAT_VALUES_CLOSE(aMatrix0.m13, aMatrix1.m13) &&
+		HD_ARE_FLOAT_VALUES_CLOSE(aMatrix0.m21, aMatrix1.m21) &&
+		HD_ARE_FLOAT_VALUES_CLOSE(aMatrix0.m22, aMatrix1.m22) &&
+		HD_ARE_FLOAT_VALUES_CLOSE(aMatrix0.m23, aMatrix1.m23) &&
+		HD_ARE_FLOAT_VALUES_CLOSE(aMatrix0.m31, aMatrix1.m31) &&
+		HD_ARE_FLOAT_VALUES_CLOSE(aMatrix0.m32, aMatrix1.m32) &&
+		HD_ARE_FLOAT_VALUES_CLOSE(aMatrix0.m33, aMatrix1.m33);
+}
+
+template<typename T>
+bool operator!=(const HD_Matrix3x3<T>& aMatrix0, const HD_Matrix3x3<T>& aMatrix1)
+{
+	return !(aMatrix0 == aMatrix1);
 }
 
 typedef HD_Matrix3x3<float> HD_Matrix3x3f;

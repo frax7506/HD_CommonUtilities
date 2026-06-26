@@ -87,50 +87,6 @@ namespace HD_CommonUtilities
 			TestUtils::Matrix4x4_AreEqual(matrix, 0.f, 1.f, 2.f, 3.f, 4.f, 5.f, 6.f, 7.f, 8.f, 9.f, 10.f, 11.f, 12.f, 13.f, 14.f, 15.f);
 		}
 
-		TEST_METHOD(Operator_Function_Call_Row_And_Col)
-		{
-			HD_Matrix4x4f matrix = { 0.f, 1.f, 2.f, 3.f, 4.f, 5.f, 6.f, 7.f, 8.f, 9.f, 10.f, 11.f, 12.f, 13.f, 14.f, 15.f };
-
-			Assert::AreEqual(matrix(1, 1), 0.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(matrix(1, 2), 1.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(matrix(1, 3), 2.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(matrix(1, 4), 3.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(matrix(2, 1), 4.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(matrix(2, 2), 5.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(matrix(2, 3), 6.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(matrix(2, 4), 7.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(matrix(3, 1), 8.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(matrix(3, 2), 9.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(matrix(3, 3), 10.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(matrix(3, 4), 11.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(matrix(4, 1), 12.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(matrix(4, 2), 13.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(matrix(4, 3), 14.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(matrix(4, 4), 15.f, FLOAT_EQUAL_TOLERANCE);
-		}
-
-		TEST_METHOD(Operator_Function_Call_Row_And_Col_Const)
-		{
-			HD_Matrix4x4f matrix = { 0.f, 1.f, 2.f, 3.f, 4.f, 5.f, 6.f, 7.f, 8.f, 9.f, 10.f, 11.f, 12.f, 13.f, 14.f, 15.f };
-
-			Assert::AreEqual(matrix(1, 1), 0.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(matrix(1, 2), 1.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(matrix(1, 3), 2.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(matrix(1, 4), 3.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(matrix(2, 1), 4.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(matrix(2, 2), 5.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(matrix(2, 3), 6.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(matrix(2, 4), 7.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(matrix(3, 1), 8.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(matrix(3, 2), 9.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(matrix(3, 3), 10.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(matrix(3, 4), 11.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(matrix(4, 1), 12.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(matrix(4, 2), 13.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(matrix(4, 3), 14.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(matrix(4, 4), 15.f, FLOAT_EQUAL_TOLERANCE);
-		}
-
 		TEST_METHOD(Operator_PlusEquals)
 		{
 			HD_Matrix4x4f matrix1 = { 0.f, 1.f, 2.f, 3.f, 4.f, 5.f, 6.f, 7.f, 8.f, 9.f, 10.f, 11.f, 12.f, 13.f, 14.f, 15.f };
@@ -192,24 +148,48 @@ namespace HD_CommonUtilities
 			Assert::AreEqual(scaleInX, 2.f, FLOAT_EQUAL_TOLERANCE);
 		}
 
-		TEST_METHOD(Operator_Equals)
+		TEST_METHOD(Operator_Function_Call_Row_And_Col)
 		{
-			HD_Matrix4x4f matrix1 = { 0.f, 1.f, 2.f, 3.f, 4.f, 5.f, 6.f, 7.f, 8.f, 9.f, 10.f, 11.f, 12.f, 13.f, 14.f, 15.f };
-			HD_Matrix4x4f matrix2 = { 0.f, 1.f, 2.f, 3.f, 4.f, 5.f, 6.f, 7.f, 8.f, 9.f, 10.f, 11.f, 12.f, 13.f, 14.f, 15.f };
-			HD_Matrix4x4f matrix3 = { 16.f, 17.f, 18.f, 19.f, 20.f, 21.f, 22.f, 23.f, 24.f, 25.f, 26.f, 27.f, 28.f, 29.f, 30.f, 31.f };
+			HD_Matrix4x4f matrix = { 0.f, 1.f, 2.f, 3.f, 4.f, 5.f, 6.f, 7.f, 8.f, 9.f, 10.f, 11.f, 12.f, 13.f, 14.f, 15.f };
 
-			Assert::IsTrue(matrix1 == matrix2);
-			Assert::IsFalse(matrix1 == matrix3);
+			Assert::AreEqual(matrix(1, 1), 0.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(1, 2), 1.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(1, 3), 2.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(1, 4), 3.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(2, 1), 4.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(2, 2), 5.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(2, 3), 6.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(2, 4), 7.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(3, 1), 8.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(3, 2), 9.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(3, 3), 10.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(3, 4), 11.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(4, 1), 12.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(4, 2), 13.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(4, 3), 14.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(4, 4), 15.f, FLOAT_EQUAL_TOLERANCE);
 		}
 
-		TEST_METHOD(Operator_Not_Equals)
+		TEST_METHOD(Operator_Function_Call_Row_And_Col_Const)
 		{
-			HD_Matrix4x4f matrix1 = { 0.f, 1.f, 2.f, 3.f, 4.f, 5.f, 6.f, 7.f, 8.f, 9.f, 10.f, 11.f, 12.f, 13.f, 14.f, 15.f };
-			HD_Matrix4x4f matrix2 = { 0.f, 1.f, 2.f, 3.f, 4.f, 5.f, 6.f, 7.f, 8.f, 9.f, 10.f, 11.f, 12.f, 13.f, 14.f, 15.f };
-			HD_Matrix4x4f matrix3 = { 16.f, 17.f, 18.f, 19.f, 20.f, 21.f, 22.f, 23.f, 24.f, 25.f, 26.f, 27.f, 28.f, 29.f, 30.f, 31.f };
+			HD_Matrix4x4f matrix = { 0.f, 1.f, 2.f, 3.f, 4.f, 5.f, 6.f, 7.f, 8.f, 9.f, 10.f, 11.f, 12.f, 13.f, 14.f, 15.f };
 
-			Assert::IsFalse(matrix1 != matrix2);
-			Assert::IsTrue(matrix1 != matrix3);
+			Assert::AreEqual(matrix(1, 1), 0.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(1, 2), 1.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(1, 3), 2.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(1, 4), 3.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(2, 1), 4.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(2, 2), 5.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(2, 3), 6.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(2, 4), 7.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(3, 1), 8.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(3, 2), 9.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(3, 3), 10.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(3, 4), 11.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(4, 1), 12.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(4, 2), 13.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(4, 3), 14.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(4, 4), 15.f, FLOAT_EQUAL_TOLERANCE);
 		}
 
 		TEST_METHOD(GetRightVector)
@@ -493,6 +473,26 @@ namespace HD_CommonUtilities
 			HD_Vector4f vector2 = vector1 * HD_Matrix4x4f::CreateRotationAroundX(F_PI_HALF);
 
 			TestUtils::Vector4_AreEqual(vector2, 1.f, -1.f, 1.f, 0.f);
+		}
+
+		TEST_METHOD(Operator_Equals)
+		{
+			HD_Matrix4x4f matrix1 = { 0.f, 1.f, 2.f, 3.f, 4.f, 5.f, 6.f, 7.f, 8.f, 9.f, 10.f, 11.f, 12.f, 13.f, 14.f, 15.f };
+			HD_Matrix4x4f matrix2 = { 0.f, 1.f, 2.f, 3.f, 4.f, 5.f, 6.f, 7.f, 8.f, 9.f, 10.f, 11.f, 12.f, 13.f, 14.f, 15.f };
+			HD_Matrix4x4f matrix3 = { 16.f, 17.f, 18.f, 19.f, 20.f, 21.f, 22.f, 23.f, 24.f, 25.f, 26.f, 27.f, 28.f, 29.f, 30.f, 31.f };
+
+			Assert::IsTrue(matrix1 == matrix2);
+			Assert::IsFalse(matrix1 == matrix3);
+		}
+
+		TEST_METHOD(Operator_Not_Equals)
+		{
+			HD_Matrix4x4f matrix1 = { 0.f, 1.f, 2.f, 3.f, 4.f, 5.f, 6.f, 7.f, 8.f, 9.f, 10.f, 11.f, 12.f, 13.f, 14.f, 15.f };
+			HD_Matrix4x4f matrix2 = { 0.f, 1.f, 2.f, 3.f, 4.f, 5.f, 6.f, 7.f, 8.f, 9.f, 10.f, 11.f, 12.f, 13.f, 14.f, 15.f };
+			HD_Matrix4x4f matrix3 = { 16.f, 17.f, 18.f, 19.f, 20.f, 21.f, 22.f, 23.f, 24.f, 25.f, 26.f, 27.f, 28.f, 29.f, 30.f, 31.f };
+
+			Assert::IsFalse(matrix1 != matrix2);
+			Assert::IsTrue(matrix1 != matrix3);
 		}
 	};
 }

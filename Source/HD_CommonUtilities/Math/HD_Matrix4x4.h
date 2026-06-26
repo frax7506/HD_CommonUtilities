@@ -28,9 +28,6 @@ public:
 	HD_Matrix4x4& operator=(const HD_Matrix3x3<T>& aMatrix);
 	HD_Matrix4x4& operator=(std::initializer_list<T> aInitializerList);
 
-	T& operator()(int aRow, int aCol);
-	const T& operator()(int aRow, int aCol) const;
-
 	HD_Matrix4x4& operator+=(const HD_Matrix4x4& aMatrix);
 	HD_Matrix4x4& operator-=(const HD_Matrix4x4& aMatrix);
 	HD_Matrix4x4& operator*=(const HD_Matrix4x4& aMatrix);
@@ -39,8 +36,8 @@ public:
 	void SetScaleInY(T aScalar);
 	void SetScaleInZ(T aScalar);
 
-	bool operator==(const HD_Matrix4x4& aMatrix) const;
-	bool operator!=(const HD_Matrix4x4& aMatrix) const;
+	T& operator()(int aRow, int aCol);
+	const T& operator()(int aRow, int aCol) const;
 
 	HD_Vector3<T> GetRightVector() const;
 	HD_Vector3<T> GetUpVector() const;
@@ -84,6 +81,8 @@ template<typename T> HD_Matrix4x4<T> operator*(const HD_Matrix4x4<T>& aMatrix0, 
 template<typename T> HD_Matrix4x4<T> operator*(const HD_Matrix4x4<T>& aMatrix, T aScalar);
 template<typename T> HD_Matrix4x4<T> operator*(T aScalar, const HD_Matrix4x4<T>& aMatrix);
 template<typename T> HD_Vector4<T> operator*(const HD_Vector4<T>& aVector, const HD_Matrix4x4<T>& aMatrix);
+template<typename T> bool operator==(const HD_Matrix4x4<T>& aMatrix0, const HD_Matrix4x4<T>& aMatrix1);
+template<typename T> bool operator!=(const HD_Matrix4x4<T>& aMatrix0, const HD_Matrix4x4<T>& aMatrix1);
 
 template<typename T>
 HD_Matrix4x4<T>::HD_Matrix4x4()
@@ -132,20 +131,6 @@ HD_Matrix4x4<T>& HD_Matrix4x4<T>::operator=(std::initializer_list<T> aInitialize
 	assert(aInitializerList.size() == 16);
 	memcpy(&m11, aInitializerList.begin(), 4 * 4 * sizeof(T));
 	return *this;
-}
-
-template<typename T>
-T& HD_Matrix4x4<T>::operator()(int aRow, int aCol)
-{
-	assert(1 <= aRow && aRow <= 4 && 1 <= aCol && aCol <= 4);
-	return *(&m11 + ((aRow - 1) * 4) + (aCol - 1));
-}
-
-template<typename T>
-const T& HD_Matrix4x4<T>::operator()(int aRow, int aCol) const
-{
-	assert(1 <= aRow && aRow <= 4 && 1 <= aCol && aCol <= 4);
-	return *(&m11 + ((aRow - 1) * 4) + (aCol - 1));
 }
 
 template<typename T>
@@ -261,30 +246,17 @@ void HD_Matrix4x4<T>::SetScaleInZ(T aScalar)
 }
 
 template<typename T>
-bool HD_Matrix4x4<T>::operator==(const HD_Matrix4x4& aMatrix) const
+T& HD_Matrix4x4<T>::operator()(int aRow, int aCol)
 {
-	return	HD_ARE_FLOAT_VALUES_CLOSE(m11, aMatrix.m11) &&
-			HD_ARE_FLOAT_VALUES_CLOSE(m12, aMatrix.m12) &&
-			HD_ARE_FLOAT_VALUES_CLOSE(m13, aMatrix.m13) &&
-			HD_ARE_FLOAT_VALUES_CLOSE(m14, aMatrix.m14) &&
-			HD_ARE_FLOAT_VALUES_CLOSE(m21, aMatrix.m21) &&
-			HD_ARE_FLOAT_VALUES_CLOSE(m22, aMatrix.m22) &&
-			HD_ARE_FLOAT_VALUES_CLOSE(m23, aMatrix.m23) &&
-			HD_ARE_FLOAT_VALUES_CLOSE(m24, aMatrix.m24) &&
-			HD_ARE_FLOAT_VALUES_CLOSE(m31, aMatrix.m31) &&
-			HD_ARE_FLOAT_VALUES_CLOSE(m32, aMatrix.m32) &&
-			HD_ARE_FLOAT_VALUES_CLOSE(m33, aMatrix.m33) &&
-			HD_ARE_FLOAT_VALUES_CLOSE(m34, aMatrix.m34) &&
-			HD_ARE_FLOAT_VALUES_CLOSE(m41, aMatrix.m41) &&
-			HD_ARE_FLOAT_VALUES_CLOSE(m42, aMatrix.m42) &&
-			HD_ARE_FLOAT_VALUES_CLOSE(m43, aMatrix.m43) &&
-			HD_ARE_FLOAT_VALUES_CLOSE(m44, aMatrix.m44);
+	assert(1 <= aRow && aRow <= 4 && 1 <= aCol && aCol <= 4);
+	return *(&m11 + ((aRow - 1) * 4) + (aCol - 1));
 }
 
 template<typename T>
-bool HD_Matrix4x4<T>::operator!=(const HD_Matrix4x4& aMatrix) const
+const T& HD_Matrix4x4<T>::operator()(int aRow, int aCol) const
 {
-	return !((*this) == aMatrix);
+	assert(1 <= aRow && aRow <= 4 && 1 <= aCol && aCol <= 4);
+	return *(&m11 + ((aRow - 1) * 4) + (aCol - 1));
 }
 
 template<typename T>
@@ -644,6 +616,33 @@ HD_Vector4<T> operator*(const HD_Vector4<T>& aVector, const HD_Matrix4x4<T>& aMa
 	);
 
 	return result;
+}
+
+template<typename T>
+bool operator==(const HD_Matrix4x4<T>& aMatrix0, const HD_Matrix4x4<T>& aMatrix1)
+{
+	return	HD_ARE_FLOAT_VALUES_CLOSE(aMatrix0.m11, aMatrix1.m11) &&
+		HD_ARE_FLOAT_VALUES_CLOSE(aMatrix0.m12, aMatrix1.m12) &&
+		HD_ARE_FLOAT_VALUES_CLOSE(aMatrix0.m13, aMatrix1.m13) &&
+		HD_ARE_FLOAT_VALUES_CLOSE(aMatrix0.m14, aMatrix1.m14) &&
+		HD_ARE_FLOAT_VALUES_CLOSE(aMatrix0.m21, aMatrix1.m21) &&
+		HD_ARE_FLOAT_VALUES_CLOSE(aMatrix0.m22, aMatrix1.m22) &&
+		HD_ARE_FLOAT_VALUES_CLOSE(aMatrix0.m23, aMatrix1.m23) &&
+		HD_ARE_FLOAT_VALUES_CLOSE(aMatrix0.m24, aMatrix1.m24) &&
+		HD_ARE_FLOAT_VALUES_CLOSE(aMatrix0.m31, aMatrix1.m31) &&
+		HD_ARE_FLOAT_VALUES_CLOSE(aMatrix0.m32, aMatrix1.m32) &&
+		HD_ARE_FLOAT_VALUES_CLOSE(aMatrix0.m33, aMatrix1.m33) &&
+		HD_ARE_FLOAT_VALUES_CLOSE(aMatrix0.m34, aMatrix1.m34) &&
+		HD_ARE_FLOAT_VALUES_CLOSE(aMatrix0.m41, aMatrix1.m41) &&
+		HD_ARE_FLOAT_VALUES_CLOSE(aMatrix0.m42, aMatrix1.m42) &&
+		HD_ARE_FLOAT_VALUES_CLOSE(aMatrix0.m43, aMatrix1.m43) &&
+		HD_ARE_FLOAT_VALUES_CLOSE(aMatrix0.m44, aMatrix1.m44);
+}
+
+template<typename T>
+bool operator!=(const HD_Matrix4x4<T>& aMatrix0, const HD_Matrix4x4<T>& aMatrix1)
+{
+	return !(aMatrix0 == aMatrix1);
 }
 
 typedef HD_Matrix4x4<float> HD_Matrix4x4f;
