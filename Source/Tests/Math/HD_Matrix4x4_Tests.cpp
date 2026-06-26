@@ -148,6 +148,63 @@ namespace HD_CommonUtilities
 			Assert::AreEqual(scaleInX, 2.f, FLOAT_EQUAL_TOLERANCE);
 		}
 
+		TEST_METHOD(SetRotationAroundX)
+		{
+			HD_Matrix4x4f matrix = HD_Matrix4x4f::CreateRotationAroundX(F_PI);
+			matrix.SetRotationAroundX(F_PI_HALF);
+
+			Assert::AreEqual(matrix.GetRotationAroundX(), F_PI_HALF, FLOAT_EQUAL_TOLERANCE);
+		}
+
+		TEST_METHOD(SetRotationAroundY)
+		{
+			HD_Matrix4x4f matrix = HD_Matrix4x4f::CreateRotationAroundY(F_PI);
+			matrix.SetRotationAroundY(F_PI_HALF);
+
+			Assert::AreEqual(matrix.GetRotationAroundY(), F_PI_HALF, FLOAT_EQUAL_TOLERANCE);
+		}
+
+		TEST_METHOD(SetRotationAroundZ)
+		{
+			HD_Matrix4x4f matrix = HD_Matrix4x4f::CreateRotationAroundZ(F_PI);
+			matrix.SetRotationAroundZ(F_PI_HALF);
+
+			Assert::AreEqual(matrix.GetRotationAroundZ(), F_PI_HALF, FLOAT_EQUAL_TOLERANCE);
+		}
+
+		TEST_METHOD(SetPositionX)
+		{
+			HD_Matrix4x4f matrix;
+			matrix.SetPositionX(2.f);
+
+			Assert::AreEqual(matrix.GetPositionX(), 2.f);
+		}
+
+		TEST_METHOD(SetPositionY)
+		{
+			HD_Matrix4x4f matrix;
+			matrix.SetPositionY(2.f);
+
+			Assert::AreEqual(matrix.GetPositionY(), 2.f);
+		}
+
+		TEST_METHOD(SetPositionZ)
+		{
+			HD_Matrix4x4f matrix;
+			matrix.SetPositionZ(2.f);
+
+			Assert::AreEqual(matrix.GetPositionZ(), 2.f);
+		}
+
+		TEST_METHOD(SetPosition)
+		{
+			HD_Matrix4x4f matrix;
+			matrix.SetPosition({ 2.f, 3.f, 4.f });
+
+			HD_Vector3f position = matrix.GetPosition();
+			TestUtils::Vector3_AreEqual(position, 2.f, 3.f, 4.f);
+		}
+
 		TEST_METHOD(Operator_Function_Call_Row_And_Col)
 		{
 			HD_Matrix4x4f matrix = { 0.f, 1.f, 2.f, 3.f, 4.f, 5.f, 6.f, 7.f, 8.f, 9.f, 10.f, 11.f, 12.f, 13.f, 14.f, 15.f };

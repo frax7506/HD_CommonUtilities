@@ -36,6 +36,12 @@ public:
 	void SetScaleInX(T aScalar);
 	void SetScaleInY(T aScalar);
 
+	void SetRotation(T aAngleInRadians);
+
+	void SetPositionX(T aValue);
+	void SetPositionY(T aValue);
+	void SetPosition(const HD_Vector2<T>& aPosition);
+
 	T& operator()(int aRow, int aCol);
 	const T& operator()(int aRow, int aCol) const;
 
@@ -180,6 +186,35 @@ void HD_Matrix3x3<T>::SetScaleInY(T aScalar)
 
 	m21 = upVector.myX;
 	m22 = upVector.myY;
+}
+
+template<typename T>
+void HD_Matrix3x3<T>::SetRotation(T aAngleInRadians)
+{
+	T currentRotation = GetRotation();
+	T angleDiff = aAngleInRadians - currentRotation;
+
+	HD_Matrix3x3 rotation = CreateRotation(angleDiff);
+	(*this) *= rotation;
+}
+
+template<typename T>
+void HD_Matrix3x3<T>::SetPositionX(T aValue)
+{
+	m31 = aValue;
+}
+
+template<typename T>
+void HD_Matrix3x3<T>::SetPositionY(T aValue)
+{
+	m32 = aValue;
+}
+
+template<typename T>
+void HD_Matrix3x3<T>::SetPosition(const HD_Vector2<T>& aPosition)
+{
+	m31 = aPosition.myX;
+	m32 = aPosition.myY;
 }
 
 template<typename T>

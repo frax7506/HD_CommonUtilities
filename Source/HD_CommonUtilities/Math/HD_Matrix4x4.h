@@ -36,6 +36,15 @@ public:
 	void SetScaleInY(T aScalar);
 	void SetScaleInZ(T aScalar);
 
+	void SetRotationAroundX(T aAngleInRadians);
+	void SetRotationAroundY(T aAngleInRadians);
+	void SetRotationAroundZ(T aAngleInRadians);
+
+	void SetPositionX(T aValue);
+	void SetPositionY(T aValue);
+	void SetPositionZ(T aValue);
+	void SetPosition(const HD_Vector3<T>& aPosition);
+
 	T& operator()(int aRow, int aCol);
 	const T& operator()(int aRow, int aCol) const;
 
@@ -243,6 +252,62 @@ void HD_Matrix4x4<T>::SetScaleInZ(T aScalar)
 	m31 = forwardVector.myX;
 	m32 = forwardVector.myY;
 	m33 = forwardVector.myZ;
+}
+
+template<typename T>
+void HD_Matrix4x4<T>::SetRotationAroundX(T aAngleInRadians)
+{
+	T currentRotationAroundX = GetRotationAroundX();
+	T angleDiff = aAngleInRadians - currentRotationAroundX;
+
+	HD_Matrix4x4 rotation = CreateRotationAroundX(angleDiff);
+	(*this) *= rotation;
+}
+
+template<typename T>
+void HD_Matrix4x4<T>::SetRotationAroundY(T aAngleInRadians)
+{
+	T currentRotationAroundY = GetRotationAroundY();
+	T angleDiff = aAngleInRadians - currentRotationAroundY;
+
+	HD_Matrix4x4 rotation = CreateRotationAroundY(angleDiff);
+	(*this) *= rotation;
+}
+
+template<typename T>
+void HD_Matrix4x4<T>::SetRotationAroundZ(T aAngleInRadians)
+{
+	T currentRotationAroundZ = GetRotationAroundZ();
+	T angleDiff = aAngleInRadians - currentRotationAroundZ;
+
+	HD_Matrix4x4 rotation = CreateRotationAroundZ(angleDiff);
+	(*this) *= rotation;
+}
+
+template<typename T>
+void HD_Matrix4x4<T>::SetPositionX(T aValue)
+{
+	m41 = aValue;
+}
+
+template<typename T>
+void HD_Matrix4x4<T>::SetPositionY(T aValue)
+{
+	m42 = aValue;
+}
+
+template<typename T>
+void HD_Matrix4x4<T>::SetPositionZ(T aValue)
+{
+	m43 = aValue;
+}
+
+template<typename T>
+void HD_Matrix4x4<T>::SetPosition(const HD_Vector3<T>& aPosition)
+{
+	m41 = aPosition.myX;
+	m42 = aPosition.myY;
+	m43 = aPosition.myZ;
 }
 
 template<typename T>

@@ -139,6 +139,39 @@ namespace HD_CommonUtilities
 			Assert::AreEqual(scaleInY, 2.f, FLOAT_EQUAL_TOLERANCE);
 		}
 
+		TEST_METHOD(SetRotation)
+		{
+			HD_Matrix3x3f matrix = HD_Matrix3x3f::CreateRotation(F_PI);
+			matrix.SetRotation(F_PI_HALF);
+
+			Assert::AreEqual(matrix.GetRotation(), F_PI_HALF, FLOAT_EQUAL_TOLERANCE);
+		}
+
+		TEST_METHOD(SetPositionX)
+		{
+			HD_Matrix3x3f matrix;
+			matrix.SetPositionX(2.f);
+
+			Assert::AreEqual(matrix.GetPositionX(), 2.f);
+		}
+
+		TEST_METHOD(SetPositionY)
+		{
+			HD_Matrix3x3f matrix;
+			matrix.SetPositionY(2.f);
+
+			Assert::AreEqual(matrix.GetPositionY(), 2.f);
+		}
+
+		TEST_METHOD(SetPosition)
+		{
+			HD_Matrix3x3f matrix;
+			matrix.SetPosition({ 2.f, 3.f });
+
+			HD_Vector2f position = matrix.GetPosition();
+			TestUtils::Vector2_AreEqual(position, 2.f, 3.f);
+		}
+
 		TEST_METHOD(Operator_Function_Call_Row_And_Col)
 		{
 			HD_Matrix3x3f matrix = { 0.f, 1.f, 2.f, 3.f, 4.f, 5.f, 6.f, 7.f, 8.f };
