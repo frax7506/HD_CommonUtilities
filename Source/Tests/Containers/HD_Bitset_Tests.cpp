@@ -158,87 +158,87 @@ namespace HD_CommonUtilities
 			Assert::IsTrue(memcmp(&bitset2.myBits, &testMemory, 4) == 0);
 		}
 
-		TEST_METHOD(Reference_Constructor)
+		TEST_METHOD(Bit_Constructor)
 		{
-			HD_Bitset<32>::Reference reference;
-			Assert::IsNull(reference.myBitset);
-			Assert::AreEqual(reference.myIndex, 0);
+			HD_Bitset<32>::Bit bit;
+			Assert::IsNull(bit.myBitset);
+			Assert::AreEqual(bit.myIndex, 0);
 		}
 
-		TEST_METHOD(Reference_Constructor_Copy)
+		TEST_METHOD(Bit_Constructor_Copy)
 		{
 			HD_Bitset<32> bitset(0x01010101);
-			HD_Bitset<32>::Reference reference1(&bitset, 1);
-			HD_Bitset<32>::Reference reference2(reference1);
+			HD_Bitset<32>::Bit bit1(&bitset, 1);
+			HD_Bitset<32>::Bit bit2(bit1);
 
-			Assert::IsNotNull(reference2.myBitset);
-			Assert::IsTrue(memcmp(reference1.myBitset, reference2.myBitset, 4) == 0);
-			Assert::AreEqual(reference1.myIndex, reference2.myIndex);
+			Assert::IsNotNull(bit2.myBitset);
+			Assert::IsTrue(memcmp(bit1.myBitset, bit2.myBitset, 4) == 0);
+			Assert::AreEqual(bit1.myIndex, bit2.myIndex);
 		}
 
-		TEST_METHOD(Reference_Constructor_HD_Bitset_And_Index)
+		TEST_METHOD(Bit_Constructor_HD_Bitset_And_Index)
 		{
 			HD_Bitset<32> bitset(0x01010101);
-			HD_Bitset<32>::Reference reference(&bitset, 1);
+			HD_Bitset<32>::Bit bit(&bitset, 1);
 
 			s32 testMemory = 0x01010101;
-			Assert::IsTrue(memcmp(reference.myBitset, &testMemory, 4) == 0);
-			Assert::AreEqual(reference.myIndex, 1);
+			Assert::IsTrue(memcmp(bit.myBitset, &testMemory, 4) == 0);
+			Assert::AreEqual(bit.myIndex, 1);
 		}
 
-		TEST_METHOD(Reference_Operator_Assignment_Copy)
+		TEST_METHOD(Bit_Operator_Assignment_Copy)
 		{
 			HD_Bitset<32> bitset(0x01010101);
-			HD_Bitset<32>::Reference reference1(&bitset, 1);
-			HD_Bitset<32>::Reference reference2;
-			reference2 = reference1;
+			HD_Bitset<32>::Bit bit1(&bitset, 1);
+			HD_Bitset<32>::Bit bit2;
+			bit2 = bit1;
 
-			Assert::IsNotNull(reference2.myBitset);
-			Assert::IsTrue(memcmp(reference1.myBitset, reference2.myBitset, 4) == 0);
-			Assert::AreEqual(reference1.myIndex, reference2.myIndex);
+			Assert::IsNotNull(bit2.myBitset);
+			Assert::IsTrue(memcmp(bit1.myBitset, bit2.myBitset, 4) == 0);
+			Assert::AreEqual(bit1.myIndex, bit2.myIndex);
 		}
 
-		TEST_METHOD(Reference_Operator_Assignment_Bool)
+		TEST_METHOD(Bit_Operator_Assignment_Bool)
 		{
 			HD_Bitset<32> bitset(0x01010101);
-			HD_Bitset<32>::Reference reference(&bitset, 1);
+			HD_Bitset<32>::Bit bit(&bitset, 1);
 
-			reference = true;
+			bit = true;
 
 			s32 testMemory = 0x01010103;
 			Assert::IsTrue(memcmp(bitset.myBits, &testMemory, 4) == 0);
 
-			reference = false;
+			bit = false;
 
 			testMemory = 0x01010101;
 			Assert::IsTrue(memcmp(bitset.myBits, &testMemory, 4) == 0);
 		}
 
-		TEST_METHOD(Reference_GetValue)
+		TEST_METHOD(Bit_GetValue)
 		{
 			HD_Bitset<32> bitset;
-			HD_Bitset<32>::Reference reference(&bitset, 0);
+			HD_Bitset<32>::Bit bit(&bitset, 0);
 
-			bool value = reference.GetValue();
+			bool value = bit.GetValue();
 			Assert::IsFalse(value);
 
-			reference = true;
+			bit = true;
 
-			value = reference.GetValue();
+			value = bit.GetValue();
 			Assert::IsTrue(value);
 		}
 
-		TEST_METHOD(Reference_Operator_Bool)
+		TEST_METHOD(Bit_Operator_Bool)
 		{
 			HD_Bitset<32> bitset;
-			HD_Bitset<32>::Reference reference(&bitset, 0);
+			HD_Bitset<32>::Bit bit(&bitset, 0);
 
-			bool value = reference;
+			bool value = bit;
 			Assert::IsFalse(value);
 
-			reference = true;
+			bit = true;
 
-			value = reference;
+			value = bit;
 			Assert::IsTrue(value);
 		}
 	};

@@ -9,16 +9,15 @@ template<int aSize>
 class HD_Bitset
 {
 public:
-	// A proxy class that is used to access a single bit
-	class Reference
+	class Bit
 	{
 	public:
-		Reference();
-		Reference(const Reference& aOther);
-		Reference(HD_Bitset* aBitset, int aIndex);
+		Bit();
+		Bit(const Bit& aOther);
+		Bit(HD_Bitset* aBitset, int aIndex);
 
-		Reference& operator=(const Reference& aOther);
-		Reference& operator=(bool aValue);
+		Bit& operator=(const Bit& aOther);
+		Bit& operator=(bool aValue);
 
 		bool GetValue() const;
 		operator bool() const;
@@ -37,7 +36,7 @@ public:
 	void DisableAllBits();
 	void FlipAllBits();
 
-	Reference operator[](int aIndex);
+	Bit operator[](int aIndex);
 
 	HD_Bitset& operator&=(const HD_Bitset& aOther);
 	HD_Bitset& operator|=(const HD_Bitset& aOther);
@@ -105,10 +104,10 @@ void HD_Bitset<aSize>::FlipAllBits()
 }
 
 template<int aSize>
-typename HD_Bitset<aSize>::Reference HD_Bitset<aSize>::operator[](int aIndex)
+typename HD_Bitset<aSize>::Bit HD_Bitset<aSize>::operator[](int aIndex)
 {
-	Reference reference(this, aIndex);
-	return reference;
+	Bit bit(this, aIndex);
+	return bit;
 }
 
 template<int aSize>
@@ -149,16 +148,16 @@ HD_Bitset<aSize>& HD_Bitset<aSize>::operator<<=(int aValue)
 {
 	for (int bitIndex = (ourNrOfBytes * 8) - 1; bitIndex >= 0; bitIndex--)
 	{
-		Reference referenceCurrent(this, bitIndex);
+		Bit bitCurrent(this, bitIndex);
 
 		if (bitIndex - aValue >= 0)
 		{
-			Reference referenceBitshift(this, bitIndex - aValue);
-			referenceCurrent = referenceBitshift.GetValue();
+			Bit bitBitshift(this, bitIndex - aValue);
+			bitCurrent = bitBitshift.GetValue();
 		}
 		else
 		{
-			referenceCurrent = false;
+			bitCurrent = false;
 		}
 	}
 
@@ -170,16 +169,16 @@ HD_Bitset<aSize>& HD_Bitset<aSize>::operator>>=(int aValue)
 {
 	for (int bitIndex = 0; bitIndex < ourNrOfBytes * 8; bitIndex++)
 	{
-		Reference referenceCurrent(this, bitIndex);
+		Bit bitCurrent(this, bitIndex);
 
 		if (bitIndex + aValue < (ourNrOfBytes * 8))
 		{
-			Reference referenceBitshift(this, bitIndex + aValue);
-			referenceCurrent = referenceBitshift.GetValue();
+			Bit bitBitshift(this, bitIndex + aValue);
+			bitCurrent = bitBitshift.GetValue();
 		}
 		else
 		{
-			referenceCurrent = false;
+			bitCurrent = false;
 		}
 	}
 
@@ -216,28 +215,28 @@ HD_Bitset<aSize> HD_Bitset<aSize>::operator>>(int aValue) const
 }
 
 template<int aSize>
-HD_Bitset<aSize>::Reference::Reference()
+HD_Bitset<aSize>::Bit::Bit()
 	: myBitset(nullptr)
 	, myIndex(0)
 {
 }
 
 template<int aSize>
-HD_Bitset<aSize>::Reference::Reference(const Reference& aOther)
+HD_Bitset<aSize>::Bit::Bit(const Bit& aOther)
 	: myBitset(aOther.myBitset)
 	, myIndex(aOther.myIndex)
 {
 }
 
 template<int aSize>
-HD_Bitset<aSize>::Reference::Reference(HD_Bitset* aBitset, int aIndex)
+HD_Bitset<aSize>::Bit::Bit(HD_Bitset* aBitset, int aIndex)
 	: myBitset(aBitset)
 	, myIndex(aIndex)
 {
 }
 
 template<int aSize>
-typename HD_Bitset<aSize>::Reference& HD_Bitset<aSize>::Reference::operator=(const Reference& aOther)
+typename HD_Bitset<aSize>::Bit& HD_Bitset<aSize>::Bit::operator=(const Bit& aOther)
 {
 	myBitset = aOther.myBitset;
 	myIndex = aOther.myIndex;
@@ -246,7 +245,7 @@ typename HD_Bitset<aSize>::Reference& HD_Bitset<aSize>::Reference::operator=(con
 }
 
 template<int aSize>
-typename HD_Bitset<aSize>::Reference& HD_Bitset<aSize>::Reference::operator=(bool aValue)
+typename HD_Bitset<aSize>::Bit& HD_Bitset<aSize>::Bit::operator=(bool aValue)
 {
 	int byteIndex = myIndex / 8;
 	int bitIndexInByte = myIndex % 8;
@@ -265,7 +264,7 @@ typename HD_Bitset<aSize>::Reference& HD_Bitset<aSize>::Reference::operator=(boo
 }
 
 template<int aSize>
-bool HD_Bitset<aSize>::Reference::GetValue() const
+bool HD_Bitset<aSize>::Bit::GetValue() const
 {
 	int byteIndex = myIndex / 8;
 	int bitIndexInByte = myIndex % 8;
@@ -276,7 +275,7 @@ bool HD_Bitset<aSize>::Reference::GetValue() const
 }
 
 template<int aSize>
-HD_Bitset<aSize>::Reference::operator bool() const
+HD_Bitset<aSize>::Bit::operator bool() const
 {
 	bool value = GetValue();
 	return value;
