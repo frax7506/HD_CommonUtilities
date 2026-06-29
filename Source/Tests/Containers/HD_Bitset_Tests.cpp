@@ -16,69 +16,94 @@ namespace HD_CommonUtilities
 	public:
 		enum eBits
 		{
-			eBits0 = 1 << 0,
-			eBits1 = 1 << 1,
-			eBits2 = 1 << 2,
-			eBits3 = 1 << 3,
-			eBits4 = 1 << 4,
-			eBits5 = 1 << 5,
-			eBits6 = 1 << 6,
-			eBits7 = 1 << 7,
+			eBits0,
+			eBits1,
+			eBits2,
+			eBits3,
+			eBits4,
+			eBits5,
+			eBits6,
+			eBits7,
 		};
 
 		TEST_METHOD(Constructor)
 		{
-			HD_Bitset8 bitset;
-			Assert::AreEqual(bitset.myBits, static_cast<unsigned char>(0));
+			Assert::IsTrue(false);
 		}
 
-		TEST_METHOD(EnableBits)
+		TEST_METHOD(Constructor_HD_Bitset)
 		{
-			HD_Bitset8 bitset;
-			bitset.EnableBits(eBits0);
-			Assert::AreEqual(bitset.myBits, static_cast<unsigned char>(0b00000001));
-
-			bitset.EnableBits(eBits2 | eBits4);
-			Assert::AreEqual(bitset.myBits, static_cast<unsigned char>(0b00010101));
-
-			bitset.EnableBits(eBits7);
-			Assert::AreEqual(bitset.myBits, static_cast<unsigned char>(0b10010101));
+			Assert::IsTrue(false);
 		}
 
-		TEST_METHOD(DisableBits)
+		TEST_METHOD(Constructor_Unsigned_Long_Long)
 		{
-			HD_Bitset8 bitset;
-			bitset.EnableBits(eBits0 | eBits1 | eBits2 | eBits3 | eBits4 | eBits5 | eBits6 | eBits7);
-
-			bitset.DisableBits(eBits0);
-			Assert::AreEqual(bitset.myBits, static_cast<unsigned char>(0b11111110));
-
-			bitset.DisableBits(eBits2 | eBits4);
-			Assert::AreEqual(bitset.myBits, static_cast<unsigned char>(0b11101010));
+			Assert::IsTrue(false);
 		}
 
-		TEST_METHOD(GetIsBitSet)
+		TEST_METHOD(Operator_Subscript)
 		{
-			HD_Bitset8 bitset;
-			bitset.EnableBits(eBits4);
-
-			Assert::IsFalse(bitset.GetIsBitSet(eBits0));
-			Assert::IsFalse(bitset.GetIsBitSet(eBits1));
-			Assert::IsFalse(bitset.GetIsBitSet(eBits2));
-			Assert::IsFalse(bitset.GetIsBitSet(eBits3));
-			Assert::IsTrue(bitset.GetIsBitSet(eBits4));
-			Assert::IsFalse(bitset.GetIsBitSet(eBits5));
-			Assert::IsFalse(bitset.GetIsBitSet(eBits6));
-			Assert::IsFalse(bitset.GetIsBitSet(eBits7));
+			Assert::IsTrue(false);
 		}
 
-		TEST_METHOD(GetBits)
+		TEST_METHOD(Operator_Bitwise_AND_Assignment)
 		{
-			HD_Bitset8 bitset;
-			bitset.EnableBits(eBits0 | eBits2 | eBits4 | eBits6);
+			Assert::IsTrue(false);
+		}
 
-			unsigned char bits = bitset.GetBits();
-			Assert::AreEqual(bits, static_cast<unsigned char>(0b01010101));
+		TEST_METHOD(Operator_Bitwise_OR_Assignment)
+		{
+			Assert::IsTrue(false);
+		}
+
+		TEST_METHOD(Operator_Bitwise_XOR_Assignment)
+		{
+			Assert::IsTrue(false);
+		}
+
+		TEST_METHOD(Operator_Bitshift_Left_Assignment)
+		{
+			Assert::IsTrue(false);
+		}
+
+		TEST_METHOD(Operator_Bitshift_Right_Assignment)
+		{
+			Assert::IsTrue(false);
+		}
+
+		TEST_METHOD(Operator_NOT)
+		{
+			Assert::IsTrue(false);
+		}
+
+		TEST_METHOD(Operator_Bitshift_Left)
+		{
+			Assert::IsTrue(false);
+		}
+
+		TEST_METHOD(Operator_Bitshift_Right)
+		{
+			Assert::IsTrue(false);
+		}
+
+		TEST_METHOD(Reference_Constructor_HD_Bitset_And_Index)
+		{
+			Assert::IsTrue(false);
+		}
+
+		TEST_METHOD(Reference_Operator_Assignment_Reference)
+		{
+			Assert::IsTrue(false);
+		}
+
+		TEST_METHOD(Reference_Operator_Assignment_Bool)
+		{
+			Assert::IsTrue(false);
+		}
+
+		TEST_METHOD(Reference_Operator_Bool)
+		{
+			Assert::IsTrue(false);
 		}
 	};
 }
