@@ -8,6 +8,8 @@ sourceHDCommonUtilitiesFolder = projectRootPath .. "Source/HD_CommonUtilities"
 sourceHDCommonUtilitiesPath = sourceHDCommonUtilitiesFolder .. "/"
 sourceHDCommonUtilitiesContainersFolder = sourceHDCommonUtilitiesPath .. "Containers"
 sourceHDCommonUtilitiesContainersPath = sourceHDCommonUtilitiesContainersFolder .. "/"
+sourceHDCommonUtilitiesInputFolder = sourceHDCommonUtilitiesPath .. "Input"
+sourceHDCommonUtilitiesInputPath = sourceHDCommonUtilitiesInputFolder .. "/"
 sourceHDCommonUtilitiesMathFolder = sourceHDCommonUtilitiesPath .. "Math"
 sourceHDCommonUtilitiesMathPath = sourceHDCommonUtilitiesMathFolder .. "/"
 sourceHDCommonUtilitiesMiscFolder = sourceHDCommonUtilitiesPath .. "Misc"
@@ -46,6 +48,8 @@ project("HD_CommonUtilities")
 	{
 		sourceHDCommonUtilitiesContainersPath .. "*.h",
 		sourceHDCommonUtilitiesContainersPath .. "*.cpp",
+		sourceHDCommonUtilitiesInputPath .. "*.h",
+		sourceHDCommonUtilitiesInputPath .. "*.cpp",
 		sourceHDCommonUtilitiesMathPath .. "*.h",
 		sourceHDCommonUtilitiesMathPath .. "*.cpp",
 		sourceHDCommonUtilitiesMiscPath .. "*.h",
@@ -58,6 +62,7 @@ project("HD_CommonUtilities")
 	includedirs
 	{
 		sourceHDCommonUtilitiesContainersFolder,
+		sourceHDCommonUtilitiesInputFolder,
 		sourceHDCommonUtilitiesMathFolder,
 		sourceHDCommonUtilitiesMiscFolder
 	}
