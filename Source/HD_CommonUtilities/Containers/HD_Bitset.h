@@ -13,15 +13,18 @@ public:
 	class Reference
 	{
 	public:
+		Reference();
+		Reference(const Reference& aOther);
 		Reference(HD_Bitset* aBitset, int aIndex);
 
 		Reference& operator=(const Reference& aOther);
 		Reference& operator=(bool aValue);
 
+		bool GetValue() const;
 		operator bool() const;
 
 	private:
-		HD_Bitset<aSize>* myBitset;
+		HD_Bitset* myBitset;
 		int myIndex;
 	};
 
@@ -30,7 +33,11 @@ public:
 	HD_Bitset(const HD_Bitset& aOther);
 	HD_Bitset(unsigned long long aValue);
 
-	Reference& operator[](int aIndex);
+	void EnableAllBits();
+	void DisableAllBits();
+	void FlipAllBits();
+
+	Reference operator[](int aIndex);
 
 	HD_Bitset& operator&=(const HD_Bitset& aOther);
 	HD_Bitset& operator|=(const HD_Bitset& aOther);
@@ -74,7 +81,31 @@ HD_Bitset<aSize>::HD_Bitset(unsigned long long aValue)
 }
 
 template<int aSize>
-typename HD_Bitset<aSize>::Reference& HD_Bitset<aSize>::operator[](int aIndex)
+void HD_Bitset<aSize>::EnableAllBits()
+{
+	for (int i = 0; i < ourNrOfBytes; i++)
+	{
+		myBits[i] = static_cast<char>(0xFF);
+	}
+}
+
+template<int aSize>
+void HD_Bitset<aSize>::DisableAllBits()
+{
+	memset(myBits, 0, ourNrOfBytes);
+}
+
+template<int aSize>
+void HD_Bitset<aSize>::FlipAllBits()
+{
+	for (int i = 0; i < ourNrOfBytes; i++)
+	{
+		myBits[i] = ~myBits[i];
+	}
+}
+
+template<int aSize>
+typename HD_Bitset<aSize>::Reference HD_Bitset<aSize>::operator[](int aIndex)
 {
 	Reference reference(this, aIndex);
 	return reference;
@@ -87,6 +118,8 @@ HD_Bitset<aSize>& HD_Bitset<aSize>::operator&=(const HD_Bitset& aOther)
 	{
 		myBits[i] &= aOther.myBits[i];
 	}
+
+	return *this;
 }
 
 template<int aSize>
@@ -96,6 +129,8 @@ HD_Bitset<aSize>& HD_Bitset<aSize>::operator|=(const HD_Bitset& aOther)
 	{
 		myBits[i] |= aOther.myBits[i];
 	}
+
+	return *this;
 }
 
 template<int aSize>
@@ -105,44 +140,50 @@ HD_Bitset<aSize>& HD_Bitset<aSize>::operator^=(const HD_Bitset& aOther)
 	{
 		myBits[i] ^= aOther.myBits[i];
 	}
+
+	return *this;
 }
 
 template<int aSize>
 HD_Bitset<aSize>& HD_Bitset<aSize>::operator<<=(int aValue)
 {
-	for (int bitIndex = (ourNrOfBytes * 4) - 1; bitIndex >= 0; bitIndex--)
+	for (int bitIndex = (ourNrOfBytes * 8) - 1; bitIndex >= 0; bitIndex--)
 	{
 		Reference referenceCurrent(this, bitIndex);
 
 		if (bitIndex - aValue >= 0)
 		{
 			Reference referenceBitshift(this, bitIndex - aValue);
-			referenceCurrent = referenceBitshift;
+			referenceCurrent = referenceBitshift.GetValue();
 		}
 		else
 		{
 			referenceCurrent = false;
 		}
 	}
+
+	return *this;
 }
 
 template<int aSize>
 HD_Bitset<aSize>& HD_Bitset<aSize>::operator>>=(int aValue)
 {
-	for (int bitIndex = 0; bitIndex < ourNrOfBytes * 4; bitIndex++)
+	for (int bitIndex = 0; bitIndex < ourNrOfBytes * 8; bitIndex++)
 	{
 		Reference referenceCurrent(this, bitIndex);
 
-		if (bitIndex + aValue < (ourNrOfBytes * 4))
+		if (bitIndex + aValue < (ourNrOfBytes * 8))
 		{
 			Reference referenceBitshift(this, bitIndex + aValue);
-			referenceCurrent = referenceBitshift;
+			referenceCurrent = referenceBitshift.GetValue();
 		}
 		else
 		{
 			referenceCurrent = false;
 		}
 	}
+
+	return *this;
 }
 
 template<int aSize>
@@ -175,6 +216,20 @@ HD_Bitset<aSize> HD_Bitset<aSize>::operator>>(int aValue) const
 }
 
 template<int aSize>
+HD_Bitset<aSize>::Reference::Reference()
+	: myBitset(nullptr)
+	, myIndex(0)
+{
+}
+
+template<int aSize>
+HD_Bitset<aSize>::Reference::Reference(const Reference& aOther)
+	: myBitset(aOther.myBitset)
+	, myIndex(aOther.myIndex)
+{
+}
+
+template<int aSize>
 HD_Bitset<aSize>::Reference::Reference(HD_Bitset* aBitset, int aIndex)
 	: myBitset(aBitset)
 	, myIndex(aIndex)
@@ -184,12 +239,10 @@ HD_Bitset<aSize>::Reference::Reference(HD_Bitset* aBitset, int aIndex)
 template<int aSize>
 typename HD_Bitset<aSize>::Reference& HD_Bitset<aSize>::Reference::operator=(const Reference& aOther)
 {
-	int byteIndexOther = aOther.myIndex / 8;
-	int bitIndexInByteOther = aOther.myIndex % 8;
-	char maskOther = static_cast<char>(HD_Pow(2, bitIndexInByteOther));
+	myBitset = aOther.myBitset;
+	myIndex = aOther.myIndex;
 
-	bool value = (aOther.myBitset->myBits[byteIndexOther] & maskOther) != 0;
-	(*this) = value;
+	return *this;
 }
 
 template<int aSize>
@@ -207,10 +260,12 @@ typename HD_Bitset<aSize>::Reference& HD_Bitset<aSize>::Reference::operator=(boo
 	{
 		myBitset->myBits[byteIndex] &= ~mask;
 	}
+
+	return *this;
 }
 
 template<int aSize>
-HD_Bitset<aSize>::Reference::operator bool() const
+bool HD_Bitset<aSize>::Reference::GetValue() const
 {
 	int byteIndex = myIndex / 8;
 	int bitIndexInByte = myIndex % 8;
@@ -218,4 +273,11 @@ HD_Bitset<aSize>::Reference::operator bool() const
 
 	bool result = (myBitset->myBits[byteIndex] & mask) != 0;
 	return result;
+}
+
+template<int aSize>
+HD_Bitset<aSize>::Reference::operator bool() const
+{
+	bool value = GetValue();
+	return value;
 }
