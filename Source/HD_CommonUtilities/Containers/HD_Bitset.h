@@ -9,15 +9,15 @@ template<int aSize>
 class HD_Bitset
 {
 public:
-	class Bit
+	class BitReference
 	{
 	public:
-		Bit();
-		Bit(const Bit& aOther);
-		Bit(HD_Bitset* aBitset, int aIndex);
+		BitReference();
+		BitReference(const BitReference& aOther);
+		BitReference(HD_Bitset* aBitset, int aIndex);
 
-		Bit& operator=(const Bit& aOther);
-		Bit& operator=(bool aValue);
+		BitReference& operator=(const BitReference& aOther);
+		BitReference& operator=(bool aValue);
 
 		bool GetValue() const;
 		operator bool() const;
@@ -36,7 +36,7 @@ public:
 	void DisableAllBits();
 	void FlipAllBits();
 
-	Bit operator[](int aIndex);
+	BitReference operator[](int aIndex);
 
 	HD_Bitset& operator&=(const HD_Bitset& aOther);
 	HD_Bitset& operator|=(const HD_Bitset& aOther);
@@ -104,10 +104,10 @@ void HD_Bitset<aSize>::FlipAllBits()
 }
 
 template<int aSize>
-typename HD_Bitset<aSize>::Bit HD_Bitset<aSize>::operator[](int aIndex)
+typename HD_Bitset<aSize>::BitReference HD_Bitset<aSize>::operator[](int aIndex)
 {
-	Bit bit(this, aIndex);
-	return bit;
+	BitReference bitReference(this, aIndex);
+	return bitReference;
 }
 
 template<int aSize>
@@ -148,16 +148,16 @@ HD_Bitset<aSize>& HD_Bitset<aSize>::operator<<=(int aValue)
 {
 	for (int bitIndex = (ourNrOfBytes * 8) - 1; bitIndex >= 0; bitIndex--)
 	{
-		Bit bitCurrent(this, bitIndex);
+		BitReference bitReferenceCurrent(this, bitIndex);
 
 		if (bitIndex - aValue >= 0)
 		{
-			Bit bitBitshift(this, bitIndex - aValue);
-			bitCurrent = bitBitshift.GetValue();
+			BitReference bitReferenceBitshift(this, bitIndex - aValue);
+			bitReferenceCurrent = bitReferenceBitshift.GetValue();
 		}
 		else
 		{
-			bitCurrent = false;
+			bitReferenceCurrent = false;
 		}
 	}
 
@@ -169,16 +169,16 @@ HD_Bitset<aSize>& HD_Bitset<aSize>::operator>>=(int aValue)
 {
 	for (int bitIndex = 0; bitIndex < ourNrOfBytes * 8; bitIndex++)
 	{
-		Bit bitCurrent(this, bitIndex);
+		BitReference bitReferenceCurrent(this, bitIndex);
 
 		if (bitIndex + aValue < (ourNrOfBytes * 8))
 		{
-			Bit bitBitshift(this, bitIndex + aValue);
-			bitCurrent = bitBitshift.GetValue();
+			BitReference bitReferenceBitshift(this, bitIndex + aValue);
+			bitReferenceCurrent = bitReferenceBitshift.GetValue();
 		}
 		else
 		{
-			bitCurrent = false;
+			bitReferenceCurrent = false;
 		}
 	}
 
@@ -215,28 +215,28 @@ HD_Bitset<aSize> HD_Bitset<aSize>::operator>>(int aValue) const
 }
 
 template<int aSize>
-HD_Bitset<aSize>::Bit::Bit()
+HD_Bitset<aSize>::BitReference::BitReference()
 	: myBitset(nullptr)
 	, myIndex(0)
 {
 }
 
 template<int aSize>
-HD_Bitset<aSize>::Bit::Bit(const Bit& aOther)
+HD_Bitset<aSize>::BitReference::BitReference(const BitReference& aOther)
 	: myBitset(aOther.myBitset)
 	, myIndex(aOther.myIndex)
 {
 }
 
 template<int aSize>
-HD_Bitset<aSize>::Bit::Bit(HD_Bitset* aBitset, int aIndex)
+HD_Bitset<aSize>::BitReference::BitReference(HD_Bitset* aBitset, int aIndex)
 	: myBitset(aBitset)
 	, myIndex(aIndex)
 {
 }
 
 template<int aSize>
-typename HD_Bitset<aSize>::Bit& HD_Bitset<aSize>::Bit::operator=(const Bit& aOther)
+typename HD_Bitset<aSize>::BitReference& HD_Bitset<aSize>::BitReference::operator=(const BitReference& aOther)
 {
 	myBitset = aOther.myBitset;
 	myIndex = aOther.myIndex;
@@ -245,7 +245,7 @@ typename HD_Bitset<aSize>::Bit& HD_Bitset<aSize>::Bit::operator=(const Bit& aOth
 }
 
 template<int aSize>
-typename HD_Bitset<aSize>::Bit& HD_Bitset<aSize>::Bit::operator=(bool aValue)
+typename HD_Bitset<aSize>::BitReference& HD_Bitset<aSize>::BitReference::operator=(bool aValue)
 {
 	int byteIndex = myIndex / 8;
 	int bitIndexInByte = myIndex % 8;
@@ -264,7 +264,7 @@ typename HD_Bitset<aSize>::Bit& HD_Bitset<aSize>::Bit::operator=(bool aValue)
 }
 
 template<int aSize>
-bool HD_Bitset<aSize>::Bit::GetValue() const
+bool HD_Bitset<aSize>::BitReference::GetValue() const
 {
 	int byteIndex = myIndex / 8;
 	int bitIndexInByte = myIndex % 8;
@@ -275,7 +275,7 @@ bool HD_Bitset<aSize>::Bit::GetValue() const
 }
 
 template<int aSize>
-HD_Bitset<aSize>::Bit::operator bool() const
+HD_Bitset<aSize>::BitReference::operator bool() const
 {
 	bool value = GetValue();
 	return value;
