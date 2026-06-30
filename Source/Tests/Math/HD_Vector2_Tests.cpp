@@ -236,6 +236,14 @@ namespace HD_CommonUtilities
 			TestUtils::Vector2_AreEqual(unsignedIntVector, 0u, 1u);
 		}
 
+		TEST_METHOD(Lerp)
+		{
+			HD_Vector2f start(1.f, 1.f);
+			HD_Vector2f end(2.f, 2.f);
+			HD_Vector2f lerp(HD_Vector2f::Lerp(start, end, 0.5f));
+			TestUtils::Vector2_AreEqual(lerp, 1.5f, 1.5f);
+		}
+
 		TEST_METHOD(Operator_Plus)
 		{
 			HD_Vector2f floatVector1(1.f, 2.f);

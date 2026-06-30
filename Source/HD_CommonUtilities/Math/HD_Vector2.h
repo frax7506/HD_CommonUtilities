@@ -34,6 +34,9 @@ public:
 	static const HD_Vector2 Down;
 	static const HD_Vector2 Left;
 	static const HD_Vector2 Right;
+
+	static HD_Vector2 Lerp(const HD_Vector2& aStart, const HD_Vector2& aEnd, float aBlendValue);
+	static T Length2(const HD_Vector2& aStart, const HD_Vector2& aEnd);
 };
 
 template<typename T> HD_Vector2<T> operator+(const HD_Vector2<T>& aVector0, const HD_Vector2<T>& aVector1);
@@ -166,6 +169,19 @@ HD_Vector2<T>& HD_Vector2<T>::operator/=(T aScalar)
 	myY /= aScalar;
 
 	return *this;
+}
+
+template<typename T>
+HD_Vector2<T> HD_Vector2<T>::Lerp(const HD_Vector2& aStart, const HD_Vector2& aEnd, float aBlendValue)
+{
+	return aStart + (aEnd - aStart) * aBlendValue;
+}
+
+template<typename T>
+T HD_Vector2<T>::Length2(const HD_Vector2& aStart, const HD_Vector2& aEnd)
+{
+	HD_Vector2 startToEnd = aEnd - aStart;
+	return startToEnd.Length2();
 }
 
 template<typename T>
