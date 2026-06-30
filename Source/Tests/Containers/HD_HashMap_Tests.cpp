@@ -734,7 +734,7 @@ namespace HD_CommonUtilities
 			HD_HashMap<s32, s32> map;
 
 			size_t madeUpHashCode = 0x7F;
-			Assert::AreEqual(map.GetLevel2Hash(madeUpHashCode), static_cast<ControlByte_t>(0x7F));
+			Assert::AreEqual(map.GetLevel2Hash(madeUpHashCode), static_cast<ControlByte_Type>(0x7F));
 		}
 	};
 }
