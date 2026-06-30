@@ -1,9 +1,9 @@
 #pragma once
 
-#include "OptimizedWindowsInclude.h"
-
 #include "HD_Bitset.h"
 #include "HD_Vector2.h"
+
+#include "Windows.h"
 
 class HD_InputManager
 {
@@ -31,7 +31,7 @@ public:
 private:
 	HD_InputManager();
 
-	// The "tentative" state hols the state that is
+	// The "tentative" state holds the state that is
 	// being updated by the message pump thread. It
 	// can be used in place of the current state but
 	// depending on how the game is threaded it might
