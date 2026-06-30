@@ -66,6 +66,57 @@ namespace HD_CommonUtilities
 			TestUtils::Vector4_AreEqual(unsignedIntVector, 9u, 10u, 11u, 12u);
 		}
 
+		TEST_METHOD(Length)
+		{
+			HD_Vector4f floatVector(1.f, 1.f, 1.f, 1.f);
+			f32 length = floatVector.Length();
+			Assert::AreEqual(length, 2.f, FLOAT_EQUAL_TOLERANCE);
+		}
+
+		TEST_METHOD(Length2)
+		{
+			HD_Vector4f floatVector(1.f, 1.f, 1.f, 1.f);
+			f32 floatLength2 = floatVector.Length2();
+			Assert::AreEqual(floatLength2, 4.f, FLOAT_EQUAL_TOLERANCE);
+
+			HD_Vector4i intVector(2, 2, 2, 2);
+			s32 intLength2 = intVector.Length2();
+			Assert::AreEqual(intLength2, 16);
+
+			HD_Vector4ui unsignedIntVector(3u, 3u, 3u, 3u);
+			u32 unsignedIntLength2 = unsignedIntVector.Length2();
+			Assert::AreEqual(unsignedIntLength2, 36u);
+		}
+
+		TEST_METHOD(SetLength)
+		{
+			HD_Vector4f floatVector(1.f, 1.f, 1.f, 1.f);
+
+			floatVector.SetLength(1.f);
+			Assert::AreEqual(floatVector.Length(), 1.f, FLOAT_EQUAL_TOLERANCE);
+
+			floatVector.SetLength(2.f);
+			Assert::AreEqual(floatVector.Length(), 2.f, FLOAT_EQUAL_TOLERANCE);
+		}
+
+		TEST_METHOD(Normalize)
+		{
+			HD_Vector4f floatVector(2.f, 2.f, 2.f, 2.f);
+			floatVector.Normalize();
+			f32 length = floatVector.Length();
+			Assert::AreEqual(length, 1.f, FLOAT_EQUAL_TOLERANCE);
+		}
+
+		TEST_METHOD(GetNormalized)
+		{
+			HD_Vector4f floatVector(2.f, 2.f, 2.f, 2.f);
+			HD_Vector4f normalizedFloatVector = floatVector.GetNormalized();
+			f32 floatVectorLength = floatVector.Length();
+			f32 normalizedFloatVectorLength = normalizedFloatVector.Length();
+			Assert::AreEqual(floatVectorLength, 4.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(normalizedFloatVectorLength, 1.f, FLOAT_EQUAL_TOLERANCE);
+		}
+
 		TEST_METHOD(Operator_Assignment)
 		{
 			HD_Vector4f floatVector1(1.f, 2.f, 3.f, 4.f);
