@@ -76,6 +76,22 @@ namespace HD_CommonUtilities
 			Assert::IsTrue(memcmp(&bitset.myBits, &testMemory, 4) == 0);
 		}
 
+		TEST_METHOD(GetBuffer)
+		{
+			HD_Bitset<32> bitset(0xFFFFFFFF);
+			char* buffer = bitset.GetBuffer();
+			s32 testMemory = 0xFFFFFFFF;
+			Assert::IsTrue(memcmp(buffer, &testMemory, 4) == 0);
+		}
+
+		TEST_METHOD(GetBuffer_Const)
+		{
+			const HD_Bitset<32> bitset(0xFFFFFFFF);
+			const char* buffer = bitset.GetBuffer();
+			s32 testMemory = 0xFFFFFFFF;
+			Assert::IsTrue(memcmp(buffer, &testMemory, 4) == 0);
+		}
+
 		TEST_METHOD(Operator_Subscript)
 		{
 			HD_Bitset<32> bitset;
