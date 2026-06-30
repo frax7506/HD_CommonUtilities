@@ -1,6 +1,7 @@
 #pragma once
 
 #include "HD_Math.h"
+#include "HD_String.h"
 
 #include <cassert>
 #include <cstring>
