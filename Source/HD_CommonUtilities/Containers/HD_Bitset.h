@@ -46,6 +46,8 @@ public:
 	char* GetBuffer();
 	const char* GetBuffer() const;
 
+	const char* ToString() const;
+
 	BitReference operator[](int aIndex);
 	ConstBitReference operator[](int aIndex) const;
 
@@ -122,6 +124,25 @@ template<int aSize>
 const char* HD_Bitset<aSize>::GetBuffer() const
 {
 	return myBits;
+}
+
+template<int aSize>
+const char* HD_Bitset<aSize>::ToString() const
+{
+	HD_String string;
+	for (int bitIndex = (ourNrOfBytes * 8) - 1; bitIndex >= 0; bitIndex--)
+	{
+		if ((*this)[bitIndex])
+		{
+			string.Append("1");
+		}
+		else
+		{
+			string.Append("0");
+		}
+	}
+
+	return string.GetBuffer();
 }
 
 template<int aSize>

@@ -6,6 +6,7 @@
 #define private public
 
 #include "HD_Bitset.h"
+#include "HD_String.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -90,6 +91,13 @@ namespace HD_CommonUtilities
 			const char* buffer = bitset.GetBuffer();
 			s32 testMemory = 0xFFFFFFFF;
 			Assert::IsTrue(memcmp(buffer, &testMemory, 4) == 0);
+		}
+
+		TEST_METHOD(ToString)
+		{
+			HD_Bitset<32> bitset(0x01010101);
+			HD_String string("00000001000000010000000100000001");
+			Assert::IsTrue(HD_Strcmp(bitset.ToString(), string.GetBuffer()) == 0);
 		}
 
 		TEST_METHOD(Operator_Subscript)
