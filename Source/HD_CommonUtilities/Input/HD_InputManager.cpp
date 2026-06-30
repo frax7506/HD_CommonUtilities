@@ -5,16 +5,6 @@
 
 #include "Windowsx.h"
 
-HD_InputManager::HD_InputManager()
-{
-}
-
-HD_InputManager& HD_InputManager::GetInstance()
-{
-	static HD_InputManager ourInstance;
-	return ourInstance;
-}
-
 void HD_InputManager::Init(HWND aWindowHandle)
 {
 	myOwnerHWND = aWindowHandle;

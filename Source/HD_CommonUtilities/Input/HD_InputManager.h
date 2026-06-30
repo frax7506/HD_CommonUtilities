@@ -1,15 +1,14 @@
 #pragma once
 
 #include "HD_Bitset.h"
+#include "HD_Singleton.h"
 #include "HD_Vector2.h"
 
 #include "Windows.h"
 
-class HD_InputManager
+class HD_InputManager : public HD_Singleton<HD_InputManager>
 {
 public:
-	static HD_InputManager& GetInstance();
-
 	void Init(HWND aWindowHandle);
 
 	void Update();
@@ -29,8 +28,6 @@ public:
 	void ReleaseMouse() const;
 
 private:
-	HD_InputManager();
-
 	// The "tentative" state holds the state that is
 	// being updated by the message pump thread. It
 	// can be used in place of the current state but
