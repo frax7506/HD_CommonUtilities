@@ -94,6 +94,15 @@ namespace HD_CommonUtilities
 			Assert::IsTrue(memcmp(&bitset.myBits, &testMemory, 4) == 0);
 		}
 
+		TEST_METHOD(Operator_Subscript_Const)
+		{
+			const HD_Bitset<32> bitset(0x00000003);
+			Assert::IsTrue(bitset[0]);
+			Assert::IsTrue(bitset[1]);
+			Assert::IsFalse(bitset[2]);
+			Assert::IsFalse(bitset[3]);
+		}
+
 		TEST_METHOD(Operator_Bitwise_AND_Assignment)
 		{
 			HD_Bitset<32> bitset(0x01010101);

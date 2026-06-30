@@ -9,23 +9,27 @@ template<int aSize>
 class HD_Bitset
 {
 public:
-	class BitReference
+	template<typename BitsetType>
+	class BitRef
 	{
 	public:
-		BitReference();
-		BitReference(const BitReference& aOther);
-		BitReference(HD_Bitset* aBitset, int aIndex);
+		BitRef();
+		BitRef(const BitRef& aOther);
+		BitRef(BitsetType* aBitset, int aIndex);
 
-		BitReference& operator=(const BitReference& aOther);
-		BitReference& operator=(bool aValue);
+		BitRef& operator=(const BitRef& aOther);
+		BitRef& operator=(bool aValue);
 
 		bool GetValue() const;
 		operator bool() const;
 
 	private:
-		HD_Bitset* myBitset;
+		BitsetType* myBitset;
 		int myIndex;
 	};
+
+	typedef BitRef<HD_Bitset> BitReference;
+	typedef BitRef<const HD_Bitset> ConstBitReference;
 
 public:
 	HD_Bitset();
@@ -37,6 +41,7 @@ public:
 	void FlipAllBits();
 
 	BitReference operator[](int aIndex);
+	ConstBitReference operator[](int aIndex) const;
 
 	HD_Bitset& operator&=(const HD_Bitset& aOther);
 	HD_Bitset& operator|=(const HD_Bitset& aOther);
@@ -108,6 +113,13 @@ typename HD_Bitset<aSize>::BitReference HD_Bitset<aSize>::operator[](int aIndex)
 {
 	BitReference bitReference(this, aIndex);
 	return bitReference;
+}
+
+template<int aSize>
+typename HD_Bitset<aSize>::ConstBitReference HD_Bitset<aSize>::operator[](int aIndex) const
+{
+	ConstBitReference constBitReference(this, aIndex);
+	return constBitReference;
 }
 
 template<int aSize>
@@ -215,28 +227,32 @@ HD_Bitset<aSize> HD_Bitset<aSize>::operator>>(int aValue) const
 }
 
 template<int aSize>
-HD_Bitset<aSize>::BitReference::BitReference()
+template<typename BitsetType>
+HD_Bitset<aSize>::BitRef<BitsetType>::BitRef()
 	: myBitset(nullptr)
 	, myIndex(0)
 {
 }
 
 template<int aSize>
-HD_Bitset<aSize>::BitReference::BitReference(const BitReference& aOther)
+template<typename BitsetType>
+HD_Bitset<aSize>::BitRef<BitsetType>::BitRef(const BitRef& aOther)
 	: myBitset(aOther.myBitset)
 	, myIndex(aOther.myIndex)
 {
 }
 
 template<int aSize>
-HD_Bitset<aSize>::BitReference::BitReference(HD_Bitset* aBitset, int aIndex)
+template<typename BitsetType>
+HD_Bitset<aSize>::BitRef<BitsetType>::BitRef(BitsetType* aBitset, int aIndex)
 	: myBitset(aBitset)
 	, myIndex(aIndex)
 {
 }
 
 template<int aSize>
-typename HD_Bitset<aSize>::BitReference& HD_Bitset<aSize>::BitReference::operator=(const BitReference& aOther)
+template<typename BitsetType>
+HD_Bitset<aSize>::BitRef<BitsetType>& HD_Bitset<aSize>::BitRef<BitsetType>::operator=(const BitRef& aOther)
 {
 	myBitset = aOther.myBitset;
 	myIndex = aOther.myIndex;
@@ -245,7 +261,8 @@ typename HD_Bitset<aSize>::BitReference& HD_Bitset<aSize>::BitReference::operato
 }
 
 template<int aSize>
-typename HD_Bitset<aSize>::BitReference& HD_Bitset<aSize>::BitReference::operator=(bool aValue)
+template<typename BitsetType>
+HD_Bitset<aSize>::BitRef<BitsetType>& HD_Bitset<aSize>::BitRef<BitsetType>::operator=(bool aValue)
 {
 	int byteIndex = myIndex / 8;
 	int bitIndexInByte = myIndex % 8;
@@ -264,7 +281,8 @@ typename HD_Bitset<aSize>::BitReference& HD_Bitset<aSize>::BitReference::operato
 }
 
 template<int aSize>
-bool HD_Bitset<aSize>::BitReference::GetValue() const
+template<typename BitsetType>
+bool HD_Bitset<aSize>::BitRef<BitsetType>::GetValue() const
 {
 	int byteIndex = myIndex / 8;
 	int bitIndexInByte = myIndex % 8;
@@ -275,7 +293,8 @@ bool HD_Bitset<aSize>::BitReference::GetValue() const
 }
 
 template<int aSize>
-HD_Bitset<aSize>::BitReference::operator bool() const
+template<typename BitsetType>
+HD_Bitset<aSize>::BitRef<BitsetType>::operator bool() const
 {
 	bool value = GetValue();
 	return value;
