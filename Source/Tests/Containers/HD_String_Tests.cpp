@@ -340,6 +340,24 @@ namespace HD_CommonUtilities
 			Assert::AreEqual(string.myCapacity, 5);
 		}
 
+		TEST_METHOD(Reserve_NonWide)
+		{
+			HD_String string;
+			string.Reserve(16);
+			Assert::IsTrue(string == "");
+			Assert::AreEqual(string.myLength, 0);
+			Assert::AreEqual(string.myCapacity, 25);
+		}
+
+		TEST_METHOD(Reserve_Wide)
+		{
+			HD_WString string;
+			string.Reserve(16);
+			Assert::IsTrue(string == L"");
+			Assert::AreEqual(string.myLength, 0);
+			Assert::AreEqual(string.myCapacity, 25);
+		}
+
 		TEST_METHOD(Operator_Assignment_CString_NonWide)
 		{
 			HD_String string;
