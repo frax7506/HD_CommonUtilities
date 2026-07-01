@@ -192,7 +192,11 @@ void HD_Matrix3x3<T>::SetRotation(T aAngleInRadians)
 	T angleDiff = aAngleInRadians - currentRotation;
 
 	HD_Matrix3x3 rotation = CreateRotation(angleDiff);
+
+	HD_Vector2 position = GetPosition();
+	SetPosition({ 0, 0 });
 	(*this) *= rotation;
+	SetPosition(position);
 }
 
 template<typename T>

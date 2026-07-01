@@ -150,26 +150,65 @@ namespace HD_CommonUtilities
 
 		TEST_METHOD(SetRotationAroundX)
 		{
-			HD_Matrix4x4f matrix = HD_Matrix4x4f::CreateRotationAroundX(F_PI);
-			matrix.SetRotationAroundX(F_PI_HALF);
+			{
+				HD_Matrix4x4f matrix;
+				matrix.SetRotationAroundX(F_PI / 4.f);
+				f32 rotationAroundX = matrix.GetRotationAroundX();
 
-			Assert::AreEqual(matrix.GetRotationAroundX(), F_PI_HALF, FLOAT_EQUAL_TOLERANCE);
+				Assert::AreEqual(rotationAroundX, F_PI / 4.f, FLOAT_EQUAL_TOLERANCE);
+			}
+
+			{
+				HD_Matrix4x4f matrix = HD_Matrix4x4f::CreateTranslation(1.f, 1.f, 1.f);
+				matrix.SetRotationAroundX(F_PI / 4.f);
+				f32 rotationAroundX = matrix.GetRotationAroundX();
+				Assert::AreEqual(rotationAroundX, F_PI / 4.f, FLOAT_EQUAL_TOLERANCE);
+
+				HD_Vector3f position = matrix.GetPosition();
+				TestUtils::Vector3_AreEqual(position, 1.f, 1.f, 1.f);
+			}
 		}
 
 		TEST_METHOD(SetRotationAroundY)
 		{
-			HD_Matrix4x4f matrix = HD_Matrix4x4f::CreateRotationAroundY(F_PI);
-			matrix.SetRotationAroundY(F_PI_HALF);
+			{
+				HD_Matrix4x4f matrix;
+				matrix.SetRotationAroundY(F_PI / 4.f);
+				f32 rotationAroundY = matrix.GetRotationAroundY();
 
-			Assert::AreEqual(matrix.GetRotationAroundY(), F_PI_HALF, FLOAT_EQUAL_TOLERANCE);
+				Assert::AreEqual(rotationAroundY, F_PI / 4.f, FLOAT_EQUAL_TOLERANCE);
+			}
+
+			{
+				HD_Matrix4x4f matrix = HD_Matrix4x4f::CreateTranslation(1.f, 1.f, 1.f);
+				matrix.SetRotationAroundY(F_PI / 4.f);
+				f32 rotationAroundY = matrix.GetRotationAroundY();
+				Assert::AreEqual(rotationAroundY, F_PI / 4.f, FLOAT_EQUAL_TOLERANCE);
+
+				HD_Vector3f position = matrix.GetPosition();
+				TestUtils::Vector3_AreEqual(position, 1.f, 1.f, 1.f);
+			}
 		}
 
 		TEST_METHOD(SetRotationAroundZ)
 		{
-			HD_Matrix4x4f matrix = HD_Matrix4x4f::CreateRotationAroundZ(F_PI);
-			matrix.SetRotationAroundZ(F_PI_HALF);
+			{
+				HD_Matrix4x4f matrix;
+				matrix.SetRotationAroundZ(F_PI / 4.f);
+				f32 rotationAroundZ = matrix.GetRotationAroundZ();
 
-			Assert::AreEqual(matrix.GetRotationAroundZ(), F_PI_HALF, FLOAT_EQUAL_TOLERANCE);
+				Assert::AreEqual(rotationAroundZ, F_PI / 4.f, FLOAT_EQUAL_TOLERANCE);
+			}
+
+			{
+				HD_Matrix4x4f matrix = HD_Matrix4x4f::CreateTranslation(1.f, 1.f, 1.f);
+				matrix.SetRotationAroundZ(F_PI / 4.f);
+				f32 rotationAroundZ = matrix.GetRotationAroundZ();
+				Assert::AreEqual(rotationAroundZ, F_PI / 4.f, FLOAT_EQUAL_TOLERANCE);
+
+				HD_Vector3f position = matrix.GetPosition();
+				TestUtils::Vector3_AreEqual(position, 1.f, 1.f, 1.f);
+			}
 		}
 
 		TEST_METHOD(SetPositionX)
