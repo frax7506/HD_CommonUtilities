@@ -1,5 +1,8 @@
 #pragma once
 
+#include "HD_Vector2.h"
+#include "HD_Vector3.h"
+
 #include <math.h>
 
 #define F_SQRT_TWO 1.4142135623f
@@ -34,6 +37,9 @@ template<typename T> inline T HD_ArcTan2(T aAngleYInRadians, T aAngleXInRadians)
 
 template<typename T> inline T HD_Remap(T aValue, T aOldMin, T aOldMax, T aNewMin, T aNewMax);
 template<typename T> inline T HD_RemapClamped(T aValue, T aOldMin, T aOldMax, T aNewMin, T aNewMax);
+
+template<typename T> inline T HD_Lerp(T aStart, T aEnd, T aBlendValue);
+template<typename VectorType> inline VectorType HD_Lerp(const VectorType& aStart, const VectorType& aEnd, typename VectorType::DataType aBlendValue);
 
 template<>
 inline float HD_Sqrt(float aValue)
@@ -241,4 +247,16 @@ inline T HD_RemapClamped(T aValue, T aOldMin, T aOldMax, T aNewMin, T aNewMax)
 	}
 
 	return HD_Remap(aValue, aOldMin, aOldMax, aNewMin, aNewMax);
+}
+
+template<typename T>
+inline T HD_Lerp(T aStart, T aEnd, T aBlendValue)
+{
+	return aStart * (1 - aBlendValue) + aEnd * aBlendValue;
+}
+
+template<typename VectorType>
+inline VectorType HD_Lerp(const VectorType& aStart, const VectorType& aEnd, typename VectorType::DataType aBlendValue)
+{
+	return aStart + (aEnd - aStart) * aBlendValue;
 }

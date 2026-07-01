@@ -2,6 +2,8 @@
 #include "CppUnitTest.h"
 
 #include "HD_Math.h"
+#include "HD_Vector2.h"
+#include "HD_Vector3.h"
 
 #include "TestUtils.h"
 
@@ -61,6 +63,22 @@ namespace HD_CommonUtilities
 			Assert::AreEqual(HD_RemapClamped(5.f, 0.f, 10.f, 100.f, 200.f), 150.f, FLOAT_EQUAL_TOLERANCE);
 			Assert::AreEqual(HD_RemapClamped(-5.f, 0.f, 10.f, 100.f, 200.f), 100.f, FLOAT_EQUAL_TOLERANCE);
 			Assert::AreEqual(HD_RemapClamped(15.f, 0.f, 10.f, 100.f, 200.f), 200.f, FLOAT_EQUAL_TOLERANCE);
+		}
+
+		TEST_METHOD(Lerp)
+		{
+			Assert::AreEqual(HD_Lerp(50.f, 100.f, 0.5f), 75.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(HD_Lerp(100.f, 50.f, 0.2f), 90.f, FLOAT_EQUAL_TOLERANCE);
+
+			HD_Vector2f startVector2(50.f, 50.f);
+			HD_Vector2f endVector2(100.f, 100.f);
+			HD_Vector2f lerpedVector2 = HD_Lerp(startVector2, endVector2, 0.5f);
+			TestUtils::Vector2_AreEqual(lerpedVector2, 75.f, 75.f);
+
+			HD_Vector3f startVector3(50.f, 50.f, 50.f);
+			HD_Vector3f endVector3(100.f, 100.f, 100.f);
+			HD_Vector3f lerpedVector3 = HD_Lerp(startVector3, endVector3, 0.5f);
+			TestUtils::Vector3_AreEqual(lerpedVector3, 75.f, 75.f, 75.f);
 		}
 	};
 }

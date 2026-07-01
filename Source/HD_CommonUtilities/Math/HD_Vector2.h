@@ -29,13 +29,14 @@ public:
 	T myX, myY;
 
 public:
+	typedef T DataType;
+
 	static const HD_Vector2 Zero;
 	static const HD_Vector2 Up;
 	static const HD_Vector2 Down;
 	static const HD_Vector2 Left;
 	static const HD_Vector2 Right;
 
-	static HD_Vector2 Lerp(const HD_Vector2& aStart, const HD_Vector2& aEnd, float aBlendValue);
 	static T Length2(const HD_Vector2& aStart, const HD_Vector2& aEnd);
 };
 
@@ -169,12 +170,6 @@ HD_Vector2<T>& HD_Vector2<T>::operator/=(T aScalar)
 	myY /= aScalar;
 
 	return *this;
-}
-
-template<typename T>
-HD_Vector2<T> HD_Vector2<T>::Lerp(const HD_Vector2& aStart, const HD_Vector2& aEnd, float aBlendValue)
-{
-	return aStart + (aEnd - aStart) * aBlendValue;
 }
 
 template<typename T>

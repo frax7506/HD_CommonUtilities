@@ -29,6 +29,11 @@ public:
 	HD_Vector4& operator/=(T aScalar);
 
 	T myX, myY, myZ, myW;
+
+public:
+	typedef T DataType;
+
+	static T Length2(const HD_Vector4& aStart, const HD_Vector4& aEnd);
 };
 
 template<typename T> HD_Vector4<T> operator+(const HD_Vector4<T>& aVector0, const HD_Vector4<T>& aVector1);
@@ -180,6 +185,13 @@ HD_Vector4<T>& HD_Vector4<T>::operator/=(T aScalar)
 	myW /= aScalar;
 
 	return *this;
+}
+
+template<typename T>
+T HD_Vector4<T>::Length2(const HD_Vector4& aStart, const HD_Vector4& aEnd)
+{
+	HD_Vector4 startToEnd = aEnd - aStart;
+	return startToEnd.Length2();
 }
 
 template<typename T>
