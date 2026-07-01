@@ -1,8 +1,5 @@
 #pragma once
 
-#include "HD_Math.h"
-#include "HD_Swap.h"
-
 #include <cassert>
 #include <cstring>
 #include <initializer_list>

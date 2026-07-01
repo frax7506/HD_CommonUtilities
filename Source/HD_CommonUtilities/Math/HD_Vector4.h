@@ -1,7 +1,5 @@
 #pragma once
 
-#include "HD_Math.h"
-
 template<typename T>
 class HD_Matrix4x4;
 

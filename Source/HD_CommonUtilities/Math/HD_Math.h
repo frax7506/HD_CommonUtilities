@@ -1,8 +1,5 @@
 #pragma once
 
-#include "HD_Vector2.h"
-#include "HD_Vector3.h"
-
 #include <math.h>
 
 #define F_SQRT_TWO 1.4142135623f
