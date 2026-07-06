@@ -2,12 +2,12 @@
 
 #include <chrono>
 
-Time_Type HD_Time::GetCurrentTimeMS()
+TimeType HD_Time::GetCurrentTimeMS()
 {
 	return std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now().time_since_epoch()).count();
 }
 
-Time_Type HD_Time::GetCurrentTimeMicroseconds()
+TimeType HD_Time::GetCurrentTimeMicroseconds()
 {
 	return std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now().time_since_epoch()).count();
 }
