@@ -124,6 +124,11 @@ HD_Vector3f HD_Camera::GetForward() const
 	return myTransform.GetForwardVector();
 }
 
+const HD_Matrix4x4f& HD_Camera::GetTransform() const
+{
+	return myTransform;
+}
+
 const HD_Matrix4x4f& HD_Camera::GetProjection() const
 {
 	return myProjection;

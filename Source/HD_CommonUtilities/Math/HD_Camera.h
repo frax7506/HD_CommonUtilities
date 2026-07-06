@@ -30,6 +30,7 @@ public:
 	HD_Vector3f GetUp() const;
 	HD_Vector3f GetForward() const;
 
+	const HD_Matrix4x4f& GetTransform() const;
 	const HD_Matrix4x4f& GetProjection() const;
 
 	HD_Vector4f WorldSpaceToClipSpace(const HD_Vector4f& aPointInWorldSpace) const;
