@@ -30,16 +30,18 @@ public:
 	HD_Vector3f GetUp() const;
 	HD_Vector3f GetForward() const;
 
+	const HD_Matrix4x4f& GetProjection() const;
+
 	HD_Vector4f WorldSpaceToClipSpace(const HD_Vector4f& aPointInWorldSpace) const;
 	HD_Vector3f ClipSpaceToPerspectiveDivide(const HD_Vector4f& aPointInClipSpace) const;
 	HD_Vector3f PerspectiveDivideToScreenSpace(const HD_Vector3f& aPointPostPerspectiveDivide) const;
 
 private:
-	void CalculateToClipSpace();
+	void CalculateProjection();
 
 	HD_Matrix4x4f myTransform;
-	HD_Matrix4x4f myToClipSpace;
-	bool myToClipSpaceDirty;
+	HD_Matrix4x4f myProjection;
+	bool myIsProjectionDirty;
 
 	// Perspective variables
 	HD_Vector2ui myResolution;
