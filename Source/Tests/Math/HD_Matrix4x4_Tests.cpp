@@ -127,7 +127,7 @@ namespace HD_CommonUtilities
 			matrix.SetScaleInX(2.f);
 			f32 scaleInX = matrix.GetScaleInX();
 
-			Assert::AreEqual(scaleInX, 2.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(scaleInX, 2.f, F32_EQUAL_TOLERANCE);
 		}
 
 		TEST_METHOD(SetScaleInY)
@@ -136,7 +136,7 @@ namespace HD_CommonUtilities
 			matrix.SetScaleInY(2.f);
 			f32 scaleInX = matrix.GetScaleInY();
 
-			Assert::AreEqual(scaleInX, 2.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(scaleInX, 2.f, F32_EQUAL_TOLERANCE);
 		}
 
 		TEST_METHOD(SetScaleInZ)
@@ -145,7 +145,7 @@ namespace HD_CommonUtilities
 			matrix.SetScaleInZ(2.f);
 			f32 scaleInX = matrix.GetScaleInZ();
 
-			Assert::AreEqual(scaleInX, 2.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(scaleInX, 2.f, F32_EQUAL_TOLERANCE);
 		}
 
 		TEST_METHOD(SetRotationAroundX)
@@ -155,14 +155,14 @@ namespace HD_CommonUtilities
 				matrix.SetRotationAroundX(F_PI / 4.f);
 				f32 rotationAroundX = matrix.GetRotationAroundX();
 
-				Assert::AreEqual(rotationAroundX, F_PI / 4.f, FLOAT_EQUAL_TOLERANCE);
+				Assert::AreEqual(rotationAroundX, F_PI / 4.f, F32_EQUAL_TOLERANCE);
 			}
 
 			{
 				HD_Matrix4x4f matrix = HD_Matrix4x4f::CreateTranslation(1.f, 1.f, 1.f);
 				matrix.SetRotationAroundX(F_PI / 4.f);
 				f32 rotationAroundX = matrix.GetRotationAroundX();
-				Assert::AreEqual(rotationAroundX, F_PI / 4.f, FLOAT_EQUAL_TOLERANCE);
+				Assert::AreEqual(rotationAroundX, F_PI / 4.f, F32_EQUAL_TOLERANCE);
 
 				HD_Vector3f position = matrix.GetPosition();
 				TestUtils::Vector3_AreEqual(position, 1.f, 1.f, 1.f);
@@ -176,14 +176,14 @@ namespace HD_CommonUtilities
 				matrix.SetRotationAroundY(F_PI / 4.f);
 				f32 rotationAroundY = matrix.GetRotationAroundY();
 
-				Assert::AreEqual(rotationAroundY, F_PI / 4.f, FLOAT_EQUAL_TOLERANCE);
+				Assert::AreEqual(rotationAroundY, F_PI / 4.f, F32_EQUAL_TOLERANCE);
 			}
 
 			{
 				HD_Matrix4x4f matrix = HD_Matrix4x4f::CreateTranslation(1.f, 1.f, 1.f);
 				matrix.SetRotationAroundY(F_PI / 4.f);
 				f32 rotationAroundY = matrix.GetRotationAroundY();
-				Assert::AreEqual(rotationAroundY, F_PI / 4.f, FLOAT_EQUAL_TOLERANCE);
+				Assert::AreEqual(rotationAroundY, F_PI / 4.f, F32_EQUAL_TOLERANCE);
 
 				HD_Vector3f position = matrix.GetPosition();
 				TestUtils::Vector3_AreEqual(position, 1.f, 1.f, 1.f);
@@ -197,14 +197,14 @@ namespace HD_CommonUtilities
 				matrix.SetRotationAroundZ(F_PI / 4.f);
 				f32 rotationAroundZ = matrix.GetRotationAroundZ();
 
-				Assert::AreEqual(rotationAroundZ, F_PI / 4.f, FLOAT_EQUAL_TOLERANCE);
+				Assert::AreEqual(rotationAroundZ, F_PI / 4.f, F32_EQUAL_TOLERANCE);
 			}
 
 			{
 				HD_Matrix4x4f matrix = HD_Matrix4x4f::CreateTranslation(1.f, 1.f, 1.f);
 				matrix.SetRotationAroundZ(F_PI / 4.f);
 				f32 rotationAroundZ = matrix.GetRotationAroundZ();
-				Assert::AreEqual(rotationAroundZ, F_PI / 4.f, FLOAT_EQUAL_TOLERANCE);
+				Assert::AreEqual(rotationAroundZ, F_PI / 4.f, F32_EQUAL_TOLERANCE);
 
 				HD_Vector3f position = matrix.GetPosition();
 				TestUtils::Vector3_AreEqual(position, 1.f, 1.f, 1.f);
@@ -248,44 +248,44 @@ namespace HD_CommonUtilities
 		{
 			HD_Matrix4x4f matrix = { 0.f, 1.f, 2.f, 3.f, 4.f, 5.f, 6.f, 7.f, 8.f, 9.f, 10.f, 11.f, 12.f, 13.f, 14.f, 15.f };
 
-			Assert::AreEqual(matrix(1, 1), 0.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(matrix(1, 2), 1.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(matrix(1, 3), 2.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(matrix(1, 4), 3.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(matrix(2, 1), 4.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(matrix(2, 2), 5.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(matrix(2, 3), 6.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(matrix(2, 4), 7.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(matrix(3, 1), 8.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(matrix(3, 2), 9.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(matrix(3, 3), 10.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(matrix(3, 4), 11.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(matrix(4, 1), 12.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(matrix(4, 2), 13.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(matrix(4, 3), 14.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(matrix(4, 4), 15.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(1, 1), 0.f, F32_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(1, 2), 1.f, F32_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(1, 3), 2.f, F32_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(1, 4), 3.f, F32_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(2, 1), 4.f, F32_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(2, 2), 5.f, F32_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(2, 3), 6.f, F32_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(2, 4), 7.f, F32_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(3, 1), 8.f, F32_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(3, 2), 9.f, F32_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(3, 3), 10.f, F32_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(3, 4), 11.f, F32_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(4, 1), 12.f, F32_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(4, 2), 13.f, F32_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(4, 3), 14.f, F32_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(4, 4), 15.f, F32_EQUAL_TOLERANCE);
 		}
 
 		TEST_METHOD(Operator_Function_Call_Row_And_Col_Const)
 		{
 			HD_Matrix4x4f matrix = { 0.f, 1.f, 2.f, 3.f, 4.f, 5.f, 6.f, 7.f, 8.f, 9.f, 10.f, 11.f, 12.f, 13.f, 14.f, 15.f };
 
-			Assert::AreEqual(matrix(1, 1), 0.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(matrix(1, 2), 1.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(matrix(1, 3), 2.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(matrix(1, 4), 3.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(matrix(2, 1), 4.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(matrix(2, 2), 5.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(matrix(2, 3), 6.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(matrix(2, 4), 7.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(matrix(3, 1), 8.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(matrix(3, 2), 9.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(matrix(3, 3), 10.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(matrix(3, 4), 11.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(matrix(4, 1), 12.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(matrix(4, 2), 13.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(matrix(4, 3), 14.f, FLOAT_EQUAL_TOLERANCE);
-			Assert::AreEqual(matrix(4, 4), 15.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(1, 1), 0.f, F32_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(1, 2), 1.f, F32_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(1, 3), 2.f, F32_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(1, 4), 3.f, F32_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(2, 1), 4.f, F32_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(2, 2), 5.f, F32_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(2, 3), 6.f, F32_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(2, 4), 7.f, F32_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(3, 1), 8.f, F32_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(3, 2), 9.f, F32_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(3, 3), 10.f, F32_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(3, 4), 11.f, F32_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(4, 1), 12.f, F32_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(4, 2), 13.f, F32_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(4, 3), 14.f, F32_EQUAL_TOLERANCE);
+			Assert::AreEqual(matrix(4, 4), 15.f, F32_EQUAL_TOLERANCE);
 		}
 
 		TEST_METHOD(GetRightVector)
@@ -330,7 +330,7 @@ namespace HD_CommonUtilities
 			matrix.SetScaleInX(2.f);
 			f32 scaleInX = matrix.GetScaleInX();
 
-			Assert::AreEqual(scaleInX, 2.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(scaleInX, 2.f, F32_EQUAL_TOLERANCE);
 		}
 
 		TEST_METHOD(GetScaleInY)
@@ -339,7 +339,7 @@ namespace HD_CommonUtilities
 			matrix.SetScaleInY(2.f);
 			f32 scaleInY = matrix.GetScaleInY();
 
-			Assert::AreEqual(scaleInY, 2.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(scaleInY, 2.f, F32_EQUAL_TOLERANCE);
 		}
 
 		TEST_METHOD(GetScaleInZ)
@@ -348,7 +348,7 @@ namespace HD_CommonUtilities
 			matrix.SetScaleInZ(2.f);
 			f32 scaleInZ = matrix.GetScaleInZ();
 
-			Assert::AreEqual(scaleInZ, 2.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(scaleInZ, 2.f, F32_EQUAL_TOLERANCE);
 		}
 
 		TEST_METHOD(GetScaleInXYZ)
@@ -366,21 +366,21 @@ namespace HD_CommonUtilities
 		{
 			HD_Matrix4x4f matrix = HD_Matrix4x4f::CreateRotationAroundX(F_PI / 4.f);
 			f32 rotation = matrix.GetRotationAroundX();
-			Assert::AreEqual(rotation, F_PI / 4.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(rotation, F_PI / 4.f, F32_EQUAL_TOLERANCE);
 		}
 
 		TEST_METHOD(GetRotationAroundY)
 		{
 			HD_Matrix4x4f matrix = HD_Matrix4x4f::CreateRotationAroundY(F_PI / 4.f);
 			f32 rotation = matrix.GetRotationAroundY();
-			Assert::AreEqual(rotation, F_PI / 4.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(rotation, F_PI / 4.f, F32_EQUAL_TOLERANCE);
 		}
 
 		TEST_METHOD(GetRotationAroundZ)
 		{
 			HD_Matrix4x4f matrix = HD_Matrix4x4f::CreateRotationAroundZ(F_PI / 4.f);
 			f32 rotation = matrix.GetRotationAroundZ();
-			Assert::AreEqual(rotation, F_PI / 4.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(rotation, F_PI / 4.f, F32_EQUAL_TOLERANCE);
 		}
 
 		TEST_METHOD(GetRotationInXYZ)
@@ -409,7 +409,7 @@ namespace HD_CommonUtilities
 			matrix *= HD_Matrix4x4f::CreateTranslation(2.f, 3.f, 4.f);
 
 			f32 positionX = matrix.GetPositionX();
-			Assert::AreEqual(positionX, 2.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(positionX, 2.f, F32_EQUAL_TOLERANCE);
 		}
 
 		TEST_METHOD(GetPositionY)
@@ -418,7 +418,7 @@ namespace HD_CommonUtilities
 			matrix *= HD_Matrix4x4f::CreateTranslation(2.f, 3.f, 4.f);
 
 			f32 positionY = matrix.GetPositionY();
-			Assert::AreEqual(positionY, 3.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(positionY, 3.f, F32_EQUAL_TOLERANCE);
 		}
 
 		TEST_METHOD(GetPositionZ)
@@ -427,7 +427,7 @@ namespace HD_CommonUtilities
 			matrix *= HD_Matrix4x4f::CreateTranslation(2.f, 3.f, 4.f);
 
 			f32 positionZ = matrix.GetPositionZ();
-			Assert::AreEqual(positionZ, 4.f, FLOAT_EQUAL_TOLERANCE);
+			Assert::AreEqual(positionZ, 4.f, F32_EQUAL_TOLERANCE);
 		}
 
 		TEST_METHOD(GetPosition)

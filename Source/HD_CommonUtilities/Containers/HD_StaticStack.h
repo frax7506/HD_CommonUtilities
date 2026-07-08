@@ -1,8 +1,10 @@
 #pragma once
 
+#include "HD_Types.h"
+
 #include <cassert>
 
-template<typename T, int aSize>
+template<typename T, SizeType aSize>
 class HD_StaticStack
 {
 public:
@@ -12,25 +14,25 @@ public:
 	void Pop();
 	const T& Top();
 
-	void PopN(int aN);
-	void MoveN(HD_StaticStack& aMoveFrom, int aN);
+	void PopN(u32 aN);
+	void MoveN(HD_StaticStack& aMoveFrom, u32 aN);
 
-	int GetNrOfPushedElements();
+	SizeType GetNrOfPushedElements();
 
 private:
 	T myData[aSize];
-	int myNrOfPushedElements;
+	SizeType myNrOfPushedElements;
 };
 
-template<typename T, int aSize>
+template<typename T, SizeType aSize>
 HD_StaticStack<T, aSize>::HD_StaticStack()
 	: myNrOfPushedElements(0)
 {
-	for (int i = 0; i < aSize; ++i)
+	for (u32 i = 0; i < aSize; i++)
 		myData[i] = T();
 }
 
-template<typename T, int aSize>
+template<typename T, SizeType aSize>
 void HD_StaticStack<T, aSize>::Push(const T& aData)
 {
 	assert(myNrOfPushedElements < aSize);
@@ -38,42 +40,42 @@ void HD_StaticStack<T, aSize>::Push(const T& aData)
 	myNrOfPushedElements++;
 }
 
-template<typename T, int aSize>
+template<typename T, SizeType aSize>
 void HD_StaticStack<T, aSize>::Pop()
 {
 	assert(myNrOfPushedElements > 0);
 	myNrOfPushedElements--;
 }
 
-template<typename T, int aSize>
+template<typename T, SizeType aSize>
 const T& HD_StaticStack<T, aSize>::Top()
 {
 	assert(myNrOfPushedElements > 0);
 	return myData[myNrOfPushedElements - 1];
 }
 
-template<typename T, int aSize>
-void HD_StaticStack<T, aSize>::PopN(int aN)
+template<typename T, SizeType aSize>
+void HD_StaticStack<T, aSize>::PopN(u32 aN)
 {
 	assert(myNrOfPushedElements >= aN);
 	myNrOfPushedElements -= aN;
 }
 
-template<typename T, int aSize>
-void HD_StaticStack<T, aSize>::MoveN(HD_StaticStack& aMoveFrom, int aN)
+template<typename T, SizeType aSize>
+void HD_StaticStack<T, aSize>::MoveN(HD_StaticStack& aMoveFrom, u32 aN)
 {
-	int moveFromNrOfPushedElements = aMoveFrom.GetNrOfPushedElements();
+	SizeType moveFromNrOfPushedElements = aMoveFrom.GetNrOfPushedElements();
 	assert(myNrOfPushedElements + aN <= aSize && moveFromNrOfPushedElements >= aN);
 
-	for (int i = 0; i < aN; i++)
+	for (u32 i = 0; i < aN; i++)
 	{
 		Push(aMoveFrom.myData[moveFromNrOfPushedElements - aN + i]);
 		aMoveFrom.Pop();
 	}
 }
 
-template<typename T, int aSize>
-int HD_StaticStack<T, aSize>::GetNrOfPushedElements()
+template<typename T, SizeType aSize>
+SizeType HD_StaticStack<T, aSize>::GetNrOfPushedElements()
 {
 	return myNrOfPushedElements;
 }

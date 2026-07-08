@@ -17,7 +17,7 @@ namespace HD_CommonUtilities
 			Assert::AreEqual(pair.mySecond, 0);
 		}
 
-		TEST_METHOD(Construtor_First_And_Second_As_Args)
+		TEST_METHOD(Construtor_First_And_Second)
 		{
 			HD_Pair<s32, s32> pair(1, 2);
 			Assert::AreEqual(pair.myFirst, 1);

@@ -55,11 +55,11 @@ bool HD_InputManager::UpdateEvents(UINT message, WPARAM wParam, LPARAM lParam)
 	switch (message)
 	{
 	case WM_KEYDOWN:
-		myTentativeState[static_cast<int>(wParam)] = true;
+		myTentativeState[static_cast<u32>(wParam)] = true;
 		return true;
 
 	case WM_KEYUP:
-		myTentativeState[static_cast<int>(wParam)] = false;
+		myTentativeState[static_cast<u32>(wParam)] = false;
 		return true;
 
 	case WM_LBUTTONDOWN:
@@ -87,16 +87,16 @@ bool HD_InputManager::UpdateEvents(UINT message, WPARAM wParam, LPARAM lParam)
 		return true;
 
 	case WM_SYSKEYDOWN:
-		myTentativeState[static_cast<int>(wParam)] = true;
+		myTentativeState[static_cast<u32>(wParam)] = true;
 		return true;
 
 	case WM_SYSKEYUP:
-		myTentativeState[static_cast<int>(wParam)] = false;
+		myTentativeState[static_cast<u32>(wParam)] = false;
 		return true;
 
 	case WM_XBUTTONDOWN:
 	{
-		int xButton = GET_XBUTTON_WPARAM(wParam);
+		s32 xButton = GET_XBUTTON_WPARAM(wParam);
 		if (xButton == 1)
 			myTentativeState[VK_XBUTTON1] = true;
 		else
@@ -107,7 +107,7 @@ bool HD_InputManager::UpdateEvents(UINT message, WPARAM wParam, LPARAM lParam)
 
 	case WM_XBUTTONUP:
 	{
-		int xButton = GET_XBUTTON_WPARAM(wParam);
+		s32 xButton = GET_XBUTTON_WPARAM(wParam);
 		if (xButton == 1)
 			myTentativeState[VK_XBUTTON1] = false;
 		else
@@ -128,8 +128,8 @@ bool HD_InputManager::UpdateEvents(UINT message, WPARAM wParam, LPARAM lParam)
 	// for WM_INPUT instead.
 	case WM_MOUSEMOVE:
 	{
-		int xPos = GET_X_LPARAM(lParam);
-		int yPos = GET_Y_LPARAM(lParam);
+		s32 xPos = GET_X_LPARAM(lParam);
+		s32 yPos = GET_Y_LPARAM(lParam);
 
 		myTentativeMousePosition.myX = xPos;
 		myTentativeMousePosition.myY = yPos;
@@ -160,29 +160,29 @@ bool HD_InputManager::UpdateEvents(UINT message, WPARAM wParam, LPARAM lParam)
 	return false;
 }
 
-bool HD_InputManager::GetIsKeyHeld(int aKeyCode) const
+bool HD_InputManager::GetIsKeyHeld(s32 aKeyCode) const
 {
 	return myCurrentState[aKeyCode] && myPreviousState[aKeyCode];
 }
 
-bool HD_InputManager::GetIsKeyPressed(int aKeyCode) const
+bool HD_InputManager::GetIsKeyPressed(s32 aKeyCode) const
 {
 	return myCurrentState[aKeyCode] && !myPreviousState[aKeyCode];
 }
 
-bool HD_InputManager::GetIsKeyReleased(int aKeyCode) const
+bool HD_InputManager::GetIsKeyReleased(s32 aKeyCode) const
 {
 	return !myCurrentState[aKeyCode] && myPreviousState[aKeyCode];
 }
 
 HD_Vector2f HD_InputManager::GetMouseDelta() const
 {
-	return HD_Vector2f(static_cast<float>(myMouseDelta.myX), static_cast<float>(myMouseDelta.myY));
+	return HD_Vector2f(static_cast<f32>(myMouseDelta.myX), static_cast<f32>(myMouseDelta.myY));
 }
 
 HD_Vector2f HD_InputManager::GetMousePosition() const
 {
-	return HD_Vector2f(static_cast<float>(myCurrentMousePosition.myX), static_cast<float>(myCurrentMousePosition.myY));
+	return HD_Vector2f(static_cast<f32>(myCurrentMousePosition.myX), static_cast<f32>(myCurrentMousePosition.myY));
 }
 
 void HD_InputManager::ShowMouse() const

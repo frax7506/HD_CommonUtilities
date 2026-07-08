@@ -18,48 +18,48 @@ namespace HD_CommonUtilities
 		{
 			HD_String string;
 			Assert::IsNull(string.myData);
-			Assert::AreEqual(string.myLength, 0);
-			Assert::AreEqual(string.myCapacity, 0);
+			Assert::AreEqual(string.myLength, 0u);
+			Assert::AreEqual(string.myCapacity, 0u);
 		}
 
 		TEST_METHOD(Constructor_Wide)
 		{
 			HD_WString string;
 			Assert::IsNull(string.myData);
-			Assert::AreEqual(string.myLength, 0);
-			Assert::AreEqual(string.myCapacity, 0);
+			Assert::AreEqual(string.myLength, 0u);
+			Assert::AreEqual(string.myCapacity, 0u);
 		}
 
 		TEST_METHOD(Constructor_CString_NonWide)
 		{
 			HD_String string("haha");
 			Assert::IsTrue(string == "haha");
-			Assert::AreEqual(string.myLength, 4);
-			Assert::AreEqual(string.myCapacity, 5);
+			Assert::AreEqual(string.myLength, 4u);
+			Assert::AreEqual(string.myCapacity, 5u);
 		}
 
 		TEST_METHOD(Constructor_CString_Wide)
 		{
 			HD_WString string(L"haha");
 			Assert::IsTrue(string == L"haha");
-			Assert::AreEqual(string.myLength, 4);
-			Assert::AreEqual(string.myCapacity, 5);
+			Assert::AreEqual(string.myLength, 4u);
+			Assert::AreEqual(string.myCapacity, 5u);
 		}
 
 		TEST_METHOD(Constructor_CString_NonWide_Empty)
 		{
 			HD_String string("");
 			Assert::IsTrue(string == "");
-			Assert::AreEqual(string.myLength, 0);
-			Assert::AreEqual(string.myCapacity, 1);
+			Assert::AreEqual(string.myLength, 0u);
+			Assert::AreEqual(string.myCapacity, 1u);
 		}
 
 		TEST_METHOD(Constructor_CString_Wide_Empty)
 		{
 			HD_WString string(L"");
 			Assert::IsTrue(string == L"");
-			Assert::AreEqual(string.myLength, 0);
-			Assert::AreEqual(string.myCapacity, 1);
+			Assert::AreEqual(string.myLength, 0u);
+			Assert::AreEqual(string.myCapacity, 1u);
 		}
 
 		TEST_METHOD(Consturctor_Copy_NonWide)
@@ -68,8 +68,8 @@ namespace HD_CommonUtilities
 			HD_String string2(string1);
 
 			Assert::IsTrue(string2 == "haha");
-			Assert::AreEqual(string2.myLength, 4);
-			Assert::AreEqual(string2.myCapacity, 5);
+			Assert::AreEqual(string2.myLength, 4u);
+			Assert::AreEqual(string2.myCapacity, 5u);
 		}
 
 		TEST_METHOD(Consturctor_Copy_Wide)
@@ -78,8 +78,8 @@ namespace HD_CommonUtilities
 			HD_WString string2(string1);
 
 			Assert::IsTrue(string2 == L"haha");
-			Assert::AreEqual(string2.myLength, 4);
-			Assert::AreEqual(string2.myCapacity, 5);
+			Assert::AreEqual(string2.myLength, 4u);
+			Assert::AreEqual(string2.myCapacity, 5u);
 		}
 
 		TEST_METHOD(Consturctor_Copy_NonWide_Empty)
@@ -88,8 +88,8 @@ namespace HD_CommonUtilities
 			HD_String string2(string1);
 
 			Assert::IsTrue(string2 == "");
-			Assert::AreEqual(string2.myLength, 0);
-			Assert::AreEqual(string2.myCapacity, 0);
+			Assert::AreEqual(string2.myLength, 0u);
+			Assert::AreEqual(string2.myCapacity, 0u);
 		}
 
 		TEST_METHOD(Consturctor_Copy_Wide_Empty)
@@ -98,8 +98,8 @@ namespace HD_CommonUtilities
 			HD_WString string2(string1);
 
 			Assert::IsTrue(string2 == L"");
-			Assert::AreEqual(string2.myLength, 0);
-			Assert::AreEqual(string2.myCapacity, 0);
+			Assert::AreEqual(string2.myLength, 0u);
+			Assert::AreEqual(string2.myCapacity, 0u);
 		}
 
 		TEST_METHOD(Constructor_Move_NonWide)
@@ -108,12 +108,12 @@ namespace HD_CommonUtilities
 			HD_String string2(HD_Move(string1));
 
 			Assert::IsNull(string1.myData);
-			Assert::AreEqual(string1.myLength, 0);
-			Assert::AreEqual(string1.myCapacity, 0);
+			Assert::AreEqual(string1.myLength, 0u);
+			Assert::AreEqual(string1.myCapacity, 0u);
 
 			Assert::IsTrue(string2 == "haha");
-			Assert::AreEqual(string2.myLength, 4);
-			Assert::AreEqual(string2.myCapacity, 5);
+			Assert::AreEqual(string2.myLength, 4u);
+			Assert::AreEqual(string2.myCapacity, 5u);
 		}
 
 		TEST_METHOD(Constructor_Move_Wide)
@@ -122,12 +122,12 @@ namespace HD_CommonUtilities
 			HD_WString string2(HD_Move(string1));
 
 			Assert::IsNull(string1.myData);
-			Assert::AreEqual(string1.myLength, 0);
-			Assert::AreEqual(string1.myCapacity, 0);
+			Assert::AreEqual(string1.myLength, 0u);
+			Assert::AreEqual(string1.myCapacity, 0u);
 
 			Assert::IsTrue(string2 == L"haha");
-			Assert::AreEqual(string2.myLength, 4);
-			Assert::AreEqual(string2.myCapacity, 5);
+			Assert::AreEqual(string2.myLength, 4u);
+			Assert::AreEqual(string2.myCapacity, 5u);
 		}
 
 		TEST_METHOD(Constructor_Move_NonWide_Empty)
@@ -136,12 +136,12 @@ namespace HD_CommonUtilities
 			HD_String string2(HD_Move(string1));
 
 			Assert::IsNull(string1.myData);
-			Assert::AreEqual(string1.myLength, 0);
-			Assert::AreEqual(string1.myCapacity, 0);
+			Assert::AreEqual(string1.myLength, 0u);
+			Assert::AreEqual(string1.myCapacity, 0u);
 
 			Assert::IsTrue(string2 == "");
-			Assert::AreEqual(string2.myLength, 0);
-			Assert::AreEqual(string2.myCapacity, 0);
+			Assert::AreEqual(string2.myLength, 0u);
+			Assert::AreEqual(string2.myCapacity, 0u);
 		}
 
 		TEST_METHOD(Constructor_Move_Wide_Empty)
@@ -150,12 +150,12 @@ namespace HD_CommonUtilities
 			HD_WString string2(HD_Move(string1));
 
 			Assert::IsNull(string1.myData);
-			Assert::AreEqual(string1.myLength, 0);
-			Assert::AreEqual(string1.myCapacity, 0);
+			Assert::AreEqual(string1.myLength, 0u);
+			Assert::AreEqual(string1.myCapacity, 0u);
 
 			Assert::IsTrue(string2 == L"");
-			Assert::AreEqual(string2.myLength, 0);
-			Assert::AreEqual(string2.myCapacity, 0);
+			Assert::AreEqual(string2.myLength, 0u);
+			Assert::AreEqual(string2.myCapacity, 0u);
 		}
 
 		TEST_METHOD(Destructor_NonWide)
@@ -205,13 +205,13 @@ namespace HD_CommonUtilities
 		TEST_METHOD(GetLength_NonWide)
 		{
 			HD_String string("haha");
-			Assert::AreEqual(string.GetLength(), 4);
+			Assert::AreEqual(string.GetLength(), 4u);
 		}
 
 		TEST_METHOD(GetLength_Wide)
 		{
 			HD_WString string(L"haha");
-			Assert::AreEqual(string.GetLength(), 4);
+			Assert::AreEqual(string.GetLength(), 4u);
 		}
 
 		TEST_METHOD(GetChatAt_NonWide)
@@ -240,84 +240,84 @@ namespace HD_CommonUtilities
 		{
 			HD_String string;
 			Assert::IsNull(string.myData);
-			Assert::AreEqual(string.myLength, 0);
-			Assert::AreEqual(string.myCapacity, 0);
+			Assert::AreEqual(string.myLength, 0u);
+			Assert::AreEqual(string.myCapacity, 0u);
 
 			string.Append("haha");
 
 			Assert::IsTrue(string == "haha");
-			Assert::AreEqual(string.myLength, 4);
-			Assert::AreEqual(string.myCapacity, 7);
+			Assert::AreEqual(string.myLength, 4u);
+			Assert::AreEqual(string.myCapacity, 7u);
 
 			string.Append("ha");
 
 			Assert::IsTrue(string == "hahaha");
-			Assert::AreEqual(string.myLength, 6);
-			Assert::AreEqual(string.myCapacity, 7);
+			Assert::AreEqual(string.myLength, 6u);
+			Assert::AreEqual(string.myCapacity, 7u);
 		}
 
 		TEST_METHOD(Append_CString_Wide)
 		{
 			HD_WString string;
 			Assert::IsNull(string.myData);
-			Assert::AreEqual(string.myLength, 0);
-			Assert::AreEqual(string.myCapacity, 0);
+			Assert::AreEqual(string.myLength, 0u);
+			Assert::AreEqual(string.myCapacity, 0u);
 
 			string.Append(L"haha");
 
 			Assert::IsTrue(string == L"haha");
-			Assert::AreEqual(string.myLength, 4);
-			Assert::AreEqual(string.myCapacity, 7);
+			Assert::AreEqual(string.myLength, 4u);
+			Assert::AreEqual(string.myCapacity, 7u);
 
 			string.Append(L"ha");
 
 			Assert::IsTrue(string == L"hahaha");
-			Assert::AreEqual(string.myLength, 6);
-			Assert::AreEqual(string.myCapacity, 7);
+			Assert::AreEqual(string.myLength, 6u);
+			Assert::AreEqual(string.myCapacity, 7u);
 		}
 
 		TEST_METHOD(Append_HD_String_NonWide)
 		{
 			HD_String string;
 			Assert::IsNull(string.myData);
-			Assert::AreEqual(string.myLength, 0);
-			Assert::AreEqual(string.myCapacity, 0);
+			Assert::AreEqual(string.myLength, 0u);
+			Assert::AreEqual(string.myCapacity, 0u);
 
 			HD_String string1("haha");
 			string.Append(string1);
 
 			Assert::IsTrue(string == "haha");
-			Assert::AreEqual(string.myLength, 4);
-			Assert::AreEqual(string.myCapacity, 7);
+			Assert::AreEqual(string.myLength, 4u);
+			Assert::AreEqual(string.myCapacity, 7u);
 
 			HD_String string2("ha");
 			string.Append(string2);
 
 			Assert::IsTrue(string == "hahaha");
-			Assert::AreEqual(string.myLength, 6);
-			Assert::AreEqual(string.myCapacity, 7);
+			Assert::AreEqual(string.myLength, 6u);
+			Assert::AreEqual(string.myCapacity, 7u);
 		}
 
 		TEST_METHOD(Append_HD_String_Wide)
 		{
 			HD_WString string;
 			Assert::IsNull(string.myData);
-			Assert::AreEqual(string.myLength, 0);
-			Assert::AreEqual(string.myCapacity, 0);
+			Assert::AreEqual(string.myLength, 0u);
+			Assert::AreEqual(string.myCapacity, 0u);
 
 			HD_WString string1(L"haha");
 			string.Append(string1);
 
 			Assert::IsTrue(string == L"haha");
-			Assert::AreEqual(string.myLength, 4);
-			Assert::AreEqual(string.myCapacity, 7);
+			Assert::AreEqual(string.myLength, 4u);
+			Assert::AreEqual(string.myCapacity, 7u);
 
 			HD_WString string2(L"ha");
 			string.Append(string2);
 
 			Assert::IsTrue(string == L"hahaha");
-			Assert::AreEqual(string.myLength, 6);
-			Assert::AreEqual(string.myCapacity, 7);
+			Assert::AreEqual(string.myLength, 6u);
+			Assert::AreEqual(string.myCapacity, 7u);
 		}
 
 		TEST_METHOD(Clear_NonWide)
@@ -326,8 +326,8 @@ namespace HD_CommonUtilities
 			string.Clear();
 
 			Assert::IsTrue(string == "");
-			Assert::AreEqual(string.myLength, 0);
-			Assert::AreEqual(string.myCapacity, 5);
+			Assert::AreEqual(string.myLength, 0u);
+			Assert::AreEqual(string.myCapacity, 5u);
 		}
 
 		TEST_METHOD(Clear_Wide)
@@ -336,8 +336,8 @@ namespace HD_CommonUtilities
 			string.Clear();
 
 			Assert::IsTrue(string == L"");
-			Assert::AreEqual(string.myLength, 0);
-			Assert::AreEqual(string.myCapacity, 5);
+			Assert::AreEqual(string.myLength, 0u);
+			Assert::AreEqual(string.myCapacity, 5u);
 		}
 
 		TEST_METHOD(Reserve_NonWide)
@@ -345,8 +345,8 @@ namespace HD_CommonUtilities
 			HD_String string;
 			string.Reserve(16);
 			Assert::IsTrue(string == "");
-			Assert::AreEqual(string.myLength, 0);
-			Assert::AreEqual(string.myCapacity, 25);
+			Assert::AreEqual(string.myLength, 0u);
+			Assert::AreEqual(string.myCapacity, 25u);
 		}
 
 		TEST_METHOD(Reserve_Wide)
@@ -354,8 +354,8 @@ namespace HD_CommonUtilities
 			HD_WString string;
 			string.Reserve(16);
 			Assert::IsTrue(string == L"");
-			Assert::AreEqual(string.myLength, 0);
-			Assert::AreEqual(string.myCapacity, 25);
+			Assert::AreEqual(string.myLength, 0u);
+			Assert::AreEqual(string.myCapacity, 25u);
 		}
 
 		TEST_METHOD(Operator_Assignment_CString_NonWide)
@@ -364,8 +364,8 @@ namespace HD_CommonUtilities
 			string = "haha";
 
 			Assert::IsTrue(string == "haha");
-			Assert::AreEqual(string.myLength, 4);
-			Assert::AreEqual(string.myCapacity, 5);
+			Assert::AreEqual(string.myLength, 4u);
+			Assert::AreEqual(string.myCapacity, 5u);
 		}
 
 		TEST_METHOD(Operator_Assignment_CString_Wide)
@@ -374,8 +374,8 @@ namespace HD_CommonUtilities
 			string = L"haha";
 
 			Assert::IsTrue(string == L"haha");
-			Assert::AreEqual(string.myLength, 4);
-			Assert::AreEqual(string.myCapacity, 5);
+			Assert::AreEqual(string.myLength, 4u);
+			Assert::AreEqual(string.myCapacity, 5u);
 		}
 
 		TEST_METHOD(Operator_Assignment_CString_NonWide_Empty)
@@ -384,8 +384,8 @@ namespace HD_CommonUtilities
 			string = "";
 
 			Assert::IsTrue(string == "");
-			Assert::AreEqual(string.myLength, 0);
-			Assert::AreEqual(string.myCapacity, 0);
+			Assert::AreEqual(string.myLength, 0u);
+			Assert::AreEqual(string.myCapacity, 0u);
 		}
 
 		TEST_METHOD(Operator_Assignment_CString_Wide_Empty)
@@ -394,8 +394,8 @@ namespace HD_CommonUtilities
 			string = L"";
 
 			Assert::IsTrue(string == L"");
-			Assert::AreEqual(string.myLength, 0);
-			Assert::AreEqual(string.myCapacity, 0);
+			Assert::AreEqual(string.myLength, 0u);
+			Assert::AreEqual(string.myCapacity, 0u);
 		}
 
 		TEST_METHOD(Operator_Assignment_HD_String_NonWide)
@@ -406,8 +406,8 @@ namespace HD_CommonUtilities
 			string2 = string1;
 
 			Assert::IsTrue(string2 == "haha");
-			Assert::AreEqual(string2.myLength, 4);
-			Assert::AreEqual(string2.myCapacity, 5);
+			Assert::AreEqual(string2.myLength, 4u);
+			Assert::AreEqual(string2.myCapacity, 5u);
 		}
 
 		TEST_METHOD(Operator_Assignment_HD_String_Wide)
@@ -418,8 +418,8 @@ namespace HD_CommonUtilities
 			string2 = string1;
 
 			Assert::IsTrue(string2 == L"haha");
-			Assert::AreEqual(string2.myLength, 4);
-			Assert::AreEqual(string2.myCapacity, 5);
+			Assert::AreEqual(string2.myLength, 4u);
+			Assert::AreEqual(string2.myCapacity, 5u);
 		}
 
 		TEST_METHOD(Operator_Assignment_HD_String_NonWide_Empty)
@@ -430,8 +430,8 @@ namespace HD_CommonUtilities
 			string2 = string1;
 
 			Assert::IsTrue(string2 == "");
-			Assert::AreEqual(string2.myLength, 0);
-			Assert::AreEqual(string2.myCapacity, 0);
+			Assert::AreEqual(string2.myLength, 0u);
+			Assert::AreEqual(string2.myCapacity, 0u);
 		}
 
 		TEST_METHOD(Operator_Assignment_HD_String_Wide_Empty)
@@ -442,8 +442,8 @@ namespace HD_CommonUtilities
 			string2 = string1;
 
 			Assert::IsTrue(string2 == L"");
-			Assert::AreEqual(string2.myLength, 0);
-			Assert::AreEqual(string2.myCapacity, 0);
+			Assert::AreEqual(string2.myLength, 0u);
+			Assert::AreEqual(string2.myCapacity, 0u);
 		}
 
 		TEST_METHOD(Operator_Assignment_Move_NonWide)
@@ -454,12 +454,12 @@ namespace HD_CommonUtilities
 			string2 = HD_Move(string1);
 
 			Assert::IsNull(string1.myData);
-			Assert::AreEqual(string1.myLength, 0);
-			Assert::AreEqual(string1.myCapacity, 0);
+			Assert::AreEqual(string1.myLength, 0u);
+			Assert::AreEqual(string1.myCapacity, 0u);
 
 			Assert::IsTrue(string2 == "haha");
-			Assert::AreEqual(string2.myLength, 4);
-			Assert::AreEqual(string2.myCapacity, 5);
+			Assert::AreEqual(string2.myLength, 4u);
+			Assert::AreEqual(string2.myCapacity, 5u);
 		}
 
 		TEST_METHOD(Operator_Assignment_Move_Wide)
@@ -470,12 +470,12 @@ namespace HD_CommonUtilities
 			string2 = HD_Move(string1);
 
 			Assert::IsNull(string1.myData);
-			Assert::AreEqual(string1.myLength, 0);
-			Assert::AreEqual(string1.myCapacity, 0);
+			Assert::AreEqual(string1.myLength, 0u);
+			Assert::AreEqual(string1.myCapacity, 0u);
 
 			Assert::IsTrue(string2 == L"haha");
-			Assert::AreEqual(string2.myLength, 4);
-			Assert::AreEqual(string2.myCapacity, 5);
+			Assert::AreEqual(string2.myLength, 4u);
+			Assert::AreEqual(string2.myCapacity, 5u);
 		}
 
 		TEST_METHOD(Operator_Assignment_Move_NonWide_Emtpy)
@@ -486,12 +486,12 @@ namespace HD_CommonUtilities
 			string2 = HD_Move(string1);
 
 			Assert::IsNull(string1.myData);
-			Assert::AreEqual(string1.myLength, 0);
-			Assert::AreEqual(string1.myCapacity, 0);
+			Assert::AreEqual(string1.myLength, 0u);
+			Assert::AreEqual(string1.myCapacity, 0u);
 
 			Assert::IsTrue(string2 == "");
-			Assert::AreEqual(string2.myLength, 0);
-			Assert::AreEqual(string2.myCapacity, 0);
+			Assert::AreEqual(string2.myLength, 0u);
+			Assert::AreEqual(string2.myCapacity, 0u);
 		}
 
 		TEST_METHOD(Operator_Assignment_Move_Wide_Emtpy)
@@ -502,64 +502,64 @@ namespace HD_CommonUtilities
 			string2 = HD_Move(string1);
 
 			Assert::IsNull(string1.myData);
-			Assert::AreEqual(string1.myLength, 0);
-			Assert::AreEqual(string1.myCapacity, 0);
+			Assert::AreEqual(string1.myLength, 0u);
+			Assert::AreEqual(string1.myCapacity, 0u);
 
 			Assert::IsTrue(string2 == L"");
-			Assert::AreEqual(string2.myLength, 0);
-			Assert::AreEqual(string2.myCapacity, 0);
+			Assert::AreEqual(string2.myLength, 0u);
+			Assert::AreEqual(string2.myCapacity, 0u);
 		}
 
 		TEST_METHOD(CheckLengthAndGrowIfNecessary_NonWide)
 		{
 			HD_String string = "ha";
 			Assert::IsTrue(string == "ha");
-			Assert::AreEqual(string.myLength, 2);
-			Assert::AreEqual(string.myCapacity, 3);
+			Assert::AreEqual(string.myLength, 2u);
+			Assert::AreEqual(string.myCapacity, 3u);
 
 			string = "haha";
 			Assert::IsTrue(string == "haha");
-			Assert::AreEqual(string.myLength, 4);
-			Assert::AreEqual(string.myCapacity, 5);
+			Assert::AreEqual(string.myLength, 4u);
+			Assert::AreEqual(string.myCapacity, 5u);
 		}
 
 		TEST_METHOD(CheckLengthAndGrowIfNecessary_Wide)
 		{
 			HD_WString string = L"ha";
 			Assert::IsTrue(string == L"ha");
-			Assert::AreEqual(string.myLength, 2);
-			Assert::AreEqual(string.myCapacity, 3);
+			Assert::AreEqual(string.myLength, 2u);
+			Assert::AreEqual(string.myCapacity, 3u);
 
 			string = L"haha";
 			Assert::IsTrue(string == L"haha");
-			Assert::AreEqual(string.myLength, 4);
-			Assert::AreEqual(string.myCapacity, 5);
+			Assert::AreEqual(string.myLength, 4u);
+			Assert::AreEqual(string.myCapacity, 5u);
 		}
 
 		TEST_METHOD(Grow_NonWide)
 		{
 			HD_String string = "ha";
 			Assert::IsTrue(string == "ha");
-			Assert::AreEqual(string.myLength, 2);
-			Assert::AreEqual(string.myCapacity, 3);
+			Assert::AreEqual(string.myLength, 2u);
+			Assert::AreEqual(string.myCapacity, 3u);
 
 			string = "haha";
 			Assert::IsTrue(string == "haha");
-			Assert::AreEqual(string.myLength, 4);
-			Assert::AreEqual(string.myCapacity, 5);
+			Assert::AreEqual(string.myLength, 4u);
+			Assert::AreEqual(string.myCapacity, 5u);
 		}
 
 		TEST_METHOD(Grow_Wide)
 		{
 			HD_WString string = L"ha";
 			Assert::IsTrue(string == L"ha");
-			Assert::AreEqual(string.myLength, 2);
-			Assert::AreEqual(string.myCapacity, 3);
+			Assert::AreEqual(string.myLength, 2u);
+			Assert::AreEqual(string.myCapacity, 3u);
 
 			string = L"haha";
 			Assert::IsTrue(string == L"haha");
-			Assert::AreEqual(string.myLength, 4);
-			Assert::AreEqual(string.myCapacity, 5);
+			Assert::AreEqual(string.myLength, 4u);
+			Assert::AreEqual(string.myCapacity, 5u);
 		}
 
 		TEST_METHOD(Operator_Addition_NonWide)
@@ -571,24 +571,24 @@ namespace HD_CommonUtilities
 				HD_String string3 = string1 + string2;
 
 				Assert::IsTrue(string3 == "hahahehe");
-				Assert::AreEqual(string3.myLength, 8);
-				Assert::AreEqual(string3.myCapacity, 13);
+				Assert::AreEqual(string3.myLength, 8u);
+				Assert::AreEqual(string3.myCapacity, 13u);
 			}
 
 			{
 				HD_String string3 = string1 + " ";
 
 				Assert::IsTrue(string3 == "haha ");
-				Assert::AreEqual(string3.myLength, 5);
-				Assert::AreEqual(string3.myCapacity, 8);
+				Assert::AreEqual(string3.myLength, 5u);
+				Assert::AreEqual(string3.myCapacity, 8u);
 			}
 
 			{
 				HD_String string3 = " " + string1;
 
 				Assert::IsTrue(string3 == " haha");
-				Assert::AreEqual(string3.myLength, 5);
-				Assert::AreEqual(string3.myCapacity, 8);
+				Assert::AreEqual(string3.myLength, 5u);
+				Assert::AreEqual(string3.myCapacity, 8u);
 			}
 		}
 
@@ -601,24 +601,24 @@ namespace HD_CommonUtilities
 				HD_WString string3 = string1 + string2;
 
 				Assert::IsTrue(string3 == L"hahahehe");
-				Assert::AreEqual(string3.myLength, 8);
-				Assert::AreEqual(string3.myCapacity, 13);
+				Assert::AreEqual(string3.myLength, 8u);
+				Assert::AreEqual(string3.myCapacity, 13u);
 			}
 
 			{
 				HD_WString string3 = string1 + L" ";
 
 				Assert::IsTrue(string3 == L"haha ");
-				Assert::AreEqual(string3.myLength, 5);
-				Assert::AreEqual(string3.myCapacity, 8);
+				Assert::AreEqual(string3.myLength, 5u);
+				Assert::AreEqual(string3.myCapacity, 8u);
 			}
 
 			{
 				HD_WString string3 = L" " + string1;
 
 				Assert::IsTrue(string3 == L" haha");
-				Assert::AreEqual(string3.myLength, 5);
-				Assert::AreEqual(string3.myCapacity, 8);
+				Assert::AreEqual(string3.myLength, 5u);
+				Assert::AreEqual(string3.myCapacity, 8u);
 			}
 		}
 

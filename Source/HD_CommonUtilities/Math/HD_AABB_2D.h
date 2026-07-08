@@ -31,8 +31,8 @@ HD_AABB_2D<T>::HD_AABB_2D(const HD_Vector2<T>& aMin, const HD_Vector2<T>& aMax)
 template<typename T>
 bool HD_AABB_2D<T>::Contains(const HD_Vector2<T>& aPosition) const
 {
-	const bool xInRange = myMin.myX <= aPosition.myX && aPosition.myX <= myMax.myX;
-	const bool yInRange = myMin.myY <= aPosition.myY && aPosition.myY <= myMax.myY;
+	bool xInRange = myMin.myX <= aPosition.myX && aPosition.myX <= myMax.myX;
+	bool yInRange = myMin.myY <= aPosition.myY && aPosition.myY <= myMax.myY;
 	return xInRange && yInRange;
 }
 
@@ -45,4 +45,4 @@ bool HD_AABB_2D<T>::Intersects(const HD_AABB_2D& aOther) const
 		myMin.myY > aOther.myMax.myY);
 }
 
-typedef HD_AABB_2D<float> HD_AABB_2Df;
+typedef HD_AABB_2D<f32> HD_AABB_2Df;

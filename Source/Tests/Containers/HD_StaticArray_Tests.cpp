@@ -15,11 +15,11 @@ namespace HD_CommonUtilities
 	public:
 		TEST_METHOD(Constructor_POD)
 		{
-			HD_StaticArray<s32, 8> staticArray;
+			HD_StaticArray<u32, 8> staticArray;
 
-			for (s32 i = 0; i < staticArray.Size(); i++)
+			for (u32 i = 0; i < staticArray.Size(); i++)
 			{
-				Assert::AreEqual(staticArray[i], 0);
+				Assert::AreEqual(staticArray[i], 0u);
 			}
 		}
 
@@ -27,7 +27,7 @@ namespace HD_CommonUtilities
 		{
 			HD_StaticArray<HD_String, 8> staticArray;
 
-			for (s32 i = 0; i < staticArray.Size(); i++)
+			for (u32 i = 0; i < staticArray.Size(); i++)
 			{
 				TestUtils::String_IsUninitialized(staticArray[i]);
 			}
@@ -35,16 +35,16 @@ namespace HD_CommonUtilities
 
 		TEST_METHOD(Constructor_Copy_POD)
 		{
-			HD_StaticArray<s32, 8> staticArray1;
+			HD_StaticArray<u32, 8> staticArray1;
 
-			for (s32 i = 0; i < staticArray1.Size(); i++)
+			for (u32 i = 0; i < staticArray1.Size(); i++)
 			{
 				staticArray1[i] = i;
 			}
 
-			HD_StaticArray<s32, 8> staticArray2(staticArray1);
+			HD_StaticArray<u32, 8> staticArray2(staticArray1);
 
-			for (s32 i = 0, e = staticArray2.Size(); i < e; i++)
+			for (u32 i = 0; i < staticArray2.Size(); i++)
 			{
 				Assert::AreEqual(staticArray2[i], i);
 			}
@@ -56,14 +56,14 @@ namespace HD_CommonUtilities
 
 			HD_StaticArray<HD_String, 8> staticArray1;
 
-			for (s32 i = 0; i < staticArray1.Size(); i++)
+			for (u32 i = 0; i < staticArray1.Size(); i++)
 			{
 				staticArray1[i] = strings[i];
 			}
 
 			HD_StaticArray<HD_String, 8> staticArray2(staticArray1);
 
-			for (s32 i = 0; i < staticArray2.Size(); i++)
+			for (u32 i = 0; i < staticArray2.Size(); i++)
 			{
 				Assert::IsTrue(staticArray2[i] == strings[i]);
 			}
@@ -71,30 +71,30 @@ namespace HD_CommonUtilities
 
 		TEST_METHOD(Size)
 		{
-			HD_StaticArray<s32, 8> staticArray1;
-			Assert::AreEqual(staticArray1.Size(), 8);
+			HD_StaticArray<u32, 8> staticArray1;
+			Assert::AreEqual(staticArray1.Size(), 8u);
 
-			HD_StaticArray<s32, 16> staticArray2;
-			Assert::AreEqual(staticArray2.Size(), 16);
+			HD_StaticArray<u32, 16> staticArray2;
+			Assert::AreEqual(staticArray2.Size(), 16u);
 		}
 
 		TEST_METHOD(Operator_Subscript_POD)
 		{
-			HD_StaticArray<s32, 8> staticArray;
+			HD_StaticArray<u32, 8> staticArray;
 
-			for (s32 i = 0; i < staticArray.Size(); i++)
+			for (u32 i = 0; i < staticArray.Size(); i++)
 			{
 				staticArray[i] = i;
 			}
 
-			for (s32 i = 0; i < staticArray.Size(); i++)
+			for (u32 i = 0; i < staticArray.Size(); i++)
 			{
 				Assert::AreEqual(staticArray[i], i);
 			}
 
-			const HD_StaticArray<s32, 8> staticArrayConst(staticArray);
+			const HD_StaticArray<u32, 8> staticArrayConst(staticArray);
 
-			for (s32 i = 0; i < staticArrayConst.Size(); i++)
+			for (u32 i = 0; i < staticArrayConst.Size(); i++)
 			{
 				Assert::AreEqual(staticArrayConst[i], i);
 			}
@@ -106,19 +106,19 @@ namespace HD_CommonUtilities
 
 			HD_StaticArray<HD_String, 8> staticArray;
 
-			for (s32 i = 0; i < staticArray.Size(); i++)
+			for (u32 i = 0; i < staticArray.Size(); i++)
 			{
 				staticArray[i] = strings[i];
 			}
 
-			for (s32 i = 0; i < staticArray.Size(); i++)
+			for (u32 i = 0; i < staticArray.Size(); i++)
 			{
 				Assert::IsTrue(staticArray[i] == strings[i]);
 			}
 
 			const HD_StaticArray<HD_String, 8> staticArrayConst(staticArray);
 
-			for (s32 i = 0; i < staticArrayConst.Size(); i++)
+			for (u32 i = 0; i < staticArrayConst.Size(); i++)
 			{
 				Assert::IsTrue(staticArrayConst[i] == strings[i]);
 			}
@@ -126,17 +126,17 @@ namespace HD_CommonUtilities
 
 		TEST_METHOD(Operator_Assignment_POD)
 		{
-			HD_StaticArray<s32, 8> staticArray1;
+			HD_StaticArray<u32, 8> staticArray1;
 
-			for (s32 i = 0; i < staticArray1.Size(); i++)
+			for (u32 i = 0; i < staticArray1.Size(); i++)
 			{
 				staticArray1[i] = i;
 			}
 
-			HD_StaticArray<s32, 8> staticArray2;
+			HD_StaticArray<u32, 8> staticArray2;
 			staticArray2 = staticArray1;
 
-			for (s32 i = 0; i < staticArray2.Size(); i++)
+			for (u32 i = 0; i < staticArray2.Size(); i++)
 			{
 				Assert::AreEqual(staticArray2[i], i);
 			}
@@ -151,7 +151,7 @@ namespace HD_CommonUtilities
 			{
 				HD_StaticArray<HD_String, 8> staticArray2;
 
-				for (s32 i = 0; i < staticArray2.Size(); i++)
+				for (u32 i = 0; i < staticArray2.Size(); i++)
 				{
 					staticArray2[i] = strings[i];
 				}
@@ -159,7 +159,7 @@ namespace HD_CommonUtilities
 				staticArray1 = staticArray2;
 			}
 
-			for (s32 i = 0; i < staticArray1.Size(); i++)
+			for (u32 i = 0; i < staticArray1.Size(); i++)
 			{
 				Assert::IsTrue(staticArray1[i] == strings[i]);
 			}
@@ -167,15 +167,15 @@ namespace HD_CommonUtilities
 
 		TEST_METHOD(Iterator_POD)
 		{
-			HD_StaticArray<s32, 8> staticArray;
+			HD_StaticArray<u32, 8> staticArray;
 
-			for (s32 i = 0; i < staticArray.Size(); i++)
+			for (u32 i = 0; i < staticArray.Size(); i++)
 			{
 				staticArray[i] = i;
 			}
 
-			s32 i = 0;
-			for (s32 value : staticArray)
+			u32 i = 0;
+			for (u32 value : staticArray)
 			{
 				Assert::AreEqual(value, i);
 				i++;
@@ -188,10 +188,10 @@ namespace HD_CommonUtilities
 				i++;
 			}
 
-			const HD_StaticArray<s32, 8> staticArrayConst(staticArray);
+			const HD_StaticArray<u32, 8> staticArrayConst(staticArray);
 
 			i = 0;
-			for (s32 value : staticArrayConst)
+			for (u32 value : staticArrayConst)
 			{
 				Assert::AreEqual(value, i);
 				i++;
@@ -211,7 +211,7 @@ namespace HD_CommonUtilities
 
 			HD_StaticArray<HD_String, 8> staticArray;
 
-			for (s32 i = 0; i < staticArray.Size(); i++)
+			for (u32 i = 0; i < staticArray.Size(); i++)
 			{
 				staticArray[i] = strings[i];
 			}

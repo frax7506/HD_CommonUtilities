@@ -15,12 +15,12 @@ HD_Camera::HD_Camera()
 {
 }
 
-void HD_Camera::InitAsPerspectiveCamera(const HD_Vector2ui& aResolution, float aVerticalFoV, float aNear, float aFar)
+void HD_Camera::InitAsPerspectiveCamera(const HD_Vector2u& aResolution, f32 aVerticalFoV, f32 aNear, f32 aFar)
 {
 	SetPerspectiveProjection(aResolution, aVerticalFoV, aNear, aFar);
 }
 
-void HD_Camera::InitAsOrthographicCamera(float aLeft, float aRight, float aTop, float aBottom, float aNear, float aFar)
+void HD_Camera::InitAsOrthographicCamera(f32 aLeft, f32 aRight, f32 aTop, f32 aBottom, f32 aNear, f32 aFar)
 {
 	SetOrthographicProjection(aLeft, aRight, aTop, aBottom, aNear, aFar);
 }
@@ -34,7 +34,7 @@ void HD_Camera::Update()
 	}
 }
 
-void HD_Camera::SetResolution(const HD_Vector2ui& aResolution)
+void HD_Camera::SetResolution(const HD_Vector2u& aResolution)
 {
 	assert(myIsUsingPerspectiveProjection && "Setting the resolution on an orthographic camera has no effect.");
 
@@ -42,7 +42,7 @@ void HD_Camera::SetResolution(const HD_Vector2ui& aResolution)
 	myIsProjectionDirty = true;
 }
 
-void HD_Camera::SetVerticalFoV(float aVerticalFoV)
+void HD_Camera::SetVerticalFoV(f32 aVerticalFoV)
 {
 	assert(myIsUsingPerspectiveProjection && "Setting the field of view on an orthographic camera has no effect.");
 
@@ -50,7 +50,7 @@ void HD_Camera::SetVerticalFoV(float aVerticalFoV)
 	myIsProjectionDirty = true;
 }
 
-void HD_Camera::SetPerspectiveProjection(const HD_Vector2ui& aResolution, float aVerticalFoV, float aNear, float aFar)
+void HD_Camera::SetPerspectiveProjection(const HD_Vector2u& aResolution, f32 aVerticalFoV, f32 aNear, f32 aFar)
 {
 	assert(0.f < aNear && aNear < aFar);
 
@@ -63,7 +63,7 @@ void HD_Camera::SetPerspectiveProjection(const HD_Vector2ui& aResolution, float 
 	myIsProjectionDirty = true;
 }
 
-void HD_Camera::SetOrthographicProjection(float aLeft, float aRight, float aTop, float aBottom, float aNear, float aFar)
+void HD_Camera::SetOrthographicProjection(f32 aLeft, f32 aRight, f32 aTop, f32 aBottom, f32 aNear, f32 aFar)
 {
 	assert(aLeft < aRight && aBottom < aTop && aNear < aFar);
 
@@ -84,17 +84,17 @@ void HD_Camera::SetPosition(const HD_Vector3f& aPosition)
 	myTransform.SetPosition(aPosition);
 }
 
-void HD_Camera::SetHeading(float aHeading)
+void HD_Camera::SetHeading(f32 aHeading)
 {
 	myTransform.SetRotationAroundY(aHeading);
 }
 
-void HD_Camera::SetPitch(float aPitch)
+void HD_Camera::SetPitch(f32 aPitch)
 {
 	myTransform.SetRotationAroundX(aPitch);
 }
 
-void HD_Camera::SetBank(float aBank)
+void HD_Camera::SetBank(f32 aBank)
 {
 	myTransform.SetRotationAroundZ(aBank);
 }
@@ -151,9 +151,9 @@ HD_Vector3f HD_Camera::ClipSpaceToPerspectiveDivide(const HD_Vector4f& aPointInC
 
 HD_Vector3f HD_Camera::PerspectiveDivideToScreenSpace(const HD_Vector3f& aPointPostPerspectiveDivide) const
 {
-	float aspectRatio = static_cast<float>(myResolution.myX) / static_cast<float>(myResolution.myY);
-	float screenSpaceX = HD_Remap(aPointPostPerspectiveDivide.myX, -1.f, 1.f, 0.f, aspectRatio);
-	float screenSpaceY = HD_Remap(aPointPostPerspectiveDivide.myY, -1.f, 1.f, 0.f, 1.f);
+	f32 aspectRatio = static_cast<f32>(myResolution.myX) / static_cast<f32>(myResolution.myY);
+	f32 screenSpaceX = HD_Remap(aPointPostPerspectiveDivide.myX, -1.f, 1.f, 0.f, aspectRatio);
+	f32 screenSpaceY = HD_Remap(aPointPostPerspectiveDivide.myY, -1.f, 1.f, 0.f, 1.f);
 
 	HD_Vector3f screenSpace(screenSpaceX, screenSpaceY, aPointPostPerspectiveDivide.myZ);
 	return screenSpace;
@@ -165,8 +165,8 @@ void HD_Camera::CalculateProjection()
 
 	if (myIsUsingPerspectiveProjection)
 	{
-		float resolutionWidth = static_cast<float>(myResolution.myX);
-		float resolutionHeight = static_cast<float>(myResolution.myY);
+		f32 resolutionWidth = static_cast<f32>(myResolution.myX);
+		f32 resolutionHeight = static_cast<f32>(myResolution.myY);
 
 		myProjection(1, 1) = (resolutionHeight / resolutionWidth) * (1.f / HD_Tan(myVerticalFoV / 2.f));
 		myProjection(2, 2) = 1.f / HD_Tan(myVerticalFoV / 2.f);

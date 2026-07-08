@@ -18,16 +18,16 @@ namespace HD_CommonUtilities
 
 			Assert::IsFalse(HD_IsFundamental<CustomType>::Result);
 
-			Assert::IsTrue(HD_IsFundamental<char>::Result);
-			Assert::IsTrue(HD_IsFundamental<unsigned char>::Result);
-			Assert::IsTrue(HD_IsFundamental<short>::Result);
-			Assert::IsTrue(HD_IsFundamental<unsigned short>::Result);
-			Assert::IsTrue(HD_IsFundamental<int>::Result);
-			Assert::IsTrue(HD_IsFundamental<unsigned int>::Result);
-			Assert::IsTrue(HD_IsFundamental<long long>::Result);
-			Assert::IsTrue(HD_IsFundamental<unsigned long long>::Result);
-			Assert::IsTrue(HD_IsFundamental<float>::Result);
-			Assert::IsTrue(HD_IsFundamental<double>::Result);
+			Assert::IsTrue(HD_IsFundamental<s8>::Result);
+			Assert::IsTrue(HD_IsFundamental<u8>::Result);
+			Assert::IsTrue(HD_IsFundamental<s16>::Result);
+			Assert::IsTrue(HD_IsFundamental<u16>::Result);
+			Assert::IsTrue(HD_IsFundamental<s32>::Result);
+			Assert::IsTrue(HD_IsFundamental<u32>::Result);
+			Assert::IsTrue(HD_IsFundamental<s64>::Result);
+			Assert::IsTrue(HD_IsFundamental<u64>::Result);
+			Assert::IsTrue(HD_IsFundamental<f32>::Result);
+			Assert::IsTrue(HD_IsFundamental<f64>::Result);
 		}
 	};
 }

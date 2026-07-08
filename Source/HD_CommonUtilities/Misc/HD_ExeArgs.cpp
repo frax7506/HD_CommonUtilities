@@ -3,12 +3,12 @@
 #if !IS_RETAIL_BUILD
 
 // Exe args example:
-// C/exePath -arg1 intValue -arg2 floatValue -arg3 boolValue -arg4 0.1 0.2 -arg5 0.1 0.2 0.3 -arg6 stringValue
+// C/exePath -arg1 s32Value -arg2 f32Value -arg3 boolValue -arg4 0.1 0.2 -arg5 0.1 0.2 0.3 -arg6 stringValue
 
-void HD_ExeArgs::Init(int argc, const char* argv[])
+void HD_ExeArgs::Init(u32 argc, const char* argv[])
 {
 	HD_String lastExeArgName;
-	for (int i = 1; i < argc; i++)
+	for (u32 i = 1; i < argc; i++)
 	{
 		if (argv[i][0] == '-')
 		{
@@ -35,24 +35,24 @@ bool HD_ExeArgs::IsPresent(const char* aExeArgName) const
 	return myExeArgToValueMap.GetIfExists(aExeArgName) != nullptr;
 }
 
-int HD_ExeArgs::GetValueInt(const char* aExeArgIntName) const
+s32 HD_ExeArgs::GetValueS32(const char* aExeArgS32Name) const
 {
-	const HD_String* value = myExeArgToValueMap.GetIfExists(aExeArgIntName);
+	const HD_String* value = myExeArgToValueMap.GetIfExists(aExeArgS32Name);
 	if (!value)
 		return 0;
 
-	int result = 0;
+	s32 result = 0;
 	sscanf(value->GetBuffer(), "%i", &result);
 	return result;
 }
 
-float HD_ExeArgs::GetValueFloat(const char* aExeArgFloatName) const
+f32 HD_ExeArgs::GetValueF32(const char* aExeArgF32Name) const
 {
-	const HD_String* value = myExeArgToValueMap.GetIfExists(aExeArgFloatName);
+	const HD_String* value = myExeArgToValueMap.GetIfExists(aExeArgF32Name);
 	if (!value)
 		return 0.f;
 
-	float result = 0.f;
+	f32 result = 0.f;
 	sscanf(value->GetBuffer(), "%f", &result);
 	return result;
 }
@@ -64,7 +64,7 @@ bool HD_ExeArgs::GetValueBool(const char* aExeArgBoolName) const
 		return false;
 
 	// A bool as an exe arg is given as 0 or 1
-	int result = 0;
+	s32 result = 0;
 	sscanf(value->GetBuffer(), "%i", &result);
 	return result;
 }
@@ -75,8 +75,8 @@ HD_Vector2f HD_ExeArgs::GetValueVector2f(const char* aExeArgVector2fName) const
 	if (!value)
 		return HD_Vector2f(0.f, 0.f);
 
-	float x = 0.f;
-	float y = 0.f;
+	f32 x = 0.f;
+	f32 y = 0.f;
 	sscanf(value->GetBuffer(), "%f %f", &x, &y);
 	return HD_Vector2f(x, y);
 }
@@ -87,9 +87,9 @@ HD_Vector3f HD_ExeArgs::GetValueVector3f(const char* aExeArgVector3fName) const
 	if (!value)
 		return HD_Vector3f(0.f, 0.f, 0.f);
 
-	float x = 0.f;
-	float y = 0.f;
-	float z = 0.f;
+	f32 x = 0.f;
+	f32 y = 0.f;
+	f32 z = 0.f;
 	sscanf(value->GetBuffer(), "%f %f %f", &x, &y, &z);
 	return HD_Vector3f(x, y, z);
 }

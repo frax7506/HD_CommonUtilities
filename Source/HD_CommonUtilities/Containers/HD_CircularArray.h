@@ -1,9 +1,9 @@
 #pragma once
 
 #include "HD_Move.h"
+#include "HD_Types.h"
 
 #include <cassert>
-#include <cstring>
 
 // HD_CircularArray
 // * If overflow is enabled and PushBack is called on a full array it will start
@@ -11,7 +11,7 @@
 // * The GetFirstAndRemove function gets the oldest item and removes it, which means
 //   that PushBack and GetFirstAndRemove can be used to make this array a FIFO queue.
 
-template<typename T, int aCapacity>
+template<typename T, SizeType aCapacity>
 class HD_CircularArray
 {
 public:
@@ -27,32 +27,32 @@ public:
 
 	void Clear();
 
-	int GetSize() const;
-	int GetCapacity() const;
+	SizeType GetSize() const;
+	SizeType GetCapacity() const;
 	bool GetIsEmpty() const;
 
 	void EnableOverflow();
 	void DisableOverflow();
 
-	T& operator[](int aIndex);
-	const T& operator[](int aIndex) const;
+	T& operator[](u32 aIndex);
+	const T& operator[](u32 aIndex) const;
 
 private:
-	enum eOverflowBehaviour : char
+	enum eOverflowBehaviour : u8
 	{
 		eOverflowBehaviour_Enable,
 		eOverflowBehaviour_Disable,
 	};
 
-	int myFirstIndex;
-	int myWriteIndex;
-	int mySize;
+	u32 myFirstIndex;
+	u32 myWriteIndex;
+	SizeType mySize;
 
 	eOverflowBehaviour myOverflowBehaviour;
 	T myData[aCapacity];
 };
 
-template<typename T, int aCapacity>
+template<typename T, SizeType aCapacity>
 HD_CircularArray<T, aCapacity>::HD_CircularArray()
 	: myFirstIndex(0)
 	, myWriteIndex(0)
@@ -62,19 +62,19 @@ HD_CircularArray<T, aCapacity>::HD_CircularArray()
 {
 }
 
-template<typename T, int aCapacity>
+template<typename T, SizeType aCapacity>
 void HD_CircularArray<T, aCapacity>::PushBack(const T& aItem)
 {
 	EmplaceBack(aItem);
 }
 
-template<typename T, int aCapacity>
+template<typename T, SizeType aCapacity>
 void HD_CircularArray<T, aCapacity>::PushBack(T&& aItem)
 {
 	EmplaceBack(HD_Move(aItem));
 }
 
-template<typename T, int aCapacity>
+template<typename T, SizeType aCapacity>
 template<typename... Args>
 void HD_CircularArray<T, aCapacity>::EmplaceBack(Args&&... args)
 {
@@ -94,7 +94,7 @@ void HD_CircularArray<T, aCapacity>::EmplaceBack(Args&&... args)
 	}
 }
 
-template<typename T, int aCapacity>
+template<typename T, SizeType aCapacity>
 void HD_CircularArray<T, aCapacity>::GetFirstAndRemove(T& outItem)
 {
 	assert(!GetIsEmpty());
@@ -104,7 +104,7 @@ void HD_CircularArray<T, aCapacity>::GetFirstAndRemove(T& outItem)
 	mySize--;
 }
 
-template<typename T, int aCapacity>
+template<typename T, SizeType aCapacity>
 void HD_CircularArray<T, aCapacity>::Clear()
 {
 	myFirstIndex = 0;
@@ -112,46 +112,46 @@ void HD_CircularArray<T, aCapacity>::Clear()
 	mySize = 0;
 }
 
-template<typename T, int aCapacity>
-int HD_CircularArray<T, aCapacity>::GetSize() const
+template<typename T, SizeType aCapacity>
+SizeType HD_CircularArray<T, aCapacity>::GetSize() const
 {
 	return mySize;
 }
 
-template<typename T, int aCapacity>
-int HD_CircularArray<T, aCapacity>::GetCapacity() const
+template<typename T, SizeType aCapacity>
+SizeType HD_CircularArray<T, aCapacity>::GetCapacity() const
 {
 	return aCapacity;
 }
 
-template<typename T, int aCapacity>
+template<typename T, SizeType aCapacity>
 bool HD_CircularArray<T, aCapacity>::GetIsEmpty() const
 {
 	return mySize == 0;
 }
 
-template<typename T, int aCapacity>
+template<typename T, SizeType aCapacity>
 void HD_CircularArray<T, aCapacity>::EnableOverflow()
 {
 	myOverflowBehaviour = eOverflowBehaviour_Enable;
 }
 
-template<typename T, int aCapacity>
+template<typename T, SizeType aCapacity>
 void HD_CircularArray<T, aCapacity>::DisableOverflow()
 {
 	myOverflowBehaviour = eOverflowBehaviour_Disable;
 }
 
-template<typename T, int aCapacity>
-T& HD_CircularArray<T, aCapacity>::operator[](int aIndex)
+template<typename T, SizeType aCapacity>
+T& HD_CircularArray<T, aCapacity>::operator[](u32 aIndex)
 {
 	assert(aIndex < GetSize());
 
 	return myData[(myFirstIndex + aIndex) % aCapacity];
 }
 
-template<typename T, int aCapacity>
-const T& HD_CircularArray<T, aCapacity>::operator[](int aIndex) const
+template<typename T, SizeType aCapacity>
+const T& HD_CircularArray<T, aCapacity>::operator[](u32 aIndex) const
 {
 	assert(aIndex < GetSize());
 

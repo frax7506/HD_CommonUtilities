@@ -1,5 +1,7 @@
 #pragma once
 
+#include "HD_Types.h"
+
 #include <math.h>
 
 #define F_SQRT_TWO 1.4142135623f
@@ -18,211 +20,41 @@
 
 #define HD_ARE_FLOAT_VALUES_CLOSE(a, b) (HD_Abs(a - b) < F_SMALL)
 
-template<typename T> inline T HD_Sqrt(T aValue);
-template<typename T> inline T HD_Pow(T aBase, T aExponent);
+inline f32 HD_Sqrt(f32 aValue) { return sqrtf(aValue); }
+inline f64 HD_Sqrt(f64 aValue) { return sqrt(aValue); }
 
-template<typename T> inline T HD_Log2(T aValue);
+inline f32 HD_Pow(f32 aBase, f32 aExponent) { return powf(aBase, aExponent); }
+inline f64 HD_Pow(f64 aBase, f64 aExponent) { return pow(aBase, aExponent); }
 
-template<typename T> inline T HD_Sin(T aAngleInRadians);
-template<typename T> inline T HD_Cos(T aAngleInRadians);
-template<typename T> inline T HD_Tan(T aAngleInRadians);
+inline f32 HD_Log2(f32 aValue) { return log2f(aValue); }
+inline f64 HD_Log2(f64 aValue) { return log2(aValue); }
 
-template<typename T> inline T HD_ArcSin(T aAngleInRadians);
-template<typename T> inline T HD_ArcCos(T aAngleInRadians);
-template<typename T> inline T HD_ArcTan(T aAngleInRadians);
-template<typename T> inline T HD_ArcTan2(T aAngleYInRadians, T aAngleXInRadians);
+inline f32 HD_Sin(f32 aAngleInRadians) { return sinf(aAngleInRadians); }
+inline f64 HD_Sin(f64 aAngleInRadians) { return sin(aAngleInRadians); }
+
+inline f32 HD_Cos(f32 aAngleInRadians) { return cosf(aAngleInRadians); }
+inline f64 HD_Cos(f64 aAngleInRadians) { return cos(aAngleInRadians); }
+
+inline f32 HD_Tan(f32 aAngleInRadians) { return tanf(aAngleInRadians); }
+inline f64 HD_Tan(f64 aAngleInRadians) { return tan(aAngleInRadians); }
+
+inline f32 HD_ArcSin(f32 aAngleInRadians) { return asinf(aAngleInRadians); }
+inline f64 HD_ArcSin(f64 aAngleInRadians) { return asin(aAngleInRadians); }
+
+inline f32 HD_ArcCos(f32 aAngleInRadians) { return acosf(aAngleInRadians); }
+inline f64 HD_ArcCos(f64 aAngleInRadians) { return acos(aAngleInRadians); }
+
+inline f32 HD_ArcTan(f32 aAngleInRadians) { return atanf(aAngleInRadians); }
+inline f64 HD_ArcTan(f64 aAngleInRadians) { return atan(aAngleInRadians); }
+
+inline f32 HD_ArcTan2(f32 aAngleYInRadians, f32 aAngleXInRadians) { return atan2f(aAngleYInRadians, aAngleXInRadians); }
+inline f64 HD_ArcTan2(f64 aAngleYInRadians, f64 aAngleXInRadians) { return atan2(aAngleYInRadians, aAngleXInRadians); }
 
 template<typename T> inline T HD_Remap(T aValue, T aOldMin, T aOldMax, T aNewMin, T aNewMax);
 template<typename T> inline T HD_RemapClamped(T aValue, T aOldMin, T aOldMax, T aNewMin, T aNewMax);
 
 template<typename T> inline T HD_Lerp(T aStart, T aEnd, T aBlendValue);
 template<typename VectorType> inline VectorType HD_Lerp(const VectorType& aStart, const VectorType& aEnd, typename VectorType::DataType aBlendValue);
-
-template<>
-inline float HD_Sqrt(float aValue)
-{
-	return sqrtf(aValue);
-}
-
-template<>
-inline double HD_Sqrt(double aValue)
-{
-	return sqrt(aValue);
-}
-
-template<>
-inline long double HD_Sqrt(long double aValue)
-{
-	return sqrtl(aValue);
-}
-
-template<>
-inline int HD_Pow(int aBase, int aExponent)
-{
-	return static_cast<int>(powf(static_cast<float>(aBase), static_cast<float>(aExponent)));
-}
-
-template<>
-inline float HD_Pow(float aBase, float aExponent)
-{
-	return powf(aBase, aExponent);
-}
-
-template<>
-inline double HD_Pow(double aBase, double aExponent)
-{
-	return pow(aBase, aExponent);
-}
-
-template<>
-inline long double HD_Pow(long double aBase, long double aExponent)
-{
-	return powl(aBase, aExponent);
-}
-
-template<>
-inline float HD_Log2(float aValue)
-{
-	return log2f(aValue);
-}
-
-template<>
-inline double HD_Log2(double aValue)
-{
-	return log2(aValue);
-}
-
-template<>
-inline long double HD_Log2(long double aValue)
-{
-	return log2l(aValue);
-}
-
-template<>
-inline float HD_Sin(float aAngleInRadians)
-{
-	return sinf(aAngleInRadians);
-}
-
-template<>
-inline double HD_Sin(double aAngleInRadians)
-{
-	return sin(aAngleInRadians);
-}
-
-template<>
-inline long double HD_Sin(long double aAngleInRadians)
-{
-	return sinl(aAngleInRadians);
-}
-
-template<>
-inline float HD_Cos(float aAngleInRadians)
-{
-	return cosf(aAngleInRadians);
-}
-
-template<>
-inline double HD_Cos(double aAngleInRadians)
-{
-	return cos(aAngleInRadians);
-}
-
-template<>
-inline long double HD_Cos(long double aAngleInRadians)
-{
-	return cosl(aAngleInRadians);
-}
-
-template<>
-inline float HD_Tan(float aAngleInRadians)
-{
-	return tanf(aAngleInRadians);
-}
-
-template<>
-inline double HD_Tan(double aAngleInRadians)
-{
-	return tan(aAngleInRadians);
-}
-
-template<>
-inline long double HD_Tan(long double aAngleInRadians)
-{
-	return tanl(aAngleInRadians);
-}
-
-template<>
-inline float HD_ArcSin(float aAngleInRadians)
-{
-	return asinf(aAngleInRadians);
-}
-
-template<>
-inline double HD_ArcSin(double aAngleInRadians)
-{
-	return asin(aAngleInRadians);
-}
-
-template<>
-inline long double HD_ArcSin(long double aAngleInRadians)
-{
-	return asinl(aAngleInRadians);
-}
-
-template<>
-inline float HD_ArcCos(float aAngleInRadians)
-{
-	return acosf(aAngleInRadians);
-}
-
-template<>
-inline double HD_ArcCos(double aAngleInRadians)
-{
-	return acos(aAngleInRadians);
-}
-
-template<>
-inline long double HD_ArcCos(long double aAngleInRadians)
-{
-	return acosl(aAngleInRadians);
-}
-
-template<>
-inline float HD_ArcTan(float aAngleInRadians)
-{
-	return atanf(aAngleInRadians);
-}
-
-template<>
-inline double HD_ArcTan(double aAngleInRadians)
-{
-	return atan(aAngleInRadians);
-}
-
-template<>
-inline long double HD_ArcTan(long double aAngleInRadians)
-{
-	return atanl(aAngleInRadians);
-}
-
-template<>
-inline float HD_ArcTan2(float aAngleYInRadians, float aAngleXInRadians)
-{
-	return atan2f(aAngleYInRadians, aAngleXInRadians);
-}
-
-template<>
-inline double HD_ArcTan2(double aAngleYInRadians, double aAngleXInRadians)
-{
-	return atan2(aAngleYInRadians, aAngleXInRadians);
-}
-
-template<>
-inline long double HD_ArcTan2(long double aAngleYInRadians, long double aAngleXInRadians)
-{
-	return atan2l(aAngleYInRadians, aAngleXInRadians);
-}
 
 template<typename T>
 inline T HD_Remap(T aValue, T aOldMin, T aOldMax, T aNewMin, T aNewMax)

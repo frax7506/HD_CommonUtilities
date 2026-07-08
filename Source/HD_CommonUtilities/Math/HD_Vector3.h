@@ -1,5 +1,7 @@
 #pragma once
 
+#include "HD_Types.h"
+
 template<typename T>
 class HD_Matrix3x3;
 
@@ -244,15 +246,15 @@ HD_Vector3<T> operator/(const HD_Vector3<T>& aVector, T aScalar)
 	return { aVector.myX / aScalar, aVector.myY / aScalar, aVector.myZ / aScalar };
 }
 
-typedef HD_Vector3<float> HD_Vector3f;
-typedef HD_Vector3<double> HD_Vector3d;
-typedef HD_Vector3<int> HD_Vector3i;
-typedef HD_Vector3<unsigned int> HD_Vector3ui;
+typedef HD_Vector3<f32> HD_Vector3f;
+typedef HD_Vector3<f64> HD_Vector3d;
+typedef HD_Vector3<s32> HD_Vector3s;
+typedef HD_Vector3<u32> HD_Vector3u;
 
-template<> const HD_Vector3<float> HD_Vector3<float>::Zero = { 0.f, 0.f, 0.f };
-template<> const HD_Vector3<float> HD_Vector3<float>::Up = { 0.f, 1.f, 0.f };
-template<> const HD_Vector3<float> HD_Vector3<float>::Down = { 0.f, -1.f, 0.f };
-template<> const HD_Vector3<float> HD_Vector3<float>::Left = { -1.f, 0.f, 0.f };
-template<> const HD_Vector3<float> HD_Vector3<float>::Right = { 1.f, 0.f, 0.f };
-template<> const HD_Vector3<float> HD_Vector3<float>::Forward = { 0.f, 0.f, 1.f };
-template<> const HD_Vector3<float> HD_Vector3<float>::Back = { 0.f, 0.f, -1.f };
+template<> const HD_Vector3<f32> HD_Vector3<f32>::Zero = { 0.f, 0.f, 0.f };
+template<> const HD_Vector3<f32> HD_Vector3<f32>::Up = { 0.f, 1.f, 0.f };
+template<> const HD_Vector3<f32> HD_Vector3<f32>::Down = { 0.f, -1.f, 0.f };
+template<> const HD_Vector3<f32> HD_Vector3<f32>::Left = { -1.f, 0.f, 0.f };
+template<> const HD_Vector3<f32> HD_Vector3<f32>::Right = { 1.f, 0.f, 0.f };
+template<> const HD_Vector3<f32> HD_Vector3<f32>::Forward = { 0.f, 0.f, 1.f };
+template<> const HD_Vector3<f32> HD_Vector3<f32>::Back = { 0.f, 0.f, -1.f };

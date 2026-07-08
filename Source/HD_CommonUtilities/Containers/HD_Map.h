@@ -2,10 +2,12 @@
 
 #include "HD_Math.h"
 #include "HD_SafeDelete.h"
+#include "HD_Types.h"
 
 #include <cassert>
 
 // AVL Tree
+
 template<typename K, typename V>
 class HD_MapNode
 {
@@ -15,8 +17,8 @@ public:
 
 	HD_MapNode();
 
-	int GetBalanceFactor() const;
-	int UpdateHeight();
+	s32 GetBalanceFactor() const;
+	u32 UpdateHeight();
 
 	void SwapContents(HD_MapNode& aNodeToSwap);
 
@@ -26,7 +28,7 @@ public:
 	HD_MapNode* myLeft;
 	HD_MapNode* myRight;
 	HD_MapNode* myParent;
-	int myHeight;
+	u32 myHeight;
 };
 
 template<typename Node>
@@ -39,10 +41,10 @@ public:
 
 	HD_MapIterator& operator++();
 	HD_MapIterator& operator--();
-	HD_MapIterator operator++(int);
-	HD_MapIterator operator--(int);
-	HD_MapIterator& operator+=(int aIncrement);
-	HD_MapIterator& operator-=(int aDecrement);
+	HD_MapIterator operator++(s32);
+	HD_MapIterator operator--(s32);
+	HD_MapIterator& operator+=(u32 aIncrement);
+	HD_MapIterator& operator-=(u32 aDecrement);
 	bool operator==(const HD_MapIterator& aIterator) const;
 	bool operator!=(const HD_MapIterator& aIterator) const;
 	Node& operator*() const;
@@ -264,7 +266,7 @@ void HD_Map<K, V>::InsertRetrace(Node* aRetraceBeginNode)
 	while (currentNode)
 	{
 		currentNode->UpdateHeight();
-		int absBalanceFactorAfterInsert = HD_Abs(currentNode->GetBalanceFactor());
+		u32 absBalanceFactorAfterInsert = HD_Abs(currentNode->GetBalanceFactor());
 
 		if (absBalanceFactorAfterInsert == 0)
 		{
@@ -293,7 +295,7 @@ void HD_Map<K, V>::RemoveRetrace(Node* aRetraceBeginNode, Node* aRetraceEndNode)
 	while (currentNode != aRetraceEndNode)
 	{
 		currentNode->UpdateHeight();
-		int absBalanceFactorAfterRemove = HD_Abs(currentNode->GetBalanceFactor());
+		u32 absBalanceFactorAfterRemove = HD_Abs(currentNode->GetBalanceFactor());
 
 		if (absBalanceFactorAfterRemove == 0)
 		{
@@ -307,7 +309,7 @@ void HD_Map<K, V>::RemoveRetrace(Node* aRetraceBeginNode, Node* aRetraceEndNode)
 		{
 			Node* newRoot = Balance(currentNode);
 
-			int absBalanceFactorAfterBalance = HD_Abs(newRoot->GetBalanceFactor());
+			u32 absBalanceFactorAfterBalance = HD_Abs(newRoot->GetBalanceFactor());
 			if (absBalanceFactorAfterBalance == 1)
 				break;
 
@@ -323,14 +325,14 @@ void HD_Map<K, V>::RemoveRetrace(Node* aRetraceBeginNode, Node* aRetraceEndNode)
 template<typename K, typename V>
 typename HD_Map<K, V>::Node* HD_Map<K, V>::Balance(Node* aNodeToBalance)
 {
-	int balanceFactor = aNodeToBalance->GetBalanceFactor();
+	s32 balanceFactor = aNodeToBalance->GetBalanceFactor();
 	assert(HD_Abs(balanceFactor) < 3 && "Node balance factor is less than -2 or greater than +2.");
 	assert(HD_Abs(balanceFactor) == 2 && "Unnecessary call to Balance function. Node is already balanced.");
 
 	Node* newRoot = aNodeToBalance;
 	if (balanceFactor == -2)
 	{
-		int leftChildBalanceFactor = aNodeToBalance->myLeft->GetBalanceFactor();
+		s32 leftChildBalanceFactor = aNodeToBalance->myLeft->GetBalanceFactor();
 		if (leftChildBalanceFactor <= 0)
 		{
 			newRoot = RotateRight(aNodeToBalance);
@@ -343,7 +345,7 @@ typename HD_Map<K, V>::Node* HD_Map<K, V>::Balance(Node* aNodeToBalance)
 	}
 	else if (balanceFactor == 2)
 	{
-		int rightChildBalanceFactor = aNodeToBalance->myRight->GetBalanceFactor();
+		s32 rightChildBalanceFactor = aNodeToBalance->myRight->GetBalanceFactor();
 		if (rightChildBalanceFactor >= 0)
 		{
 			newRoot = RotateLeft(aNodeToBalance);
@@ -519,18 +521,18 @@ HD_MapNode<K, V>::HD_MapNode()
 }
 
 template<typename K, typename V>
-int HD_MapNode<K, V>::GetBalanceFactor() const
+s32 HD_MapNode<K, V>::GetBalanceFactor() const
 {
-	int rightHeight = myRight ? myRight->myHeight : 0;
-	int leftHeight = myLeft ? myLeft->myHeight : 0;
-	return rightHeight - leftHeight;
+	u32 rightHeight = myRight ? myRight->myHeight : 0;
+	u32 leftHeight = myLeft ? myLeft->myHeight : 0;
+	return static_cast<s32>(rightHeight) - static_cast<s32>(leftHeight);
 }
 
 template<typename K, typename V>
-int HD_MapNode<K, V>::UpdateHeight()
+u32 HD_MapNode<K, V>::UpdateHeight()
 {
-	int leftHeight = myLeft ? myLeft->UpdateHeight() : 0;
-	int rightHeight = myRight ? myRight->UpdateHeight() : 0;
+	u32 leftHeight = myLeft ? myLeft->UpdateHeight() : 0;
+	u32 rightHeight = myRight ? myRight->UpdateHeight() : 0;
 	myHeight = HD_Max(leftHeight, rightHeight) + 1;
 	return myHeight;
 }
@@ -641,7 +643,7 @@ HD_MapIterator<Node>& HD_MapIterator<Node>::operator--()
 }
 
 template<typename Node>
-HD_MapIterator<Node> HD_MapIterator<Node>::operator++(int)
+HD_MapIterator<Node> HD_MapIterator<Node>::operator++(s32)
 {
 	HD_MapIterator iterator = *this;
 	++(*this);
@@ -649,7 +651,7 @@ HD_MapIterator<Node> HD_MapIterator<Node>::operator++(int)
 }
 
 template<typename Node>
-HD_MapIterator<Node> HD_MapIterator<Node>::operator--(int)
+HD_MapIterator<Node> HD_MapIterator<Node>::operator--(s32)
 {
 	HD_MapIterator iterator = *this;
 	--(*this);
@@ -657,18 +659,18 @@ HD_MapIterator<Node> HD_MapIterator<Node>::operator--(int)
 }
 
 template<typename Node>
-HD_MapIterator<Node>& HD_MapIterator<Node>::operator+=(int aIncrement)
+HD_MapIterator<Node>& HD_MapIterator<Node>::operator+=(u32 aIncrement)
 {
-	for (int i = 0; i < aIncrement; ++i)
+	for (u32 i = 0; i < aIncrement; ++i)
 		++(*this);
 
 	return *this;
 }
 
 template<typename Node>
-HD_MapIterator<Node>& HD_MapIterator<Node>::operator-=(int aDecrement)
+HD_MapIterator<Node>& HD_MapIterator<Node>::operator-=(u32 aDecrement)
 {
-	for (int i = 0; i < aDecrement; ++i)
+	for (u32 i = 0; i < aDecrement; ++i)
 		--(*this);
 
 	return *this;

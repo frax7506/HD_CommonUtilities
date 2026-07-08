@@ -1306,22 +1306,22 @@ namespace HD_CommonUtilities
 			map1[1] = 1;
 			map1[2] = 2;
 
-			int index = 0;
+			s32 keyAndValue = 0;
 			for (const auto& node : map1)
 			{
-				Assert::AreEqual(node.myKey, index);
-				Assert::AreEqual(node.myValue, index);
-				++index;
+				Assert::AreEqual(node.myKey, keyAndValue);
+				Assert::AreEqual(node.myValue, keyAndValue);
+				keyAndValue++;
 			}
 
 			const HD_Map<s32, s32> map2(map1);
 
-			index = 0;
+			keyAndValue = 0;
 			for (const auto& node : map2)
 			{
-				Assert::AreEqual(node.myKey, index);
-				Assert::AreEqual(node.myValue, index);
-				++index;
+				Assert::AreEqual(node.myKey, keyAndValue);
+				Assert::AreEqual(node.myValue, keyAndValue);
+				keyAndValue++;
 			}
 		}
 
@@ -1332,7 +1332,7 @@ namespace HD_CommonUtilities
 			map1["b"] = "b";
 			map1["c"] = "c";
 
-			int index = 0;
+			u32 index = 0;
 			for (auto& node : map1)
 			{
 				if (index == 0)

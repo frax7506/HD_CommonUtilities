@@ -1,5 +1,7 @@
 #pragma once
 
+#include "HD_Types.h"
+
 template<typename T>
 class HD_ArrayIterator
 {
@@ -10,8 +12,8 @@ public:
 
 	HD_ArrayIterator& operator++();
 	HD_ArrayIterator& operator--();
-	HD_ArrayIterator operator++(int);
-	HD_ArrayIterator operator--(int);
+	HD_ArrayIterator operator++(s32);
+	HD_ArrayIterator operator--(s32);
 	bool operator==(const HD_ArrayIterator& aIterator) const;
 	bool operator!=(const HD_ArrayIterator& aIterator) const;
 	T& operator*() const;
@@ -53,7 +55,7 @@ HD_ArrayIterator<T>& HD_ArrayIterator<T>::operator--()
 }
 
 template<typename T>
-HD_ArrayIterator<T> HD_ArrayIterator<T>::operator++(int)
+HD_ArrayIterator<T> HD_ArrayIterator<T>::operator++(s32)
 {
 	HD_ArrayIterator iterator = *this;
 	++myPointer;
@@ -61,7 +63,7 @@ HD_ArrayIterator<T> HD_ArrayIterator<T>::operator++(int)
 }
 
 template<typename T>
-HD_ArrayIterator<T> HD_ArrayIterator<T>::operator--(int)
+HD_ArrayIterator<T> HD_ArrayIterator<T>::operator--(s32)
 {
 	HD_ArrayIterator iterator = *this;
 	--myPointer;

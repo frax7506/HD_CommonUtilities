@@ -21,24 +21,24 @@ namespace HD_CommonUtilities
 		{
 			HD_GrowingArray<s32> growingArray;
 			Assert::IsNull(growingArray.myData);
-			Assert::AreEqual(growingArray.mySize, 0);
-			Assert::AreEqual(growingArray.myCapacity, 0);
+			Assert::AreEqual(growingArray.mySize, 0u);
+			Assert::AreEqual(growingArray.myCapacity, 0u);
 		}
 
 		TEST_METHOD(Constructor_NonPOD)
 		{
 			HD_GrowingArray<HD_String> growingArray;
 			Assert::IsNull(growingArray.myData);
-			Assert::AreEqual(growingArray.mySize, 0);
-			Assert::AreEqual(growingArray.myCapacity, 0);
+			Assert::AreEqual(growingArray.mySize, 0u);
+			Assert::AreEqual(growingArray.myCapacity, 0u);
 		}
 
 		TEST_METHOD(Constructor_Capacity_POD)
 		{
 			HD_GrowingArray<s32> growingArray(8);
 			Assert::IsNotNull(growingArray.myData);
-			Assert::AreEqual(growingArray.mySize, 0);
-			Assert::AreEqual(growingArray.myCapacity, 8);
+			Assert::AreEqual(growingArray.mySize, 0u);
+			Assert::AreEqual(growingArray.myCapacity, 8u);
 			
 		}
 
@@ -46,8 +46,8 @@ namespace HD_CommonUtilities
 		{
 			HD_GrowingArray<HD_String> growingArray(8);
 			Assert::IsNotNull(growingArray.myData);
-			Assert::AreEqual(growingArray.mySize, 0);
-			Assert::AreEqual(growingArray.myCapacity, 8);
+			Assert::AreEqual(growingArray.mySize, 0u);
+			Assert::AreEqual(growingArray.myCapacity, 8u);
 		}
 
 		TEST_METHOD(Constructor_Copy_POD)
@@ -62,8 +62,8 @@ namespace HD_CommonUtilities
 			Assert::AreEqual(growingArray2[0], 0);
 			Assert::AreEqual(growingArray2[1], 1);
 			Assert::AreEqual(growingArray2[2], 2);
-			Assert::AreEqual(growingArray2.mySize, 3);
-			Assert::AreEqual(growingArray2.myCapacity, 3);
+			Assert::AreEqual(growingArray2.mySize, 3u);
+			Assert::AreEqual(growingArray2.myCapacity, 3u);
 		}
 
 		TEST_METHOD(Constructor_Copy_NonPOD)
@@ -78,8 +78,8 @@ namespace HD_CommonUtilities
 			Assert::IsTrue(growingArray2[0] == "haha0");
 			Assert::IsTrue(growingArray2[1] == "haha1");
 			Assert::IsTrue(growingArray2[2] == "haha2");
-			Assert::AreEqual(growingArray2.mySize, 3);
-			Assert::AreEqual(growingArray2.myCapacity, 3);
+			Assert::AreEqual(growingArray2.mySize, 3u);
+			Assert::AreEqual(growingArray2.myCapacity, 3u);
 		}
 
 		TEST_METHOD(Constructor_Move)
@@ -92,15 +92,15 @@ namespace HD_CommonUtilities
 			HD_GrowingArray<HD_String> growingArray2(HD_Move(growingArray1));
 
 			Assert::IsNull(growingArray1.myData);
-			Assert::AreEqual(growingArray1.mySize, 0);
-			Assert::AreEqual(growingArray1.myCapacity, 0);
+			Assert::AreEqual(growingArray1.mySize, 0u);
+			Assert::AreEqual(growingArray1.myCapacity, 0u);
 
 			Assert::IsNotNull(growingArray2.myData);
 			Assert::IsTrue(growingArray2[0] == "haha0");
 			Assert::IsTrue(growingArray2[1] == "haha1");
 			Assert::IsTrue(growingArray2[2] == "haha2");
-			Assert::AreEqual(growingArray2.mySize, 3);
-			Assert::AreEqual(growingArray2.myCapacity, 3);
+			Assert::AreEqual(growingArray2.mySize, 3u);
+			Assert::AreEqual(growingArray2.myCapacity, 3u);
 		}
 
 		TEST_METHOD(Constructor_InitializerList_POD)
@@ -110,8 +110,8 @@ namespace HD_CommonUtilities
 			Assert::AreEqual(growingArray[0], 0);
 			Assert::AreEqual(growingArray[1], 1);
 			Assert::AreEqual(growingArray[2], 2);
-			Assert::AreEqual(growingArray.mySize, 3);
-			Assert::AreEqual(growingArray.myCapacity, 3);
+			Assert::AreEqual(growingArray.mySize, 3u);
+			Assert::AreEqual(growingArray.myCapacity, 3u);
 		}
 
 		TEST_METHOD(Constructor_InitializerList_NonPOD)
@@ -121,8 +121,8 @@ namespace HD_CommonUtilities
 			Assert::IsTrue(growingArray[0] == "haha0");
 			Assert::IsTrue(growingArray[1] == "haha1");
 			Assert::IsTrue(growingArray[2] == "haha2");
-			Assert::AreEqual(growingArray.mySize, 3);
-			Assert::AreEqual(growingArray.myCapacity, 3);
+			Assert::AreEqual(growingArray.mySize, 3u);
+			Assert::AreEqual(growingArray.myCapacity, 3u);
 		}
 
 		TEST_METHOD(Destructor_POD)
@@ -199,8 +199,8 @@ namespace HD_CommonUtilities
 			Assert::AreEqual(growingArray[0], 0);
 			Assert::AreEqual(growingArray[1], 1);
 			Assert::AreEqual(growingArray[2], 2);
-			Assert::AreEqual(growingArray.mySize, 3);
-			Assert::AreEqual(growingArray.myCapacity, 3);
+			Assert::AreEqual(growingArray.mySize, 3u);
+			Assert::AreEqual(growingArray.myCapacity, 3u);
 		}
 
 		TEST_METHOD(PushBack_NonPOD)
@@ -213,8 +213,8 @@ namespace HD_CommonUtilities
 			Assert::IsTrue(growingArray[0] == "haha0");
 			Assert::IsTrue(growingArray[1] == "haha1");
 			Assert::IsTrue(growingArray[2] == "haha2");
-			Assert::AreEqual(growingArray.mySize, 3);
-			Assert::AreEqual(growingArray.myCapacity, 3);
+			Assert::AreEqual(growingArray.mySize, 3u);
+			Assert::AreEqual(growingArray.myCapacity, 3u);
 		}
 
 		TEST_METHOD(PushBack_Move)
@@ -225,8 +225,8 @@ namespace HD_CommonUtilities
 			growingArray.PushBack(HD_Move(stringToMove));
 
 			Assert::IsNull(stringToMove.myData);
-			Assert::AreEqual(stringToMove.myLength, 0);
-			Assert::AreEqual(stringToMove.myCapacity, 0);
+			Assert::AreEqual(stringToMove.myLength, 0u);
+			Assert::AreEqual(stringToMove.myCapacity, 0u);
 
 			Assert::IsTrue(growingArray[0] == "haha");
 		}
@@ -237,8 +237,8 @@ namespace HD_CommonUtilities
 			growingArray.EmplaceBack("haha");
 
 			Assert::IsTrue(growingArray[0] == "haha");
-			Assert::AreEqual(growingArray.mySize, 1);
-			Assert::AreEqual(growingArray.myCapacity, 2);
+			Assert::AreEqual(growingArray.mySize, 1u);
+			Assert::AreEqual(growingArray.myCapacity, 2u);
 		}
 
 		TEST_METHOD(InsertSorted_POD)
@@ -251,8 +251,8 @@ namespace HD_CommonUtilities
 			Assert::AreEqual(growingArray[0], 0);
 			Assert::AreEqual(growingArray[1], 1);
 			Assert::AreEqual(growingArray[2], 2);
-			Assert::AreEqual(growingArray.mySize, 3);
-			Assert::AreEqual(growingArray.myCapacity, 3);
+			Assert::AreEqual(growingArray.mySize, 3u);
+			Assert::AreEqual(growingArray.myCapacity, 3u);
 		}
 
 		TEST_METHOD(InsertSorted_NonPOD)
@@ -265,8 +265,8 @@ namespace HD_CommonUtilities
 			Assert::IsTrue(growingArray[0] == "a");
 			Assert::IsTrue(growingArray[1] == "b");
 			Assert::IsTrue(growingArray[2] == "c");
-			Assert::AreEqual(growingArray.mySize, 3);
-			Assert::AreEqual(growingArray.myCapacity, 3);
+			Assert::AreEqual(growingArray.mySize, 3u);
+			Assert::AreEqual(growingArray.myCapacity, 3u);
 		}
 
 		TEST_METHOD(InsertSortedReverse_POD)
@@ -279,8 +279,8 @@ namespace HD_CommonUtilities
 			Assert::AreEqual(growingArray[0], 2);
 			Assert::AreEqual(growingArray[1], 1);
 			Assert::AreEqual(growingArray[2], 0);
-			Assert::AreEqual(growingArray.mySize, 3);
-			Assert::AreEqual(growingArray.myCapacity, 3);
+			Assert::AreEqual(growingArray.mySize, 3u);
+			Assert::AreEqual(growingArray.myCapacity, 3u);
 		}
 
 		TEST_METHOD(InsertSortedReverse_NonPOD)
@@ -293,8 +293,8 @@ namespace HD_CommonUtilities
 			Assert::IsTrue(growingArray[0] == "c");
 			Assert::IsTrue(growingArray[1] == "b");
 			Assert::IsTrue(growingArray[2] == "a");
-			Assert::AreEqual(growingArray.mySize, 3);
-			Assert::AreEqual(growingArray.myCapacity, 3);
+			Assert::AreEqual(growingArray.mySize, 3u);
+			Assert::AreEqual(growingArray.myCapacity, 3u);
 		}
 
 		TEST_METHOD(Remove_POD)
@@ -307,8 +307,8 @@ namespace HD_CommonUtilities
 			growingArray.Remove(1);
 			Assert::AreEqual(growingArray[0], 0);
 			Assert::AreEqual(growingArray[1], 2);
-			Assert::AreEqual(growingArray.mySize, 2);
-			Assert::AreEqual(growingArray.myCapacity, 3);
+			Assert::AreEqual(growingArray.mySize, 2u);
+			Assert::AreEqual(growingArray.myCapacity, 3u);
 		}
 
 		TEST_METHOD(Remove_NonPOD)
@@ -321,8 +321,8 @@ namespace HD_CommonUtilities
 			growingArray.Remove(1);
 			Assert::IsTrue(growingArray[0] == "haha0");
 			Assert::IsTrue(growingArray[1] == "haha2");
-			Assert::AreEqual(growingArray.mySize, 2);
-			Assert::AreEqual(growingArray.myCapacity, 3);
+			Assert::AreEqual(growingArray.mySize, 2u);
+			Assert::AreEqual(growingArray.myCapacity, 3u);
 		}
 
 		TEST_METHOD(RemoveCyclic_POD)
@@ -337,8 +337,8 @@ namespace HD_CommonUtilities
 			Assert::AreEqual(growingArray[0], 0);
 			Assert::AreEqual(growingArray[1], 3);
 			Assert::AreEqual(growingArray[2], 2);
-			Assert::AreEqual(growingArray.mySize, 3);
-			Assert::AreEqual(growingArray.myCapacity, 4);
+			Assert::AreEqual(growingArray.mySize, 3u);
+			Assert::AreEqual(growingArray.myCapacity, 4u);
 		}
 
 		TEST_METHOD(RemoveCyclic_NonPOD)
@@ -353,8 +353,8 @@ namespace HD_CommonUtilities
 			Assert::IsTrue(growingArray[0] == "haha0");
 			Assert::IsTrue(growingArray[1] == "haha3");
 			Assert::IsTrue(growingArray[2] == "haha2");
-			Assert::AreEqual(growingArray.mySize, 3);
-			Assert::AreEqual(growingArray.myCapacity, 4);
+			Assert::AreEqual(growingArray.mySize, 3u);
+			Assert::AreEqual(growingArray.myCapacity, 4u);
 		}
 
 		TEST_METHOD(RemoveAll_POD)
@@ -371,8 +371,8 @@ namespace HD_CommonUtilities
 
 			growingArray.RemoveAll();
 			Assert::IsNotNull(growingArray.myData);
-			Assert::AreEqual(growingArray.mySize, 0);
-			Assert::AreEqual(growingArray.myCapacity, 9);
+			Assert::AreEqual(growingArray.mySize, 0u);
+			Assert::AreEqual(growingArray.myCapacity, 9u);
 		}
 
 		TEST_METHOD(RemoveAll_NonPOD)
@@ -389,23 +389,23 @@ namespace HD_CommonUtilities
 
 			growingArray.RemoveAll();
 			Assert::IsNotNull(growingArray.myData);
-			Assert::AreEqual(growingArray.mySize, 0);
-			Assert::AreEqual(growingArray.myCapacity, 9);
+			Assert::AreEqual(growingArray.mySize, 0u);
+			Assert::AreEqual(growingArray.myCapacity, 9u);
 		}
 
 		TEST_METHOD(Size)
 		{
 			HD_GrowingArray<s32> growingArray;
-			Assert::AreEqual(growingArray.GetSize(), 0);
+			Assert::AreEqual(growingArray.GetSize(), 0u);
 
 			growingArray.PushBack(0);
-			Assert::AreEqual(growingArray.GetSize(), 1);
+			Assert::AreEqual(growingArray.GetSize(), 1u);
 
 			growingArray.PushBack(1);
-			Assert::AreEqual(growingArray.GetSize(), 2);
+			Assert::AreEqual(growingArray.GetSize(), 2u);
 
 			growingArray.PushBack(2);
-			Assert::AreEqual(growingArray.GetSize(), 3);
+			Assert::AreEqual(growingArray.GetSize(), 3u);
 		}
 
 		TEST_METHOD(IsEmpty)
@@ -423,8 +423,8 @@ namespace HD_CommonUtilities
 			growingArray.Reserve(8);
 
 			Assert::IsNotNull(growingArray.myData);
-			Assert::AreEqual(growingArray.mySize, 0);
-			Assert::AreEqual(growingArray.myCapacity, 8);
+			Assert::AreEqual(growingArray.mySize, 0u);
+			Assert::AreEqual(growingArray.myCapacity, 8u);
 		}
 
 		TEST_METHOD(Resize_POD)
@@ -432,8 +432,8 @@ namespace HD_CommonUtilities
 			HD_GrowingArray<s32> growingArray;
 			growingArray.Resize(4);
 
-			Assert::AreEqual(growingArray.mySize, 4);
-			Assert::AreEqual(growingArray.myCapacity, 4);
+			Assert::AreEqual(growingArray.mySize, 4u);
+			Assert::AreEqual(growingArray.myCapacity, 4u);
 			Assert::AreEqual(growingArray[0], 0);
 			Assert::AreEqual(growingArray[1], 0);
 			Assert::AreEqual(growingArray[2], 0);
@@ -449,8 +449,8 @@ namespace HD_CommonUtilities
 			TestUtils::String_IsUninitialized(growingArray[1]);
 			TestUtils::String_IsUninitialized(growingArray[2]);
 			TestUtils::String_IsUninitialized(growingArray[3]);
-			Assert::AreEqual(growingArray.mySize, 4);
-			Assert::AreEqual(growingArray.myCapacity, 4);
+			Assert::AreEqual(growingArray.mySize, 4u);
+			Assert::AreEqual(growingArray.myCapacity, 4u);
 		}
 
 		TEST_METHOD(Swap_POD)
@@ -599,8 +599,8 @@ namespace HD_CommonUtilities
 			Assert::AreEqual(growingArray2[0], 0);
 			Assert::AreEqual(growingArray2[1], 1);
 			Assert::AreEqual(growingArray2[2], 2);
-			Assert::AreEqual(growingArray2.mySize, 3);
-			Assert::AreEqual(growingArray2.myCapacity, 3);
+			Assert::AreEqual(growingArray2.mySize, 3u);
+			Assert::AreEqual(growingArray2.myCapacity, 3u);
 		}
 
 		TEST_METHOD(Operator_Assignment_NonPOD)
@@ -620,8 +620,8 @@ namespace HD_CommonUtilities
 			Assert::IsTrue(growingArray1[0] == "haha0");
 			Assert::IsTrue(growingArray1[1] == "haha1");
 			Assert::IsTrue(growingArray1[2] == "haha2");
-			Assert::AreEqual(growingArray1.mySize, 3);
-			Assert::AreEqual(growingArray1.myCapacity, 3);
+			Assert::AreEqual(growingArray1.mySize, 3u);
+			Assert::AreEqual(growingArray1.myCapacity, 3u);
 		}
 
 		TEST_METHOD(Operator_Assignment_Move)
@@ -635,15 +635,15 @@ namespace HD_CommonUtilities
 			growingArray2 = HD_Move(growingArray1);
 
 			Assert::IsNull(growingArray1.myData);
-			Assert::AreEqual(growingArray1.mySize, 0);
-			Assert::AreEqual(growingArray1.myCapacity, 0);
+			Assert::AreEqual(growingArray1.mySize, 0u);
+			Assert::AreEqual(growingArray1.myCapacity, 0u);
 
 			Assert::IsNotNull(growingArray2.myData);
 			Assert::IsTrue(growingArray2[0] == "haha0");
 			Assert::IsTrue(growingArray2[1] == "haha1");
 			Assert::IsTrue(growingArray2[2] == "haha2");
-			Assert::AreEqual(growingArray2.mySize, 3);
-			Assert::AreEqual(growingArray2.myCapacity, 3);
+			Assert::AreEqual(growingArray2.mySize, 3u);
+			Assert::AreEqual(growingArray2.myCapacity, 3u);
 		}
 
 		TEST_METHOD(Operator_Assignment_InitializerList_POD)
@@ -655,8 +655,8 @@ namespace HD_CommonUtilities
 			Assert::AreEqual(growingArray[0], 0);
 			Assert::AreEqual(growingArray[1], 1);
 			Assert::AreEqual(growingArray[2], 2);
-			Assert::AreEqual(growingArray.mySize, 3);
-			Assert::AreEqual(growingArray.myCapacity, 3);
+			Assert::AreEqual(growingArray.mySize, 3u);
+			Assert::AreEqual(growingArray.myCapacity, 3u);
 		}
 
 		TEST_METHOD(Operator_Assignment_InitializerList_NonPOD)
@@ -668,8 +668,8 @@ namespace HD_CommonUtilities
 			Assert::IsTrue(growingArray[0] == "haha0");
 			Assert::IsTrue(growingArray[1] == "haha1");
 			Assert::IsTrue(growingArray[2] == "haha2");
-			Assert::AreEqual(growingArray.mySize, 3);
-			Assert::AreEqual(growingArray.myCapacity, 3);
+			Assert::AreEqual(growingArray.mySize, 3u);
+			Assert::AreEqual(growingArray.myCapacity, 3u);
 		}
 
 		TEST_METHOD(GetFirst_POD)

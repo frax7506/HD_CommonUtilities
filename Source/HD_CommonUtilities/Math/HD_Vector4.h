@@ -1,5 +1,7 @@
 #pragma once
 
+#include "HD_Types.h"
+
 template<typename T>
 class HD_Matrix4x4;
 
@@ -224,7 +226,7 @@ HD_Vector4<T> operator/(const HD_Vector4<T>& aVector, T aScalar)
 	return { aVector.myX / aScalar, aVector.myY / aScalar, aVector.myZ / aScalar, aVector.myW / aScalar };
 }
 
-typedef HD_Vector4<float> HD_Vector4f;
-typedef HD_Vector4<double> HD_Vector4d;
-typedef HD_Vector4<int> HD_Vector4i;
-typedef HD_Vector4<unsigned int> HD_Vector4ui;
+typedef HD_Vector4<f32> HD_Vector4f;
+typedef HD_Vector4<f64> HD_Vector4d;
+typedef HD_Vector4<s32> HD_Vector4s;
+typedef HD_Vector4<u32> HD_Vector4u;

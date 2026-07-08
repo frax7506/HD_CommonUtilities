@@ -71,8 +71,8 @@ namespace HD_CommonUtilities
 			HD_ExeArgs exeArgs;
 			exeArgs.Init(DEBUG_ARGC, debugExeCommandLine);
 
-			s32 intValue = exeArgs.GetValueInt("aIntName");
-			f32 floatValue = exeArgs.GetValueFloat("aFloatName");
+			s32 intValue = exeArgs.GetValueS32("aIntName");
+			f32 floatValue = exeArgs.GetValueF32("aFloatName");
 			bool boolValue = exeArgs.GetValueBool("aBoolName");
 			HD_Vector2f vector2Value = exeArgs.GetValueVector2f("aVector2Name");
 			HD_Vector3f vector3Value = exeArgs.GetValueVector3f("aVector3Name");

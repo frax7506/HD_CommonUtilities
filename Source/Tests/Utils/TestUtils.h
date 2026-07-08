@@ -6,18 +6,19 @@
 #include "HD_Matrix.h"
 #include "HD_StaticString.h"
 #include "HD_String.h"
+#include "HD_Types.h"
 #include "HD_Vector2.h"
 #include "HD_Vector3.h"
 #include "HD_Vector4.h"
 
-#define FLOAT_EQUAL_TOLERANCE F_SMALL
+#define F32_EQUAL_TOLERANCE F_SMALL
 
 namespace TestUtils
 {
 	template<typename T>
 	void String_IsUninitialized(const HD_Str<T>& aStringToCheck);
 
-	template<typename T, int aCapacity>
+	template<typename T, SizeType aCapacity>
 	void StaticString_IsUninitialized(const HD_StaticStr<T, aCapacity>& aStringToCheck);
 
 	template<typename T>
@@ -54,16 +55,16 @@ namespace TestUtils
 	void String_IsUninitialized(const HD_Str<T>& aStringToCheck)
 	{
 		Microsoft::VisualStudio::CppUnitTestFramework::Assert::IsNull(aStringToCheck.GetBuffer());
-		Microsoft::VisualStudio::CppUnitTestFramework::Assert::AreEqual(aStringToCheck.GetLength(), 0);
-		Microsoft::VisualStudio::CppUnitTestFramework::Assert::AreEqual(aStringToCheck.GetCapacity(), 0);
+		Microsoft::VisualStudio::CppUnitTestFramework::Assert::AreEqual(aStringToCheck.GetLength(), 0u);
+		Microsoft::VisualStudio::CppUnitTestFramework::Assert::AreEqual(aStringToCheck.GetCapacity(), 0u);
 	}
 
-	template<typename T, int aCapacity>
+	template<typename T, SizeType aCapacity>
 	void StaticString_IsUninitialized(const HD_StaticStr<T, aCapacity>& aStringToCheck)
 	{
 		T zeroMemory[aCapacity]{ 0 };
 		Microsoft::VisualStudio::CppUnitTestFramework::Assert::IsTrue(memcmp(aStringToCheck.GetBuffer(), zeroMemory, aCapacity * sizeof(T)) == 0);
-		Microsoft::VisualStudio::CppUnitTestFramework::Assert::AreEqual(aStringToCheck.GetLength(), 0);
+		Microsoft::VisualStudio::CppUnitTestFramework::Assert::AreEqual(aStringToCheck.GetLength(), 0u);
 	}
 
 	template<typename T>

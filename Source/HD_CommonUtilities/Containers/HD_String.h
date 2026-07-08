@@ -2,6 +2,7 @@
 
 #include "HD_SafeDelete.h"
 #include "HD_StringUtils.h"
+#include "HD_Types.h"
 
 #include <cassert>
 #include <cstring>
@@ -19,31 +20,31 @@ public:
 	const T* GetBuffer() const;
 	T* GetBufferWritable();
 
-	int GetLength() const;
-	int GetCapacity() const;
+	SizeType GetLength() const;
+	SizeType GetCapacity() const;
 
-	T GetCharAt(int aIndex) const;
+	T GetCharAt(u32 aIndex) const;
 
 	void Append(const T* aString);
 	void Append(const HD_Str& aString);
 
 	void Clear();
 
-	void Reserve(int aLength);
+	void Reserve(SizeType aLength);
 
 	HD_Str& operator=(const T* aString);
 	HD_Str& operator=(const HD_Str& aString);
 	HD_Str& operator=(HD_Str&& aString);
 
 private:
-	static constexpr float ourGrowFactor = 1.5f;
+	static constexpr f32 ourGrowFactor = 1.5f;
 
-	void CheckLengthAndGrowIfNecessary(int anAdditionalLength);
-	void Grow(int aNewCapacity);
+	void CheckLengthAndGrowIfNecessary(SizeType anAdditionalLength);
+	void Grow(SizeType aNewCapacity);
 
 	T* myData;
-	int myLength;
-	int myCapacity;
+	SizeType myLength;
+	SizeType myCapacity;
 };
 
 template<typename T> HD_Str<T> operator+(const HD_Str<T>& aString1, const HD_Str<T>& aString2);
@@ -126,19 +127,19 @@ T* HD_Str<T>::GetBufferWritable()
 }
 
 template<typename T>
-int HD_Str<T>::GetLength() const
+SizeType HD_Str<T>::GetLength() const
 {
 	return myLength;
 }
 
 template<typename T>
-int HD_Str<T>::GetCapacity() const
+SizeType HD_Str<T>::GetCapacity() const
 {
 	return myCapacity;
 }
 
 template<typename T>
-T HD_Str<T>::GetCharAt(int aIndex) const
+T HD_Str<T>::GetCharAt(u32 aIndex) const
 {
 	assert(0 <= aIndex && aIndex < myLength);
 	return myData[aIndex];
@@ -147,7 +148,7 @@ T HD_Str<T>::GetCharAt(int aIndex) const
 template<typename T>
 void HD_Str<T>::Append(const T* aString)
 {
-	int length = HD_Strlen(aString);
+	SizeType length = HD_Strlen(aString);
 	CheckLengthAndGrowIfNecessary(length);
 
 	memcpy(myData + myLength, aString, length * sizeof(T));
@@ -168,11 +169,11 @@ void HD_Str<T>::Clear()
 }
 
 template<typename T>
-void HD_Str<T>::Reserve(int aLength)
+void HD_Str<T>::Reserve(SizeType aLength)
 {
 	if (aLength > myLength)
 	{
-		int additionalLength = aLength - myLength;
+		SizeType additionalLength = aLength - myLength;
 		CheckLengthAndGrowIfNecessary(additionalLength);
 	}
 }
@@ -186,7 +187,7 @@ HD_Str<T>& HD_Str<T>::operator=(const T* aString)
 	}
 	else
 	{
-		int length = HD_Strlen(aString);
+		SizeType length = HD_Strlen(aString);
 		bool isCurrentBufferTooSmall = length + 1 > myCapacity;
 
 		if (isCurrentBufferTooSmall)
@@ -226,18 +227,18 @@ HD_Str<T>& HD_Str<T>::operator=(HD_Str&& aString)
 }
 
 template<typename T>
-void HD_Str<T>::CheckLengthAndGrowIfNecessary(int anAdditionalLength)
+void HD_Str<T>::CheckLengthAndGrowIfNecessary(SizeType anAdditionalLength)
 {
-	if (myLength + anAdditionalLength > myCapacity - 1)
+	if (myLength + anAdditionalLength + 1 > myCapacity)
 	{
-		int newLength = myLength + anAdditionalLength;
-		int newCapacity = static_cast<int>(newLength * ourGrowFactor + 1);
+		SizeType newLength = myLength + anAdditionalLength;
+		SizeType newCapacity = static_cast<SizeType>(newLength * ourGrowFactor + 1);
 		Grow(newCapacity);
 	}
 }
 
 template<typename T>
-void HD_Str<T>::Grow(int aNewCapacity)
+void HD_Str<T>::Grow(SizeType aNewCapacity)
 {
 	if (myData)
 	{

@@ -1,7 +1,5 @@
 #include "HD_ScopedTimer.h"
 
-#include "HD_Time.h"
-
 #include <cstdio>
 #include <cstring>
 
@@ -20,10 +18,10 @@ HD_ScopedTimer::~HD_ScopedTimer()
 
 void HD_ScopedTimer::Stop()
 {
-	const unsigned long long endTimestampMicroseconds = HD_Time::GetCurrentTimeMicroseconds();
+	TimeType endTimestampMicroseconds = HD_Time::GetCurrentTimeMicroseconds();
 
-	const unsigned long long duration = endTimestampMicroseconds - myStartTimestampMicroseconds;
-	const double ms = duration / 1000.0;
+	TimeType duration = endTimestampMicroseconds - myStartTimestampMicroseconds;
+	f64 ms = duration / 1000.0;
 
 	printf("HD_ScopedTimer: %s - %.3f ms\n", myTitle, ms);
 }

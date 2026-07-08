@@ -27,7 +27,7 @@ HD_LogMessage::HD_LogMessage(HD_LogMessage&& aLogMessage)
 HD_LogMessage::HD_LogMessage(const char* aString)
 	: myMode(eStringMode_NonWide)
 {
-	int length = HD_Strlen(aString);
+	SizeType length = HD_Strlen(aString);
 	myData = new char[length + 1] { 0 };
 	memcpy(myData, aString, length);
 }
@@ -35,7 +35,7 @@ HD_LogMessage::HD_LogMessage(const char* aString)
 HD_LogMessage::HD_LogMessage(const wchar_t* aString)
 	: myMode(eStringMode_Wide)
 {
-	int length = HD_Strlen(aString);
+	SizeType length = HD_Strlen(aString);
 	myData = new char[length * (sizeof(wchar_t)) + sizeof(wchar_t)] { 0 };
 	memcpy(myData, aString, length * sizeof(wchar_t));
 }
@@ -93,13 +93,13 @@ void HD_LogMessage::InitFromLogMessage(const HD_LogMessage& aLogMessage)
 	}
 	else if (myMode == eStringMode_NonWide)
 	{
-		int length = HD_Strlen<char>(aLogMessage.myData);
+		SizeType length = HD_Strlen<char>(aLogMessage.myData);
 		myData = new char[length + 1] { 0 };
 		memcpy(myData, aLogMessage.myData, length);
 	}
 	else // myMode == eStringMode_Wide
 	{
-		int length = HD_Strlen<wchar_t>(reinterpret_cast<wchar_t*>(aLogMessage.myData));
+		SizeType length = HD_Strlen<wchar_t>(reinterpret_cast<wchar_t*>(aLogMessage.myData));
 		myData = new char[length * (sizeof(wchar_t)) + sizeof(wchar_t)] { 0 };
 		memcpy(myData, aLogMessage.myData, length * sizeof(wchar_t));
 	}
@@ -213,7 +213,7 @@ void HD_Logger::LogThread()
 			HD_Swap(localLogEntryQueue, myLogEntryQueue);
 		}
 
-		for (int i = 0; i < localLogEntryQueue.GetSize(); i++)
+		for (u32 i = 0; i < localLogEntryQueue.GetSize(); i++)
 		{
 			PrintLogEntry(localLogEntryQueue[i]);
 		}

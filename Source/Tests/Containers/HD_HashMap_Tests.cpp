@@ -23,8 +23,8 @@ namespace HD_CommonUtilities
 			Assert::IsNull(map.myData);
 			Assert::IsNull(map.myControlBytes);
 			Assert::IsNull(map.myKeyValuePairs);
-			Assert::AreEqual(map.mySizeIncludingTombstones, 0);
-			Assert::AreEqual(map.myCapacity, 0);
+			Assert::AreEqual(map.mySizeIncludingTombstones, 0u);
+			Assert::AreEqual(map.myCapacity, 0u);
 		}
 
 		TEST_METHOD(Constructor_NonPOD)
@@ -33,8 +33,8 @@ namespace HD_CommonUtilities
 			Assert::IsNull(map.myData);
 			Assert::IsNull(map.myControlBytes);
 			Assert::IsNull(map.myKeyValuePairs);
-			Assert::AreEqual(map.mySizeIncludingTombstones, 0);
-			Assert::AreEqual(map.myCapacity, 0);
+			Assert::AreEqual(map.mySizeIncludingTombstones, 0u);
+			Assert::AreEqual(map.myCapacity, 0u);
 		}
 
 		TEST_METHOD(Constructor_Capacity_POD)
@@ -43,8 +43,8 @@ namespace HD_CommonUtilities
 			Assert::IsNotNull(map.myData);
 			Assert::IsNotNull(map.myControlBytes);
 			Assert::IsNotNull(map.myKeyValuePairs);
-			Assert::AreEqual(map.mySizeIncludingTombstones, 0);
-			Assert::AreEqual(map.myCapacity, 16);
+			Assert::AreEqual(map.mySizeIncludingTombstones, 0u);
+			Assert::AreEqual(map.myCapacity, 16u);
 		}
 
 		TEST_METHOD(Constructor_Capacity_NonPOD)
@@ -53,8 +53,8 @@ namespace HD_CommonUtilities
 			Assert::IsNotNull(map.myData);
 			Assert::IsNotNull(map.myControlBytes);
 			Assert::IsNotNull(map.myKeyValuePairs);
-			Assert::AreEqual(map.mySizeIncludingTombstones, 0);
-			Assert::AreEqual(map.myCapacity, 16);
+			Assert::AreEqual(map.mySizeIncludingTombstones, 0u);
+			Assert::AreEqual(map.myCapacity, 16u);
 		}
 
 		TEST_METHOD(Constructor_Copy_POD)
@@ -108,8 +108,8 @@ namespace HD_CommonUtilities
 			Assert::IsNull(map1.myData);
 			Assert::IsNotNull(map2.myData);
 
-			Assert::AreEqual(map2.mySizeIncludingTombstones, 2);
-			Assert::AreEqual(map2.myCapacity, 16);
+			Assert::AreEqual(map2.mySizeIncludingTombstones, 2u);
+			Assert::AreEqual(map2.myCapacity, 16u);
 
 			const s32* value0 = map2.GetIfExists(0);
 			const s32* value2 = map2.GetIfExists(2);
@@ -131,8 +131,8 @@ namespace HD_CommonUtilities
 			Assert::IsNull(map1.myData);
 			Assert::IsNotNull(map2.myData);
 
-			Assert::AreEqual(map2.mySizeIncludingTombstones, 2);
-			Assert::AreEqual(map2.myCapacity, 16);
+			Assert::AreEqual(map2.mySizeIncludingTombstones, 2u);
+			Assert::AreEqual(map2.myCapacity, 16u);
 
 			const HD_String* value0 = map2.GetIfExists("0");
 			const HD_String* value2 = map2.GetIfExists("2");
@@ -205,8 +205,8 @@ namespace HD_CommonUtilities
 			map[0] = 1;
 			map[2] = 3;
 
-			Assert::AreEqual(map.mySizeIncludingTombstones, 2);
-			Assert::AreEqual(map.myCapacity, 16);
+			Assert::AreEqual(map.mySizeIncludingTombstones, 2u);
+			Assert::AreEqual(map.myCapacity, 16u);
 
 			const s32* value0 = map.GetIfExists(0);
 			const s32* value2 = map.GetIfExists(2);
@@ -227,8 +227,8 @@ namespace HD_CommonUtilities
 
 			map[4];
 
-			Assert::AreEqual(map.mySizeIncludingTombstones, 3);
-			Assert::AreEqual(map.myCapacity, 16);
+			Assert::AreEqual(map.mySizeIncludingTombstones, 3u);
+			Assert::AreEqual(map.myCapacity, 16u);
 
 			const s32* value4 = map.GetIfExists(4);
 			Assert::AreEqual(*value4, 0);
@@ -240,8 +240,8 @@ namespace HD_CommonUtilities
 			map["0"] = "1";
 			map["2"] = "3";
 
-			Assert::AreEqual(map.mySizeIncludingTombstones, 2);
-			Assert::AreEqual(map.myCapacity, 16);
+			Assert::AreEqual(map.mySizeIncludingTombstones, 2u);
+			Assert::AreEqual(map.myCapacity, 16u);
 
 			const HD_String* value0 = map.GetIfExists("0");
 			const HD_String* value2 = map.GetIfExists("2");
@@ -262,8 +262,8 @@ namespace HD_CommonUtilities
 
 			map["4"];
 
-			Assert::AreEqual(map.mySizeIncludingTombstones, 3);
-			Assert::AreEqual(map.myCapacity, 16);
+			Assert::AreEqual(map.mySizeIncludingTombstones, 3u);
+			Assert::AreEqual(map.myCapacity, 16u);
 
 			const HD_String* value4 = map.GetIfExists("4");
 			TestUtils::String_IsUninitialized(*value4);
@@ -323,8 +323,8 @@ namespace HD_CommonUtilities
 			Assert::IsNull(map1.myData);
 			Assert::IsNotNull(map2.myData);
 
-			Assert::AreEqual(map2.mySizeIncludingTombstones, 2);
-			Assert::AreEqual(map2.myCapacity, 16);
+			Assert::AreEqual(map2.mySizeIncludingTombstones, 2u);
+			Assert::AreEqual(map2.myCapacity, 16u);
 
 			const s32* value0 = map2.GetIfExists(0);
 			const s32* value2 = map2.GetIfExists(2);
@@ -347,8 +347,8 @@ namespace HD_CommonUtilities
 			Assert::IsNull(map1.myData);
 			Assert::IsNotNull(map2.myData);
 
-			Assert::AreEqual(map2.mySizeIncludingTombstones, 2);
-			Assert::AreEqual(map2.myCapacity, 16);
+			Assert::AreEqual(map2.mySizeIncludingTombstones, 2u);
+			Assert::AreEqual(map2.myCapacity, 16u);
 
 			const HD_String* value0 = map2.GetIfExists("0");
 			const HD_String* value2 = map2.GetIfExists("2");
@@ -374,8 +374,8 @@ namespace HD_CommonUtilities
 			Assert::IsNotNull(value2);
 			Assert::AreEqual(*value2, 3);
 
-			Assert::AreEqual(map.mySizeIncludingTombstones, 2);
-			Assert::AreEqual(map.myCapacity, 16);
+			Assert::AreEqual(map.mySizeIncludingTombstones, 2u);
+			Assert::AreEqual(map.myCapacity, 16u);
 		}
 
 		TEST_METHOD(Remove_NonPOD)
@@ -393,8 +393,8 @@ namespace HD_CommonUtilities
 			Assert::IsNotNull(value2);
 			Assert::IsTrue(*value2 == "3");
 
-			Assert::AreEqual(map.mySizeIncludingTombstones, 2);
-			Assert::AreEqual(map.myCapacity, 16);
+			Assert::AreEqual(map.mySizeIncludingTombstones, 2u);
+			Assert::AreEqual(map.myCapacity, 16u);
 		}
 
 		TEST_METHOD(Clear_POD)
@@ -411,7 +411,7 @@ namespace HD_CommonUtilities
 			Assert::IsNull(value0);
 			Assert::IsNull(value2);
 
-			Assert::AreEqual(map.mySizeIncludingTombstones, 0);
+			Assert::AreEqual(map.mySizeIncludingTombstones, 0u);
 		}
 
 		TEST_METHOD(Clear_NonPOD)
@@ -428,7 +428,7 @@ namespace HD_CommonUtilities
 			Assert::IsNull(value0);
 			Assert::IsNull(value2);
 
-			Assert::AreEqual(map.mySizeIncludingTombstones, 0);
+			Assert::AreEqual(map.mySizeIncludingTombstones, 0u);
 		}
 
 		TEST_METHOD(Iterator_POD)
@@ -534,8 +534,8 @@ namespace HD_CommonUtilities
 			HD_HashMap<s32, s32> map;
 			map.InitWithCapacity(32);
 
-			Assert::AreEqual(map.mySizeIncludingTombstones, 0);
-			Assert::AreEqual(map.myCapacity, 32);
+			Assert::AreEqual(map.mySizeIncludingTombstones, 0u);
+			Assert::AreEqual(map.myCapacity, 32u);
 		}
 
 		TEST_METHOD(InitWithCapacity_NonPOD)
@@ -543,8 +543,8 @@ namespace HD_CommonUtilities
 			HD_HashMap<HD_String, HD_String> map;
 			map.InitWithCapacity(32);
 
-			Assert::AreEqual(map.mySizeIncludingTombstones, 0);
-			Assert::AreEqual(map.myCapacity, 32);
+			Assert::AreEqual(map.mySizeIncludingTombstones, 0u);
+			Assert::AreEqual(map.myCapacity, 32u);
 		}
 
 		TEST_METHOD(InsertKeyValueAtIndex_POD)
@@ -552,7 +552,7 @@ namespace HD_CommonUtilities
 			HD_HashMap<s32, s32> map(16);
 			map.InsertKeyValueAtIndex(0, 1, 0);
 
-			size_t hashCode = HD_Hash(0);
+			u64 hashCode = HD_Hash(0);
 
 			bool isSlotFullAtIndex = map.GetIsSlotFullAtIndex(0);
 			bool isHashLevel2Set = map.GetLevel2Hash(map.myControlBytes[0]) == map.GetLevel2Hash(hashCode);
@@ -568,7 +568,7 @@ namespace HD_CommonUtilities
 			HD_HashMap<HD_String, HD_String> map(16);
 			map.InsertKeyValueAtIndex("0", "1", 0);
 
-			size_t hashCode = HD_Hash(HD_String("0"));
+			u64 hashCode = HD_Hash(HD_String("0"));
 
 			bool isSlotFullAtIndex = map.GetIsSlotFullAtIndex(0);
 			bool isHashLevel2Set = map.GetLevel2Hash(map.myControlBytes[0]) == map.GetLevel2Hash(hashCode);
@@ -592,8 +592,8 @@ namespace HD_CommonUtilities
 			map[14] = 15;
 			map[16] = 17; // Should trigger a rehash
 
-			Assert::AreEqual(map.mySizeIncludingTombstones, 9);
-			Assert::AreEqual(map.myCapacity, 32);
+			Assert::AreEqual(map.mySizeIncludingTombstones, 9u);
+			Assert::AreEqual(map.myCapacity, 32u);
 
 			const s32* value0 = map.GetIfExists(0);
 			const s32* value2 = map.GetIfExists(2);
@@ -638,8 +638,8 @@ namespace HD_CommonUtilities
 			map["14"] = "15";
 			map["16"] = "17"; // Should trigger a rehash
 
-			Assert::AreEqual(map.mySizeIncludingTombstones, 9);
-			Assert::AreEqual(map.myCapacity, 32);
+			Assert::AreEqual(map.mySizeIncludingTombstones, 9u);
+			Assert::AreEqual(map.myCapacity, 32u);
 
 			const HD_String* value0 = map.GetIfExists("0");
 			const HD_String* value2 = map.GetIfExists("2");
@@ -676,7 +676,7 @@ namespace HD_CommonUtilities
 			HD_HashMap<s32, s32> map;
 			map[0] = 1;
 
-			Assert::AreEqual(map.GetSlotIndexForKey(0), 7);
+			Assert::AreEqual(map.GetSlotIndexForKey(0), 7u);
 		}
 
 		TEST_METHOD(GetSlotIndexForKey_NonPOD)
@@ -684,7 +684,7 @@ namespace HD_CommonUtilities
 			HD_HashMap<HD_String, HD_String> map;
 			map["0"] = "1";
 
-			Assert::AreEqual(map.GetSlotIndexForKey("0"), 9);
+			Assert::AreEqual(map.GetSlotIndexForKey("0"), 9u);
 		}
 
 		TEST_METHOD(GetFirstSlotIndex_POD)
@@ -692,7 +692,7 @@ namespace HD_CommonUtilities
 			HD_HashMap<s32, s32> map;
 			map[0] = 1;
 
-			Assert::AreEqual(map.GetFirstSlotIndex(), 7);
+			Assert::AreEqual(map.GetFirstSlotIndex(), 7u);
 		}
 
 		TEST_METHOD(GetFirstSlotIndex_NonPOD)
@@ -700,7 +700,7 @@ namespace HD_CommonUtilities
 			HD_HashMap<HD_String, HD_String> map;
 			map["0"] = "1";
 
-			Assert::AreEqual(map.GetFirstSlotIndex(), 9);
+			Assert::AreEqual(map.GetFirstSlotIndex(), 9u);
 		}
 
 		TEST_METHOD(GetIsSlotFullAtIndex_POD)
@@ -725,7 +725,7 @@ namespace HD_CommonUtilities
 		{
 			HD_HashMap<s32, s32> map;
 
-			size_t madeUpHashCode = 0x7F;
+			u64 madeUpHashCode = 0x7F;
 			Assert::AreEqual(map.GetLevel1Hash(madeUpHashCode), 0ull);
 		}
 
@@ -733,7 +733,7 @@ namespace HD_CommonUtilities
 		{
 			HD_HashMap<s32, s32> map;
 
-			size_t madeUpHashCode = 0x7F;
+			u64 madeUpHashCode = 0x7F;
 			Assert::AreEqual(map.GetLevel2Hash(madeUpHashCode), static_cast<ControlByte_Type>(0x7F));
 		}
 	};

@@ -2,11 +2,12 @@
 
 #include "HD_Math.h"
 #include "HD_String.h"
+#include "HD_Types.h"
 
 #include <cassert>
 #include <cstring>
 
-template<int aSize>
+template<u32 aNrOfBits>
 class HD_Bitset
 {
 public:
@@ -16,7 +17,7 @@ public:
 	public:
 		BitRef();
 		BitRef(const BitRef& aOther);
-		BitRef(BitsetType* aBitset, int aIndex);
+		BitRef(BitsetType* aBitset, u32 aIndex);
 
 		BitRef& operator=(const BitRef& aOther);
 		BitRef& operator=(bool aValue);
@@ -26,112 +27,111 @@ public:
 
 	private:
 		BitsetType* myBitset;
-		int myIndex;
+		u32 myBitIndex;
 	};
 
 	typedef BitRef<HD_Bitset> BitReference;
 	typedef BitRef<const HD_Bitset> ConstBitReference;
 
 public:
-	static constexpr int GetNrOfBytesNeededForNrOfBits(int aNrOfBits) { return (aNrOfBits % 8) == 0 ? (aNrOfBits / 8) : (aNrOfBits / 8) + 1; }
-	static constexpr int ourNrOfBytes = GetNrOfBytesNeededForNrOfBits(aSize);
+	static constexpr u32 GetNrOfBytesNeededForNrOfBits(u32 aNrOfBits) { return (aNrOfBits % 8) == 0 ? (aNrOfBits / 8) : (aNrOfBits / 8) + 1; }
+	static constexpr u32 ourNrOfBytes = GetNrOfBytesNeededForNrOfBits(aNrOfBits);
 
 	HD_Bitset();
 	HD_Bitset(const HD_Bitset& aOther);
-	HD_Bitset(unsigned long long aValue);
+	HD_Bitset(u64 aValue);
 
 	void EnableAllBits();
 	void DisableAllBits();
 	void FlipAllBits();
 
-	char* GetBuffer();
-	const char* GetBuffer() const;
+	u8* GetBuffer();
+	const u8* GetBuffer() const;
 
 	const char* ToString() const;
 
-	BitReference operator[](int aIndex);
-	ConstBitReference operator[](int aIndex) const;
+	BitReference operator[](u32 aIndex);
+	ConstBitReference operator[](u32 aIndex) const;
 
 	HD_Bitset& operator&=(const HD_Bitset& aOther);
 	HD_Bitset& operator|=(const HD_Bitset& aOther);
 	HD_Bitset& operator^=(const HD_Bitset& aOther);
 
-	HD_Bitset& operator<<=(int aValue);
-	HD_Bitset& operator>>=(int aValue);
+	HD_Bitset& operator<<=(u32 aValue);
+	HD_Bitset& operator>>=(u32 aValue);
 
 	HD_Bitset operator~() const;
-	HD_Bitset operator<<(int aValue) const;
-	HD_Bitset operator>>(int aValue) const;
+	HD_Bitset operator<<(u32 aValue) const;
+	HD_Bitset operator>>(u32 aValue) const;
 
 private:
-
-	char myBits[ourNrOfBytes];
+	u8 myBytes[ourNrOfBytes];
 };
 
-template<int aSize>
-HD_Bitset<aSize>::HD_Bitset()
+template<u32 aNrOfBits>
+HD_Bitset<aNrOfBits>::HD_Bitset()
 {
-	memset(&myBits, 0, ourNrOfBytes);
+	memset(&myBytes, 0, ourNrOfBytes);
 }
 
-template<int aSize>
-HD_Bitset<aSize>::HD_Bitset(const HD_Bitset& aOther)
+template<u32 aNrOfBits>
+HD_Bitset<aNrOfBits>::HD_Bitset(const HD_Bitset& aOther)
 {
-	memcpy(&myBits, &aOther.myBits, ourNrOfBytes);
+	memcpy(&myBytes, &aOther.myBytes, ourNrOfBytes);
 }
 
-template<int aSize>
-HD_Bitset<aSize>::HD_Bitset(unsigned long long aValue)
+template<u32 aNrOfBits>
+HD_Bitset<aNrOfBits>::HD_Bitset(u64 aValue)
 {
-	int indexOfHighestBit = static_cast<int>(HD_Log2(static_cast<long double>(aValue)));
-	assert(indexOfHighestBit <= (aSize - 1));
-	int nrOfBytesToCopy = GetNrOfBytesNeededForNrOfBits(indexOfHighestBit + 1);
+	u32 indexOfHighestBit = static_cast<u32>(HD_Log2(static_cast<f64>(aValue)));
+	assert(indexOfHighestBit <= (aNrOfBits - 1));
+	u32 nrOfBytesToCopy = GetNrOfBytesNeededForNrOfBits(indexOfHighestBit + 1);
 
-	memset(&myBits, 0, ourNrOfBytes);
-	memcpy(&myBits, &aValue, nrOfBytesToCopy);
+	memset(&myBytes, 0, ourNrOfBytes);
+	memcpy(&myBytes, &aValue, nrOfBytesToCopy);
 }
 
-template<int aSize>
-void HD_Bitset<aSize>::EnableAllBits()
+template<u32 aNrOfBits>
+void HD_Bitset<aNrOfBits>::EnableAllBits()
 {
-	for (int i = 0; i < ourNrOfBytes; i++)
+	for (u32 byteIndex = 0; byteIndex < ourNrOfBytes; byteIndex++)
 	{
-		myBits[i] = static_cast<char>(0xFF);
+		myBytes[byteIndex] = static_cast<u8>(0xFF);
 	}
 }
 
-template<int aSize>
-void HD_Bitset<aSize>::DisableAllBits()
+template<u32 aNrOfBits>
+void HD_Bitset<aNrOfBits>::DisableAllBits()
 {
-	memset(myBits, 0, ourNrOfBytes);
+	memset(myBytes, 0, ourNrOfBytes);
 }
 
-template<int aSize>
-void HD_Bitset<aSize>::FlipAllBits()
+template<u32 aNrOfBits>
+void HD_Bitset<aNrOfBits>::FlipAllBits()
 {
-	for (int i = 0; i < ourNrOfBytes; i++)
+	for (u32 byteIndex = 0; byteIndex < ourNrOfBytes; byteIndex++)
 	{
-		myBits[i] = ~myBits[i];
+		myBytes[byteIndex] = ~myBytes[byteIndex];
 	}
 }
 
-template<int aSize>
-char* HD_Bitset<aSize>::GetBuffer()
+template<u32 aNrOfBits>
+u8* HD_Bitset<aNrOfBits>::GetBuffer()
 {
-	return myBits;
+	return myBytes;
 }
 
-template<int aSize>
-const char* HD_Bitset<aSize>::GetBuffer() const
+template<u32 aNrOfBits>
+const u8* HD_Bitset<aNrOfBits>::GetBuffer() const
 {
-	return myBits;
+	return myBytes;
 }
 
-template<int aSize>
-const char* HD_Bitset<aSize>::ToString() const
+template<u32 aNrOfBits>
+const char* HD_Bitset<aNrOfBits>::ToString() const
 {
 	HD_String string;
-	for (int bitIndex = (ourNrOfBytes * 8) - 1; bitIndex >= 0; bitIndex--)
+	for (s32 bitIndex = (ourNrOfBytes * 8) - 1; bitIndex >= 0; bitIndex--)
 	{
 		if ((*this)[bitIndex])
 		{
@@ -146,61 +146,61 @@ const char* HD_Bitset<aSize>::ToString() const
 	return string.GetBuffer();
 }
 
-template<int aSize>
-typename HD_Bitset<aSize>::BitReference HD_Bitset<aSize>::operator[](int aIndex)
+template<u32 aNrOfBits>
+typename HD_Bitset<aNrOfBits>::BitReference HD_Bitset<aNrOfBits>::operator[](u32 aIndex)
 {
 	BitReference bitReference(this, aIndex);
 	return bitReference;
 }
 
-template<int aSize>
-typename HD_Bitset<aSize>::ConstBitReference HD_Bitset<aSize>::operator[](int aIndex) const
+template<u32 aNrOfBits>
+typename HD_Bitset<aNrOfBits>::ConstBitReference HD_Bitset<aNrOfBits>::operator[](u32 aIndex) const
 {
 	ConstBitReference constBitReference(this, aIndex);
 	return constBitReference;
 }
 
-template<int aSize>
-HD_Bitset<aSize>& HD_Bitset<aSize>::operator&=(const HD_Bitset& aOther)
+template<u32 aNrOfBits>
+HD_Bitset<aNrOfBits>& HD_Bitset<aNrOfBits>::operator&=(const HD_Bitset& aOther)
 {
-	for (int i = 0; i < ourNrOfBytes; i++)
+	for (u32 byteIndex = 0; byteIndex < ourNrOfBytes; byteIndex++)
 	{
-		myBits[i] &= aOther.myBits[i];
+		myBytes[byteIndex] &= aOther.myBytes[byteIndex];
 	}
 
 	return *this;
 }
 
-template<int aSize>
-HD_Bitset<aSize>& HD_Bitset<aSize>::operator|=(const HD_Bitset& aOther)
+template<u32 aNrOfBits>
+HD_Bitset<aNrOfBits>& HD_Bitset<aNrOfBits>::operator|=(const HD_Bitset& aOther)
 {
-	for (int i = 0; i < ourNrOfBytes; i++)
+	for (u32 byteIndex = 0; byteIndex < ourNrOfBytes; byteIndex++)
 	{
-		myBits[i] |= aOther.myBits[i];
+		myBytes[byteIndex] |= aOther.myBytes[byteIndex];
 	}
 
 	return *this;
 }
 
-template<int aSize>
-HD_Bitset<aSize>& HD_Bitset<aSize>::operator^=(const HD_Bitset& aOther)
+template<u32 aNrOfBits>
+HD_Bitset<aNrOfBits>& HD_Bitset<aNrOfBits>::operator^=(const HD_Bitset& aOther)
 {
-	for (int i = 0; i < ourNrOfBytes; i++)
+	for (u32 byteIndex = 0; byteIndex < ourNrOfBytes; byteIndex++)
 	{
-		myBits[i] ^= aOther.myBits[i];
+		myBytes[byteIndex] ^= aOther.myBytes[byteIndex];
 	}
 
 	return *this;
 }
 
-template<int aSize>
-HD_Bitset<aSize>& HD_Bitset<aSize>::operator<<=(int aValue)
+template<u32 aNrOfBits>
+HD_Bitset<aNrOfBits>& HD_Bitset<aNrOfBits>::operator<<=(u32 aValue)
 {
-	for (int bitIndex = (ourNrOfBytes * 8) - 1; bitIndex >= 0; bitIndex--)
+	for (s32 bitIndex = (ourNrOfBytes * 8) - 1; bitIndex >= 0; bitIndex--)
 	{
 		BitReference bitReferenceCurrent(this, bitIndex);
 
-		if (bitIndex - aValue >= 0)
+		if (bitIndex - static_cast<s32>(aValue) >= 0)
 		{
 			BitReference bitReferenceBitshift(this, bitIndex - aValue);
 			bitReferenceCurrent = bitReferenceBitshift.GetValue();
@@ -214,10 +214,10 @@ HD_Bitset<aSize>& HD_Bitset<aSize>::operator<<=(int aValue)
 	return *this;
 }
 
-template<int aSize>
-HD_Bitset<aSize>& HD_Bitset<aSize>::operator>>=(int aValue)
+template<u32 aNrOfBits>
+HD_Bitset<aNrOfBits>& HD_Bitset<aNrOfBits>::operator>>=(u32 aValue)
 {
-	for (int bitIndex = 0; bitIndex < ourNrOfBytes * 8; bitIndex++)
+	for (u32 bitIndex = 0; bitIndex < ourNrOfBytes * 8; bitIndex++)
 	{
 		BitReference bitReferenceCurrent(this, bitIndex);
 
@@ -235,104 +235,104 @@ HD_Bitset<aSize>& HD_Bitset<aSize>::operator>>=(int aValue)
 	return *this;
 }
 
-template<int aSize>
-HD_Bitset<aSize> HD_Bitset<aSize>::operator~() const
+template<u32 aNrOfBits>
+HD_Bitset<aNrOfBits> HD_Bitset<aNrOfBits>::operator~() const
 {
 	HD_Bitset result;
 
-	for (int i = 0; i < ourNrOfBytes; i++)
+	for (u32 byteIndex = 0; byteIndex < ourNrOfBytes; byteIndex++)
 	{
-		result.myBits[i] = ~myBits[i];
+		result.myBytes[byteIndex] = ~myBytes[byteIndex];
 	}
 
 	return result;
 }
 
-template<int aSize>
-HD_Bitset<aSize> HD_Bitset<aSize>::operator<<(int aValue) const
+template<u32 aNrOfBits>
+HD_Bitset<aNrOfBits> HD_Bitset<aNrOfBits>::operator<<(u32 aValue) const
 {
 	HD_Bitset result = (*this);
 	result <<= aValue;
 	return result;
 }
 
-template<int aSize>
-HD_Bitset<aSize> HD_Bitset<aSize>::operator>>(int aValue) const
+template<u32 aNrOfBits>
+HD_Bitset<aNrOfBits> HD_Bitset<aNrOfBits>::operator>>(u32 aValue) const
 {
 	HD_Bitset result = (*this);
 	result >>= aValue;
 	return result;
 }
 
-template<int aSize>
+template<u32 aNrOfBits>
 template<typename BitsetType>
-HD_Bitset<aSize>::BitRef<BitsetType>::BitRef()
+HD_Bitset<aNrOfBits>::BitRef<BitsetType>::BitRef()
 	: myBitset(nullptr)
-	, myIndex(0)
+	, myBitIndex(0)
 {
 }
 
-template<int aSize>
+template<u32 aNrOfBits>
 template<typename BitsetType>
-HD_Bitset<aSize>::BitRef<BitsetType>::BitRef(const BitRef& aOther)
+HD_Bitset<aNrOfBits>::BitRef<BitsetType>::BitRef(const BitRef& aOther)
 	: myBitset(aOther.myBitset)
-	, myIndex(aOther.myIndex)
+	, myBitIndex(aOther.myBitIndex)
 {
 }
 
-template<int aSize>
+template<u32 aNrOfBits>
 template<typename BitsetType>
-HD_Bitset<aSize>::BitRef<BitsetType>::BitRef(BitsetType* aBitset, int aIndex)
+HD_Bitset<aNrOfBits>::BitRef<BitsetType>::BitRef(BitsetType* aBitset, u32 aIndex)
 	: myBitset(aBitset)
-	, myIndex(aIndex)
+	, myBitIndex(aIndex)
 {
 }
 
-template<int aSize>
+template<u32 aNrOfBits>
 template<typename BitsetType>
-HD_Bitset<aSize>::BitRef<BitsetType>& HD_Bitset<aSize>::BitRef<BitsetType>::operator=(const BitRef& aOther)
+HD_Bitset<aNrOfBits>::BitRef<BitsetType>& HD_Bitset<aNrOfBits>::BitRef<BitsetType>::operator=(const BitRef& aOther)
 {
 	myBitset = aOther.myBitset;
-	myIndex = aOther.myIndex;
+	myBitIndex = aOther.myBitIndex;
 
 	return *this;
 }
 
-template<int aSize>
+template<u32 aNrOfBits>
 template<typename BitsetType>
-HD_Bitset<aSize>::BitRef<BitsetType>& HD_Bitset<aSize>::BitRef<BitsetType>::operator=(bool aValue)
+HD_Bitset<aNrOfBits>::BitRef<BitsetType>& HD_Bitset<aNrOfBits>::BitRef<BitsetType>::operator=(bool aValue)
 {
-	int byteIndex = myIndex / 8;
-	int bitIndexInByte = myIndex % 8;
-	char mask = static_cast<char>(HD_Pow(2, bitIndexInByte));
+	u32 byteIndex = myBitIndex / 8;
+	u32 bitIndexInByte = myBitIndex % 8;
+	u8 mask = static_cast<u8>(HD_Pow(2.f, static_cast<f32>(bitIndexInByte)));
 
 	if (aValue)
 	{
-		myBitset->myBits[byteIndex] |= mask;
+		myBitset->myBytes[byteIndex] |= mask;
 	}
 	else
 	{
-		myBitset->myBits[byteIndex] &= ~mask;
+		myBitset->myBytes[byteIndex] &= ~mask;
 	}
 
 	return *this;
 }
 
-template<int aSize>
+template<u32 aNrOfBits>
 template<typename BitsetType>
-bool HD_Bitset<aSize>::BitRef<BitsetType>::GetValue() const
+bool HD_Bitset<aNrOfBits>::BitRef<BitsetType>::GetValue() const
 {
-	int byteIndex = myIndex / 8;
-	int bitIndexInByte = myIndex % 8;
-	char mask = static_cast<char>(HD_Pow(2, bitIndexInByte));
+	u32 byteIndex = myBitIndex / 8;
+	u32 bitIndexInByte = myBitIndex % 8;
+	u8 mask = static_cast<u8>(HD_Pow(2.f, static_cast<f32>(bitIndexInByte)));
 
-	bool result = (myBitset->myBits[byteIndex] & mask) != 0;
+	bool result = (myBitset->myBytes[byteIndex] & mask) != 0;
 	return result;
 }
 
-template<int aSize>
+template<u32 aNrOfBits>
 template<typename BitsetType>
-HD_Bitset<aSize>::BitRef<BitsetType>::operator bool() const
+HD_Bitset<aNrOfBits>::BitRef<BitsetType>::operator bool() const
 {
 	bool value = GetValue();
 	return value;

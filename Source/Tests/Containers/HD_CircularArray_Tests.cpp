@@ -21,12 +21,12 @@ namespace HD_CommonUtilities
 		{
 			HD_CircularArray<s32, 8> circularArray;
 
-			Assert::AreEqual(circularArray.myFirstIndex, 0);
-			Assert::AreEqual(circularArray.myWriteIndex, 0);
-			Assert::AreEqual(circularArray.mySize, 0);
-			Assert::AreEqual(static_cast<char>(circularArray.myOverflowBehaviour), static_cast<char>(HD_CircularArray<s32, 8>::eOverflowBehaviour_Enable));
+			Assert::AreEqual(circularArray.myFirstIndex, 0u);
+			Assert::AreEqual(circularArray.myWriteIndex, 0u);
+			Assert::AreEqual(circularArray.mySize, 0u);
+			Assert::AreEqual(static_cast<u8>(circularArray.myOverflowBehaviour), static_cast<u8>(HD_CircularArray<s32, 8>::eOverflowBehaviour_Enable));
 
-			for (s32 i = 0; i < 8; i++)
+			for (u32 i = 0; i < 8; i++)
 			{
 				Assert::AreEqual(circularArray.myData[i], 0);
 			}
@@ -36,16 +36,16 @@ namespace HD_CommonUtilities
 		{
 			HD_CircularArray<HD_String, 8> circularArray;
 
-			Assert::AreEqual(circularArray.myFirstIndex, 0);
-			Assert::AreEqual(circularArray.myWriteIndex, 0);
-			Assert::AreEqual(circularArray.mySize, 0);
-			Assert::AreEqual(static_cast<char>(circularArray.myOverflowBehaviour), static_cast<char>(HD_CircularArray<HD_String, 8>::eOverflowBehaviour_Enable));
+			Assert::AreEqual(circularArray.myFirstIndex, 0u);
+			Assert::AreEqual(circularArray.myWriteIndex, 0u);
+			Assert::AreEqual(circularArray.mySize, 0u);
+			Assert::AreEqual(static_cast<u8>(circularArray.myOverflowBehaviour), static_cast<u8>(HD_CircularArray<HD_String, 8>::eOverflowBehaviour_Enable));
 
 			for (s32 i = 0; i < 8; i++)
 			{
 				Assert::IsNull(circularArray.myData[i].myData);
-				Assert::AreEqual(circularArray.myData[i].myLength, 0);
-				Assert::AreEqual(circularArray.myData[i].myCapacity, 0);
+				Assert::AreEqual(circularArray.myData[i].myLength, 0u);
+				Assert::AreEqual(circularArray.myData[i].myCapacity, 0u);
 			}
 		}
 
@@ -57,9 +57,9 @@ namespace HD_CommonUtilities
 			circularArray.PushBack(2);
 			circularArray.PushBack(3);
 
-			Assert::AreEqual(circularArray.myFirstIndex, 0);
-			Assert::AreEqual(circularArray.myWriteIndex, 4);
-			Assert::AreEqual(circularArray.mySize, 4);
+			Assert::AreEqual(circularArray.myFirstIndex, 0u);
+			Assert::AreEqual(circularArray.myWriteIndex, 4u);
+			Assert::AreEqual(circularArray.mySize, 4u);
 
 			Assert::AreEqual(circularArray.myData[0], 0);
 			Assert::AreEqual(circularArray.myData[1], 1);
@@ -75,9 +75,9 @@ namespace HD_CommonUtilities
 			circularArray.PushBack(6);
 			circularArray.PushBack(7);
 
-			Assert::AreEqual(circularArray.myFirstIndex, 0);
-			Assert::AreEqual(circularArray.myWriteIndex, 0);
-			Assert::AreEqual(circularArray.mySize, 8);
+			Assert::AreEqual(circularArray.myFirstIndex, 0u);
+			Assert::AreEqual(circularArray.myWriteIndex, 0u);
+			Assert::AreEqual(circularArray.mySize, 8u);
 
 			Assert::AreEqual(circularArray.myData[0], 0);
 			Assert::AreEqual(circularArray.myData[1], 1);
@@ -90,9 +90,9 @@ namespace HD_CommonUtilities
 
 			circularArray.PushBack(8);
 
-			Assert::AreEqual(circularArray.myFirstIndex, 1);
-			Assert::AreEqual(circularArray.myWriteIndex, 1);
-			Assert::AreEqual(circularArray.mySize, 8);
+			Assert::AreEqual(circularArray.myFirstIndex, 1u);
+			Assert::AreEqual(circularArray.myWriteIndex, 1u);
+			Assert::AreEqual(circularArray.mySize, 8u);
 
 			Assert::AreEqual(circularArray.myData[0], 8);
 			Assert::AreEqual(circularArray.myData[1], 1);
@@ -105,9 +105,9 @@ namespace HD_CommonUtilities
 
 			circularArray.PushBack(9);
 
-			Assert::AreEqual(circularArray.myFirstIndex, 2);
-			Assert::AreEqual(circularArray.myWriteIndex, 2);
-			Assert::AreEqual(circularArray.mySize, 8);
+			Assert::AreEqual(circularArray.myFirstIndex, 2u);
+			Assert::AreEqual(circularArray.myWriteIndex, 2u);
+			Assert::AreEqual(circularArray.mySize, 8u);
 
 			Assert::AreEqual(circularArray.myData[0], 8);
 			Assert::AreEqual(circularArray.myData[1], 9);
@@ -127,9 +127,9 @@ namespace HD_CommonUtilities
 			circularArray.PushBack("2");
 			circularArray.PushBack("3");
 
-			Assert::AreEqual(circularArray.myFirstIndex, 0);
-			Assert::AreEqual(circularArray.myWriteIndex, 4);
-			Assert::AreEqual(circularArray.mySize, 4);
+			Assert::AreEqual(circularArray.myFirstIndex, 0u);
+			Assert::AreEqual(circularArray.myWriteIndex, 4u);
+			Assert::AreEqual(circularArray.mySize, 4u);
 
 			Assert::IsTrue(circularArray.myData[0] == "0");
 			Assert::IsTrue(circularArray.myData[1] == "1");
@@ -145,9 +145,9 @@ namespace HD_CommonUtilities
 			circularArray.PushBack("6");
 			circularArray.PushBack("7");
 
-			Assert::AreEqual(circularArray.myFirstIndex, 0);
-			Assert::AreEqual(circularArray.myWriteIndex, 0);
-			Assert::AreEqual(circularArray.mySize, 8);
+			Assert::AreEqual(circularArray.myFirstIndex, 0u);
+			Assert::AreEqual(circularArray.myWriteIndex, 0u);
+			Assert::AreEqual(circularArray.mySize, 8u);
 
 			Assert::IsTrue(circularArray.myData[0] == "0");
 			Assert::IsTrue(circularArray.myData[1] == "1");
@@ -160,9 +160,9 @@ namespace HD_CommonUtilities
 
 			circularArray.PushBack("8");
 
-			Assert::AreEqual(circularArray.myFirstIndex, 1);
-			Assert::AreEqual(circularArray.myWriteIndex, 1);
-			Assert::AreEqual(circularArray.mySize, 8);
+			Assert::AreEqual(circularArray.myFirstIndex, 1u);
+			Assert::AreEqual(circularArray.myWriteIndex, 1u);
+			Assert::AreEqual(circularArray.mySize, 8u);
 
 			Assert::IsTrue(circularArray.myData[0] == "8");
 			Assert::IsTrue(circularArray.myData[1] == "1");
@@ -175,9 +175,9 @@ namespace HD_CommonUtilities
 
 			circularArray.PushBack("9");
 
-			Assert::AreEqual(circularArray.myFirstIndex, 2);
-			Assert::AreEqual(circularArray.myWriteIndex, 2);
-			Assert::AreEqual(circularArray.mySize, 8);
+			Assert::AreEqual(circularArray.myFirstIndex, 2u);
+			Assert::AreEqual(circularArray.myWriteIndex, 2u);
+			Assert::AreEqual(circularArray.mySize, 8u);
 
 			Assert::IsTrue(circularArray.myData[0] == "8");
 			Assert::IsTrue(circularArray.myData[1] == "9");
@@ -203,9 +203,9 @@ namespace HD_CommonUtilities
 			circularArray.PushBack(6);
 			circularArray.PushBack(7);
 
-			Assert::AreEqual(circularArray.myFirstIndex, 0);
-			Assert::AreEqual(circularArray.myWriteIndex, 0);
-			Assert::AreEqual(circularArray.mySize, 8);
+			Assert::AreEqual(circularArray.myFirstIndex, 0u);
+			Assert::AreEqual(circularArray.myWriteIndex, 0u);
+			Assert::AreEqual(circularArray.mySize, 8u);
 
 			Assert::AreEqual(circularArray.myData[0], 0);
 			Assert::AreEqual(circularArray.myData[1], 1);
@@ -235,9 +235,9 @@ namespace HD_CommonUtilities
 			circularArray.PushBack("6");
 			circularArray.PushBack("7");
 
-			Assert::AreEqual(circularArray.myFirstIndex, 0);
-			Assert::AreEqual(circularArray.myWriteIndex, 0);
-			Assert::AreEqual(circularArray.mySize, 8);
+			Assert::AreEqual(circularArray.myFirstIndex, 0u);
+			Assert::AreEqual(circularArray.myWriteIndex, 0u);
+			Assert::AreEqual(circularArray.mySize, 8u);
 
 			Assert::IsTrue(circularArray.myData[0] == "0");
 			Assert::IsTrue(circularArray.myData[1] == "1");
@@ -272,9 +272,9 @@ namespace HD_CommonUtilities
 			circularArray.PushBack(HD_Move(string2));
 			circularArray.PushBack(HD_Move(string3));
 
-			Assert::AreEqual(circularArray.myFirstIndex, 0);
-			Assert::AreEqual(circularArray.myWriteIndex, 4);
-			Assert::AreEqual(circularArray.mySize, 4);
+			Assert::AreEqual(circularArray.myFirstIndex, 0u);
+			Assert::AreEqual(circularArray.myWriteIndex, 4u);
+			Assert::AreEqual(circularArray.mySize, 4u);
 
 			TestUtils::String_IsUninitialized(string0);
 			TestUtils::String_IsUninitialized(string1);
@@ -294,9 +294,9 @@ namespace HD_CommonUtilities
 			circularArray.PushBack(HD_Move(string6));
 			circularArray.PushBack(HD_Move(string7));
 
-			Assert::AreEqual(circularArray.myFirstIndex, 0);
-			Assert::AreEqual(circularArray.myWriteIndex, 0);
-			Assert::AreEqual(circularArray.mySize, 8);
+			Assert::AreEqual(circularArray.myFirstIndex, 0u);
+			Assert::AreEqual(circularArray.myWriteIndex, 0u);
+			Assert::AreEqual(circularArray.mySize, 8u);
 
 			TestUtils::String_IsUninitialized(string4);
 			TestUtils::String_IsUninitialized(string5);
@@ -313,9 +313,9 @@ namespace HD_CommonUtilities
 
 			circularArray.PushBack(HD_Move(string8));
 
-			Assert::AreEqual(circularArray.myFirstIndex, 1);
-			Assert::AreEqual(circularArray.myWriteIndex, 1);
-			Assert::AreEqual(circularArray.mySize, 8);
+			Assert::AreEqual(circularArray.myFirstIndex, 1u);
+			Assert::AreEqual(circularArray.myWriteIndex, 1u);
+			Assert::AreEqual(circularArray.mySize, 8u);
 
 			TestUtils::String_IsUninitialized(string8);
 			Assert::IsTrue(circularArray.myData[0] == "8");
@@ -329,9 +329,9 @@ namespace HD_CommonUtilities
 
 			circularArray.PushBack(HD_Move(string9));
 
-			Assert::AreEqual(circularArray.myFirstIndex, 2);
-			Assert::AreEqual(circularArray.myWriteIndex, 2);
-			Assert::AreEqual(circularArray.mySize, 8);
+			Assert::AreEqual(circularArray.myFirstIndex, 2u);
+			Assert::AreEqual(circularArray.myWriteIndex, 2u);
+			Assert::AreEqual(circularArray.mySize, 8u);
 
 			TestUtils::String_IsUninitialized(string9);
 			Assert::IsTrue(circularArray.myData[0] == "8");
@@ -369,9 +369,9 @@ namespace HD_CommonUtilities
 			circularArray.PushBack(HD_Move(string6));
 			circularArray.PushBack(HD_Move(string7));
 
-			Assert::AreEqual(circularArray.myFirstIndex, 0);
-			Assert::AreEqual(circularArray.myWriteIndex, 0);
-			Assert::AreEqual(circularArray.mySize, 8);
+			Assert::AreEqual(circularArray.myFirstIndex, 0u);
+			Assert::AreEqual(circularArray.myWriteIndex, 0u);
+			Assert::AreEqual(circularArray.mySize, 8u);
 
 			TestUtils::String_IsUninitialized(string0);
 			TestUtils::String_IsUninitialized(string1);
@@ -403,9 +403,9 @@ namespace HD_CommonUtilities
 			circularArray.EmplaceBack("2");
 			circularArray.EmplaceBack("3");
 
-			Assert::AreEqual(circularArray.myFirstIndex, 0);
-			Assert::AreEqual(circularArray.myWriteIndex, 4);
-			Assert::AreEqual(circularArray.mySize, 4);
+			Assert::AreEqual(circularArray.myFirstIndex, 0u);
+			Assert::AreEqual(circularArray.myWriteIndex, 4u);
+			Assert::AreEqual(circularArray.mySize, 4u);
 
 			Assert::IsTrue(circularArray.myData[0] == "0");
 			Assert::IsTrue(circularArray.myData[1] == "1");
@@ -421,9 +421,9 @@ namespace HD_CommonUtilities
 			circularArray.EmplaceBack("6");
 			circularArray.EmplaceBack("7");
 
-			Assert::AreEqual(circularArray.myFirstIndex, 0);
-			Assert::AreEqual(circularArray.myWriteIndex, 0);
-			Assert::AreEqual(circularArray.mySize, 8);
+			Assert::AreEqual(circularArray.myFirstIndex, 0u);
+			Assert::AreEqual(circularArray.myWriteIndex, 0u);
+			Assert::AreEqual(circularArray.mySize, 8u);
 
 			Assert::IsTrue(circularArray.myData[0] == "0");
 			Assert::IsTrue(circularArray.myData[1] == "1");
@@ -436,9 +436,9 @@ namespace HD_CommonUtilities
 
 			circularArray.EmplaceBack("8");
 
-			Assert::AreEqual(circularArray.myFirstIndex, 1);
-			Assert::AreEqual(circularArray.myWriteIndex, 1);
-			Assert::AreEqual(circularArray.mySize, 8);
+			Assert::AreEqual(circularArray.myFirstIndex, 1u);
+			Assert::AreEqual(circularArray.myWriteIndex, 1u);
+			Assert::AreEqual(circularArray.mySize, 8u);
 
 			Assert::IsTrue(circularArray.myData[0] == "8");
 			Assert::IsTrue(circularArray.myData[1] == "1");
@@ -451,9 +451,9 @@ namespace HD_CommonUtilities
 
 			circularArray.EmplaceBack("9");
 
-			Assert::AreEqual(circularArray.myFirstIndex, 2);
-			Assert::AreEqual(circularArray.myWriteIndex, 2);
-			Assert::AreEqual(circularArray.mySize, 8);
+			Assert::AreEqual(circularArray.myFirstIndex, 2u);
+			Assert::AreEqual(circularArray.myWriteIndex, 2u);
+			Assert::AreEqual(circularArray.mySize, 8u);
 
 			Assert::IsTrue(circularArray.myData[0] == "8");
 			Assert::IsTrue(circularArray.myData[1] == "9");
@@ -479,9 +479,9 @@ namespace HD_CommonUtilities
 			circularArray.EmplaceBack("6");
 			circularArray.EmplaceBack("7");
 
-			Assert::AreEqual(circularArray.myFirstIndex, 0);
-			Assert::AreEqual(circularArray.myWriteIndex, 0);
-			Assert::AreEqual(circularArray.mySize, 8);
+			Assert::AreEqual(circularArray.myFirstIndex, 0u);
+			Assert::AreEqual(circularArray.myWriteIndex, 0u);
+			Assert::AreEqual(circularArray.mySize, 8u);
 
 			Assert::IsTrue(circularArray.myData[0] == "0");
 			Assert::IsTrue(circularArray.myData[1] == "1");
@@ -509,9 +509,9 @@ namespace HD_CommonUtilities
 			circularArray.GetFirstAndRemove(i);
 
 			Assert::AreEqual(i, 4);
-			Assert::AreEqual(circularArray.myFirstIndex, 1);
-			Assert::AreEqual(circularArray.myWriteIndex, 4);
-			Assert::AreEqual(circularArray.mySize, 3);
+			Assert::AreEqual(circularArray.myFirstIndex, 1u);
+			Assert::AreEqual(circularArray.myWriteIndex, 4u);
+			Assert::AreEqual(circularArray.mySize, 3u);
 
 			Assert::AreEqual(circularArray.myData[0], 4);
 			Assert::AreEqual(circularArray.myData[1], 4);
@@ -535,9 +535,9 @@ namespace HD_CommonUtilities
 			circularArray.GetFirstAndRemove(string);
 
 			Assert::IsTrue(string == "4");
-			Assert::AreEqual(circularArray.myFirstIndex, 1);
-			Assert::AreEqual(circularArray.myWriteIndex, 4);
-			Assert::AreEqual(circularArray.mySize, 3);
+			Assert::AreEqual(circularArray.myFirstIndex, 1u);
+			Assert::AreEqual(circularArray.myWriteIndex, 4u);
+			Assert::AreEqual(circularArray.mySize, 3u);
 
 			Assert::IsTrue(circularArray.myData[0] == "4");
 			Assert::IsTrue(circularArray.myData[1] == "4");
@@ -561,9 +561,9 @@ namespace HD_CommonUtilities
 			circularArray.PushBack(6);
 			circularArray.PushBack(7);
 
-			Assert::AreEqual(circularArray.myFirstIndex, 0);
-			Assert::AreEqual(circularArray.myWriteIndex, 0);
-			Assert::AreEqual(circularArray.mySize, 8);
+			Assert::AreEqual(circularArray.myFirstIndex, 0u);
+			Assert::AreEqual(circularArray.myWriteIndex, 0u);
+			Assert::AreEqual(circularArray.mySize, 8u);
 
 			Assert::AreEqual(circularArray.myData[0], 0);
 			Assert::AreEqual(circularArray.myData[1], 1);
@@ -576,9 +576,9 @@ namespace HD_CommonUtilities
 
 			circularArray.Clear();
 
-			Assert::AreEqual(circularArray.myFirstIndex, 0);
-			Assert::AreEqual(circularArray.myWriteIndex, 0);
-			Assert::AreEqual(circularArray.mySize, 0);
+			Assert::AreEqual(circularArray.myFirstIndex, 0u);
+			Assert::AreEqual(circularArray.myWriteIndex, 0u);
+			Assert::AreEqual(circularArray.mySize, 0u);
 
 			Assert::AreEqual(circularArray.myData[0], 0);
 			Assert::AreEqual(circularArray.myData[1], 1);
@@ -602,9 +602,9 @@ namespace HD_CommonUtilities
 			circularArray.EmplaceBack("6");
 			circularArray.EmplaceBack("7");
 
-			Assert::AreEqual(circularArray.myFirstIndex, 0);
-			Assert::AreEqual(circularArray.myWriteIndex, 0);
-			Assert::AreEqual(circularArray.mySize, 8);
+			Assert::AreEqual(circularArray.myFirstIndex, 0u);
+			Assert::AreEqual(circularArray.myWriteIndex, 0u);
+			Assert::AreEqual(circularArray.mySize, 8u);
 
 			Assert::IsTrue(circularArray.myData[0] == "0");
 			Assert::IsTrue(circularArray.myData[1] == "1");
@@ -617,9 +617,9 @@ namespace HD_CommonUtilities
 
 			circularArray.Clear();
 
-			Assert::AreEqual(circularArray.myFirstIndex, 0);
-			Assert::AreEqual(circularArray.myWriteIndex, 0);
-			Assert::AreEqual(circularArray.mySize, 0);
+			Assert::AreEqual(circularArray.myFirstIndex, 0u);
+			Assert::AreEqual(circularArray.myWriteIndex, 0u);
+			Assert::AreEqual(circularArray.mySize, 0u);
 
 			Assert::IsTrue(circularArray.myData[0] == "0");
 			Assert::IsTrue(circularArray.myData[1] == "1");
@@ -634,45 +634,45 @@ namespace HD_CommonUtilities
 		TEST_METHOD(GetSize_POD)
 		{
 			HD_CircularArray<s32, 8> circularArray;
-			Assert::AreEqual(circularArray.GetSize(), 0);
+			Assert::AreEqual(circularArray.GetSize(), 0u);
 
 			circularArray.PushBack(0);
-			Assert::AreEqual(circularArray.GetSize(), 1);
+			Assert::AreEqual(circularArray.GetSize(), 1u);
 
 			circularArray.PushBack(1);
-			Assert::AreEqual(circularArray.GetSize(), 2);
+			Assert::AreEqual(circularArray.GetSize(), 2u);
 
 			s32 i = 0;
 			circularArray.GetFirstAndRemove(i);
-			Assert::AreEqual(circularArray.GetSize(), 1);
+			Assert::AreEqual(circularArray.GetSize(), 1u);
 		}
 
 		TEST_METHOD(GetSize_NonPOD)
 		{
 			HD_CircularArray<HD_String, 8> circularArray;
-			Assert::AreEqual(circularArray.GetSize(), 0);
+			Assert::AreEqual(circularArray.GetSize(), 0u);
 
 			circularArray.EmplaceBack("0");
-			Assert::AreEqual(circularArray.GetSize(), 1);
+			Assert::AreEqual(circularArray.GetSize(), 1u);
 
 			circularArray.EmplaceBack("1");
-			Assert::AreEqual(circularArray.GetSize(), 2);
+			Assert::AreEqual(circularArray.GetSize(), 2u);
 
 			HD_String string;
 			circularArray.GetFirstAndRemove(string);
-			Assert::AreEqual(circularArray.GetSize(), 1);
+			Assert::AreEqual(circularArray.GetSize(), 1u);
 		}
 
 		TEST_METHOD(GetCapacity_POD)
 		{
 			{
 				HD_CircularArray<s32, 8> circularArray;
-				Assert::AreEqual(circularArray.GetCapacity(), 8);
+				Assert::AreEqual(circularArray.GetCapacity(), 8u);
 			}
 
 			{
 				HD_CircularArray<s32, 16> circularArray;
-				Assert::AreEqual(circularArray.GetCapacity(), 16);
+				Assert::AreEqual(circularArray.GetCapacity(), 16u);
 			}
 		}
 
@@ -680,12 +680,12 @@ namespace HD_CommonUtilities
 		{
 			{
 				HD_CircularArray<HD_String, 8> circularArray;
-				Assert::AreEqual(circularArray.GetCapacity(), 8);
+				Assert::AreEqual(circularArray.GetCapacity(), 8u);
 			}
 
 			{
 				HD_CircularArray<HD_String, 16> circularArray;
-				Assert::AreEqual(circularArray.GetCapacity(), 16);
+				Assert::AreEqual(circularArray.GetCapacity(), 16u);
 			}
 		}
 
@@ -719,28 +719,28 @@ namespace HD_CommonUtilities
 		{
 			HD_CircularArray<s32, 8> circularArray;
 			circularArray.EnableOverflow();
-			Assert::AreEqual(static_cast<char>(circularArray.myOverflowBehaviour), static_cast<char>(HD_CircularArray<s32, 8>::eOverflowBehaviour_Enable));
+			Assert::AreEqual(static_cast<u8>(circularArray.myOverflowBehaviour), static_cast<u8>(HD_CircularArray<s32, 8>::eOverflowBehaviour_Enable));
 		}
 
 		TEST_METHOD(EnableOverflow_NonPOD)
 		{
 			HD_CircularArray<HD_String, 8> circularArray;
 			circularArray.EnableOverflow();
-			Assert::AreEqual(static_cast<char>(circularArray.myOverflowBehaviour), static_cast<char>(HD_CircularArray<HD_String, 8>::eOverflowBehaviour_Enable));
+			Assert::AreEqual(static_cast<u8>(circularArray.myOverflowBehaviour), static_cast<u8>(HD_CircularArray<HD_String, 8>::eOverflowBehaviour_Enable));
 		}
 
 		TEST_METHOD(DisableOverflow_POD)
 		{
 			HD_CircularArray<s32, 8> circularArray;
 			circularArray.DisableOverflow();
-			Assert::AreEqual(static_cast<char>(circularArray.myOverflowBehaviour), static_cast<char>(HD_CircularArray<s32, 8>::eOverflowBehaviour_Disable));
+			Assert::AreEqual(static_cast<u8>(circularArray.myOverflowBehaviour), static_cast<u8>(HD_CircularArray<s32, 8>::eOverflowBehaviour_Disable));
 		}
 
 		TEST_METHOD(DisableOverflow_NonPOD)
 		{
 			HD_CircularArray<HD_String, 8> circularArray;
 			circularArray.DisableOverflow();
-			Assert::AreEqual(static_cast<char>(circularArray.myOverflowBehaviour), static_cast<char>(HD_CircularArray<HD_String, 8>::eOverflowBehaviour_Disable));
+			Assert::AreEqual(static_cast<u8>(circularArray.myOverflowBehaviour), static_cast<u8>(HD_CircularArray<HD_String, 8>::eOverflowBehaviour_Disable));
 		}
 	};
 }

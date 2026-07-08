@@ -1,27 +1,28 @@
 #pragma once
 
 #include "HD_Matrix.h"
+#include "HD_Types.h"
 
 class HD_Camera
 {
 public:
 	HD_Camera();
 
-	void InitAsPerspectiveCamera(const HD_Vector2ui& aResolution, float aVerticalFoV, float aNear, float aFar);
-	void InitAsOrthographicCamera(float aLeft, float aRight, float aTop, float aBottom, float aNear, float aFar);
+	void InitAsPerspectiveCamera(const HD_Vector2u& aResolution, f32 aVerticalFoV, f32 aNear, f32 aFar);
+	void InitAsOrthographicCamera(f32 aLeft, f32 aRight, f32 aTop, f32 aBottom, f32 aNear, f32 aFar);
 
 	void Update();
 
-	void SetResolution(const HD_Vector2ui& aResolution);
-	void SetVerticalFoV(float aVerticalFoV);
+	void SetResolution(const HD_Vector2u& aResolution);
+	void SetVerticalFoV(f32 aVerticalFoV);
 
-	void SetPerspectiveProjection(const HD_Vector2ui& aResolution, float aVerticalFoV, float aNear, float aFar);
-	void SetOrthographicProjection(float aLeft, float aRight, float aTop, float aBottom, float aNear, float aFar);
+	void SetPerspectiveProjection(const HD_Vector2u& aResolution, f32 aVerticalFoV, f32 aNear, f32 aFar);
+	void SetOrthographicProjection(f32 aLeft, f32 aRight, f32 aTop, f32 aBottom, f32 aNear, f32 aFar);
 
 	void SetPosition(const HD_Vector3f& aPosition);
-	void SetHeading(float aHeading);
-	void SetPitch(float aPitch);
-	void SetBank(float aBank);
+	void SetHeading(f32 aHeading);
+	void SetPitch(f32 aPitch);
+	void SetBank(f32 aBank);
 
 	HD_Vector3f GetPosition() const;
 	HD_Vector3f GetRotationInHPB() const;
@@ -45,18 +46,18 @@ private:
 	bool myIsProjectionDirty;
 
 	// Perspective variables
-	HD_Vector2ui myResolution;
-	float myVerticalFoV;
+	HD_Vector2u myResolution;
+	f32 myVerticalFoV;
 
 	// Orthographic variables
-	float myLeft;
-	float myRight;
-	float myTop;
-	float myBottom;
+	f32 myLeft;
+	f32 myRight;
+	f32 myTop;
+	f32 myBottom;
 
 	// Both perspective and orthographic variables
-	float myNear;
-	float myFar;
+	f32 myNear;
+	f32 myFar;
 
 	bool myIsUsingPerspectiveProjection;
 };

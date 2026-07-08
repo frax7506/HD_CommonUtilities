@@ -1,6 +1,8 @@
 #pragma once
 
+#include "HD_Types.h"
+
 namespace HD_Random
 {
-	float GetRandomFloat(float aMin, float aMax);
+	f32 GetRandomFloat(f32 aMin, f32 aMax);
 }

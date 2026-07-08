@@ -32,32 +32,32 @@ namespace HD_CommonUtilities
 		{
 			HD_StaticString<8> string("haha");
 			Assert::IsTrue(string == "haha");
-			Assert::AreEqual(string.GetLength(), 4);
-			Assert::AreEqual(string.GetCapacity(), 8);
+			Assert::AreEqual(string.GetLength(), 4u);
+			Assert::AreEqual(string.GetCapacity(), 8u);
 		}
 
 		TEST_METHOD(Constructor_CString_Wide)
 		{
 			HD_StaticWString<8> string(L"haha");
 			Assert::IsTrue(string == L"haha");
-			Assert::AreEqual(string.GetLength(), 4);
-			Assert::AreEqual(string.GetCapacity(), 8);
+			Assert::AreEqual(string.GetLength(), 4u);
+			Assert::AreEqual(string.GetCapacity(), 8u);
 		}
 
 		TEST_METHOD(Constructor_CString_NonWide_Empty)
 		{
 			HD_StaticString<8> string("");
 			Assert::IsTrue(string == "");
-			Assert::AreEqual(string.GetLength(), 0);
-			Assert::AreEqual(string.GetCapacity(), 8);
+			Assert::AreEqual(string.GetLength(), 0u);
+			Assert::AreEqual(string.GetCapacity(), 8u);
 		}
 
 		TEST_METHOD(Constructor_CString_Wide_Empty)
 		{
 			HD_StaticWString<8> string(L"");
 			Assert::IsTrue(string == L"");
-			Assert::AreEqual(string.GetLength(), 0);
-			Assert::AreEqual(string.GetCapacity(), 8);
+			Assert::AreEqual(string.GetLength(), 0u);
+			Assert::AreEqual(string.GetCapacity(), 8u);
 		}
 
 		TEST_METHOD(Consturctor_Copy_NonWide)
@@ -66,8 +66,8 @@ namespace HD_CommonUtilities
 			HD_StaticString<8> string2(string1);
 
 			Assert::IsTrue(string2 == "haha");
-			Assert::AreEqual(string2.GetLength(), 4);
-			Assert::AreEqual(string2.GetCapacity(), 8);
+			Assert::AreEqual(string2.GetLength(), 4u);
+			Assert::AreEqual(string2.GetCapacity(), 8u);
 		}
 
 		TEST_METHOD(Consturctor_Copy_Wide)
@@ -76,8 +76,8 @@ namespace HD_CommonUtilities
 			HD_StaticWString<8> string2(string1);
 
 			Assert::IsTrue(string2 == L"haha");
-			Assert::AreEqual(string2.GetLength(), 4);
-			Assert::AreEqual(string2.GetCapacity(), 8);
+			Assert::AreEqual(string2.GetLength(), 4u);
+			Assert::AreEqual(string2.GetCapacity(), 8u);
 		}
 
 		TEST_METHOD(Consturctor_Copy_NonWide_Empty)
@@ -86,8 +86,8 @@ namespace HD_CommonUtilities
 			HD_StaticString<8> string2(string1);
 
 			Assert::IsTrue(string2 == "");
-			Assert::AreEqual(string2.GetLength(), 0);
-			Assert::AreEqual(string2.GetCapacity(), 8);
+			Assert::AreEqual(string2.GetLength(), 0u);
+			Assert::AreEqual(string2.GetCapacity(), 8u);
 		}
 
 		TEST_METHOD(Consturctor_Copy_Wide_Empty)
@@ -96,8 +96,8 @@ namespace HD_CommonUtilities
 			HD_StaticWString<8> string2(string1);
 
 			Assert::IsTrue(string2 == L"");
-			Assert::AreEqual(string2.GetLength(), 0);
-			Assert::AreEqual(string2.GetCapacity(), 8);
+			Assert::AreEqual(string2.GetLength(), 0u);
+			Assert::AreEqual(string2.GetCapacity(), 8u);
 		}
 
 		TEST_METHOD(GetBuffer_NonWide)
@@ -131,13 +131,13 @@ namespace HD_CommonUtilities
 		TEST_METHOD(GetLength_NonWide)
 		{
 			HD_StaticString<8> string("haha");
-			Assert::AreEqual(string.GetLength(), 4);
+			Assert::AreEqual(string.GetLength(), 4u);
 		}
 
 		TEST_METHOD(GetLength_Wide)
 		{
 			HD_StaticWString<8> string(L"haha");
-			Assert::AreEqual(string.GetLength(), 4);
+			Assert::AreEqual(string.GetLength(), 4u);
 		}
 
 		TEST_METHOD(GetCharAt_NonWide)
@@ -170,14 +170,14 @@ namespace HD_CommonUtilities
 			string.Append("haha");
 
 			Assert::IsTrue(string == "haha");
-			Assert::AreEqual(string.GetLength(), 4);
-			Assert::AreEqual(string.GetCapacity(), 8);
+			Assert::AreEqual(string.GetLength(), 4u);
+			Assert::AreEqual(string.GetCapacity(), 8u);
 
 			string.Append("ha");
 
 			Assert::IsTrue(string == "hahaha");
-			Assert::AreEqual(string.GetLength(), 6);
-			Assert::AreEqual(string.GetCapacity(), 8);
+			Assert::AreEqual(string.GetLength(), 6u);
+			Assert::AreEqual(string.GetCapacity(), 8u);
 		}
 
 		TEST_METHOD(Append_CString_Wide)
@@ -188,42 +188,42 @@ namespace HD_CommonUtilities
 			string.Append(L"haha");
 
 			Assert::IsTrue(string == L"haha");
-			Assert::AreEqual(string.GetLength(), 4);
-			Assert::AreEqual(string.GetCapacity(), 8);
+			Assert::AreEqual(string.GetLength(), 4u);
+			Assert::AreEqual(string.GetCapacity(), 8u);
 
 			string.Append(L"ha");
 
 			Assert::IsTrue(string == L"hahaha");
-			Assert::AreEqual(string.GetLength(), 6);
-			Assert::AreEqual(string.GetCapacity(), 8);
+			Assert::AreEqual(string.GetLength(), 6u);
+			Assert::AreEqual(string.GetCapacity(), 8u);
 		}
 
 		TEST_METHOD(Append_CString_NonWide_Empty)
 		{
 			HD_StaticString<8> string("haha");
 			Assert::IsTrue(string == "haha");
-			Assert::AreEqual(string.GetLength(), 4);
-			Assert::AreEqual(string.GetCapacity(), 8);
+			Assert::AreEqual(string.GetLength(), 4u);
+			Assert::AreEqual(string.GetCapacity(), 8u);
 
 			string.Append("");
 
 			Assert::IsTrue(string == "haha");
-			Assert::AreEqual(string.GetLength(), 4);
-			Assert::AreEqual(string.GetCapacity(), 8);
+			Assert::AreEqual(string.GetLength(), 4u);
+			Assert::AreEqual(string.GetCapacity(), 8u);
 		}
 
 		TEST_METHOD(Append_CString_Wide_Empty)
 		{
 			HD_StaticWString<8> string(L"haha");
 			Assert::IsTrue(string == L"haha");
-			Assert::AreEqual(string.GetLength(), 4);
-			Assert::AreEqual(string.GetCapacity(), 8);
+			Assert::AreEqual(string.GetLength(), 4u);
+			Assert::AreEqual(string.GetCapacity(), 8u);
 
 			string.Append(L"");
 
 			Assert::IsTrue(string == L"haha");
-			Assert::AreEqual(string.GetLength(), 4);
-			Assert::AreEqual(string.GetCapacity(), 8);
+			Assert::AreEqual(string.GetLength(), 4u);
+			Assert::AreEqual(string.GetCapacity(), 8u);
 		}
 
 		TEST_METHOD(Append_HD_StaticString_NonWide)
@@ -235,15 +235,15 @@ namespace HD_CommonUtilities
 			string.Append(string1);
 
 			Assert::IsTrue(string == "haha");
-			Assert::AreEqual(string.GetLength(), 4);
-			Assert::AreEqual(string.GetCapacity(), 8);
+			Assert::AreEqual(string.GetLength(), 4u);
+			Assert::AreEqual(string.GetCapacity(), 8u);
 
 			HD_StaticString<8> string2("ha");
 			string.Append(string2);
 
 			Assert::IsTrue(string == "hahaha");
-			Assert::AreEqual(string.GetLength(), 6);
-			Assert::AreEqual(string.GetCapacity(), 8);
+			Assert::AreEqual(string.GetLength(), 6u);
+			Assert::AreEqual(string.GetCapacity(), 8u);
 		}
 
 		TEST_METHOD(Append_HD_StaticString_Wide)
@@ -255,45 +255,45 @@ namespace HD_CommonUtilities
 			string.Append(string1);
 
 			Assert::IsTrue(string == L"haha");
-			Assert::AreEqual(string.GetLength(), 4);
-			Assert::AreEqual(string.GetCapacity(), 8);
+			Assert::AreEqual(string.GetLength(), 4u);
+			Assert::AreEqual(string.GetCapacity(), 8u);
 
 			HD_StaticWString<8> string2(L"ha");
 			string.Append(string2);
 
 			Assert::IsTrue(string == L"hahaha");
-			Assert::AreEqual(string.GetLength(), 6);
-			Assert::AreEqual(string.GetCapacity(), 8);
+			Assert::AreEqual(string.GetLength(), 6u);
+			Assert::AreEqual(string.GetCapacity(), 8u);
 		}
 
 		TEST_METHOD(Append_HD_StaticString_NonWide_Empty)
 		{
 			HD_StaticString<8> string("haha");
 			Assert::IsTrue(string == "haha");
-			Assert::AreEqual(string.GetLength(), 4);
-			Assert::AreEqual(string.GetCapacity(), 8);
+			Assert::AreEqual(string.GetLength(), 4u);
+			Assert::AreEqual(string.GetCapacity(), 8u);
 
 			HD_StaticString<8> emptyString;
 			string.Append(emptyString);
 
 			Assert::IsTrue(string == "haha");
-			Assert::AreEqual(string.GetLength(), 4);
-			Assert::AreEqual(string.GetCapacity(), 8);
+			Assert::AreEqual(string.GetLength(), 4u);
+			Assert::AreEqual(string.GetCapacity(), 8u);
 		}
 
 		TEST_METHOD(Append_HD_StaticString_Wide_Empty)
 		{
 			HD_StaticWString<8> string(L"haha");
 			Assert::IsTrue(string == L"haha");
-			Assert::AreEqual(string.GetLength(), 4);
-			Assert::AreEqual(string.GetCapacity(), 8);
+			Assert::AreEqual(string.GetLength(), 4u);
+			Assert::AreEqual(string.GetCapacity(), 8u);
 
 			HD_StaticWString<8> emptyString;
 			string.Append(emptyString);
 
 			Assert::IsTrue(string == L"haha");
-			Assert::AreEqual(string.GetLength(), 4);
-			Assert::AreEqual(string.GetCapacity(), 8);
+			Assert::AreEqual(string.GetLength(), 4u);
+			Assert::AreEqual(string.GetCapacity(), 8u);
 		}
 
 		TEST_METHOD(Clear_NonWide)
@@ -302,8 +302,8 @@ namespace HD_CommonUtilities
 			string.Clear();
 
 			Assert::IsTrue(string == "");
-			Assert::AreEqual(string.GetLength(), 0);
-			Assert::AreEqual(string.GetCapacity(), 8);
+			Assert::AreEqual(string.GetLength(), 0u);
+			Assert::AreEqual(string.GetCapacity(), 8u);
 		}
 
 		TEST_METHOD(Clear_Wide)
@@ -312,8 +312,8 @@ namespace HD_CommonUtilities
 			string.Clear();
 
 			Assert::IsTrue(string == L"");
-			Assert::AreEqual(string.GetLength(), 0);
-			Assert::AreEqual(string.GetCapacity(), 8);
+			Assert::AreEqual(string.GetLength(), 0u);
+			Assert::AreEqual(string.GetCapacity(), 8u);
 		}
 
 		TEST_METHOD(Operator_Assignment_CString_NonWide)
@@ -322,8 +322,8 @@ namespace HD_CommonUtilities
 			string = "haha";
 
 			Assert::IsTrue(string == "haha");
-			Assert::AreEqual(string.GetLength(), 4);
-			Assert::AreEqual(string.GetCapacity(), 8);
+			Assert::AreEqual(string.GetLength(), 4u);
+			Assert::AreEqual(string.GetCapacity(), 8u);
 		}
 
 		TEST_METHOD(Operator_Assignment_CString_Wide)
@@ -332,8 +332,8 @@ namespace HD_CommonUtilities
 			string = L"haha";
 
 			Assert::IsTrue(string == L"haha");
-			Assert::AreEqual(string.GetLength(), 4);
-			Assert::AreEqual(string.GetCapacity(), 8);
+			Assert::AreEqual(string.GetLength(), 4u);
+			Assert::AreEqual(string.GetCapacity(), 8u);
 		}
 
 		TEST_METHOD(Operator_Assignment_CString_NonWide_Empty)
@@ -342,8 +342,8 @@ namespace HD_CommonUtilities
 			string = "";
 
 			Assert::IsTrue(string == "");
-			Assert::AreEqual(string.GetLength(), 0);
-			Assert::AreEqual(string.GetCapacity(), 8);
+			Assert::AreEqual(string.GetLength(), 0u);
+			Assert::AreEqual(string.GetCapacity(), 8u);
 		}
 
 		TEST_METHOD(Operator_Assignment_CString_Wide_Empty)
@@ -352,8 +352,8 @@ namespace HD_CommonUtilities
 			string = L"";
 
 			Assert::IsTrue(string == L"");
-			Assert::AreEqual(string.GetLength(), 0);
-			Assert::AreEqual(string.GetCapacity(), 8);
+			Assert::AreEqual(string.GetLength(), 0u);
+			Assert::AreEqual(string.GetCapacity(), 8u);
 		}
 
 		TEST_METHOD(Operator_Assignment_HD_StaticString_NonWide)
@@ -364,8 +364,8 @@ namespace HD_CommonUtilities
 			string2 = string1;
 
 			Assert::IsTrue(string2 == "haha");
-			Assert::AreEqual(string2.GetLength(), 4);
-			Assert::AreEqual(string2.GetCapacity(), 8);
+			Assert::AreEqual(string2.GetLength(), 4u);
+			Assert::AreEqual(string2.GetCapacity(), 8u);
 		}
 
 		TEST_METHOD(Operator_Assignment_HD_StaticString_Wide)
@@ -376,8 +376,8 @@ namespace HD_CommonUtilities
 			string2 = string1;
 
 			Assert::IsTrue(string2 == L"haha");
-			Assert::AreEqual(string2.GetLength(), 4);
-			Assert::AreEqual(string2.GetCapacity(), 8);
+			Assert::AreEqual(string2.GetLength(), 4u);
+			Assert::AreEqual(string2.GetCapacity(), 8u);
 		}
 
 		TEST_METHOD(Operator_Assignment_HD_StaticString_NonWide_Empty)
@@ -388,8 +388,8 @@ namespace HD_CommonUtilities
 			string2 = string1;
 
 			Assert::IsTrue(string2 == "");
-			Assert::AreEqual(string2.GetLength(), 0);
-			Assert::AreEqual(string2.GetCapacity(), 8);
+			Assert::AreEqual(string2.GetLength(), 0u);
+			Assert::AreEqual(string2.GetCapacity(), 8u);
 		}
 
 		TEST_METHOD(Operator_Assignment_HD_StaticString_Wide_Empty)
@@ -400,8 +400,8 @@ namespace HD_CommonUtilities
 			string2 = string1;
 
 			Assert::IsTrue(string2 == L"");
-			Assert::AreEqual(string2.GetLength(), 0);
-			Assert::AreEqual(string2.GetCapacity(), 8);
+			Assert::AreEqual(string2.GetLength(), 0u);
+			Assert::AreEqual(string2.GetCapacity(), 8u);
 		}
 
 		TEST_METHOD(Operator_Addition_NonWide)
@@ -413,24 +413,24 @@ namespace HD_CommonUtilities
 				HD_StaticString<16> string3 = string1 + string2;
 
 				Assert::IsTrue(string3 == "hahahehe");
-				Assert::AreEqual(string3.GetLength(), 8);
-				Assert::AreEqual(string3.GetCapacity(), 16);
+				Assert::AreEqual(string3.GetLength(), 8u);
+				Assert::AreEqual(string3.GetCapacity(), 16u);
 			}
 
 			{
 				HD_StaticString<16> string3 = string1 + " ";
 
 				Assert::IsTrue(string3 == "haha ");
-				Assert::AreEqual(string3.GetLength(), 5);
-				Assert::AreEqual(string3.GetCapacity(), 16);
+				Assert::AreEqual(string3.GetLength(), 5u);
+				Assert::AreEqual(string3.GetCapacity(), 16u);
 			}
 
 			{
 				HD_StaticString<16> string3 = " " + string1;
 
 				Assert::IsTrue(string3 == " haha");
-				Assert::AreEqual(string3.GetLength(), 5);
-				Assert::AreEqual(string3.GetCapacity(), 16);
+				Assert::AreEqual(string3.GetLength(), 5u);
+				Assert::AreEqual(string3.GetCapacity(), 16u);
 			}
 		}
 
@@ -443,24 +443,24 @@ namespace HD_CommonUtilities
 				HD_StaticWString<16> string3 = string1 + string2;
 
 				Assert::IsTrue(string3 == L"hahahehe");
-				Assert::AreEqual(string3.GetLength(), 8);
-				Assert::AreEqual(string3.GetCapacity(), 16);
+				Assert::AreEqual(string3.GetLength(), 8u);
+				Assert::AreEqual(string3.GetCapacity(), 16u);
 			}
 
 			{
 				HD_StaticWString<16> string3 = string1 + L" ";
 
 				Assert::IsTrue(string3 == L"haha ");
-				Assert::AreEqual(string3.GetLength(), 5);
-				Assert::AreEqual(string3.GetCapacity(), 16);
+				Assert::AreEqual(string3.GetLength(), 5u);
+				Assert::AreEqual(string3.GetCapacity(), 16u);
 			}
 
 			{
 				HD_StaticWString<16> string3 = L" " + string1;
 
 				Assert::IsTrue(string3 == L" haha");
-				Assert::AreEqual(string3.GetLength(), 5);
-				Assert::AreEqual(string3.GetCapacity(), 16);
+				Assert::AreEqual(string3.GetLength(), 5u);
+				Assert::AreEqual(string3.GetCapacity(), 16u);
 			}
 		}
 

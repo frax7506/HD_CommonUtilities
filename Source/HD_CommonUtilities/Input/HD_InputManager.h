@@ -14,9 +14,9 @@ public:
 	void Update();
 	bool UpdateEvents(UINT message, WPARAM wParam, LPARAM lParam);
 
-	bool GetIsKeyHeld(int aKeyCode) const;
-	bool GetIsKeyPressed(int aKeyCode) const;
-	bool GetIsKeyReleased(int aKeyCode) const;
+	bool GetIsKeyHeld(s32 aKeyCode) const;
+	bool GetIsKeyPressed(s32 aKeyCode) const;
+	bool GetIsKeyReleased(s32 aKeyCode) const;
 
 	HD_Vector2f GetMouseDelta() const;
 	HD_Vector2f GetMousePosition() const;
@@ -39,13 +39,13 @@ private:
 
 	HWND myOwnerHWND;
 
-	HD_Vector2i myTentativeMousePosition;
-	HD_Vector2i myCurrentMousePosition;
-	HD_Vector2i myPreviousMousePosition;
+	HD_Vector2s myTentativeMousePosition;
+	HD_Vector2s myCurrentMousePosition;
+	HD_Vector2s myPreviousMousePosition;
 
-	HD_Vector2i myTentativeMouseDelta;
-	HD_Vector2i myMouseDelta;
+	HD_Vector2s myTentativeMouseDelta;
+	HD_Vector2s myMouseDelta;
 
-	float myTentativeMouseWheelDelta;
-	float myMouseWheelDelta;
+	f32 myTentativeMouseWheelDelta;
+	f32 myMouseWheelDelta;
 };

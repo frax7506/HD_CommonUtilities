@@ -3,6 +3,7 @@
 #include "HD_Format.h"
 #include "HD_GrowingArray.h"
 #include "HD_Singleton.h"
+#include "HD_Types.h"
 
 #include <condition_variable>
 #include <mutex>
@@ -16,7 +17,7 @@
 #define LOG_WARNING_F(...) HD_Logger::GetInstance().Log(HD_Format(__VA_ARGS__).GetBuffer(), eLogLevel_Warning);
 #define LOG_ERROR_F(...) HD_Logger::GetInstance().Log(HD_Format(__VA_ARGS__).GetBuffer(), eLogLevel_Error);
 
-enum eLogLevel : char
+enum eLogLevel : u8
 {
 	eLogLevel_Invalid,
 	eLogLevel_Log,
@@ -43,7 +44,7 @@ public:
 	bool GetIsWide() const;
 
 private:
-	enum eStringMode : char
+	enum eStringMode : u8
 	{
 		eStringMode_Invalid,
 		eStringMode_NonWide,

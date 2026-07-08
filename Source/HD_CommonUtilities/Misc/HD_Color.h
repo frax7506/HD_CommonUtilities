@@ -1,11 +1,13 @@
 #pragma once
 
+#include "HD_Types.h"
+
 struct HD_Color
 {
-	float myR = 0.f;
-	float myG = 0.f;
-	float myB = 0.f;
-	float myA = 0.f;
+	f32 myR = 0.f;
+	f32 myG = 0.f;
+	f32 myB = 0.f;
+	f32 myA = 0.f;
 
 	static const HD_Color Black;
 	static const HD_Color White;

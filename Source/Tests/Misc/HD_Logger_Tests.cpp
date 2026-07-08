@@ -18,7 +18,7 @@ namespace HD_CommonUtilities
 		{
 			HD_LogMessage message;
 			Assert::IsNull(message.myData);
-			Assert::AreEqual(static_cast<char>(message.myMode), static_cast<char>(HD_LogMessage::eStringMode_Invalid));
+			Assert::AreEqual(static_cast<u8>(message.myMode), static_cast<u8>(HD_LogMessage::eStringMode_Invalid));
 		}
 
 		TEST_METHOD(Constructor_Copy_NonWide)
@@ -28,7 +28,7 @@ namespace HD_CommonUtilities
 
 			Assert::IsNotNull(message2.myData);
 			Assert::AreEqual(HD_Strcmp(message2.myData, "haha"), 0);
-			Assert::AreEqual(static_cast<char>(message2.myMode), static_cast<char>(HD_LogMessage::eStringMode_NonWide));
+			Assert::AreEqual(static_cast<u8>(message2.myMode), static_cast<u8>(HD_LogMessage::eStringMode_NonWide));
 		}
 
 		TEST_METHOD(Constructor_Copy_Wide)
@@ -38,7 +38,7 @@ namespace HD_CommonUtilities
 
 			Assert::IsNotNull(message2.myData);
 			Assert::AreEqual(HD_Strcmp(reinterpret_cast<wchar_t*>(message2.myData), L"haha"), 0);
-			Assert::AreEqual(static_cast<char>(message2.myMode), static_cast<char>(HD_LogMessage::eStringMode_Wide));
+			Assert::AreEqual(static_cast<u8>(message2.myMode), static_cast<u8>(HD_LogMessage::eStringMode_Wide));
 		}
 
 		TEST_METHOD(Constructor_Move_NonWide)
@@ -47,11 +47,11 @@ namespace HD_CommonUtilities
 			HD_LogMessage message2(HD_Move(message1));
 
 			Assert::IsNull(message1.myData);
-			Assert::AreEqual(static_cast<char>(message1.myMode), static_cast<char>(HD_LogMessage::eStringMode_Invalid));
+			Assert::AreEqual(static_cast<u8>(message1.myMode), static_cast<u8>(HD_LogMessage::eStringMode_Invalid));
 
 			Assert::IsNotNull(message2.myData);
 			Assert::AreEqual(HD_Strcmp(message2.myData, "haha"), 0);
-			Assert::AreEqual(static_cast<char>(message2.myMode), static_cast<char>(HD_LogMessage::eStringMode_NonWide));
+			Assert::AreEqual(static_cast<u8>(message2.myMode), static_cast<u8>(HD_LogMessage::eStringMode_NonWide));
 		}
 
 		TEST_METHOD(Constructor_Move_Wide)
@@ -60,11 +60,11 @@ namespace HD_CommonUtilities
 			HD_LogMessage message2(HD_Move(message1));
 
 			Assert::IsNull(message1.myData);
-			Assert::AreEqual(static_cast<char>(message1.myMode), static_cast<char>(HD_LogMessage::eStringMode_Invalid));
+			Assert::AreEqual(static_cast<u8>(message1.myMode), static_cast<u8>(HD_LogMessage::eStringMode_Invalid));
 
 			Assert::IsNotNull(message2.myData);
 			Assert::AreEqual(HD_Strcmp(reinterpret_cast<wchar_t*>(message2.myData), L"haha"), 0);
-			Assert::AreEqual(static_cast<char>(message2.myMode), static_cast<char>(HD_LogMessage::eStringMode_Wide));
+			Assert::AreEqual(static_cast<u8>(message2.myMode), static_cast<u8>(HD_LogMessage::eStringMode_Wide));
 		}
 
 		TEST_METHOD(Constructor_CString_NonWide)
@@ -73,7 +73,7 @@ namespace HD_CommonUtilities
 
 			Assert::IsNotNull(message.myData);
 			Assert::AreEqual(HD_Strcmp(message.myData, "haha"), 0);
-			Assert::AreEqual(static_cast<char>(message.myMode), static_cast<char>(HD_LogMessage::eStringMode_NonWide));
+			Assert::AreEqual(static_cast<u8>(message.myMode), static_cast<u8>(HD_LogMessage::eStringMode_NonWide));
 		}
 
 		TEST_METHOD(Constructor_CString_Wide)
@@ -82,7 +82,7 @@ namespace HD_CommonUtilities
 
 			Assert::IsNotNull(message.myData);
 			Assert::AreEqual(HD_Strcmp(reinterpret_cast<wchar_t*>(message.myData), L"haha"), 0);
-			Assert::AreEqual(static_cast<char>(message.myMode), static_cast<char>(HD_LogMessage::eStringMode_Wide));
+			Assert::AreEqual(static_cast<u8>(message.myMode), static_cast<u8>(HD_LogMessage::eStringMode_Wide));
 		}
 
 		TEST_METHOD(Destructor_NonWide)
@@ -109,7 +109,7 @@ namespace HD_CommonUtilities
 
 			Assert::IsNotNull(message2.myData);
 			Assert::AreEqual(HD_Strcmp(message2.myData, "haha"), 0);
-			Assert::AreEqual(static_cast<char>(message2.myMode), static_cast<char>(HD_LogMessage::eStringMode_NonWide));
+			Assert::AreEqual(static_cast<u8>(message2.myMode), static_cast<u8>(HD_LogMessage::eStringMode_NonWide));
 		}
 
 		TEST_METHOD(Operator_Assignment_Copy_Wide)
@@ -120,7 +120,7 @@ namespace HD_CommonUtilities
 
 			Assert::IsNotNull(message2.myData);
 			Assert::AreEqual(HD_Strcmp(reinterpret_cast<wchar_t*>(message2.myData), L"haha"), 0);
-			Assert::AreEqual(static_cast<char>(message2.myMode), static_cast<char>(HD_LogMessage::eStringMode_Wide));
+			Assert::AreEqual(static_cast<u8>(message2.myMode), static_cast<u8>(HD_LogMessage::eStringMode_Wide));
 		}
 		TEST_METHOD(Operator_Assignment_Move_NonWide)
 		{
@@ -130,11 +130,11 @@ namespace HD_CommonUtilities
 			message2 = HD_Move(message1);
 
 			Assert::IsNull(message1.myData);
-			Assert::AreEqual(static_cast<char>(message1.myMode), static_cast<char>(HD_LogMessage::eStringMode_Invalid));
+			Assert::AreEqual(static_cast<u8>(message1.myMode), static_cast<u8>(HD_LogMessage::eStringMode_Invalid));
 
 			Assert::IsNotNull(message2.myData);
 			Assert::AreEqual(HD_Strcmp(message2.myData, "haha"), 0);
-			Assert::AreEqual(static_cast<char>(message2.myMode), static_cast<char>(HD_LogMessage::eStringMode_NonWide));
+			Assert::AreEqual(static_cast<u8>(message2.myMode), static_cast<u8>(HD_LogMessage::eStringMode_NonWide));
 		}
 
 		TEST_METHOD(Operator_Assignment_Move_Wide)
@@ -145,11 +145,11 @@ namespace HD_CommonUtilities
 			message2 = HD_Move(message1);
 
 			Assert::IsNull(message1.myData);
-			Assert::AreEqual(static_cast<char>(message1.myMode), static_cast<char>(HD_LogMessage::eStringMode_Invalid));
+			Assert::AreEqual(static_cast<u8>(message1.myMode), static_cast<u8>(HD_LogMessage::eStringMode_Invalid));
 
 			Assert::IsNotNull(message2.myData);
 			Assert::AreEqual(HD_Strcmp(reinterpret_cast<wchar_t*>(message2.myData), L"haha"), 0);
-			Assert::AreEqual(static_cast<char>(message2.myMode), static_cast<char>(HD_LogMessage::eStringMode_Wide));
+			Assert::AreEqual(static_cast<u8>(message2.myMode), static_cast<u8>(HD_LogMessage::eStringMode_Wide));
 		}
 
 		TEST_METHOD(GetBuffer)
@@ -193,7 +193,7 @@ namespace HD_CommonUtilities
 
 			Assert::IsNull(logEntry.myLogMessage.myData);
 			Assert::AreEqual(static_cast<char>(logEntry.myLogMessage.myMode), static_cast<char>(HD_LogMessage::eStringMode_Invalid));
-			Assert::AreEqual(static_cast<char>(logEntry.myLogLevel), static_cast<char>(eLogLevel_Invalid));
+			Assert::AreEqual(static_cast<u8>(logEntry.myLogLevel), static_cast<u8>(eLogLevel_Invalid));
 		}
 
 		TEST_METHOD(Constructor_Copy_NonWide)
@@ -203,8 +203,8 @@ namespace HD_CommonUtilities
 
 			Assert::IsNotNull(logEntry2.myLogMessage.myData);
 			Assert::AreEqual(HD_Strcmp(logEntry2.myLogMessage.myData, "haha"), 0);
-			Assert::AreEqual(static_cast<char>(logEntry2.myLogMessage.myMode), static_cast<char>(HD_LogMessage::eStringMode_NonWide));
-			Assert::AreEqual(static_cast<char>(logEntry2.myLogLevel), static_cast<char>(eLogLevel_Log));
+			Assert::AreEqual(static_cast<u8>(logEntry2.myLogMessage.myMode), static_cast<u8>(HD_LogMessage::eStringMode_NonWide));
+			Assert::AreEqual(static_cast<u8>(logEntry2.myLogLevel), static_cast<u8>(eLogLevel_Log));
 		}
 
 		TEST_METHOD(Constructor_Copy_Wide)
@@ -214,8 +214,8 @@ namespace HD_CommonUtilities
 
 			Assert::IsNotNull(logEntry2.myLogMessage.myData);
 			Assert::AreEqual(HD_Strcmp(reinterpret_cast<wchar_t*>(logEntry2.myLogMessage.myData), L"haha"), 0);
-			Assert::AreEqual(static_cast<char>(logEntry2.myLogMessage.myMode), static_cast<char>(HD_LogMessage::eStringMode_Wide));
-			Assert::AreEqual(static_cast<char>(logEntry2.myLogLevel), static_cast<char>(eLogLevel_Log));
+			Assert::AreEqual(static_cast<u8>(logEntry2.myLogMessage.myMode), static_cast<u8>(HD_LogMessage::eStringMode_Wide));
+			Assert::AreEqual(static_cast<u8>(logEntry2.myLogLevel), static_cast<u8>(eLogLevel_Log));
 		}
 
 		TEST_METHOD(Constructor_Move_NonWide)
@@ -224,13 +224,13 @@ namespace HD_CommonUtilities
 			HD_LogEntry logEntry2(HD_Move(logEntry1));
 
 			Assert::IsNull(logEntry1.myLogMessage.myData);
-			Assert::AreEqual(static_cast<char>(logEntry1.myLogMessage.myMode), static_cast<char>(HD_LogMessage::eStringMode_Invalid));
-			Assert::AreEqual(static_cast<char>(logEntry1.myLogLevel), static_cast<char>(eLogLevel_Invalid));
+			Assert::AreEqual(static_cast<u8>(logEntry1.myLogMessage.myMode), static_cast<u8>(HD_LogMessage::eStringMode_Invalid));
+			Assert::AreEqual(static_cast<u8>(logEntry1.myLogLevel), static_cast<u8>(eLogLevel_Invalid));
 
 			Assert::IsNotNull(logEntry2.myLogMessage.myData);
 			Assert::AreEqual(HD_Strcmp(logEntry2.myLogMessage.myData, "haha"), 0);
-			Assert::AreEqual(static_cast<char>(logEntry2.myLogMessage.myMode), static_cast<char>(HD_LogMessage::eStringMode_NonWide));
-			Assert::AreEqual(static_cast<char>(logEntry2.myLogLevel), static_cast<char>(eLogLevel_Log));
+			Assert::AreEqual(static_cast<u8>(logEntry2.myLogMessage.myMode), static_cast<u8>(HD_LogMessage::eStringMode_NonWide));
+			Assert::AreEqual(static_cast<u8>(logEntry2.myLogLevel), static_cast<u8>(eLogLevel_Log));
 		}
 
 		TEST_METHOD(Constructor_Move_Wide)
@@ -239,13 +239,13 @@ namespace HD_CommonUtilities
 			HD_LogEntry logEntry2(HD_Move(logEntry1));
 
 			Assert::IsNull(logEntry1.myLogMessage.myData);
-			Assert::AreEqual(static_cast<char>(logEntry1.myLogMessage.myMode), static_cast<char>(HD_LogMessage::eStringMode_Invalid));
-			Assert::AreEqual(static_cast<char>(logEntry1.myLogLevel), static_cast<char>(eLogLevel_Invalid));
+			Assert::AreEqual(static_cast<u8>(logEntry1.myLogMessage.myMode), static_cast<u8>(HD_LogMessage::eStringMode_Invalid));
+			Assert::AreEqual(static_cast<u8>(logEntry1.myLogLevel), static_cast<u8>(eLogLevel_Invalid));
 
 			Assert::IsNotNull(logEntry2.myLogMessage.myData);
 			Assert::AreEqual(HD_Strcmp(reinterpret_cast<wchar_t*>(logEntry2.myLogMessage.myData), L"haha"), 0);
-			Assert::AreEqual(static_cast<char>(logEntry2.myLogMessage.myMode), static_cast<char>(HD_LogMessage::eStringMode_Wide));
-			Assert::AreEqual(static_cast<char>(logEntry2.myLogLevel), static_cast<char>(eLogLevel_Log));
+			Assert::AreEqual(static_cast<u8>(logEntry2.myLogMessage.myMode), static_cast<u8>(HD_LogMessage::eStringMode_Wide));
+			Assert::AreEqual(static_cast<u8>(logEntry2.myLogLevel), static_cast<u8>(eLogLevel_Log));
 		}
 
 		TEST_METHOD(Constructor_CString_NonWide)
@@ -254,8 +254,8 @@ namespace HD_CommonUtilities
 
 			Assert::IsNotNull(logEntry.myLogMessage.myData);
 			Assert::AreEqual(HD_Strcmp(logEntry.myLogMessage.myData, "haha"), 0);
-			Assert::AreEqual(static_cast<char>(logEntry.myLogMessage.myMode), static_cast<char>(HD_LogMessage::eStringMode_NonWide));
-			Assert::AreEqual(static_cast<char>(logEntry.myLogLevel), static_cast<char>(eLogLevel_Log));
+			Assert::AreEqual(static_cast<u8>(logEntry.myLogMessage.myMode), static_cast<u8>(HD_LogMessage::eStringMode_NonWide));
+			Assert::AreEqual(static_cast<u8>(logEntry.myLogLevel), static_cast<u8>(eLogLevel_Log));
 		}
 
 		TEST_METHOD(Constructor_CString_Wide)
@@ -264,8 +264,8 @@ namespace HD_CommonUtilities
 
 			Assert::IsNotNull(logEntry.myLogMessage.myData);
 			Assert::AreEqual(HD_Strcmp(reinterpret_cast<wchar_t*>(logEntry.myLogMessage.myData), L"haha"), 0);
-			Assert::AreEqual(static_cast<char>(logEntry.myLogMessage.myMode), static_cast<char>(HD_LogMessage::eStringMode_Wide));
-			Assert::AreEqual(static_cast<char>(logEntry.myLogLevel), static_cast<char>(eLogLevel_Log));
+			Assert::AreEqual(static_cast<u8>(logEntry.myLogMessage.myMode), static_cast<u8>(HD_LogMessage::eStringMode_Wide));
+			Assert::AreEqual(static_cast<u8>(logEntry.myLogLevel), static_cast<u8>(eLogLevel_Log));
 		}
 
 		TEST_METHOD(Operator_Assignment_Copy_NonWide)
@@ -276,8 +276,8 @@ namespace HD_CommonUtilities
 
 			Assert::IsNotNull(logEntry2.myLogMessage.myData);
 			Assert::AreEqual(HD_Strcmp(logEntry2.myLogMessage.myData, "haha"), 0);
-			Assert::AreEqual(static_cast<char>(logEntry2.myLogMessage.myMode), static_cast<char>(HD_LogMessage::eStringMode_NonWide));
-			Assert::AreEqual(static_cast<char>(logEntry2.myLogLevel), static_cast<char>(eLogLevel_Log));
+			Assert::AreEqual(static_cast<u8>(logEntry2.myLogMessage.myMode), static_cast<u8>(HD_LogMessage::eStringMode_NonWide));
+			Assert::AreEqual(static_cast<u8>(logEntry2.myLogLevel), static_cast<u8>(eLogLevel_Log));
 		}
 
 		TEST_METHOD(Operator_Assignment_Copy_Wide)
@@ -288,8 +288,8 @@ namespace HD_CommonUtilities
 
 			Assert::IsNotNull(logEntry2.myLogMessage.myData);
 			Assert::AreEqual(HD_Strcmp(reinterpret_cast<wchar_t*>(logEntry2.myLogMessage.myData), L"haha"), 0);
-			Assert::AreEqual(static_cast<char>(logEntry2.myLogMessage.myMode), static_cast<char>(HD_LogMessage::eStringMode_Wide));
-			Assert::AreEqual(static_cast<char>(logEntry2.myLogLevel), static_cast<char>(eLogLevel_Log));
+			Assert::AreEqual(static_cast<u8>(logEntry2.myLogMessage.myMode), static_cast<u8>(HD_LogMessage::eStringMode_Wide));
+			Assert::AreEqual(static_cast<u8>(logEntry2.myLogLevel), static_cast<u8>(eLogLevel_Log));
 		}
 
 		TEST_METHOD(Operator_Assignment_Move_NonWide)
@@ -299,13 +299,13 @@ namespace HD_CommonUtilities
 			logEntry2 = HD_Move(logEntry1);
 
 			Assert::IsNull(logEntry1.myLogMessage.myData);
-			Assert::AreEqual(static_cast<char>(logEntry1.myLogMessage.myMode), static_cast<char>(HD_LogMessage::eStringMode_Invalid));
-			Assert::AreEqual(static_cast<char>(logEntry1.myLogLevel), static_cast<char>(eLogLevel_Invalid));
+			Assert::AreEqual(static_cast<u8>(logEntry1.myLogMessage.myMode), static_cast<u8>(HD_LogMessage::eStringMode_Invalid));
+			Assert::AreEqual(static_cast<u8>(logEntry1.myLogLevel), static_cast<u8>(eLogLevel_Invalid));
 
 			Assert::IsNotNull(logEntry2.myLogMessage.myData);
 			Assert::AreEqual(HD_Strcmp(logEntry2.myLogMessage.myData, "haha"), 0);
-			Assert::AreEqual(static_cast<char>(logEntry2.myLogMessage.myMode), static_cast<char>(HD_LogMessage::eStringMode_NonWide));
-			Assert::AreEqual(static_cast<char>(logEntry2.myLogLevel), static_cast<char>(eLogLevel_Log));
+			Assert::AreEqual(static_cast<u8>(logEntry2.myLogMessage.myMode), static_cast<u8>(HD_LogMessage::eStringMode_NonWide));
+			Assert::AreEqual(static_cast<u8>(logEntry2.myLogLevel), static_cast<u8>(eLogLevel_Log));
 		}
 
 		TEST_METHOD(Operator_Assignment_Move_Wide)
@@ -315,13 +315,13 @@ namespace HD_CommonUtilities
 			logEntry2 = HD_Move(logEntry1);
 
 			Assert::IsNull(logEntry1.myLogMessage.myData);
-			Assert::AreEqual(static_cast<char>(logEntry1.myLogMessage.myMode), static_cast<char>(HD_LogMessage::eStringMode_Invalid));
-			Assert::AreEqual(static_cast<char>(logEntry1.myLogLevel), static_cast<char>(eLogLevel_Invalid));
+			Assert::AreEqual(static_cast<u8>(logEntry1.myLogMessage.myMode), static_cast<u8>(HD_LogMessage::eStringMode_Invalid));
+			Assert::AreEqual(static_cast<u8>(logEntry1.myLogLevel), static_cast<u8>(eLogLevel_Invalid));
 
 			Assert::IsNotNull(logEntry2.myLogMessage.myData);
 			Assert::AreEqual(HD_Strcmp(reinterpret_cast<wchar_t*>(logEntry2.myLogMessage.myData), L"haha"), 0);
-			Assert::AreEqual(static_cast<char>(logEntry2.myLogMessage.myMode), static_cast<char>(HD_LogMessage::eStringMode_Wide));
-			Assert::AreEqual(static_cast<char>(logEntry2.myLogLevel), static_cast<char>(eLogLevel_Log));
+			Assert::AreEqual(static_cast<u8>(logEntry2.myLogMessage.myMode), static_cast<u8>(HD_LogMessage::eStringMode_Wide));
+			Assert::AreEqual(static_cast<u8>(logEntry2.myLogLevel), static_cast<u8>(eLogLevel_Log));
 		}
 	};
 }

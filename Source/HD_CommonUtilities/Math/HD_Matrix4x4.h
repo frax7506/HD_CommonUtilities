@@ -1,5 +1,7 @@
 #pragma once
 
+#include "HD_Types.h"
+
 #include <cassert>
 #include <cstring>
 #include <initializer_list>
@@ -43,8 +45,8 @@ public:
 	void SetPositionZ(T aValue);
 	void SetPosition(const HD_Vector3<T>& aPosition);
 
-	T& operator()(int aRow, int aCol);
-	const T& operator()(int aRow, int aCol) const;
+	T& operator()(u8 aRow, u8 aCol);
+	const T& operator()(u8 aRow, u8 aCol) const;
 
 	HD_Vector3<T> GetRightVector() const;
 	HD_Vector3<T> GetUpVector() const;
@@ -321,14 +323,14 @@ void HD_Matrix4x4<T>::SetPosition(const HD_Vector3<T>& aPosition)
 }
 
 template<typename T>
-T& HD_Matrix4x4<T>::operator()(int aRow, int aCol)
+T& HD_Matrix4x4<T>::operator()(u8 aRow, u8 aCol)
 {
 	assert(1 <= aRow && aRow <= 4 && 1 <= aCol && aCol <= 4);
 	return *(&m11 + ((aRow - 1) * 4) + (aCol - 1));
 }
 
 template<typename T>
-const T& HD_Matrix4x4<T>::operator()(int aRow, int aCol) const
+const T& HD_Matrix4x4<T>::operator()(u8 aRow, u8 aCol) const
 {
 	assert(1 <= aRow && aRow <= 4 && 1 <= aCol && aCol <= 4);
 	return *(&m11 + ((aRow - 1) * 4) + (aCol - 1));
@@ -720,8 +722,8 @@ bool operator!=(const HD_Matrix4x4<T>& aMatrix0, const HD_Matrix4x4<T>& aMatrix1
 	return !(aMatrix0 == aMatrix1);
 }
 
-typedef HD_Matrix4x4<float> HD_Matrix4x4f;
-typedef HD_Matrix4x4<double> HD_Matrix4x4d;
+typedef HD_Matrix4x4<f32> HD_Matrix4x4f;
+typedef HD_Matrix4x4<f64> HD_Matrix4x4d;
 
-template<> const HD_Matrix4x4<float> HD_Matrix4x4<float>::Identity = { 1.f, 0.f, 0.f, 0.f, 0.f, 1.f, 0.f, 0.f, 0.f, 0.f, 1.f, 0.f, 0.f, 0.f, 0.f, 1.f };
-template<> const HD_Matrix4x4<double> HD_Matrix4x4<double>::Identity = { 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0 };
+template<> const HD_Matrix4x4<f32> HD_Matrix4x4<f32>::Identity = { 1.f, 0.f, 0.f, 0.f, 0.f, 1.f, 0.f, 0.f, 0.f, 0.f, 1.f, 0.f, 0.f, 0.f, 0.f, 1.f };
+template<> const HD_Matrix4x4<f64> HD_Matrix4x4<f64>::Identity = { 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0 };

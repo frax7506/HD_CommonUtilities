@@ -1,5 +1,7 @@
 #pragma once
 
+#include "HD_Types.h"
+
 template<typename T>
 class HD_Vector2
 {
@@ -209,13 +211,13 @@ HD_Vector2<T> operator/(const HD_Vector2<T>& aVector, T aScalar)
 	return { aVector.myX / aScalar, aVector.myY / aScalar };
 }
 
-typedef HD_Vector2<float> HD_Vector2f;
-typedef HD_Vector2<double> HD_Vector2d;
-typedef HD_Vector2<int> HD_Vector2i;
-typedef HD_Vector2<unsigned int> HD_Vector2ui;
+typedef HD_Vector2<f32> HD_Vector2f;
+typedef HD_Vector2<f64> HD_Vector2d;
+typedef HD_Vector2<s32> HD_Vector2s;
+typedef HD_Vector2<u32> HD_Vector2u;
 
-template<> const HD_Vector2<float> HD_Vector2<float>::Zero = { 0.f, 0.f };
-template<> const HD_Vector2<float> HD_Vector2<float>::Up = { 0.f, 1.f };
-template<> const HD_Vector2<float> HD_Vector2<float>::Down = { 0.f, -1.f };
-template<> const HD_Vector2<float> HD_Vector2<float>::Left = { -1.f, 0.f };
-template<> const HD_Vector2<float> HD_Vector2<float>::Right = { 1.f, 0.f };
+template<> const HD_Vector2<f32> HD_Vector2<f32>::Zero = { 0.f, 0.f };
+template<> const HD_Vector2<f32> HD_Vector2<f32>::Up = { 0.f, 1.f };
+template<> const HD_Vector2<f32> HD_Vector2<f32>::Down = { 0.f, -1.f };
+template<> const HD_Vector2<f32> HD_Vector2<f32>::Left = { -1.f, 0.f };
+template<> const HD_Vector2<f32> HD_Vector2<f32>::Right = { 1.f, 0.f };
