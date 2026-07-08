@@ -274,7 +274,7 @@ HD_HashMap<K, V>& HD_HashMap<K, V>::operator=(const HD_HashMap& aHashMap)
 		const K& key = it->myFirst;
 		const V& value = it->mySecond;
 
-		int index = GetSlotIndexForKey(key);
+		u32 index = GetSlotIndexForKey(key);
 		InsertKeyValueAtIndex(key, value, index);
 		mySizeIncludingTombstones++;
 	}

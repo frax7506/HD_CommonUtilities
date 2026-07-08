@@ -12,8 +12,8 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 #define DEBUG_ARGC 16
 
 static const char* debugExeCommandLine[DEBUG_ARGC] = { "C/testy",
-	"-aIntName", "4",
-	"-aFloatName", "2.5",
+	"-aS32Name", "4",
+	"-aF32Name", "2.5",
 	"-aBoolName", "1",
 	"-aVector2Name", "0.1", "0.2",
 	"-aVector3Name", "0.1", "0.2", "0.3",
@@ -30,8 +30,8 @@ namespace HD_CommonUtilities
 			HD_ExeArgs exeArgs;
 			exeArgs.Init(DEBUG_ARGC, debugExeCommandLine);
 
-			const HD_String* intValueAsString = exeArgs.myExeArgToValueMap.GetIfExists("aIntName");
-			const HD_String* floatValueAsString = exeArgs.myExeArgToValueMap.GetIfExists("aFloatName");
+			const HD_String* intValueAsString = exeArgs.myExeArgToValueMap.GetIfExists("aS32Name");
+			const HD_String* floatValueAsString = exeArgs.myExeArgToValueMap.GetIfExists("aF32Name");
 			const HD_String* boolValueAsString = exeArgs.myExeArgToValueMap.GetIfExists("aBoolName");
 			const HD_String* vector2ValueAsString = exeArgs.myExeArgToValueMap.GetIfExists("aVector2Name");
 			const HD_String* vector3ValueAsString = exeArgs.myExeArgToValueMap.GetIfExists("aVector3Name");
@@ -57,8 +57,8 @@ namespace HD_CommonUtilities
 			HD_ExeArgs exeArgs;
 			exeArgs.Init(DEBUG_ARGC, debugExeCommandLine);
 
-			Assert::IsTrue(exeArgs.IsPresent("aIntName"));
-			Assert::IsTrue(exeArgs.IsPresent("aFloatName"));
+			Assert::IsTrue(exeArgs.IsPresent("aS32Name"));
+			Assert::IsTrue(exeArgs.IsPresent("aF32Name"));
 			Assert::IsTrue(exeArgs.IsPresent("aBoolName"));
 			Assert::IsTrue(exeArgs.IsPresent("aVector2Name"));
 			Assert::IsTrue(exeArgs.IsPresent("aVector3Name"));
@@ -71,8 +71,8 @@ namespace HD_CommonUtilities
 			HD_ExeArgs exeArgs;
 			exeArgs.Init(DEBUG_ARGC, debugExeCommandLine);
 
-			s32 intValue = exeArgs.GetValueS32("aIntName");
-			f32 floatValue = exeArgs.GetValueF32("aFloatName");
+			s32 intValue = exeArgs.GetValueS32("aS32Name");
+			f32 floatValue = exeArgs.GetValueF32("aF32Name");
 			bool boolValue = exeArgs.GetValueBool("aBoolName");
 			HD_Vector2f vector2Value = exeArgs.GetValueVector2f("aVector2Name");
 			HD_Vector3f vector3Value = exeArgs.GetValueVector3f("aVector3Name");

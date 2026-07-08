@@ -4,5 +4,5 @@
 
 namespace HD_Random
 {
-	f32 GetRandomFloat(f32 aMin, f32 aMax);
+	f32 GetRandomF32(f32 aMin, f32 aMax);
 }

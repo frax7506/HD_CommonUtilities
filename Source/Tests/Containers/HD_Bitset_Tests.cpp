@@ -30,7 +30,7 @@ namespace HD_CommonUtilities
 			Assert::IsTrue(memcmp(&bitset2.myBytes, &bits, 4) == 0);
 		}
 
-		TEST_METHOD(Constructor_Unsigned_Long_Long)
+		TEST_METHOD(Constructor_U64)
 		{
 			s32 bits = 0x01010101;
 			HD_Bitset<32> bitset(bits);

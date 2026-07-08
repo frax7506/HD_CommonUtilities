@@ -8,7 +8,7 @@ namespace HD_Random
 	static std::mt19937 rndEngine(rndSeed());
 	static std::uniform_real_distribution<f32> rndDist(std::uniform_real_distribution<f32>(0.f, 1.f));
 
-	f32 GetRandomFloat(f32 aMin, f32 aMax)
+	f32 GetRandomF32(f32 aMin, f32 aMax)
 	{
 		return rndDist(rndEngine) * (aMax - aMin) + aMin;
 	}
