@@ -211,10 +211,10 @@ HD_Vector2<T> operator/(const HD_Vector2<T>& aVector, T aScalar)
 	return { aVector.myX / aScalar, aVector.myY / aScalar };
 }
 
-typedef HD_Vector2<f32> HD_Vector2f;
-typedef HD_Vector2<f64> HD_Vector2d;
-typedef HD_Vector2<s32> HD_Vector2s;
-typedef HD_Vector2<u32> HD_Vector2u;
+typedef HD_Vector2<f32> HD_Vector2_f32;
+typedef HD_Vector2<f64> HD_Vector2_f64;
+typedef HD_Vector2<s32> HD_Vector2_s32;
+typedef HD_Vector2<u32> HD_Vector2_u32;
 
 template<> const HD_Vector2<f32> HD_Vector2<f32>::Zero = { 0.f, 0.f };
 template<> const HD_Vector2<f32> HD_Vector2<f32>::Up = { 0.f, 1.f };

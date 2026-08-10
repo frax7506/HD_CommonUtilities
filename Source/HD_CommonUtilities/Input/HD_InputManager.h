@@ -18,8 +18,8 @@ public:
 	bool GetIsKeyPressed(s32 aKeyCode) const;
 	bool GetIsKeyReleased(s32 aKeyCode) const;
 
-	HD_Vector2f GetMouseDelta() const;
-	HD_Vector2f GetMousePosition() const;
+	HD_Vector2_f32 GetMouseDelta() const;
+	HD_Vector2_f32 GetMousePosition() const;
 
 	void ShowMouse() const;
 	void HideMouse() const;
@@ -39,12 +39,12 @@ private:
 
 	HWND myOwnerHWND;
 
-	HD_Vector2s myTentativeMousePosition;
-	HD_Vector2s myCurrentMousePosition;
-	HD_Vector2s myPreviousMousePosition;
+	HD_Vector2_s32 myTentativeMousePosition;
+	HD_Vector2_s32 myCurrentMousePosition;
+	HD_Vector2_s32 myPreviousMousePosition;
 
-	HD_Vector2s myTentativeMouseDelta;
-	HD_Vector2s myMouseDelta;
+	HD_Vector2_s32 myTentativeMouseDelta;
+	HD_Vector2_s32 myMouseDelta;
 
 	f32 myTentativeMouseWheelDelta;
 	f32 myMouseWheelDelta;

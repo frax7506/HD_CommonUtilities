@@ -15,7 +15,7 @@ HD_Camera::HD_Camera()
 {
 }
 
-void HD_Camera::InitAsPerspectiveCamera(const HD_Vector2u& aResolution, f32 aVerticalFoV, f32 aNear, f32 aFar)
+void HD_Camera::InitAsPerspectiveCamera(const HD_Vector2_u32& aResolution, f32 aVerticalFoV, f32 aNear, f32 aFar)
 {
 	SetPerspectiveProjection(aResolution, aVerticalFoV, aNear, aFar);
 }
@@ -34,7 +34,7 @@ void HD_Camera::Update()
 	}
 }
 
-void HD_Camera::SetResolution(const HD_Vector2u& aResolution)
+void HD_Camera::SetResolution(const HD_Vector2_u32& aResolution)
 {
 	assert(myIsUsingPerspectiveProjection && "Setting the resolution on an orthographic camera has no effect.");
 
@@ -50,7 +50,7 @@ void HD_Camera::SetVerticalFoV(f32 aVerticalFoV)
 	myIsProjectionDirty = true;
 }
 
-void HD_Camera::SetPerspectiveProjection(const HD_Vector2u& aResolution, f32 aVerticalFoV, f32 aNear, f32 aFar)
+void HD_Camera::SetPerspectiveProjection(const HD_Vector2_u32& aResolution, f32 aVerticalFoV, f32 aNear, f32 aFar)
 {
 	assert(0.f < aNear && aNear < aFar);
 
@@ -79,7 +79,7 @@ void HD_Camera::SetOrthographicProjection(f32 aLeft, f32 aRight, f32 aTop, f32 a
 	myIsProjectionDirty = true;
 }
 
-void HD_Camera::SetPosition(const HD_Vector3f& aPosition)
+void HD_Camera::SetPosition(const HD_Vector3_f32& aPosition)
 {
 	myTransform.SetPosition(aPosition);
 }
@@ -99,69 +99,69 @@ void HD_Camera::SetBank(f32 aBank)
 	myTransform.SetRotationAroundZ(aBank);
 }
 
-HD_Vector3f HD_Camera::GetPosition() const
+HD_Vector3_f32 HD_Camera::GetPosition() const
 {
 	return myTransform.GetPosition();
 }
 
-HD_Vector3f HD_Camera::GetRotationInHPB() const
+HD_Vector3_f32 HD_Camera::GetRotationInHPB() const
 {
 	return myTransform.GetRotationInHPB();
 }
 
-HD_Vector3f HD_Camera::GetRight() const
+HD_Vector3_f32 HD_Camera::GetRight() const
 {
 	return myTransform.GetRightVector();
 }
 
-HD_Vector3f HD_Camera::GetUp() const
+HD_Vector3_f32 HD_Camera::GetUp() const
 {
 	return myTransform.GetUpVector();
 }
 
-HD_Vector3f HD_Camera::GetForward() const
+HD_Vector3_f32 HD_Camera::GetForward() const
 {
 	return myTransform.GetForwardVector();
 }
 
-const HD_Matrix4x4f& HD_Camera::GetTransform() const
+const HD_Matrix4x4_f32& HD_Camera::GetTransform() const
 {
 	return myTransform;
 }
 
-const HD_Matrix4x4f& HD_Camera::GetProjection() const
+const HD_Matrix4x4_f32& HD_Camera::GetProjection() const
 {
 	return myProjection;
 }
 
-HD_Vector4f HD_Camera::WorldSpaceToClipSpace(const HD_Vector4f& aPointInWorldSpace) const
+HD_Vector4_f32 HD_Camera::WorldSpaceToClipSpace(const HD_Vector4_f32& aPointInWorldSpace) const
 {
-	HD_Vector4f viewSpace = aPointInWorldSpace * myTransform.GetFastInverse();
-	HD_Vector4f clipSpace = viewSpace * myProjection;
+	HD_Vector4_f32 viewSpace = aPointInWorldSpace * myTransform.GetFastInverse();
+	HD_Vector4_f32 clipSpace = viewSpace * myProjection;
 	return clipSpace;
 }
 
-HD_Vector3f HD_Camera::ClipSpaceToPerspectiveDivide(const HD_Vector4f& aPointInClipSpace) const
+HD_Vector3_f32 HD_Camera::ClipSpaceToPerspectiveDivide(const HD_Vector4_f32& aPointInClipSpace) const
 {
-	HD_Vector3f pointInClipSpaceXYZ(aPointInClipSpace.myX, aPointInClipSpace.myY, aPointInClipSpace.myZ);
-	HD_Vector3f postPerspectiveDivide = pointInClipSpaceXYZ / aPointInClipSpace.myW;
+	HD_Vector3_f32 pointInClipSpaceXYZ(aPointInClipSpace.myX, aPointInClipSpace.myY, aPointInClipSpace.myZ);
+	HD_Vector3_f32 postPerspectiveDivide = pointInClipSpaceXYZ / aPointInClipSpace.myW;
 
 	return postPerspectiveDivide;
 }
 
-HD_Vector3f HD_Camera::PerspectiveDivideToScreenSpace(const HD_Vector3f& aPointPostPerspectiveDivide) const
+HD_Vector3_f32 HD_Camera::PerspectiveDivideToScreenSpace(const HD_Vector3_f32& aPointPostPerspectiveDivide) const
 {
 	f32 aspectRatio = static_cast<f32>(myResolution.myX) / static_cast<f32>(myResolution.myY);
 	f32 screenSpaceX = HD_Remap(aPointPostPerspectiveDivide.myX, -1.f, 1.f, 0.f, aspectRatio);
 	f32 screenSpaceY = HD_Remap(aPointPostPerspectiveDivide.myY, -1.f, 1.f, 0.f, 1.f);
 
-	HD_Vector3f screenSpace(screenSpaceX, screenSpaceY, aPointPostPerspectiveDivide.myZ);
+	HD_Vector3_f32 screenSpace(screenSpaceX, screenSpaceY, aPointPostPerspectiveDivide.myZ);
 	return screenSpace;
 }
 
 void HD_Camera::CalculateProjection()
 {
-	myProjection = HD_Matrix4x4f::Identity;
+	myProjection = HD_Matrix4x4_f32::Identity;
 
 	if (myIsUsingPerspectiveProjection)
 	{

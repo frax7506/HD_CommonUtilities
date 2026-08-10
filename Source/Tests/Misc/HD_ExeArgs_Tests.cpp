@@ -74,8 +74,8 @@ namespace HD_CommonUtilities
 			s32 intValue = exeArgs.GetValueS32("aS32Name");
 			f32 floatValue = exeArgs.GetValueF32("aF32Name");
 			bool boolValue = exeArgs.GetValueBool("aBoolName");
-			HD_Vector2f vector2Value = exeArgs.GetValueVector2f("aVector2Name");
-			HD_Vector3f vector3Value = exeArgs.GetValueVector3f("aVector3Name");
+			HD_Vector2_f32 vector2Value = exeArgs.GetValueVector2f("aVector2Name");
+			HD_Vector3_f32 vector3Value = exeArgs.GetValueVector3f("aVector3Name");
 			HD_String stringValue = exeArgs.GetValueString("aStringName");
 
 			Assert::AreEqual(intValue, 4);

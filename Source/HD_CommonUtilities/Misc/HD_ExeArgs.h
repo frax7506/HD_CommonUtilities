@@ -21,8 +21,8 @@ public:
 	s32 GetValueS32(const char* aExeArgS32Name) const;
 	f32 GetValueF32(const char* aExeArgF32Name) const;
 	bool GetValueBool(const char* aExeArgBoolName) const;
-	HD_Vector2f GetValueVector2f(const char* aExeArgVector2fName) const;
-	HD_Vector3f GetValueVector3f(const char* aExeArgVector3fName) const;
+	HD_Vector2_f32 GetValueVector2f(const char* aExeArgVector2fName) const;
+	HD_Vector3_f32 GetValueVector3f(const char* aExeArgVector3fName) const;
 	HD_String GetValueString(const char* aExeArgStringName) const;
 
 private:

@@ -69,29 +69,29 @@ bool HD_ExeArgs::GetValueBool(const char* aExeArgBoolName) const
 	return result;
 }
 
-HD_Vector2f HD_ExeArgs::GetValueVector2f(const char* aExeArgVector2fName) const
+HD_Vector2_f32 HD_ExeArgs::GetValueVector2f(const char* aExeArgVector2fName) const
 {
 	const HD_String* value = myExeArgToValueMap.GetIfExists(aExeArgVector2fName);
 	if (!value)
-		return HD_Vector2f(0.f, 0.f);
+		return HD_Vector2_f32(0.f, 0.f);
 
 	f32 x = 0.f;
 	f32 y = 0.f;
 	sscanf(value->GetBuffer(), "%f %f", &x, &y);
-	return HD_Vector2f(x, y);
+	return HD_Vector2_f32(x, y);
 }
 
-HD_Vector3f HD_ExeArgs::GetValueVector3f(const char* aExeArgVector3fName) const
+HD_Vector3_f32 HD_ExeArgs::GetValueVector3f(const char* aExeArgVector3fName) const
 {
 	const HD_String* value = myExeArgToValueMap.GetIfExists(aExeArgVector3fName);
 	if (!value)
-		return HD_Vector3f(0.f, 0.f, 0.f);
+		return HD_Vector3_f32(0.f, 0.f, 0.f);
 
 	f32 x = 0.f;
 	f32 y = 0.f;
 	f32 z = 0.f;
 	sscanf(value->GetBuffer(), "%f %f %f", &x, &y, &z);
-	return HD_Vector3f(x, y, z);
+	return HD_Vector3_f32(x, y, z);
 }
 
 HD_String HD_ExeArgs::GetValueString(const char* aExeArgStringName) const

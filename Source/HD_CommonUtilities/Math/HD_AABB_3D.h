@@ -48,4 +48,4 @@ bool HD_AABB_3D<T>::Intersects(const HD_AABB_3D& aOther) const
 		myMin.myZ > aOther.myMax.myZ);
 }
 
-typedef HD_AABB_3D<f32> HD_AABB_3Df;
+typedef HD_AABB_3D<f32> HD_AABB_3D_f32;

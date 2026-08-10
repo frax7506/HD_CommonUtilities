@@ -45,4 +45,4 @@ bool HD_AABB_2D<T>::Intersects(const HD_AABB_2D& aOther) const
 		myMin.myY > aOther.myMax.myY);
 }
 
-typedef HD_AABB_2D<f32> HD_AABB_2Df;
+typedef HD_AABB_2D<f32> HD_AABB_2D_f32;

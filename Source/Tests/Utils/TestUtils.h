@@ -37,19 +37,19 @@ namespace TestUtils
 	void Matrix4x4_AreEqual(const HD_Matrix4x4<T>& aMatrix, T a11, T a12, T a13, T a14, T a21, T a22, T a23, T a24, T a31, T a32, T a33, T a34, T a41, T a42, T a43, T a44);
 
 	template<>
-	void Vector2_AreEqual(const HD_Vector2f& aVector, f32 aX, f32 aY);
+	void Vector2_AreEqual(const HD_Vector2_f32& aVector, f32 aX, f32 aY);
 
 	template<>
-	void Vector3_AreEqual(const HD_Vector3f& aVector, f32 aX, f32 aY, f32 aZ);
+	void Vector3_AreEqual(const HD_Vector3_f32& aVector, f32 aX, f32 aY, f32 aZ);
 
 	template<>
-	void Vector4_AreEqual(const HD_Vector4f& aVector, f32 aX, f32 aY, f32 aZ, f32 aW);
+	void Vector4_AreEqual(const HD_Vector4_f32& aVector, f32 aX, f32 aY, f32 aZ, f32 aW);
 
 	template<>
-	void Matrix3x3_AreEqual(const HD_Matrix3x3f& aMatrix, f32 a11, f32 a12, f32 a13, f32 a21, f32 a22, f32 a23, f32 a31, f32 a32, f32 a33);
+	void Matrix3x3_AreEqual(const HD_Matrix3x3_f32& aMatrix, f32 a11, f32 a12, f32 a13, f32 a21, f32 a22, f32 a23, f32 a31, f32 a32, f32 a33);
 
 	template<>
-	void Matrix4x4_AreEqual(const HD_Matrix4x4f& aMatrix, f32 a11, f32 a12, f32 a13, f32 a14, f32 a21, f32 a22, f32 a23, f32 a24, f32 a31, f32 a32, f32 a33, f32 a34, f32 a41, f32 a42, f32 a43, f32 a44);
+	void Matrix4x4_AreEqual(const HD_Matrix4x4_f32& aMatrix, f32 a11, f32 a12, f32 a13, f32 a14, f32 a21, f32 a22, f32 a23, f32 a24, f32 a31, f32 a32, f32 a33, f32 a34, f32 a41, f32 a42, f32 a43, f32 a44);
 
 	template<typename T>
 	void String_IsUninitialized(const HD_Str<T>& aStringToCheck)

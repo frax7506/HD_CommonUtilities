@@ -69,14 +69,14 @@ namespace HD_CommonUtilities
 			Assert::AreEqual(HD_Lerp(50.f, 100.f, 0.5f), 75.f, F32_EQUAL_TOLERANCE);
 			Assert::AreEqual(HD_Lerp(100.f, 50.f, 0.2f), 90.f, F32_EQUAL_TOLERANCE);
 
-			HD_Vector2f startVector2(50.f, 50.f);
-			HD_Vector2f endVector2(100.f, 100.f);
-			HD_Vector2f lerpedVector2 = HD_Lerp(startVector2, endVector2, 0.5f);
+			HD_Vector2_f32 startVector2(50.f, 50.f);
+			HD_Vector2_f32 endVector2(100.f, 100.f);
+			HD_Vector2_f32 lerpedVector2 = HD_Lerp(startVector2, endVector2, 0.5f);
 			TestUtils::Vector2_AreEqual(lerpedVector2, 75.f, 75.f);
 
-			HD_Vector3f startVector3(50.f, 50.f, 50.f);
-			HD_Vector3f endVector3(100.f, 100.f, 100.f);
-			HD_Vector3f lerpedVector3 = HD_Lerp(startVector3, endVector3, 0.5f);
+			HD_Vector3_f32 startVector3(50.f, 50.f, 50.f);
+			HD_Vector3_f32 endVector3(100.f, 100.f, 100.f);
+			HD_Vector3_f32 lerpedVector3 = HD_Lerp(startVector3, endVector3, 0.5f);
 			TestUtils::Vector3_AreEqual(lerpedVector3, 75.f, 75.f, 75.f);
 		}
 	};

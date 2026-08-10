@@ -246,10 +246,10 @@ HD_Vector3<T> operator/(const HD_Vector3<T>& aVector, T aScalar)
 	return { aVector.myX / aScalar, aVector.myY / aScalar, aVector.myZ / aScalar };
 }
 
-typedef HD_Vector3<f32> HD_Vector3f;
-typedef HD_Vector3<f64> HD_Vector3d;
-typedef HD_Vector3<s32> HD_Vector3s;
-typedef HD_Vector3<u32> HD_Vector3u;
+typedef HD_Vector3<f32> HD_Vector3_f32;
+typedef HD_Vector3<f64> HD_Vector3_f64;
+typedef HD_Vector3<s32> HD_Vector3_s32;
+typedef HD_Vector3<u32> HD_Vector3_u32;
 
 template<> const HD_Vector3<f32> HD_Vector3<f32>::Zero = { 0.f, 0.f, 0.f };
 template<> const HD_Vector3<f32> HD_Vector3<f32>::Up = { 0.f, 1.f, 0.f };

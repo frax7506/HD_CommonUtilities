@@ -226,7 +226,7 @@ HD_Vector4<T> operator/(const HD_Vector4<T>& aVector, T aScalar)
 	return { aVector.myX / aScalar, aVector.myY / aScalar, aVector.myZ / aScalar, aVector.myW / aScalar };
 }
 
-typedef HD_Vector4<f32> HD_Vector4f;
-typedef HD_Vector4<f64> HD_Vector4d;
-typedef HD_Vector4<s32> HD_Vector4s;
-typedef HD_Vector4<u32> HD_Vector4u;
+typedef HD_Vector4<f32> HD_Vector4_f32;
+typedef HD_Vector4<f64> HD_Vector4_f64;
+typedef HD_Vector4<s32> HD_Vector4_s32;
+typedef HD_Vector4<u32> HD_Vector4_u32;

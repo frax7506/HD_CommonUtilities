@@ -175,14 +175,14 @@ bool HD_InputManager::GetIsKeyReleased(s32 aKeyCode) const
 	return !myCurrentState[aKeyCode] && myPreviousState[aKeyCode];
 }
 
-HD_Vector2f HD_InputManager::GetMouseDelta() const
+HD_Vector2_f32 HD_InputManager::GetMouseDelta() const
 {
-	return HD_Vector2f(static_cast<f32>(myMouseDelta.myX), static_cast<f32>(myMouseDelta.myY));
+	return HD_Vector2_f32(static_cast<f32>(myMouseDelta.myX), static_cast<f32>(myMouseDelta.myY));
 }
 
-HD_Vector2f HD_InputManager::GetMousePosition() const
+HD_Vector2_f32 HD_InputManager::GetMousePosition() const
 {
-	return HD_Vector2f(static_cast<f32>(myCurrentMousePosition.myX), static_cast<f32>(myCurrentMousePosition.myY));
+	return HD_Vector2_f32(static_cast<f32>(myCurrentMousePosition.myX), static_cast<f32>(myCurrentMousePosition.myY));
 }
 
 void HD_InputManager::ShowMouse() const

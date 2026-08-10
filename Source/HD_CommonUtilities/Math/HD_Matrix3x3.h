@@ -474,8 +474,8 @@ bool operator!=(const HD_Matrix3x3<T>& aMatrix0, const HD_Matrix3x3<T>& aMatrix1
 	return !(aMatrix0 == aMatrix1);
 }
 
-typedef HD_Matrix3x3<f32> HD_Matrix3x3f;
-typedef HD_Matrix3x3<f64> HD_Matrix3x3d;
+typedef HD_Matrix3x3<f32> HD_Matrix3x3_f32;
+typedef HD_Matrix3x3<f64> HD_Matrix3x3_f64;
 
 template<> const HD_Matrix3x3<f32> HD_Matrix3x3<f32>::Identity = { 1.f, 0.f, 0.f, 0.f, 1.f, 0.f, 0.f, 0.f, 1.f };
 template<> const HD_Matrix3x3<f64> HD_Matrix3x3<f64>::Identity = { 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0 };
