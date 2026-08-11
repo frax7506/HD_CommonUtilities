@@ -99,6 +99,18 @@ namespace HD_CommonUtilities
 			Assert::AreEqual(f32Vector.Length(), 2.f, F32_EQUAL_TOLERANCE);
 		}
 
+		TEST_METHOD(Limit)
+		{
+			HD_Vector3_f32 f32Vector1(1.f, 1.f, 1.f);
+			f32Vector1.Limit(1.f);
+			Assert::AreEqual(f32Vector1.Length(), 1.f, F32_EQUAL_TOLERANCE);
+
+
+			HD_Vector3_f32 f32Vector2(0.5f, 0.f, 0.f);
+			f32Vector2.Limit(1.f);
+			Assert::AreEqual(f32Vector2.Length(), 0.5f, F32_EQUAL_TOLERANCE);
+		}
+
 		TEST_METHOD(Normalize)
 		{
 			HD_Vector3_f32 f32Vector(2.f, 2.f, 2.f);

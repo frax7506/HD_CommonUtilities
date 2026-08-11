@@ -16,6 +16,7 @@ public:
 	T Length2() const;
 
 	void SetLength(T aLength);
+	void Limit(T aLength);
 
 	void Normalize();
 	HD_Vector2 GetNormalized() const;
@@ -99,6 +100,16 @@ void HD_Vector2<T>::SetLength(T aLength)
 {
 	Normalize();
 	(*this) *= aLength;
+}
+
+template<typename T>
+void HD_Vector2<T>::Limit(T aLength)
+{
+	T length2 = Length2();
+	if (length2 > aLength * aLength)
+	{
+		SetLength(aLength);
+	}
 }
 
 template<typename T>
