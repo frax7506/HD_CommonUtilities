@@ -28,8 +28,8 @@ void HD_InputManager::Init(HWND aWindowHandle)
 	myCurrentMousePosition.Set(0, 0);
 	myPreviousMousePosition.Set(0, 0);
 
-	myTentativeMouseDelta.Set(0, 0);
-	myMouseDelta.Set(0, 0);
+	myTentativeMouseDelta.Set(0.f, 0.f);
+	myMouseDelta.Set(0.f, 0.f);
 
 	myTentativeMouseWheelDelta = 0.f;
 	myMouseWheelDelta = 0.f;
@@ -120,12 +120,12 @@ bool HD_InputManager::UpdateEvents(UINT message, WPARAM wParam, LPARAM lParam)
 		myTentativeMouseWheelDelta = GET_WHEEL_DELTA_WPARAM(wParam);
 		return true;
 
-	// This is only used when you want X/Y coordinates.
-	// The reason is that it's clunky to rely on delta
-	// movements of the mouse. ClipRect and SetMousePos both
-	// cause their own problems for input which are easily
-	// solved by registering for the raw HID data and listening
-	// for WM_INPUT instead.
+		// This is only used when you want X/Y coordinates.
+		// The reason is that it's clunky to rely on delta
+		// movements of the mouse. ClipRect and SetMousePos both
+		// cause their own problems for input which are easily
+		// solved by registering for the raw HID data and listening
+		// for WM_INPUT instead.
 	case WM_MOUSEMOVE:
 	{
 		s32 xPos = GET_X_LPARAM(lParam);
@@ -149,8 +149,11 @@ bool HD_InputManager::UpdateEvents(UINT message, WPARAM wParam, LPARAM lParam)
 
 		if (raw->header.dwType == RIM_TYPEMOUSE)
 		{
-			myTentativeMouseDelta.myX += raw->data.mouse.lLastX;
-			myTentativeMouseDelta.myY += raw->data.mouse.lLastY;
+			if (!(raw->data.mouse.usFlags & MOUSE_MOVE_ABSOLUTE))
+			{
+				myTentativeMouseDelta.myX += raw->data.mouse.lLastX;
+				myTentativeMouseDelta.myY += raw->data.mouse.lLastY;
+			}
 		}
 
 		return true;
@@ -177,12 +180,12 @@ bool HD_InputManager::GetIsKeyReleased(s32 aKeyCode) const
 
 HD_Vector2_f32 HD_InputManager::GetMouseDelta() const
 {
-	return HD_Vector2_f32(static_cast<f32>(myMouseDelta.myX), static_cast<f32>(myMouseDelta.myY));
+	return myMouseDelta;
 }
 
-HD_Vector2_f32 HD_InputManager::GetMousePosition() const
+HD_Vector2_s32 HD_InputManager::GetMousePosition() const
 {
-	return HD_Vector2_f32(static_cast<f32>(myCurrentMousePosition.myX), static_cast<f32>(myCurrentMousePosition.myY));
+	return myCurrentMousePosition;
 }
 
 void HD_InputManager::ShowMouse() const

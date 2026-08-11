@@ -19,7 +19,7 @@ public:
 	bool GetIsKeyReleased(s32 aKeyCode) const;
 
 	HD_Vector2_f32 GetMouseDelta() const;
-	HD_Vector2_f32 GetMousePosition() const;
+	HD_Vector2_s32 GetMousePosition() const;
 
 	void ShowMouse() const;
 	void HideMouse() const;
@@ -43,8 +43,8 @@ private:
 	HD_Vector2_s32 myCurrentMousePosition;
 	HD_Vector2_s32 myPreviousMousePosition;
 
-	HD_Vector2_s32 myTentativeMouseDelta;
-	HD_Vector2_s32 myMouseDelta;
+	HD_Vector2_f32 myTentativeMouseDelta;
+	HD_Vector2_f32 myMouseDelta;
 
 	f32 myTentativeMouseWheelDelta;
 	f32 myMouseWheelDelta;
