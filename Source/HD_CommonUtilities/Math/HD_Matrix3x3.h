@@ -249,14 +249,14 @@ HD_Vector2<T> HD_Matrix3x3<T>::GetUpVector() const
 template<typename T>
 T HD_Matrix3x3<T>::GetScaleInX() const
 {
-	T scaleInX = GetRightVector().Length();
+	T scaleInX = GetRightVector().GetLength();
 	return scaleInX;
 }
 
 template<typename T>
 T HD_Matrix3x3<T>::GetScaleInY() const
 {
-	T scaleInY = GetUpVector().Length();
+	T scaleInY = GetUpVector().GetLength();
 	return scaleInY;
 }
 

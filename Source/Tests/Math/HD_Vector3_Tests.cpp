@@ -69,22 +69,22 @@ namespace HD_CommonUtilities
 		TEST_METHOD(Length)
 		{
 			HD_Vector3_f32 f32Vector(1.f, 1.f, 1.f);
-			f32 length = f32Vector.Length();
+			f32 length = f32Vector.GetLength();
 			Assert::AreEqual(length, HD_Sqrt(3.f), F32_EQUAL_TOLERANCE);
 		}
 
 		TEST_METHOD(Length2)
 		{
 			HD_Vector3_f32 f32Vector(1.f, 1.f, 1.f);
-			f32 f32Length2 = f32Vector.Length2();
+			f32 f32Length2 = f32Vector.GetLength2();
 			Assert::AreEqual(f32Length2, 3.f, F32_EQUAL_TOLERANCE);
 
 			HD_Vector3_s32 s32Vector(2, 2, 2);
-			s32 s32Length2 = s32Vector.Length2();
+			s32 s32Length2 = s32Vector.GetLength2();
 			Assert::AreEqual(s32Length2, 12);
 
 			HD_Vector3_u32 u32Vector(3u, 3u, 3u);
-			u32 u32Length2 = u32Vector.Length2();
+			u32 u32Length2 = u32Vector.GetLength2();
 			Assert::AreEqual(u32Length2, 27u);
 		}
 
@@ -93,29 +93,29 @@ namespace HD_CommonUtilities
 			HD_Vector3_f32 f32Vector(1.f, 1.f, 1.f);
 
 			f32Vector.SetLength(1.f);
-			Assert::AreEqual(f32Vector.Length(), 1.f, F32_EQUAL_TOLERANCE);
+			Assert::AreEqual(f32Vector.GetLength(), 1.f, F32_EQUAL_TOLERANCE);
 
 			f32Vector.SetLength(2.f);
-			Assert::AreEqual(f32Vector.Length(), 2.f, F32_EQUAL_TOLERANCE);
+			Assert::AreEqual(f32Vector.GetLength(), 2.f, F32_EQUAL_TOLERANCE);
 		}
 
 		TEST_METHOD(Limit)
 		{
 			HD_Vector3_f32 f32Vector1(1.f, 1.f, 1.f);
 			f32Vector1.Limit(1.f);
-			Assert::AreEqual(f32Vector1.Length(), 1.f, F32_EQUAL_TOLERANCE);
+			Assert::AreEqual(f32Vector1.GetLength(), 1.f, F32_EQUAL_TOLERANCE);
 
 
 			HD_Vector3_f32 f32Vector2(0.5f, 0.f, 0.f);
 			f32Vector2.Limit(1.f);
-			Assert::AreEqual(f32Vector2.Length(), 0.5f, F32_EQUAL_TOLERANCE);
+			Assert::AreEqual(f32Vector2.GetLength(), 0.5f, F32_EQUAL_TOLERANCE);
 		}
 
 		TEST_METHOD(Normalize)
 		{
 			HD_Vector3_f32 f32Vector(2.f, 2.f, 2.f);
 			f32Vector.Normalize();
-			f32 length = f32Vector.Length();
+			f32 length = f32Vector.GetLength();
 			Assert::AreEqual(length, 1.f, F32_EQUAL_TOLERANCE);
 		}
 
@@ -123,8 +123,8 @@ namespace HD_CommonUtilities
 		{
 			HD_Vector3_f32 f32Vector(2.f, 2.f, 2.f);
 			HD_Vector3_f32 normalizedf32Vector = f32Vector.GetNormalized();
-			f32 f32VectorLength = f32Vector.Length();
-			f32 normalizedf32VectorLength = normalizedf32Vector.Length();
+			f32 f32VectorLength = f32Vector.GetLength();
+			f32 normalizedf32VectorLength = normalizedf32Vector.GetLength();
 			Assert::AreEqual(f32VectorLength, HD_Sqrt(12.f), F32_EQUAL_TOLERANCE);
 			Assert::AreEqual(normalizedf32VectorLength, 1.f, F32_EQUAL_TOLERANCE);
 		}

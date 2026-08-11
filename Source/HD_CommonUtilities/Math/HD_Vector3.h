@@ -15,8 +15,8 @@ public:
 
 	void Set(T aX, T aY, T aZ);
 
-	T Length() const;
-	T Length2() const;
+	T GetLength() const;
+	T GetLength2() const;
 
 	void SetLength(T aLength);
 	void Limit(T aLength);
@@ -89,7 +89,7 @@ void HD_Vector3<T>::Set(T aX, T aY, T aZ)
 }
 
 template<typename T>
-T HD_Vector3<T>::Length() const
+T HD_Vector3<T>::GetLength() const
 {
 	// Note: this will cause float impercisions if the class is used
 	// with big values. So far it's not been an issue. Normally
@@ -101,7 +101,7 @@ T HD_Vector3<T>::Length() const
 }
 
 template<typename T>
-T HD_Vector3<T>::Length2() const
+T HD_Vector3<T>::GetLength2() const
 {
 	return myX * myX + myY * myY + myZ * myZ;
 }
@@ -116,7 +116,7 @@ void HD_Vector3<T>::SetLength(T aLength)
 template<typename T>
 void HD_Vector3<T>::Limit(T aLength)
 {
-	T length2 = Length2();
+	T length2 = GetLength2();
 	if (length2 > aLength * aLength)
 	{
 		SetLength(aLength);
@@ -131,7 +131,7 @@ void HD_Vector3<T>::Normalize()
 	// data loss in the float -> non-float conversion. But normalizing
 	// a non-floating point type vector should be unusual anyway.
 
-	T length = Length();
+	T length = GetLength();
 	(*this) /= length;
 }
 

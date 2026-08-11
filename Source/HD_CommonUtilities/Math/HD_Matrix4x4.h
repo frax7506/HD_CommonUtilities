@@ -357,21 +357,21 @@ HD_Vector3<T> HD_Matrix4x4<T>::GetForwardVector() const
 template<typename T>
 T HD_Matrix4x4<T>::GetScaleInX() const
 {
-	T scaleInX = GetRightVector().Length();
+	T scaleInX = GetRightVector().GetLength();
 	return scaleInX;
 }
 
 template<typename T>
 T HD_Matrix4x4<T>::GetScaleInY() const
 {
-	T scaleInY = GetUpVector().Length();
+	T scaleInY = GetUpVector().GetLength();
 	return scaleInY;
 }
 
 template<typename T>
 T HD_Matrix4x4<T>::GetScaleInZ() const
 {
-	T scaleInZ = GetForwardVector().Length();
+	T scaleInZ = GetForwardVector().GetLength();
 	return scaleInZ;
 }
 
