@@ -120,12 +120,12 @@ bool HD_InputManager::UpdateEvents(UINT message, WPARAM wParam, LPARAM lParam)
 		myTentativeMouseWheelDelta = GET_WHEEL_DELTA_WPARAM(wParam);
 		return true;
 
-		// This is only used when you want X/Y coordinates.
-		// The reason is that it's clunky to rely on delta
-		// movements of the mouse. ClipRect and SetMousePos both
-		// cause their own problems for input which are easily
-		// solved by registering for the raw HID data and listening
-		// for WM_INPUT instead.
+	// This is only used when you want X/Y coordinates.
+	// The reason is that it's clunky to rely on delta
+	// movements of the mouse. ClipRect and SetMousePos both
+	// cause their own problems for input which are easily
+	// solved by registering for the raw HID data and listening
+	// for WM_INPUT instead.
 	case WM_MOUSEMOVE:
 	{
 		s32 xPos = GET_X_LPARAM(lParam);
