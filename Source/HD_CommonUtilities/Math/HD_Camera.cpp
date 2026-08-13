@@ -84,6 +84,11 @@ void HD_Camera::SetPosition(const HD_Vector3_f32& aPosition)
 	myTransform.SetPosition(aPosition);
 }
 
+void HD_Camera::SetRotation(const HD_Matrix4x4_f32& aRotationMatrix)
+{
+	myTransform.SetRotation(aRotationMatrix);
+}
+
 void HD_Camera::SetHeading(f32 aHeading)
 {
 	myTransform.SetRotationAroundY(aHeading);
@@ -107,6 +112,11 @@ HD_Vector3_f32 HD_Camera::GetPosition() const
 HD_Vector3_f32 HD_Camera::GetRotationInHPB() const
 {
 	return myTransform.GetRotationInHPB();
+}
+
+HD_Matrix4x4_f32 HD_Camera::GetRotation() const
+{
+	return myTransform.GetRotation();
 }
 
 HD_Vector3_f32 HD_Camera::GetRight() const

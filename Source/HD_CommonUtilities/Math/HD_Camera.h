@@ -20,12 +20,14 @@ public:
 	void SetOrthographicProjection(f32 aLeft, f32 aRight, f32 aTop, f32 aBottom, f32 aNear, f32 aFar);
 
 	void SetPosition(const HD_Vector3_f32& aPosition);
+	void SetRotation(const HD_Matrix4x4_f32& aRotationMatrix);
 	void SetHeading(f32 aHeading);
 	void SetPitch(f32 aPitch);
 	void SetBank(f32 aBank);
 
 	HD_Vector3_f32 GetPosition() const;
 	HD_Vector3_f32 GetRotationInHPB() const;
+	HD_Matrix4x4_f32 GetRotation() const;
 
 	HD_Vector3_f32 GetRight() const;
 	HD_Vector3_f32 GetUp() const;
