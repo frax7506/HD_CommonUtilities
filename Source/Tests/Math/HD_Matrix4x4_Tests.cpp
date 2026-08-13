@@ -148,6 +148,15 @@ namespace HD_CommonUtilities
 			Assert::AreEqual(scaleInX, 2.f, F32_EQUAL_TOLERANCE);
 		}
 
+		TEST_METHOD(SetRotation)
+		{
+			HD_Matrix4x4_f32 matrix = HD_Matrix4x4_f32::Identity;
+			matrix.SetRotation(HD_Matrix4x4_f32::CreateRotationAroundX(F_PI_HALF));
+
+			f32 rotationAroundX = matrix.GetRotationAroundX();
+			Assert::AreEqual(rotationAroundX, F_PI_HALF, F32_EQUAL_TOLERANCE);
+		}
+
 		TEST_METHOD(SetRotationAroundX)
 		{
 			{

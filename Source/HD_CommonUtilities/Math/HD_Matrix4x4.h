@@ -36,6 +36,7 @@ public:
 	void SetScaleInY(T aScalar);
 	void SetScaleInZ(T aScalar);
 
+	void SetRotation(const HD_Matrix4x4& aRotationMatrix);
 	void SetRotationAroundX(T aAngleInRadians);
 	void SetRotationAroundY(T aAngleInRadians);
 	void SetRotationAroundZ(T aAngleInRadians);
@@ -57,6 +58,7 @@ public:
 	T GetScaleInZ() const;
 	HD_Vector3<T> GetScaleInXYZ() const;
 
+	HD_Matrix4x4 GetRotation() const;
 	T GetRotationAroundX() const;
 	T GetRotationAroundY() const;
 	T GetRotationAroundZ() const;
@@ -255,6 +257,14 @@ void HD_Matrix4x4<T>::SetScaleInZ(T aScalar)
 }
 
 template<typename T>
+void HD_Matrix4x4<T>::SetRotation(const HD_Matrix4x4& aRotationMatrix)
+{
+	memcpy(&m11, &aRotationMatrix.m11, 3 * sizeof(T));
+	memcpy(&m21, &aRotationMatrix.m21, 3 * sizeof(T));
+	memcpy(&m31, &aRotationMatrix.m31, 3 * sizeof(T));
+}
+
+template<typename T>
 void HD_Matrix4x4<T>::SetRotationAroundX(T aAngleInRadians)
 {
 	T currentRotationAroundX = GetRotationAroundX();
@@ -386,6 +396,12 @@ HD_Vector3<T> HD_Matrix4x4<T>::GetScaleInXYZ() const
 }
 
 template<typename T>
+HD_Matrix4x4<T> HD_Matrix4x4<T>::GetRotation() const
+{
+	return Get3x3();
+}
+
+template<typename T>
 T HD_Matrix4x4<T>::GetRotationAroundX() const
 {
 	HD_Vector3<T> xyz = GetRotationInXYZ();
@@ -430,11 +446,11 @@ HD_Vector3<T> HD_Matrix4x4<T>::GetRotationInHPB() const
 	T sinOfPitch = -1 * m32;
 	if (sinOfPitch <= -1)
 	{
-		pitch = F_PI_HALF;
+		pitch = -1 * F_PI_HALF;
 	}
 	else if (sinOfPitch >= 1)
 	{
-		pitch = -1 * F_PI_HALF;
+		pitch = F_PI_HALF;
 	}
 	else
 	{
