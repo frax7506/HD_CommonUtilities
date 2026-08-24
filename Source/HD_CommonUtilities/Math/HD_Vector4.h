@@ -36,6 +36,7 @@ public:
 public:
 	typedef T DataType;
 
+	static T Length(const HD_Vector4& aStart, const HD_Vector4& aEnd);
 	static T Length2(const HD_Vector4& aStart, const HD_Vector4& aEnd);
 };
 
@@ -198,6 +199,13 @@ HD_Vector4<T>& HD_Vector4<T>::operator/=(T aScalar)
 	myW /= aScalar;
 
 	return *this;
+}
+
+template<typename T>
+T HD_Vector4<T>::Length(const HD_Vector4& aStart, const HD_Vector4& aEnd)
+{
+	HD_Vector4 startToEnd = aEnd - aStart;
+	return startToEnd.Length();
 }
 
 template<typename T>

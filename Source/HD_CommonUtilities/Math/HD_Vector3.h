@@ -47,6 +47,7 @@ public:
 	static const HD_Vector3 Forward;
 	static const HD_Vector3 Back;
 
+	static T Length(const HD_Vector3& aStart, const HD_Vector3& aEnd);
 	static T Length2(const HD_Vector3& aStart, const HD_Vector3& aEnd);
 };
 
@@ -218,6 +219,13 @@ HD_Vector3<T>& HD_Vector3<T>::operator/=(T aScalar)
 	myZ /= aScalar;
 
 	return *this;
+}
+
+template<typename T>
+T HD_Vector3<T>::Length(const HD_Vector3& aStart, const HD_Vector3& aEnd)
+{
+	HD_Vector3 startToEnd = aEnd - aStart;
+	return startToEnd.Length();
 }
 
 template<typename T>

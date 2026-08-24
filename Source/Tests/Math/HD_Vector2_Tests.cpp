@@ -66,14 +66,14 @@ namespace HD_CommonUtilities
 			TestUtils::Vector2_AreEqual(u32Vector, 5u, 6u);
 		}
 
-		TEST_METHOD(Length)
+		TEST_METHOD(GetLength)
 		{
 			HD_Vector2_f32 f32Vector(1.f, 1.f);
 			f32 length = f32Vector.GetLength();
 			Assert::AreEqual(length, HD_Sqrt(2.f), F32_EQUAL_TOLERANCE);
 		}
 
-		TEST_METHOD(Length2)
+		TEST_METHOD(GetLength2)
 		{
 			HD_Vector2_f32 f32Vector(1.f, 1.f);
 			f32 f32Length2 = f32Vector.GetLength2();

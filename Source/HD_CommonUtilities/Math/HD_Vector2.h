@@ -40,6 +40,7 @@ public:
 	static const HD_Vector2 Left;
 	static const HD_Vector2 Right;
 
+	static T Length(const HD_Vector2& aStart, const HD_Vector2& aEnd);
 	static T Length2(const HD_Vector2& aStart, const HD_Vector2& aEnd);
 };
 
@@ -183,6 +184,13 @@ HD_Vector2<T>& HD_Vector2<T>::operator/=(T aScalar)
 	myY /= aScalar;
 
 	return *this;
+}
+
+template<typename T>
+T HD_Vector2<T>::Length(const HD_Vector2& aStart, const HD_Vector2& aEnd)
+{
+	HD_Vector2 startToEnd = aEnd - aStart;
+	return startToEnd.Length();
 }
 
 template<typename T>
