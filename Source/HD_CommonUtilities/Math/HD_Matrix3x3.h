@@ -71,14 +71,14 @@ public:
 	static const HD_Matrix3x3 Identity;
 };
 
-template<typename T> HD_Matrix3x3<T> operator+(const HD_Matrix3x3<T>& aMatrix0, const HD_Matrix3x3<T>& aMatrix1);
-template<typename T> HD_Matrix3x3<T> operator-(const HD_Matrix3x3<T>& aMatrix0, const HD_Matrix3x3<T>& aMatrix1);
-template<typename T> HD_Matrix3x3<T> operator*(const HD_Matrix3x3<T>& aMatrix0, const HD_Matrix3x3<T>& aMatrix1);
+template<typename T> HD_Matrix3x3<T> operator+(const HD_Matrix3x3<T>& aMatrix1, const HD_Matrix3x3<T>& aMatrix2);
+template<typename T> HD_Matrix3x3<T> operator-(const HD_Matrix3x3<T>& aMatrix1, const HD_Matrix3x3<T>& aMatrix2);
+template<typename T> HD_Matrix3x3<T> operator*(const HD_Matrix3x3<T>& aMatrix1, const HD_Matrix3x3<T>& aMatrix2);
 template<typename T> HD_Matrix3x3<T> operator*(const HD_Matrix3x3<T>& aMatrix, T aScalar);
 template<typename T> HD_Matrix3x3<T> operator*(T aScalar, const HD_Matrix3x3<T>& aMatrix);
 template<typename T> HD_Vector3<T> operator*(const HD_Vector3<T>& aVector, const HD_Matrix3x3<T>& aMatrix);
-template<typename T> bool operator==(const HD_Matrix3x3<T>& aMatrix0, const HD_Matrix3x3<T>& aMatrix1);
-template<typename T> bool operator!=(const HD_Matrix3x3<T>& aMatrix0, const HD_Matrix3x3<T>& aMatrix1);
+template<typename T> bool operator==(const HD_Matrix3x3<T>& aMatrix1, const HD_Matrix3x3<T>& aMatrix2);
+template<typename T> bool operator!=(const HD_Matrix3x3<T>& aMatrix1, const HD_Matrix3x3<T>& aMatrix2);
 
 template<typename T>
 HD_Matrix3x3<T>::HD_Matrix3x3()
@@ -376,47 +376,47 @@ HD_Matrix3x3<T> HD_Matrix3x3<T>::CreateTranslation(T aX, T aY)
 }
 
 template<typename T>
-HD_Matrix3x3<T> operator+(const HD_Matrix3x3<T>& aMatrix0, const HD_Matrix3x3<T>& aMatrix1)
+HD_Matrix3x3<T> operator+(const HD_Matrix3x3<T>& aMatrix1, const HD_Matrix3x3<T>& aMatrix2)
 {
 	HD_Matrix3x3<T> result =
 	{
-		aMatrix0.m11 + aMatrix1.m11, aMatrix0.m12 + aMatrix1.m12, aMatrix0.m13 + aMatrix1.m13,
-		aMatrix0.m21 + aMatrix1.m21, aMatrix0.m22 + aMatrix1.m22, aMatrix0.m23 + aMatrix1.m23,
-		aMatrix0.m31 + aMatrix1.m31, aMatrix0.m32 + aMatrix1.m32, aMatrix0.m33 + aMatrix1.m33
+		aMatrix1.m11 + aMatrix2.m11, aMatrix1.m12 + aMatrix2.m12, aMatrix1.m13 + aMatrix2.m13,
+		aMatrix1.m21 + aMatrix2.m21, aMatrix1.m22 + aMatrix2.m22, aMatrix1.m23 + aMatrix2.m23,
+		aMatrix1.m31 + aMatrix2.m31, aMatrix1.m32 + aMatrix2.m32, aMatrix1.m33 + aMatrix2.m33
 	};
 
 	return result;
 }
 
 template<typename T>
-HD_Matrix3x3<T> operator-(const HD_Matrix3x3<T>& aMatrix0, const HD_Matrix3x3<T>& aMatrix1)
+HD_Matrix3x3<T> operator-(const HD_Matrix3x3<T>& aMatrix1, const HD_Matrix3x3<T>& aMatrix2)
 {
 	HD_Matrix3x3<T> result =
 	{
-		aMatrix0.m11 - aMatrix1.m11, aMatrix0.m12 - aMatrix1.m12, aMatrix0.m13 - aMatrix1.m13,
-		aMatrix0.m21 - aMatrix1.m21, aMatrix0.m22 - aMatrix1.m22, aMatrix0.m23 - aMatrix1.m23,
-		aMatrix0.m31 - aMatrix1.m31, aMatrix0.m32 - aMatrix1.m32, aMatrix0.m33 - aMatrix1.m33
+		aMatrix1.m11 - aMatrix2.m11, aMatrix1.m12 - aMatrix2.m12, aMatrix1.m13 - aMatrix2.m13,
+		aMatrix1.m21 - aMatrix2.m21, aMatrix1.m22 - aMatrix2.m22, aMatrix1.m23 - aMatrix2.m23,
+		aMatrix1.m31 - aMatrix2.m31, aMatrix1.m32 - aMatrix2.m32, aMatrix1.m33 - aMatrix2.m33
 	};
 
 	return result;
 }
 
 template<typename T>
-HD_Matrix3x3<T> operator*(const HD_Matrix3x3<T>& aMatrix0, const HD_Matrix3x3<T>& aMatrix1)
+HD_Matrix3x3<T> operator*(const HD_Matrix3x3<T>& aMatrix1, const HD_Matrix3x3<T>& aMatrix2)
 {
 	HD_Matrix3x3<T> result =
 	{
-		aMatrix0.m11 * aMatrix1.m11 + aMatrix0.m12 * aMatrix1.m21 + aMatrix0.m13 * aMatrix1.m31,
-		aMatrix0.m11 * aMatrix1.m12 + aMatrix0.m12 * aMatrix1.m22 + aMatrix0.m13 * aMatrix1.m32,
-		aMatrix0.m11 * aMatrix1.m13 + aMatrix0.m12 * aMatrix1.m23 + aMatrix0.m13 * aMatrix1.m33,
+		aMatrix1.m11 * aMatrix2.m11 + aMatrix1.m12 * aMatrix2.m21 + aMatrix1.m13 * aMatrix2.m31,
+		aMatrix1.m11 * aMatrix2.m12 + aMatrix1.m12 * aMatrix2.m22 + aMatrix1.m13 * aMatrix2.m32,
+		aMatrix1.m11 * aMatrix2.m13 + aMatrix1.m12 * aMatrix2.m23 + aMatrix1.m13 * aMatrix2.m33,
 
-		aMatrix0.m21 * aMatrix1.m11 + aMatrix0.m22 * aMatrix1.m21 + aMatrix0.m23 * aMatrix1.m31,
-		aMatrix0.m21 * aMatrix1.m12 + aMatrix0.m22 * aMatrix1.m22 + aMatrix0.m23 * aMatrix1.m32,
-		aMatrix0.m21 * aMatrix1.m13 + aMatrix0.m22 * aMatrix1.m23 + aMatrix0.m23 * aMatrix1.m33,
+		aMatrix1.m21 * aMatrix2.m11 + aMatrix1.m22 * aMatrix2.m21 + aMatrix1.m23 * aMatrix2.m31,
+		aMatrix1.m21 * aMatrix2.m12 + aMatrix1.m22 * aMatrix2.m22 + aMatrix1.m23 * aMatrix2.m32,
+		aMatrix1.m21 * aMatrix2.m13 + aMatrix1.m22 * aMatrix2.m23 + aMatrix1.m23 * aMatrix2.m33,
 
-		aMatrix0.m31 * aMatrix1.m11 + aMatrix0.m32 * aMatrix1.m21 + aMatrix0.m33 * aMatrix1.m31,
-		aMatrix0.m31 * aMatrix1.m12 + aMatrix0.m32 * aMatrix1.m22 + aMatrix0.m33 * aMatrix1.m32,
-		aMatrix0.m31 * aMatrix1.m13 + aMatrix0.m32 * aMatrix1.m23 + aMatrix0.m33 * aMatrix1.m33
+		aMatrix1.m31 * aMatrix2.m11 + aMatrix1.m32 * aMatrix2.m21 + aMatrix1.m33 * aMatrix2.m31,
+		aMatrix1.m31 * aMatrix2.m12 + aMatrix1.m32 * aMatrix2.m22 + aMatrix1.m33 * aMatrix2.m32,
+		aMatrix1.m31 * aMatrix2.m13 + aMatrix1.m32 * aMatrix2.m23 + aMatrix1.m33 * aMatrix2.m33
 	};
 
 	return result;
@@ -455,23 +455,23 @@ HD_Vector3<T> operator*(const HD_Vector3<T>& aVector, const HD_Matrix3x3<T>& aMa
 }
 
 template<typename T>
-bool operator==(const HD_Matrix3x3<T>& aMatrix0, const HD_Matrix3x3<T>& aMatrix1)
+bool operator==(const HD_Matrix3x3<T>& aMatrix1, const HD_Matrix3x3<T>& aMatrix2)
 {
-	return	HD_ARE_FLOAT_VALUES_CLOSE(aMatrix0.m11, aMatrix1.m11) &&
-		HD_ARE_FLOAT_VALUES_CLOSE(aMatrix0.m12, aMatrix1.m12) &&
-		HD_ARE_FLOAT_VALUES_CLOSE(aMatrix0.m13, aMatrix1.m13) &&
-		HD_ARE_FLOAT_VALUES_CLOSE(aMatrix0.m21, aMatrix1.m21) &&
-		HD_ARE_FLOAT_VALUES_CLOSE(aMatrix0.m22, aMatrix1.m22) &&
-		HD_ARE_FLOAT_VALUES_CLOSE(aMatrix0.m23, aMatrix1.m23) &&
-		HD_ARE_FLOAT_VALUES_CLOSE(aMatrix0.m31, aMatrix1.m31) &&
-		HD_ARE_FLOAT_VALUES_CLOSE(aMatrix0.m32, aMatrix1.m32) &&
-		HD_ARE_FLOAT_VALUES_CLOSE(aMatrix0.m33, aMatrix1.m33);
+	return	HD_ARE_FLOAT_VALUES_CLOSE(aMatrix1.m11, aMatrix2.m11) &&
+		HD_ARE_FLOAT_VALUES_CLOSE(aMatrix1.m12, aMatrix2.m12) &&
+		HD_ARE_FLOAT_VALUES_CLOSE(aMatrix1.m13, aMatrix2.m13) &&
+		HD_ARE_FLOAT_VALUES_CLOSE(aMatrix1.m21, aMatrix2.m21) &&
+		HD_ARE_FLOAT_VALUES_CLOSE(aMatrix1.m22, aMatrix2.m22) &&
+		HD_ARE_FLOAT_VALUES_CLOSE(aMatrix1.m23, aMatrix2.m23) &&
+		HD_ARE_FLOAT_VALUES_CLOSE(aMatrix1.m31, aMatrix2.m31) &&
+		HD_ARE_FLOAT_VALUES_CLOSE(aMatrix1.m32, aMatrix2.m32) &&
+		HD_ARE_FLOAT_VALUES_CLOSE(aMatrix1.m33, aMatrix2.m33);
 }
 
 template<typename T>
-bool operator!=(const HD_Matrix3x3<T>& aMatrix0, const HD_Matrix3x3<T>& aMatrix1)
+bool operator!=(const HD_Matrix3x3<T>& aMatrix1, const HD_Matrix3x3<T>& aMatrix2)
 {
-	return !(aMatrix0 == aMatrix1);
+	return !(aMatrix1 == aMatrix2);
 }
 
 typedef HD_Matrix3x3<f32> HD_Matrix3x3_f32;

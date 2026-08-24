@@ -42,13 +42,13 @@ public:
 	static T Length2(const HD_Vector4& aStart, const HD_Vector4& aEnd);
 };
 
-template<typename T> HD_Vector4<T> operator+(const HD_Vector4<T>& aVector0, const HD_Vector4<T>& aVector1);
-template<typename T> HD_Vector4<T> operator-(const HD_Vector4<T>& aVector0, const HD_Vector4<T>& aVector1);
+template<typename T> HD_Vector4<T> operator+(const HD_Vector4<T>& aVector1, const HD_Vector4<T>& aVector2);
+template<typename T> HD_Vector4<T> operator-(const HD_Vector4<T>& aVector1, const HD_Vector4<T>& aVector2);
 template<typename T> HD_Vector4<T> operator*(const HD_Vector4<T>& aVector, T aScalar);
 template<typename T> HD_Vector4<T> operator*(T aScalar, const HD_Vector4<T>& aVector);
 template<typename T> HD_Vector4<T> operator/(const HD_Vector4<T>& aVector, T aScalar);
-template<typename T> bool operator==(const HD_Vector4<T>& aVector0, const HD_Vector4<T>& aVector1);
-template<typename T> bool operator!=(const HD_Vector4<T>& aVector0, const HD_Vector4<T>& aVector1);
+template<typename T> bool operator==(const HD_Vector4<T>& aVector1, const HD_Vector4<T>& aVector2);
+template<typename T> bool operator!=(const HD_Vector4<T>& aVector1, const HD_Vector4<T>& aVector2);
 
 template<typename T>
 HD_Vector4<T>::HD_Vector4()
@@ -222,15 +222,15 @@ T HD_Vector4<T>::Length2(const HD_Vector4& aStart, const HD_Vector4& aEnd)
 }
 
 template<typename T>
-HD_Vector4<T> operator+(const HD_Vector4<T>& aVector0, const HD_Vector4<T>& aVector1)
+HD_Vector4<T> operator+(const HD_Vector4<T>& aVector1, const HD_Vector4<T>& aVector2)
 {
-	return { aVector0.myX + aVector1.myX, aVector0.myY + aVector1.myY, aVector0.myZ + aVector1.myZ, aVector0.myW + aVector1.myW };
+	return { aVector1.myX + aVector2.myX, aVector1.myY + aVector2.myY, aVector1.myZ + aVector2.myZ, aVector1.myW + aVector2.myW };
 }
 
 template<typename T>
-HD_Vector4<T> operator-(const HD_Vector4<T>& aVector0, const HD_Vector4<T>& aVector1)
+HD_Vector4<T> operator-(const HD_Vector4<T>& aVector1, const HD_Vector4<T>& aVector2)
 {
-	return { aVector0.myX - aVector1.myX, aVector0.myY - aVector1.myY, aVector0.myZ - aVector1.myZ, aVector0.myW - aVector1.myW };
+	return { aVector1.myX - aVector2.myX, aVector1.myY - aVector2.myY, aVector1.myZ - aVector2.myZ, aVector1.myW - aVector2.myW };
 }
 
 template<typename T>
@@ -252,15 +252,15 @@ HD_Vector4<T> operator/(const HD_Vector4<T>& aVector, T aScalar)
 }
 
 template<typename T>
-bool operator==(const HD_Vector4<T>& aVector0, const HD_Vector4<T>& aVector1)
+bool operator==(const HD_Vector4<T>& aVector1, const HD_Vector4<T>& aVector2)
 {
-	return aVector0.myX == aVector1.myX && aVector0.myY == aVector1.myY && aVector0.myZ == aVector1.myZ && aVector0.myW == aVector1.myW;
+	return aVector1.myX == aVector2.myX && aVector1.myY == aVector2.myY && aVector1.myZ == aVector2.myZ && aVector1.myW == aVector2.myW;
 }
 
 template<typename T>
-bool operator!=(const HD_Vector4<T>& aVector0, const HD_Vector4<T>& aVector1)
+bool operator!=(const HD_Vector4<T>& aVector1, const HD_Vector4<T>& aVector2)
 {
-	return !(aVector0 == aVector1);
+	return !(aVector1 == aVector2);
 }
 
 typedef HD_Vector4<f32> HD_Vector4_f32;
