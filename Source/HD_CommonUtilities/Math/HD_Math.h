@@ -50,11 +50,19 @@ inline f64 HD_ArcTan(f64 aAngleInRadians) { return atan(aAngleInRadians); }
 inline f32 HD_ArcTan2(f32 aAngleYInRadians, f32 aAngleXInRadians) { return atan2f(aAngleYInRadians, aAngleXInRadians); }
 inline f64 HD_ArcTan2(f64 aAngleYInRadians, f64 aAngleXInRadians) { return atan2(aAngleYInRadians, aAngleXInRadians); }
 
+template<typename T> inline T HD_Sign(T aValue);
+
 template<typename T> inline T HD_Remap(T aValue, T aOldMin, T aOldMax, T aNewMin, T aNewMax);
 template<typename T> inline T HD_RemapClamped(T aValue, T aOldMin, T aOldMax, T aNewMin, T aNewMax);
 
 template<typename T> inline T HD_Lerp(T aStart, T aEnd, T aBlendValue);
 template<typename VectorType> inline VectorType HD_Lerp(const VectorType& aStart, const VectorType& aEnd, typename VectorType::DataType aBlendValue);
+
+template<typename T>
+inline T HD_Sign(T aValue)
+{
+	return aValue < static_cast<T>(0) ? static_cast<T>(-1) : static_cast<T>(1);
+}
 
 template<typename T>
 inline T HD_Remap(T aValue, T aOldMin, T aOldMax, T aNewMin, T aNewMax)

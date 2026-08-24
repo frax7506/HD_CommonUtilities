@@ -11,7 +11,7 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace HD_CommonUtilities
 {
-	TEST_CLASS(Math)
+	TEST_CLASS(HD_Math_Test)
 	{
 	public:
 		TEST_METHOD(Max)
@@ -48,6 +48,19 @@ namespace HD_CommonUtilities
 		TEST_METHOD(Pow)
 		{
 			Assert::AreEqual(HD_Pow(3.f, 3.f), 27.f, F32_EQUAL_TOLERANCE);
+		}
+
+		TEST_METHOD(Sign)
+		{
+			Assert::AreEqual(HD_Sign(-2), -1);
+			Assert::AreEqual(HD_Sign(-1), -1);
+			Assert::AreEqual(HD_Sign(1), 1);
+			Assert::AreEqual(HD_Sign(2), 1);
+
+			Assert::AreEqual(HD_Sign(-2.f), -1.f);
+			Assert::AreEqual(HD_Sign(-1.f), -1.f);
+			Assert::AreEqual(HD_Sign(1.f), 1.f);
+			Assert::AreEqual(HD_Sign(2.f), 1.f);
 		}
 
 		TEST_METHOD(Remap)
