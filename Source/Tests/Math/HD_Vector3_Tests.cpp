@@ -365,6 +365,32 @@ namespace HD_CommonUtilities
 			TestUtils::Vector3_AreEqual(u32Vector, 0u, 1u, 1u);
 		}
 
+		TEST_METHOD(Length)
+		{
+			HD_Vector3_f32 f32Vector1(0.f, 0.f, 0.f);
+			HD_Vector3_f32 f32Vector2(1.f, 1.f, 1.f);
+			f32 length = HD_Vector3_f32::Length(f32Vector1, f32Vector2);
+			Assert::AreEqual(length, HD_Sqrt(3.f), F32_EQUAL_TOLERANCE);
+		}
+
+		TEST_METHOD(Length2)
+		{
+			HD_Vector3_f32 f32Vector1(0.f, 0.f, 0.f);
+			HD_Vector3_f32 f32Vector2(1.f, 1.f, 1.f);
+			f32 f32Length2 = HD_Vector3_f32::Length2(f32Vector1, f32Vector2);
+			Assert::AreEqual(f32Length2, 3.f, F32_EQUAL_TOLERANCE);
+
+			HD_Vector3_s32 s32Vector1(0, 0, 0);
+			HD_Vector3_s32 s32Vector2(2, 2, 2);
+			s32 s32Length2 = HD_Vector3_s32::Length2(s32Vector1, s32Vector2);
+			Assert::AreEqual(s32Length2, 12);
+
+			HD_Vector3_u32 u32Vector1(0u, 0u, 0u);
+			HD_Vector3_u32 u32Vector2(3u, 3u, 3u);
+			u32 u32Length2 = HD_Vector3_u32::Length2(u32Vector1, u32Vector2);
+			Assert::AreEqual(u32Length2, 27u);
+		}
+
 		TEST_METHOD(Operator_Plus)
 		{
 			HD_Vector3_f32 f32Vector1(1.f, 2.f, 3.f);

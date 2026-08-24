@@ -81,12 +81,6 @@ void HD_Vector2<T>::Set(T aX, T aY)
 template<typename T>
 T HD_Vector2<T>::GetLength() const
 {
-	// Note: this will cause float impercisions if the class is used
-	// with big values. So far it's not been an issue. Normally
-	// this functions isn't used on non-float instances. When
-	// HD_Vector2i is used then it's more used like a container than
-	// a mathematical vector.
-
 	return HD_Sqrt(myX * myX + myY * myY);
 }
 
@@ -117,9 +111,11 @@ template<typename T>
 void HD_Vector2<T>::Normalize()
 {
 	// Note: will not compile if used on non-floating point types
-	// with warning level 4 and warnings treated as errors, due to
+	// with warning level 4 and warnings treated as errors due to
 	// data loss in the float -> non-float conversion. But normalizing
-	// a non-floating point type vector should be unusual anyway.
+	// a non-floating point type vector should be unusual anyway,
+	// since in those cases the vector is used more like a container
+	// than a mathematical vector.
 
 	T length = GetLength();
 	(*this) /= length;
@@ -190,14 +186,14 @@ template<typename T>
 T HD_Vector2<T>::Length(const HD_Vector2& aStart, const HD_Vector2& aEnd)
 {
 	HD_Vector2 startToEnd = aEnd - aStart;
-	return startToEnd.Length();
+	return startToEnd.GetLength();
 }
 
 template<typename T>
 T HD_Vector2<T>::Length2(const HD_Vector2& aStart, const HD_Vector2& aEnd)
 {
 	HD_Vector2 startToEnd = aEnd - aStart;
-	return startToEnd.Length2();
+	return startToEnd.GetLength2();
 }
 
 template<typename T>
