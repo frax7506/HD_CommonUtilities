@@ -49,6 +49,8 @@ template<typename T> HD_Vector2<T> operator-(const HD_Vector2<T>& aVector0, cons
 template<typename T> HD_Vector2<T> operator*(const HD_Vector2<T>& aVector, T aScalar);
 template<typename T> HD_Vector2<T> operator*(T aScalar, const HD_Vector2<T>& aVector);
 template<typename T> HD_Vector2<T> operator/(const HD_Vector2<T>& aVector, T aScalar);
+template<typename T> bool operator==(const HD_Vector2<T>& aVector0, const HD_Vector2<T>& aVector1);
+template<typename T> bool operator!=(const HD_Vector2<T>& aVector0, const HD_Vector2<T>& aVector1);
 
 template<typename T>
 HD_Vector2<T>::HD_Vector2()
@@ -224,6 +226,18 @@ template<typename T>
 HD_Vector2<T> operator/(const HD_Vector2<T>& aVector, T aScalar)
 {
 	return { aVector.myX / aScalar, aVector.myY / aScalar };
+}
+
+template<typename T>
+bool operator==(const HD_Vector2<T>& aVector0, const HD_Vector2<T>& aVector1)
+{
+	return aVector0.myX == aVector1.myX && aVector0.myY == aVector1.myY;
+}
+
+template<typename T>
+bool operator!=(const HD_Vector2<T>& aVector0, const HD_Vector2<T>& aVector1)
+{
+	return !(aVector0 == aVector1);
 }
 
 typedef HD_Vector2<f32> HD_Vector2_f32;

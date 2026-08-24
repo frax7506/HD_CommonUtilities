@@ -354,5 +354,25 @@ namespace HD_CommonUtilities
 			HD_Vector2_u32 u32VectorResult = u32Vector / 2u;
 			TestUtils::Vector2_AreEqual(u32VectorResult, 0u, 1u);
 		}
+
+		TEST_METHOD(Operator_Equals)
+		{
+			HD_Vector2_f32 f32Vector1(0.f, 0.f);
+			HD_Vector2_f32 f32Vector2(0.f, 0.f);
+			HD_Vector2_f32 f32Vector3(1.f, 1.f);
+
+			Assert::IsTrue(f32Vector1 == f32Vector2);
+			Assert::IsFalse(f32Vector1 == f32Vector3);
+		}
+
+		TEST_METHOD(Operator_Not_Equals)
+		{
+			HD_Vector2_f32 f32Vector1(0.f, 0.f);
+			HD_Vector2_f32 f32Vector2(0.f, 0.f);
+			HD_Vector2_f32 f32Vector3(1.f, 1.f);
+
+			Assert::IsFalse(f32Vector1 != f32Vector2);
+			Assert::IsTrue(f32Vector1 != f32Vector3);
+		}
 	};
 }
