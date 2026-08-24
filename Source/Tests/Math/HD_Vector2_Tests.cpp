@@ -117,6 +117,11 @@ namespace HD_CommonUtilities
 			f32Vector.Normalize();
 			f32 length = f32Vector.GetLength();
 			Assert::AreEqual(length, 1.f, F32_EQUAL_TOLERANCE);
+
+			HD_Vector2_f32 zeroVector = HD_Vector2_f32::Zero;
+			zeroVector.Normalize();
+			f32 zeroLength = zeroVector.GetLength();
+			Assert::AreEqual(zeroLength, 0.f, F32_EQUAL_TOLERANCE);
 		}
 
 		TEST_METHOD(GetNormalized)
@@ -127,6 +132,13 @@ namespace HD_CommonUtilities
 			f32 normalizedf32VectorLength = normalizedf32Vector.GetLength();
 			Assert::AreEqual(f32VectorLength, HD_Sqrt(8.f), F32_EQUAL_TOLERANCE);
 			Assert::AreEqual(normalizedf32VectorLength, 1.f, F32_EQUAL_TOLERANCE);
+
+			HD_Vector2_f32 zeroVector = HD_Vector2_f32::Zero;
+			HD_Vector2_f32 normalizedZeroVector = zeroVector.GetNormalized();
+			f32 zeroVectorLength = zeroVector.GetLength();
+			f32 normalizedZeroVectorLength = normalizedZeroVector.GetLength();
+			Assert::AreEqual(zeroVectorLength, 0.f, F32_EQUAL_TOLERANCE);
+			Assert::AreEqual(normalizedZeroVectorLength, 0.f, F32_EQUAL_TOLERANCE);
 		}
 
 		TEST_METHOD(Dot)

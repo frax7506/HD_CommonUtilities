@@ -36,6 +36,8 @@ public:
 public:
 	typedef T DataType;
 
+	static const HD_Vector4 Zero;
+
 	static T Length(const HD_Vector4& aStart, const HD_Vector4& aEnd);
 	static T Length2(const HD_Vector4& aStart, const HD_Vector4& aEnd);
 };
@@ -124,6 +126,12 @@ void HD_Vector4<T>::Normalize()
 	// than a mathematical vector.
 
 	T length = GetLength();
+
+	if (length == 0)
+	{
+		return;
+	}
+
 	(*this) /= length;
 }
 
@@ -259,3 +267,5 @@ typedef HD_Vector4<f32> HD_Vector4_f32;
 typedef HD_Vector4<f64> HD_Vector4_f64;
 typedef HD_Vector4<s32> HD_Vector4_s32;
 typedef HD_Vector4<u32> HD_Vector4_u32;
+
+template<> const HD_Vector4<f32> HD_Vector4<f32>::Zero = { 0.f, 0.f, 0.f, 0.f };

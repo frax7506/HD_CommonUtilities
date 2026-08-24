@@ -131,6 +131,12 @@ void HD_Vector3<T>::Normalize()
 	// than a mathematical vector.
 
 	T length = GetLength();
+
+	if (length == 0)
+	{
+		return;
+	}
+
 	(*this) /= length;
 }
 

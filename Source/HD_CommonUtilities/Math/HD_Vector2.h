@@ -120,6 +120,12 @@ void HD_Vector2<T>::Normalize()
 	// than a mathematical vector.
 
 	T length = GetLength();
+
+	if (length == 0)
+	{
+		return;
+	}
+
 	(*this) /= length;
 }
 
