@@ -2,6 +2,8 @@
 
 #include "HD_Types.h"
 
+#include <cstring>
+
 template<SizeType aNrOfBytes>
 class HD_DataBuffer
 {
