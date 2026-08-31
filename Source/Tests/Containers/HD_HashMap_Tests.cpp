@@ -163,6 +163,96 @@ namespace HD_CommonUtilities
 			Assert::IsNull(map.myData);
 		}
 
+		TEST_METHOD(Operator_Assignment_Copy_POD)
+		{
+			HD_HashMap<s32, s32> map1;
+			map1[0] = 1;
+			map1[2] = 3;
+
+			HD_HashMap<s32, s32> map2;
+			map2 = map1;
+
+			Assert::AreEqual(map1.mySizeIncludingTombstones, map2.mySizeIncludingTombstones);
+			Assert::AreEqual(map1.myCapacity, map2.myCapacity);
+
+			const s32* value0 = map2.GetIfExists(0);
+			const s32* value2 = map2.GetIfExists(2);
+
+			Assert::IsNotNull(value0);
+			Assert::IsNotNull(value2);
+			Assert::AreEqual(*value0, 1);
+			Assert::AreEqual(*value2, 3);
+		}
+
+		TEST_METHOD(Operator_Assignment_Copy_NonPOD)
+		{
+			HD_HashMap<HD_String, HD_String> map1;
+			map1["0"] = "1";
+			map1["2"] = "3";
+
+			HD_HashMap<HD_String, HD_String> map2;
+			map2 = map1;
+
+			Assert::AreEqual(map1.mySizeIncludingTombstones, map2.mySizeIncludingTombstones);
+			Assert::AreEqual(map1.myCapacity, map2.myCapacity);
+
+			const HD_String* value0 = map2.GetIfExists("0");
+			const HD_String* value2 = map2.GetIfExists("2");
+
+			Assert::IsNotNull(value0);
+			Assert::IsNotNull(value2);
+			Assert::IsTrue(*value0 == "1");
+			Assert::IsTrue(*value2 == "3");
+		}
+
+		TEST_METHOD(Operator_Assignment_Move_POD)
+		{
+			HD_HashMap<s32, s32> map1;
+			map1[0] = 1;
+			map1[2] = 3;
+
+			HD_HashMap<s32, s32> map2;
+			map2 = HD_Move(map1);
+
+			Assert::IsNull(map1.myData);
+			Assert::IsNotNull(map2.myData);
+
+			Assert::AreEqual(map2.mySizeIncludingTombstones, 2u);
+			Assert::AreEqual(map2.myCapacity, 16u);
+
+			const s32* value0 = map2.GetIfExists(0);
+			const s32* value2 = map2.GetIfExists(2);
+
+			Assert::IsNotNull(value0);
+			Assert::IsNotNull(value2);
+			Assert::AreEqual(*value0, 1);
+			Assert::AreEqual(*value2, 3);
+		}
+
+		TEST_METHOD(Operator_Assignment_Move_NonPOD)
+		{
+			HD_HashMap<HD_String, HD_String> map1;
+			map1["0"] = "1";
+			map1["2"] = "3";
+
+			HD_HashMap<HD_String, HD_String> map2;
+			map2 = HD_Move(map1);
+
+			Assert::IsNull(map1.myData);
+			Assert::IsNotNull(map2.myData);
+
+			Assert::AreEqual(map2.mySizeIncludingTombstones, 2u);
+			Assert::AreEqual(map2.myCapacity, 16u);
+
+			const HD_String* value0 = map2.GetIfExists("0");
+			const HD_String* value2 = map2.GetIfExists("2");
+
+			Assert::IsNotNull(value0);
+			Assert::IsNotNull(value2);
+			Assert::IsTrue(*value0 == "1");
+			Assert::IsTrue(*value2 == "3");
+		}
+
 		TEST_METHOD(GetIfExists_POD)
 		{
 			HD_HashMap<s32, s32> map;
@@ -267,96 +357,6 @@ namespace HD_CommonUtilities
 
 			const HD_String* value4 = map.GetIfExists("4");
 			TestUtils::String_IsUninitialized(*value4);
-		}
-
-		TEST_METHOD(Operator_Assignment_Copy_POD)
-		{
-			HD_HashMap<s32, s32> map1;
-			map1[0] = 1;
-			map1[2] = 3;
-
-			HD_HashMap<s32, s32> map2;
-			map2 = map1;
-
-			Assert::AreEqual(map1.mySizeIncludingTombstones, map2.mySizeIncludingTombstones);
-			Assert::AreEqual(map1.myCapacity, map2.myCapacity);
-
-			const s32* value0 = map2.GetIfExists(0);
-			const s32* value2 = map2.GetIfExists(2);
-
-			Assert::IsNotNull(value0);
-			Assert::IsNotNull(value2);
-			Assert::AreEqual(*value0, 1);
-			Assert::AreEqual(*value2, 3);
-		}
-
-		TEST_METHOD(Operator_Assignment_Copy_NonPOD)
-		{
-			HD_HashMap<HD_String, HD_String> map1;
-			map1["0"] = "1";
-			map1["2"] = "3";
-
-			HD_HashMap<HD_String, HD_String> map2;
-			map2 = map1;
-
-			Assert::AreEqual(map1.mySizeIncludingTombstones, map2.mySizeIncludingTombstones);
-			Assert::AreEqual(map1.myCapacity, map2.myCapacity);
-
-			const HD_String* value0 = map2.GetIfExists("0");
-			const HD_String* value2 = map2.GetIfExists("2");
-
-			Assert::IsNotNull(value0);
-			Assert::IsNotNull(value2);
-			Assert::IsTrue(*value0 == "1");
-			Assert::IsTrue(*value2 == "3");
-		}
-
-		TEST_METHOD(Operator_Assignment_Move_POD)
-		{
-			HD_HashMap<s32, s32> map1;
-			map1[0] = 1;
-			map1[2] = 3;
-
-			HD_HashMap<s32, s32> map2;
-			map2 = HD_Move(map1);
-
-			Assert::IsNull(map1.myData);
-			Assert::IsNotNull(map2.myData);
-
-			Assert::AreEqual(map2.mySizeIncludingTombstones, 2u);
-			Assert::AreEqual(map2.myCapacity, 16u);
-
-			const s32* value0 = map2.GetIfExists(0);
-			const s32* value2 = map2.GetIfExists(2);
-
-			Assert::IsNotNull(value0);
-			Assert::IsNotNull(value2);
-			Assert::AreEqual(*value0, 1);
-			Assert::AreEqual(*value2, 3);
-		}
-
-		TEST_METHOD(Operator_Assignment_Move_NonPOD)
-		{
-			HD_HashMap<HD_String, HD_String> map1;
-			map1["0"] = "1";
-			map1["2"] = "3";
-
-			HD_HashMap<HD_String, HD_String> map2;
-			map2 = HD_Move(map1);
-
-			Assert::IsNull(map1.myData);
-			Assert::IsNotNull(map2.myData);
-
-			Assert::AreEqual(map2.mySizeIncludingTombstones, 2u);
-			Assert::AreEqual(map2.myCapacity, 16u);
-
-			const HD_String* value0 = map2.GetIfExists("0");
-			const HD_String* value2 = map2.GetIfExists("2");
-
-			Assert::IsNotNull(value0);
-			Assert::IsNotNull(value2);
-			Assert::IsTrue(*value0 == "1");
-			Assert::IsTrue(*value2 == "3");
 		}
 
 		TEST_METHOD(Remove_POD)
