@@ -22,7 +22,7 @@ namespace HD_CommonUtilities
 			HD_HashMap<s32, s32> map;
 			Assert::IsNull(map.myData);
 			Assert::IsNull(map.myControlBytes);
-			Assert::IsNull(map.myKeyValuePairs);
+			Assert::IsNull(map.myKeyValues);
 			Assert::AreEqual(map.mySizeIncludingTombstones, 0u);
 			Assert::AreEqual(map.myCapacity, 0u);
 		}
@@ -32,7 +32,7 @@ namespace HD_CommonUtilities
 			HD_HashMap<HD_String, HD_String> map;
 			Assert::IsNull(map.myData);
 			Assert::IsNull(map.myControlBytes);
-			Assert::IsNull(map.myKeyValuePairs);
+			Assert::IsNull(map.myKeyValues);
 			Assert::AreEqual(map.mySizeIncludingTombstones, 0u);
 			Assert::AreEqual(map.myCapacity, 0u);
 		}
@@ -42,7 +42,7 @@ namespace HD_CommonUtilities
 			HD_HashMap<s32, s32> map(16);
 			Assert::IsNotNull(map.myData);
 			Assert::IsNotNull(map.myControlBytes);
-			Assert::IsNotNull(map.myKeyValuePairs);
+			Assert::IsNotNull(map.myKeyValues);
 			Assert::AreEqual(map.mySizeIncludingTombstones, 0u);
 			Assert::AreEqual(map.myCapacity, 16u);
 		}
@@ -52,7 +52,7 @@ namespace HD_CommonUtilities
 			HD_HashMap<HD_String, HD_String> map(16);
 			Assert::IsNotNull(map.myData);
 			Assert::IsNotNull(map.myControlBytes);
-			Assert::IsNotNull(map.myKeyValuePairs);
+			Assert::IsNotNull(map.myKeyValues);
 			Assert::AreEqual(map.mySizeIncludingTombstones, 0u);
 			Assert::AreEqual(map.myCapacity, 16u);
 		}
@@ -559,8 +559,8 @@ namespace HD_CommonUtilities
 			Assert::IsTrue(isSlotFullAtIndex);
 			Assert::IsTrue(isHashLevel2Set);
 
-			Assert::AreEqual(map.myKeyValuePairs[0].myFirst, 0);
-			Assert::AreEqual(map.myKeyValuePairs[0].mySecond, 1);
+			Assert::AreEqual(map.myKeyValues[0].myFirst, 0);
+			Assert::AreEqual(map.myKeyValues[0].mySecond, 1);
 		}
 
 		TEST_METHOD(InsertKeyValueAtIndex_NonPOD)
@@ -575,8 +575,8 @@ namespace HD_CommonUtilities
 			Assert::IsTrue(isSlotFullAtIndex);
 			Assert::IsTrue(isHashLevel2Set);
 
-			Assert::IsTrue(map.myKeyValuePairs[0].myFirst == "0");
-			Assert::IsTrue(map.myKeyValuePairs[0].mySecond == "1");
+			Assert::IsTrue(map.myKeyValues[0].myFirst == "0");
+			Assert::IsTrue(map.myKeyValues[0].mySecond == "1");
 		}
 
 		TEST_METHOD(Rehash_POD)

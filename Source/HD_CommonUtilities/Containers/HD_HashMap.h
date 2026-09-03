@@ -40,14 +40,14 @@
 #include "HD_Types.h"
 
 template<typename K, typename V>
-using KeyValuePair = HD_Pair<K, V>;
+using KeyValue = HD_Pair<K, V>;
 
 template<typename K, typename V>
 class HD_HashMap
 {
 public:
-	typedef HD_HashArrayIterator<KeyValuePair<K, V>> Iterator;
-	typedef HD_HashArrayIterator<const KeyValuePair<K, V>> ConstIterator;
+	typedef HD_HashArrayIterator<KeyValue<K, V>> Iterator;
+	typedef HD_HashArrayIterator<const KeyValue<K, V>> ConstIterator;
 	friend class Iterator;
 	friend class ConstIterator;
 
@@ -101,7 +101,7 @@ private:
 
 	u8* myData;
 	ControlByte_Type* myControlBytes;
-	KeyValuePair<K, V>* myKeyValuePairs;
+	KeyValue<K, V>* myKeyValues;
 	SizeType mySizeIncludingTombstones;
 	SizeType myCapacity;
 };
@@ -110,7 +110,7 @@ template<typename K, typename V>
 HD_HashMap<K, V>::HD_HashMap()
 	: myData(nullptr)
 	, myControlBytes(nullptr)
-	, myKeyValuePairs(nullptr)
+	, myKeyValues(nullptr)
 	, mySizeIncludingTombstones(0)
 	, myCapacity(0)
 {
@@ -120,7 +120,7 @@ template<typename K, typename V>
 HD_HashMap<K, V>::HD_HashMap(SizeType aCapacity)
 	: myData(nullptr)
 	, myControlBytes(nullptr)
-	, myKeyValuePairs(nullptr)
+	, myKeyValues(nullptr)
 	, mySizeIncludingTombstones(0)
 	, myCapacity(0)
 {
@@ -131,7 +131,7 @@ template<typename K, typename V>
 HD_HashMap<K, V>::HD_HashMap(const HD_HashMap& aHashMap)
 	: myData(nullptr)
 	, myControlBytes(nullptr)
-	, myKeyValuePairs(nullptr)
+	, myKeyValues(nullptr)
 	, mySizeIncludingTombstones(0)
 	, myCapacity(0)
 {
@@ -152,17 +152,17 @@ template<typename K, typename V>
 HD_HashMap<K, V>::HD_HashMap(HD_HashMap&& aHashMap)
 	: myData(nullptr)
 	, myControlBytes(nullptr)
-	, myKeyValuePairs(nullptr)
+	, myKeyValues(nullptr)
 	, mySizeIncludingTombstones(aHashMap.mySizeIncludingTombstones)
 	, myCapacity(aHashMap.myCapacity)
 {
 	myData = aHashMap.myData;
 	myControlBytes = myData;
-	myKeyValuePairs = reinterpret_cast<KeyValuePair<K, V>*>(myControlBytes + myCapacity);
+	myKeyValues = reinterpret_cast<KeyValue<K, V>*>(myControlBytes + myCapacity);
 
 	aHashMap.myData = nullptr;
 	aHashMap.myControlBytes = nullptr;
-	aHashMap.myKeyValuePairs = nullptr;
+	aHashMap.myKeyValues = nullptr;
 	aHashMap.mySizeIncludingTombstones = 0;
 	aHashMap.myCapacity = 0;
 }
@@ -207,13 +207,13 @@ HD_HashMap<K, V>& HD_HashMap<K, V>::operator=(HD_HashMap&& aHashMap)
 {
 	myData = aHashMap.myData;
 	myControlBytes = aHashMap.myData;
-	myKeyValuePairs = reinterpret_cast<KeyValuePair<K, V>*>(aHashMap.myControlBytes + aHashMap.myCapacity);
+	myKeyValues = reinterpret_cast<KeyValue<K, V>*>(aHashMap.myControlBytes + aHashMap.myCapacity);
 	mySizeIncludingTombstones = aHashMap.mySizeIncludingTombstones;
 	myCapacity = aHashMap.myCapacity;
 
 	aHashMap.myData = nullptr;
 	aHashMap.myControlBytes = nullptr;
-	aHashMap.myKeyValuePairs = nullptr;
+	aHashMap.myKeyValues = nullptr;
 	aHashMap.mySizeIncludingTombstones = 0;
 	aHashMap.myCapacity = 0;
 
@@ -233,7 +233,7 @@ const V* HD_HashMap<K, V>::GetIfExists(const K& aKey) const
 
 	if (isFull)
 	{
-		return &myKeyValuePairs[index].mySecond;
+		return &myKeyValues[index].mySecond;
 	}
 
 	return nullptr;
@@ -252,7 +252,7 @@ V& HD_HashMap<K, V>::operator[](const K& aKey)
 
 	if (isFull)
 	{
-		return myKeyValuePairs[index].mySecond;
+		return myKeyValues[index].mySecond;
 	}
 
 	f32 newLoadFactor = static_cast<f32>(mySizeIncludingTombstones + 1) / myCapacity;
@@ -268,7 +268,7 @@ V& HD_HashMap<K, V>::operator[](const K& aKey)
 	}
 
 	InsertKeyValueAtIndex(aKey, V(), index);
-	return myKeyValuePairs[index].mySecond;
+	return myKeyValues[index].mySecond;
 }
 
 template<typename K, typename V>
@@ -299,26 +299,26 @@ template<typename K, typename V>
 typename HD_HashMap<K, V>::Iterator HD_HashMap<K, V>::begin()
 {
 	u32 firstIndex = GetFirstSlotIndex();
-	return Iterator(myControlBytes, myKeyValuePairs, firstIndex, myCapacity);
+	return Iterator(myControlBytes, myKeyValues, firstIndex, myCapacity);
 }
 
 template<typename K, typename V>
 typename HD_HashMap<K, V>::Iterator HD_HashMap<K, V>::end()
 {
-	return Iterator(myControlBytes, myKeyValuePairs, myCapacity, myCapacity);
+	return Iterator(myControlBytes, myKeyValues, myCapacity, myCapacity);
 }
 
 template<typename K, typename V>
 typename HD_HashMap<K, V>::ConstIterator HD_HashMap<K, V>::begin() const
 {
 	u32 firstIndex = GetFirstSlotIndex();
-	return ConstIterator(myControlBytes, myKeyValuePairs, firstIndex, myCapacity);
+	return ConstIterator(myControlBytes, myKeyValues, firstIndex, myCapacity);
 }
 
 template<typename K, typename V>
 typename HD_HashMap<K, V>::ConstIterator HD_HashMap<K, V>::end() const
 {
-	return ConstIterator(myControlBytes, myKeyValuePairs, myCapacity, myCapacity);
+	return ConstIterator(myControlBytes, myKeyValues, myCapacity, myCapacity);
 }
 
 template<typename K, typename V>
@@ -327,9 +327,9 @@ void HD_HashMap<K, V>::InitWithCapacity(SizeType aCapacity)
 	myCapacity = aCapacity;
 	mySizeIncludingTombstones = 0;
 
-	myData = new u8[myCapacity + myCapacity * sizeof(KeyValuePair<K, V>)]{ 0 };
+	myData = new u8[myCapacity + myCapacity * sizeof(KeyValue<K, V>)]{ 0 };
 	myControlBytes = myData;
-	myKeyValuePairs = reinterpret_cast<KeyValuePair<K, V>*>(myControlBytes + myCapacity);
+	myKeyValues = reinterpret_cast<KeyValue<K, V>*>(myControlBytes + myCapacity);
 }
 
 template<typename K, typename V>
@@ -337,8 +337,8 @@ void HD_HashMap<K, V>::InsertKeyValueAtIndex(const K& aKey, const V& aValue, u32
 {
 	u64 hashCode = HD_Hash(aKey);
 	myControlBytes[aIndex] = GetLevel2Hash(hashCode) | 0b10000000;
-	myKeyValuePairs[aIndex].myFirst = aKey;
-	myKeyValuePairs[aIndex].mySecond = aValue;
+	myKeyValues[aIndex].myFirst = aKey;
+	myKeyValues[aIndex].mySecond = aValue;
 }
 
 template<typename K, typename V>
@@ -376,7 +376,7 @@ u32 HD_HashMap<K, V>::GetSlotIndexForKey(const K& aKey) const
 
 		bool isLevel2HashSame = GetLevel2Hash(myControlBytes[index]) == GetLevel2Hash(hashCode);
 
-		if (isLevel2HashSame && myKeyValuePairs[index].myFirst == aKey)
+		if (isLevel2HashSame && myKeyValues[index].myFirst == aKey)
 		{
 			return index;
 		}
