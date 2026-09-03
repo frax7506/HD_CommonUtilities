@@ -327,7 +327,7 @@ void HD_HashMap<K, V>::InitWithCapacity(SizeType aCapacity)
 	myCapacity = aCapacity;
 	mySizeIncludingTombstones = 0;
 
-	myData = new u8[myCapacity + myCapacity * sizeof(KeyValuePair<K, V>)] { 0 };
+	myData = new u8[myCapacity + myCapacity * sizeof(KeyValuePair<K, V>)]{ 0 };
 	myControlBytes = myData;
 	myKeyValuePairs = reinterpret_cast<KeyValuePair<K, V>*>(myControlBytes + myCapacity);
 }
@@ -360,14 +360,30 @@ u32 HD_HashMap<K, V>::GetSlotIndexForKey(const K& aKey) const
 	while (true)
 	{
 		bool isSlotEmpty = myControlBytes[index] == eControlByte_Empty;
-		bool isLevel2HashSame = GetLevel2Hash(myControlBytes[index]) == GetLevel2Hash(hashCode);
 
-		if (isSlotEmpty || (isLevel2HashSame && myKeyValuePairs[index].myFirst == aKey))
+		if (isSlotEmpty)
 		{
 			return index;
 		}
 
-		index++;
+		bool isSlotDeleted = myControlBytes[index] == eControlByte_Deleted;
+
+		if (isSlotDeleted)
+		{
+			index++;
+			continue;
+		}
+
+		bool isLevel2HashSame = GetLevel2Hash(myControlBytes[index]) == GetLevel2Hash(hashCode);
+
+		if (isLevel2HashSame && myKeyValuePairs[index].myFirst == aKey)
+		{
+			return index;
+		}
+		else
+		{
+			index++;
+		}
 	}
 }
 
