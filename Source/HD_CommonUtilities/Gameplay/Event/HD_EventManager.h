@@ -1,5 +1,36 @@
 #pragma once
 
+// The intended use of this class is:
+	// 1. Use DECLARE_EVENT_ENUM from the HD_Event header to create an EventEnumType
+	// 2. Use DECLARE_EVENT from the same header with the EventEnumType to create your own DECLARE_X_EVENT macro,
+	//		for instance #define DECLARE_AI_EVENT(aAIEventEnumEntry) DECLARE_EVENT(AIEventType, aAIEventEnumEntry)
+	// 3. (Optional) It's handy to typedef your own manager type,
+	//		for instance typedef HD_EventManager<AIEventType> AIEventManager;
+	// 4. New event classes are created with your DECLARE-macro in the public section, for instance
+	//
+	// 		class PlayerStoppedHackingAIEvent
+	//		{
+	//		public:
+	//			DECLARE_AI_EVENT(PlayerStoppedHacking);
+	//
+	//			PlayerStoppedHackingAIEvent();
+	//		};
+	//
+	// 5. Classes register and unregister to events via RegisterEventListener and UnregisterEventListener,
+	//		for instance RegisterEventListener(this, &StupidGuardEventController::HandlePlayerStoppedHackingMessage);
+	//		and UnregisterEventListener(this); passing in a member function that takes a const& to the event
+	//		you're listening to.
+	//
+	//		And this is the main idea of this system. You don't need to inherit from some kind of listener class
+	//		in order to listen to events. You just need to call Register/Unregister-EventListener.
+
+// Future work:
+	// * The actual event-sending code has very low complexity. Events are sent right away to all listeners as
+	//		soon as SendEvent is called. If this becomes undesirable and the dispatching of events needs to
+	//		happen in a more controlled manner, then a system that collects all "send-requests" and then sends
+	//		them all at the same time could be implemented. In that case an aditional hook for a FlushEvents-function
+	//		would have to be placed in game code.
+
 #include "HD_GrowingArray.h"
 #include "HD_HashMap.h"
 #include "HD_Types.h"
