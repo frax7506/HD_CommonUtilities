@@ -5,30 +5,7 @@ projectFilesHDCommonUtilitiesFolder = projectRootPath .. "ProjectFiles/HD_Common
 projectFilesTestsFolder = projectRootPath .. "ProjectFiles/Tests"
 
 sourceHDCommonUtilitiesFolder = projectRootPath .. "Source/HD_CommonUtilities"
-sourceHDCommonUtilitiesPath = sourceHDCommonUtilitiesFolder .. "/"
-sourceHDCommonUtilitiesContainersFolder = sourceHDCommonUtilitiesPath .. "Containers"
-sourceHDCommonUtilitiesContainersPath = sourceHDCommonUtilitiesContainersFolder .. "/"
-sourceHDCommonUtilitiesInputFolder = sourceHDCommonUtilitiesPath .. "Input"
-sourceHDCommonUtilitiesInputPath = sourceHDCommonUtilitiesInputFolder .. "/"
-sourceHDCommonUtilitiesMathFolder = sourceHDCommonUtilitiesPath .. "Math"
-sourceHDCommonUtilitiesMathPath = sourceHDCommonUtilitiesMathFolder .. "/"
-sourceHDCommonUtilitiesMiscFolder = sourceHDCommonUtilitiesPath .. "Misc"
-sourceHDCommonUtilitiesMiscPath = sourceHDCommonUtilitiesMiscFolder .. "/"
-sourceHDCommonUtilitiesNatvisFolder = sourceHDCommonUtilitiesPath .. "Natvis"
-sourceHDCommonUtilitiesNatvisPath = sourceHDCommonUtilitiesNatvisFolder .. "/"
-sourceHDCommonUtilitiesProfilingFolder = sourceHDCommonUtilitiesPath .. "Profiling"
-sourceHDCommonUtilitiesProfilingPath = sourceHDCommonUtilitiesProfilingFolder .. "/"
-
 sourceTestsFolder = projectRootPath .. "Source/Tests"
-sourceTestsPath = sourceTestsFolder .. "/"
-sourceTestsContainersFolder = sourceTestsPath .. "Containers"
-sourceTestsContainersPath = sourceTestsContainersFolder .. "/"
-sourceTestsMathFolder = sourceTestsPath .. "Math"
-sourceTestsMathPath = sourceTestsMathFolder .. "/"
-sourceTestsMiscFolder = sourceTestsPath .. "Misc"
-sourceTestsMiscPath = sourceTestsMiscFolder .. "/"
-sourceTestsUtilsFolder = sourceTestsPath .. "Utils"
-sourceTestsUtilsPath = sourceTestsUtilsFolder .. "/"
 
 workspace("HD_CommonUtilities")
 	configurations({ "Debug", "Release", "Retail" })
@@ -46,25 +23,17 @@ project("HD_CommonUtilities")
 	location(projectFilesHDCommonUtilitiesFolder)
 	files
 	{
-		sourceHDCommonUtilitiesContainersPath .. "*.h",
-		sourceHDCommonUtilitiesContainersPath .. "*.cpp",
-		sourceHDCommonUtilitiesInputPath .. "*.h",
-		sourceHDCommonUtilitiesInputPath .. "*.cpp",
-		sourceHDCommonUtilitiesMathPath .. "*.h",
-		sourceHDCommonUtilitiesMathPath .. "*.cpp",
-		sourceHDCommonUtilitiesMiscPath .. "*.h",
-		sourceHDCommonUtilitiesMiscPath .. "*.cpp",
-		sourceHDCommonUtilitiesProfilingPath .. "*.h",
-		sourceHDCommonUtilitiesProfilingPath .. "*.cpp",
-		sourceHDCommonUtilitiesNatvisPath .. "*.natvis"
+		sourceHDCommonUtilitiesFolder .. "/**.h",
+		sourceHDCommonUtilitiesFolder .. "/**.cpp",
+		sourceHDCommonUtilitiesFolder .. "/**.natvis"
 	}
 	
 	includedirs
 	{
-		sourceHDCommonUtilitiesContainersFolder,
-		sourceHDCommonUtilitiesInputFolder,
-		sourceHDCommonUtilitiesMathFolder,
-		sourceHDCommonUtilitiesMiscFolder
+		sourceHDCommonUtilitiesFolder .. "/Containers",
+		sourceHDCommonUtilitiesFolder .. "/Input",
+		sourceHDCommonUtilitiesFolder .. "/Math",
+		sourceHDCommonUtilitiesFolder .. "/Misc"
 	}
 		
 	warnings("Extra")
@@ -87,26 +56,21 @@ project("Tests")
 	objdir("$(SolutionDir)Intermediate/Tests")
 	location(projectFilesTestsFolder)
 	pchheader("stdafx.h")
-	pchsource(sourceTestsPath .. "stdafx.cpp")
+	pchsource(sourceTestsFolder .. "/stdafx.cpp")
 	files
 	{
-		sourceTestsContainersPath .. "*.cpp",
-		sourceTestsMathPath .. "*.cpp",
-		sourceTestsMiscPath .. "*.cpp",
-		sourceTestsUtilsPath .. "*.h",
-		sourceTestsUtilsPath .. "*.cpp",
-		sourceTestsPath .. "stdafx.h",
-		sourceTestsPath .. "stdafx.cpp"
+		sourceTestsFolder .. "/**.h",
+		sourceTestsFolder .. "/**.cpp"
 	}
 	
 	libdirs("$(SolutionDir)Output/HD_CommonUtilities")
 	links("HD_CommonUtilities_$(Configuration)")
 	includedirs
 	{
-		sourceHDCommonUtilitiesContainersFolder,
-		sourceHDCommonUtilitiesMathFolder,
-		sourceHDCommonUtilitiesMiscFolder,
-		sourceTestsUtilsFolder
+		sourceHDCommonUtilitiesFolder .. "/Containers",
+		sourceHDCommonUtilitiesFolder .. "/Math",
+		sourceHDCommonUtilitiesFolder .. "/Misc",
+		sourceTestsFolder .. "/Utils"
 	}
 	
 	warnings("Extra")
