@@ -52,6 +52,8 @@ inline f64 HD_ArcTan2(f64 aAngleYInRadians, f64 aAngleXInRadians) { return atan2
 
 template<typename T> inline T HD_Sign(T aValue);
 
+template<typename T> inline T HD_Clamp(T aValue, T aMin, T aMax);
+
 template<typename T> inline T HD_Remap(T aValue, T aOldMin, T aOldMax, T aNewMin, T aNewMax);
 template<typename T> inline T HD_RemapClamped(T aValue, T aOldMin, T aOldMax, T aNewMin, T aNewMax);
 
@@ -62,6 +64,22 @@ template<typename T>
 inline T HD_Sign(T aValue)
 {
 	return aValue < static_cast<T>(0) ? static_cast<T>(-1) : static_cast<T>(1);
+}
+
+template<typename T>
+inline T HD_Clamp(T aValue, T aMin, T aMax)
+{
+	if (aValue < aMin)
+	{
+		return aMin;
+	}
+
+	if (aValue > aMax)
+	{
+		return aMax;
+	}
+
+	return aValue;
 }
 
 template<typename T>

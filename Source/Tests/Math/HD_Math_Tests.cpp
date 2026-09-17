@@ -63,6 +63,16 @@ namespace HD_CommonUtilities
 			Assert::AreEqual(HD_Sign(2.f), 1.f);
 		}
 
+		TEST_METHOD(Clamp)
+		{
+			Assert::AreEqual(HD_Clamp(0, -1, 1), 0);
+			Assert::AreEqual(HD_Clamp(-2, -1, 1), -1);
+			Assert::AreEqual(HD_Clamp(2, -1, 1), 1);
+
+			Assert::AreEqual(HD_Clamp(-1, -1, 1), -1);
+			Assert::AreEqual(HD_Clamp(1, -1, 1), 1);
+		}
+
 		TEST_METHOD(Remap)
 		{
 			Assert::AreEqual(HD_Remap(5.f, 0.f, 10.f, 100.f, 200.f), 150.f, F32_EQUAL_TOLERANCE);
