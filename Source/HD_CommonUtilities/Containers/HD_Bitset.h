@@ -39,7 +39,7 @@ public:
 
 	HD_Bitset();
 	HD_Bitset(const HD_Bitset& aOther);
-	HD_Bitset(u64 aValue);
+	HD_Bitset(u64 aMask);
 
 	void EnableAllBits();
 	void DisableAllBits();
@@ -52,6 +52,8 @@ public:
 
 	BitReference operator[](u32 aIndex);
 	ConstBitReference operator[](u32 aIndex) const;
+
+	ConstBitReference GetIsFlagEnabled(u64 aFlag) const;
 
 	HD_Bitset& operator&=(const HD_Bitset& aOther);
 	HD_Bitset& operator|=(const HD_Bitset& aOther);
@@ -81,14 +83,14 @@ HD_Bitset<aNrOfBits>::HD_Bitset(const HD_Bitset& aOther)
 }
 
 template<u32 aNrOfBits>
-HD_Bitset<aNrOfBits>::HD_Bitset(u64 aValue)
+HD_Bitset<aNrOfBits>::HD_Bitset(u64 aMask)
 {
-	u32 indexOfHighestBit = static_cast<u32>(HD_Log2(static_cast<f64>(aValue)));
+	u32 indexOfHighestBit = static_cast<u32>(HD_Log2(static_cast<f64>(aMask)));
 	assert(indexOfHighestBit <= (aNrOfBits - 1));
 	u32 nrOfBytesToCopy = GetNrOfBytesNeededForNrOfBits(indexOfHighestBit + 1);
 
 	memset(&myBytes, 0, ourNrOfBytes);
-	memcpy(&myBytes, &aValue, nrOfBytesToCopy);
+	memcpy(&myBytes, &aMask, nrOfBytesToCopy);
 }
 
 template<u32 aNrOfBits>
@@ -158,6 +160,13 @@ typename HD_Bitset<aNrOfBits>::ConstBitReference HD_Bitset<aNrOfBits>::operator[
 {
 	ConstBitReference constBitReference(this, aIndex);
 	return constBitReference;
+}
+
+template<u32 aNrOfBits>
+typename HD_Bitset<aNrOfBits>::ConstBitReference HD_Bitset<aNrOfBits>::GetIsFlagEnabled(u64 aFlag) const
+{
+	u32 index = static_cast<u32>(HD_Log2(static_cast<f64>(aFlag)));
+	return (*this)[index];
 }
 
 template<u32 aNrOfBits>
@@ -304,15 +313,15 @@ HD_Bitset<aNrOfBits>::BitRef<BitsetType>& HD_Bitset<aNrOfBits>::BitRef<BitsetTyp
 {
 	u32 byteIndex = myBitIndex / 8;
 	u32 bitIndexInByte = myBitIndex % 8;
-	u8 mask = static_cast<u8>(HD_Pow(2.f, static_cast<f32>(bitIndexInByte)));
+	u8 flag = static_cast<u8>(HD_Pow(2.f, static_cast<f32>(bitIndexInByte)));
 
 	if (aValue)
 	{
-		myBitset->myBytes[byteIndex] |= mask;
+		myBitset->myBytes[byteIndex] |= flag;
 	}
 	else
 	{
-		myBitset->myBytes[byteIndex] &= ~mask;
+		myBitset->myBytes[byteIndex] &= ~flag;
 	}
 
 	return *this;
@@ -324,9 +333,9 @@ bool HD_Bitset<aNrOfBits>::BitRef<BitsetType>::GetValue() const
 {
 	u32 byteIndex = myBitIndex / 8;
 	u32 bitIndexInByte = myBitIndex % 8;
-	u8 mask = static_cast<u8>(HD_Pow(2.f, static_cast<f32>(bitIndexInByte)));
+	u8 flag = static_cast<u8>(HD_Pow(2.f, static_cast<f32>(bitIndexInByte)));
 
-	bool result = (myBitset->myBytes[byteIndex] & mask) != 0;
+	bool result = (myBitset->myBytes[byteIndex] & flag) != 0;
 	return result;
 }
 

@@ -115,6 +115,23 @@ namespace HD_CommonUtilities
 			Assert::IsFalse(bitset[3]);
 		}
 
+		TEST_METHOD(GetIsFlagEnabled)
+		{
+			enum Flags
+			{
+				Flag1 = 1 << 0,
+				Flag2 = 1 << 1,
+				Flag3 = 1 << 2,
+				Flag4 = 1 << 3
+			};
+
+			const HD_Bitset<32> bitset(Flag1 | Flag3);
+			Assert::IsTrue(bitset.GetIsFlagEnabled(Flag1));
+			Assert::IsFalse(bitset.GetIsFlagEnabled(Flag2));
+			Assert::IsTrue(bitset.GetIsFlagEnabled(Flag3));
+			Assert::IsFalse(bitset.GetIsFlagEnabled(Flag4));
+		}
+
 		TEST_METHOD(Operator_Bitwise_AND_Assignment)
 		{
 			HD_Bitset<32> bitset(0x01010101);
