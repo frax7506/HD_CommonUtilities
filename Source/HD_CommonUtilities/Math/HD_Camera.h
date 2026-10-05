@@ -36,14 +36,13 @@ public:
 	const HD_Matrix4x4_f32& GetTransform() const;
 	const HD_Matrix4x4_f32& GetProjection() const;
 
-	HD_Vector4_f32 WorldSpaceToClipSpace(const HD_Vector4_f32& aPointInWorldSpace) const;
+	HD_Vector4_f32 WorldSpaceToClipSpace(const HD_Vector4_f32& aPointInWorldSpace, const HD_Matrix4x4_f32& aView) const;
 	HD_Vector3_f32 ClipSpaceToPerspectiveDivide(const HD_Vector4_f32& aPointInClipSpace) const;
 	HD_Vector3_f32 PerspectiveDivideToScreenSpace(const HD_Vector3_f32& aPointPostPerspectiveDivide) const;
 
 private:
 	void CalculateProjection();
 
-	HD_Matrix4x4_f32 myTransform;
 	HD_Matrix4x4_f32 myProjection;
 	bool myIsProjectionDirty;
 

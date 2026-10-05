@@ -9,6 +9,7 @@
 class HD_Entity
 {
 public:
+	HD_Entity();
 	HD_Entity(HD_EntityID aEntityID, HD_Scene* aScene);
 
 	template<typename ComponentType>
@@ -26,6 +27,12 @@ private:
 	HD_EntityID myID;
 	HD_Scene* myScene;
 };
+
+HD_Entity::HD_Entity()
+	: myID(0)
+	, myScene(nullptr)
+{
+}
 
 HD_Entity::HD_Entity(HD_EntityID aEntityID, HD_Scene* aScene)
 	: myID(aEntityID)

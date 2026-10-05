@@ -79,74 +79,9 @@ void HD_Camera::SetOrthographicProjection(f32 aLeft, f32 aRight, f32 aTop, f32 a
 	myIsProjectionDirty = true;
 }
 
-void HD_Camera::SetPosition(const HD_Vector3_f32& aPosition)
+HD_Vector4_f32 HD_Camera::WorldSpaceToClipSpace(const HD_Vector4_f32& aPointInWorldSpace, const HD_Matrix4x4_f32& aView) const
 {
-	myTransform.SetPosition(aPosition);
-}
-
-void HD_Camera::SetRotation(const HD_Matrix4x4_f32& aRotationMatrix)
-{
-	myTransform.SetRotation(aRotationMatrix);
-}
-
-void HD_Camera::SetHeading(f32 aHeading)
-{
-	myTransform.SetRotationAroundY(aHeading);
-}
-
-void HD_Camera::SetPitch(f32 aPitch)
-{
-	myTransform.SetRotationAroundX(aPitch);
-}
-
-void HD_Camera::SetBank(f32 aBank)
-{
-	myTransform.SetRotationAroundZ(aBank);
-}
-
-HD_Vector3_f32 HD_Camera::GetPosition() const
-{
-	return myTransform.GetPosition();
-}
-
-HD_Vector3_f32 HD_Camera::GetRotationInHPB() const
-{
-	return myTransform.GetRotationInHPB();
-}
-
-HD_Matrix4x4_f32 HD_Camera::GetRotation() const
-{
-	return myTransform.GetRotation();
-}
-
-HD_Vector3_f32 HD_Camera::GetRight() const
-{
-	return myTransform.GetRightVector();
-}
-
-HD_Vector3_f32 HD_Camera::GetUp() const
-{
-	return myTransform.GetUpVector();
-}
-
-HD_Vector3_f32 HD_Camera::GetForward() const
-{
-	return myTransform.GetForwardVector();
-}
-
-const HD_Matrix4x4_f32& HD_Camera::GetTransform() const
-{
-	return myTransform;
-}
-
-const HD_Matrix4x4_f32& HD_Camera::GetProjection() const
-{
-	return myProjection;
-}
-
-HD_Vector4_f32 HD_Camera::WorldSpaceToClipSpace(const HD_Vector4_f32& aPointInWorldSpace) const
-{
-	HD_Vector4_f32 viewSpace = aPointInWorldSpace * myTransform.GetFastInverse();
+	HD_Vector4_f32 viewSpace = aPointInWorldSpace * aView.GetFastInverse();
 	HD_Vector4_f32 clipSpace = viewSpace * myProjection;
 	return clipSpace;
 }
