@@ -31,9 +31,9 @@ project("HD_CommonUtilities")
 	includedirs
 	{
 		sourceHDCommonUtilitiesFolder .. "/Containers",
-		sourceHDCommonUtilitiesFolder .. "/Input",
 		sourceHDCommonUtilitiesFolder .. "/Math",
-		sourceHDCommonUtilitiesFolder .. "/Misc"
+		sourceHDCommonUtilitiesFolder .. "/Misc",
+		sourceHDCommonUtilitiesFolder .. "/Scene"
 	}
 		
 	warnings("Extra")
