@@ -3,13 +3,14 @@
 class HD_Entity;
 
 #define DECLARE_COMPONENT \
-public: \
+friend class HD_Entity; \
+\
+private: \
 	void SetOwner(HD_Entity* aOwnerEntity) \
 	{ \
 		myEntity = aOwnerEntity; \
 	} \
 	\
-private: \
 	HD_Entity* myEntity = nullptr;
 
 // Future work:

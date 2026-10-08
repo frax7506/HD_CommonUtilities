@@ -1,9 +1,7 @@
 #pragma once
 
 #include "HD_EntityID.h"
-#include "HD_Move.h"
 #include "HD_Scene.h"
-#include "HD_TransformComponent.h"
 #include "HD_Vector.h"
 
 class HD_Entity
@@ -28,18 +26,6 @@ private:
 	HD_Scene* myScene;
 };
 
-HD_Entity::HD_Entity()
-	: myID(0)
-	, myScene(nullptr)
-{
-}
-
-HD_Entity::HD_Entity(HD_EntityID aEntityID, HD_Scene* aScene)
-	: myID(aEntityID)
-	, myScene(aScene)
-{
-}
-
 template<typename ComponentType>
 void HD_Entity::AddComponent()
 {
@@ -57,10 +43,4 @@ template<typename ComponentType>
 ComponentType& HD_Entity::GetComponent()
 {
 	return myScene->myECS.GetComponent<ComponentType>(myID);
-}
-
-void HD_Entity::SetPosition(const HD_Vector3_f32& aPosition)
-{
-	HD_TransformComponent& transformComponent = GetComponent<HD_TransformComponent>();
-	transformComponent.myTransform.SetPosition(aPosition);
 }
